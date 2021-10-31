@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UiElements\Controls\CustomExpander.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomLabel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\ProgramUpdatesScheduledCheckingWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\AboutWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\ProgramAdditionOrEditionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomProgressBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomComboBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\HelpWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\ErrorDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomTextBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomRadioButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomCheckBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Controls\CustomButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UiElements\Windows\QuestionDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UiElements\Controls\CustomExpander.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomLabel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\ProgramUpdatesScheduledCheckingWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\ProgramAdditionOrEditionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomProgressBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\ErrorDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomRadioButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomCheckBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Controls\CustomButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UiElements\Windows\QuestionDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

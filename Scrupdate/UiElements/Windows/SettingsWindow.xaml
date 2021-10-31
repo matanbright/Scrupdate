@@ -1,0 +1,372 @@
+﻿<!--
+    Copyright © 2021 Matan Brightbert
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+        http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+
+
+
+<Window x:Class="Scrupdate.UiElements.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
+        xmlns:Scrupdate_UiElements_Windows="clr-namespace:Scrupdate.UiElements.Windows"
+        mc:Ignorable="d"
+        Title="Scrupdate - Settings" Width="800" Height="600" MinWidth="800" MinHeight="600" MaxWidth="800" MaxHeight="600" SnapsToDevicePixels="True" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Closing="OnWindowClosingEvent">
+    <Grid x:Name="grid_window" SnapsToDevicePixels="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid_windowContent" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="grid_topWindowContent" Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="grid_settingsMenuAndControls" Grid.Row="0" Grid.Column="0" Margin="20 20 20 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="grid_settingsMenu" Grid.Row="0" Grid.Column="0" Margin="0 0 0 0">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="{Binding Source={StaticResource whiteSolidColorBrush}, Path=Color}" />
+                                <GradientStop Offset="1" Color="{Binding Source={StaticResource warmWhiteSolidColorBrush}, Path=Color}" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel x:Name="stackPanel_settingsCategories" Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="10 10 10 10">
+                            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_generalSettingsCategory" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 10 10 0" VerticalAlignment="Bottom" Content="General" Click="OnButtonClickEvent">
+                                <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                    <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                        <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="General">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Scrupdate_UiElements_Controls:CustomButton.Style>
+                            </Scrupdate_UiElements_Controls:CustomButton>
+                            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_appearanceSettingsCategory" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 0" VerticalAlignment="Bottom" Content="Appearance" Click="OnButtonClickEvent">
+                                <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                    <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                        <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="Appearance">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Scrupdate_UiElements_Controls:CustomButton.Style>
+                            </Scrupdate_UiElements_Controls:CustomButton>
+                            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_chromeDriverSettingsCategory" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 10" VerticalAlignment="Bottom" Content="ChromeDriver" Click="OnButtonClickEvent">
+                                <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                    <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                        <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="ChromeDriver">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Scrupdate_UiElements_Controls:CustomButton.Style>
+                            </Scrupdate_UiElements_Controls:CustomButton>
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="border_settingsMenuAndControlsSeparator" Grid.Row="0" Grid.Column="1" BorderThickness="1 0 0 0" BorderBrush="{StaticResource brightGraySolidColorBrush}" Margin="0 0 0 0" />
+                    <ScrollViewer x:Name="scrollViewer_settingsControls" Grid.Row="0" Grid.Column="2" Margin="0 0 0 0">
+                        <ScrollViewer.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="{Binding Source={StaticResource lightBluishGraySolidColorBrush}, Path=Color}" />
+                                <GradientStop Offset="1" Color="{Binding Source={StaticResource whiteSolidColorBrush}, Path=Color}" />
+                            </LinearGradientBrush>
+                        </ScrollViewer.Background>
+                        <StackPanel x:Name="stackPanel_settingsControls" Orientation="Vertical">
+                            <StackPanel x:Name="stackPanel_settingsGeneralControls" Orientation="Vertical" Margin="10 10 10 10">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="General">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsGeneralControlsTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="General" />
+                                <StackPanel x:Name="stackPanel_installedProgramsScanningSettings" Orientation="Vertical" Margin="10 10 10 0" HorizontalAlignment="Left">
+                                    <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_enableScanningForInstalledPrograms" Margin="0 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Enable Scanning for Installed Programs" Unchecked="OnCheckBoxUncheckedEvent" />
+                                    <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_scanForInstalledProgramsAutomaticallyOnStart" Margin="25 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Scan for Installed Programs Automatically on Start">
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox.Style>
+                                            <Style TargetType="Scrupdate_UiElements_Controls:CustomCheckBox">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=checkBox_enableScanningForInstalledPrograms, Path=IsChecked}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Scrupdate_UiElements_Controls:CustomCheckBox.Style>
+                                    </Scrupdate_UiElements_Controls:CustomCheckBox>
+                                </StackPanel>
+                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_rememberLastProgramListOptions" Margin="10 10 10 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Remember Last Program List Options" />
+                                <StackPanel x:Name="stackPanel_programUpdatesScheduledCheckSettings" Orientation="Vertical" Margin="10 10 10 0" HorizontalAlignment="Left">
+                                    <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_enableScheduledCheckForProgramUpdates" Margin="0 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Enable Scheduled Check for Program Updates" Unchecked="OnCheckBoxUncheckedEvent" />
+                                    <StackPanel x:Name="stackPanel_programUpdatesScheduledCheckDays" Orientation="Horizontal" Margin="25 10 0 0" HorizontalAlignment="Left">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=checkBox_enableScheduledCheckForProgramUpdates, Path=IsChecked}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Every: " />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDaySunday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Sun." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDayMonday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Mon." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDayTuesday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Tue." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDayWednesday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Wed." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDayThursday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Thu." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDayFriday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Fri." />
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_programUpdatesScheduledCheckDaySaturday" Margin="10 0 0 0" VerticalAlignment="Center" Content="Sat." />
+                                    </StackPanel>
+                                    <StackPanel x:Name="stackPanel_programUpdatesScheduledCheckHour" Orientation="Horizontal" Margin="25 10 0 0" HorizontalAlignment="Left">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=checkBox_enableScheduledCheckForProgramUpdates, Path=IsChecked}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="At: " />
+                                        <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_programUpdatesScheduledCheckHour" Width="70" Height="20" VerticalAlignment="Center" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" Margin="10 0 0 0" />
+                                    </StackPanel>
+                                    <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults" Margin="25 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Include Hidden Programs in Check Results" Unchecked="OnCheckBoxUncheckedEvent">
+                                        <Scrupdate_UiElements_Controls:CustomCheckBox.Style>
+                                            <Style TargetType="Scrupdate_UiElements_Controls:CustomCheckBox">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=checkBox_enableScheduledCheckForProgramUpdates, Path=IsChecked}" Value="True">
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Scrupdate_UiElements_Controls:CustomCheckBox.Style>
+                                    </Scrupdate_UiElements_Controls:CustomCheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10 10 10 10" HorizontalAlignment="Left">
+                                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_resetToDefaultSettings" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="0 0 0 0" HorizontalAlignment="Left" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishBlueSolidColorBrush}" HoveredBackground="{StaticResource brightGrayishBlueSolidColorBrush}" PressedBackground="{StaticResource lightGrayishBlueSolidColorBrush}" DisabledBackground="{StaticResource paleGrayishBlueSolidColorBrush}" Content="Reset to Default Settings" Click="OnButtonClickEvent" />
+                                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_resetAll" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="10 0 0 0" HorizontalAlignment="Left" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource bordoSolidColorBrush}" HoveredBackground="{StaticResource brightBordoSolidColorBrush}" PressedBackground="{StaticResource lightBordoSolidColorBrush}" DisabledBackground="{StaticResource paleBordoSolidColorBrush}" Content="Reset All" Click="OnButtonClickEvent" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_settingsAppearanceControls" Orientation="Vertical" Margin="10 10 10 10">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="Appearance">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsAppearanceControlsTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="Appearance" />
+                                <StackPanel Orientation="Horizontal" Margin="10 10 10 0">
+                                    <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Windows Scaling Factor: " />
+                                    <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_windowsScalingFactor" Width="100" Height="20" Margin="10 0 0 0" VerticalAlignment="Center" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" />
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_versionsOptions" Orientation="Vertical" Margin="10 10 10 10" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 10 0">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Minimum Version Segments: " />
+                                            <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_minimumVersionSegments" Width="50" Height="20" Margin="10 0 0 0" VerticalAlignment="Center" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Maximum Version Segments: " />
+                                            <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_maximumVersionSegments" Width="50" Height="20" Margin="10 0 0 0" VerticalAlignment="Center" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" SelectionChanged="OnComboBoxSelectionChangedEvent" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_removeTrailingZeroSegmentsOfVersions" Margin="25 10 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Remove Trailing Zero Segments" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_settingsChromeDriverControls" Orientation="Vertical" Margin="10 10 10 10">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:SettingsWindow}, Path=SelectedSettingsCategoryMenuTab}" Value="ChromeDriver">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsChromeDriverControlsTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="ChromeDriver" />
+                                <StackPanel x:Name="stackPanel_chromeDriverInstallationSettings" Orientation="Vertical" Margin="10 10 10 0" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                                        <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Installed ChromeDriver: " />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_chromeDriverInstallationStatusMessage" Padding="0 0 0 0" Margin="10 0 0 0" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <Border BorderThickness="1 0 0 0" Margin="0 5 0 0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderBrush" Value="{StaticResource silverishGraySolidColorBrush}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsEnabled" Value="True">
+                                                        <Setter Property="BorderBrush" Value="{StaticResource graySolidColorBrush}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
+                                            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_InstallChromeDriver" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="0 0 0 0" HorizontalAlignment="Left" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishBlueSolidColorBrush}" HoveredBackground="{StaticResource brightGrayishBlueSolidColorBrush}" PressedBackground="{StaticResource lightGrayishBlueSolidColorBrush}" DisabledBackground="{StaticResource paleGrayishBlueSolidColorBrush}" Content="Install..." Click="OnButtonClickEvent">
+                                                <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                                    <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                                        <Setter Property="IsEnabled" Value="False" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=label_chromeDriverInstallationStatusMessage, Path=Content}" Value="None">
+                                                                <Setter Property="IsEnabled" Value="True" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Scrupdate_UiElements_Controls:CustomButton.Style>
+                                            </Scrupdate_UiElements_Controls:CustomButton>
+                                            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_UninstallChromeDriver" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="10 0 0 0" HorizontalAlignment="Left" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishBlueSolidColorBrush}" HoveredBackground="{StaticResource brightGrayishBlueSolidColorBrush}" PressedBackground="{StaticResource lightGrayishBlueSolidColorBrush}" DisabledBackground="{StaticResource paleGrayishBlueSolidColorBrush}" Content="Uninstall" Click="OnButtonClickEvent">
+                                                <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                                    <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                                        <Setter Property="IsEnabled" Value="True" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=label_chromeDriverInstallationStatusMessage, Path=Content}" Value="None">
+                                                                <Setter Property="IsEnabled" Value="False" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Scrupdate_UiElements_Controls:CustomButton.Style>
+                                            </Scrupdate_UiElements_Controls:CustomButton>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_chromeDriverPageLoadTimeoutField" Orientation="Horizontal" Margin="10 10 10 0" HorizontalAlignment="Left">
+                                    <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="ChromeDriver Page-Load Timeout: " />
+                                    <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_chromeDriverPageLoadTimeout" Width="130" Height="20" Margin="10 0 0 0" VerticalAlignment="Center" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" />
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_chromeDriverUserAgentStringField" Orientation="Vertical" Margin="10 10 10 10" HorizontalAlignment="Left">
+                                    <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0" Margin="0 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="ChromeDriver User-Agent String:" />
+                                    <Border BorderThickness="1 0 0 0" Margin="0 5 0 0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderBrush" Value="{StaticResource silverishGraySolidColorBrush}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsEnabled" Value="True">
+                                                        <Setter Property="BorderBrush" Value="{StaticResource graySolidColorBrush}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <StackPanel x:Name="stackPanel_chromeDriverUserAgentString" Orientation="Vertical" Margin="10 0 0 0">
+                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_useDefaultChromeDriverUserAgentString" GroupName="chromeDriverUserAgentStringSelection" IsChecked="True" Margin="0 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Use the Default" Click="OnRadioButtonClickEvent" />
+                                            <StackPanel x:Name="stackPanel_useCustomChromeDriverUserAgentStringField" Orientation="Horizontal" Margin="0 5 0 0" HorizontalAlignment="Left">
+                                                <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_useCustomChromeDriverUserAgentString" GroupName="chromeDriverUserAgentStringSelection" Margin="0 0 0 0" VerticalAlignment="Center" Content="Use the Following: " />
+                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_customChromeDriverUserAgentString" Width="330" Margin="10 0 0 0" VerticalAlignment="Center" TextChanged="OnTextBoxTextChangedEvent">
+                                                    <Scrupdate_UiElements_Controls:CustomTextBox.Style>
+                                                        <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
+                                                            <Setter Property="IsEnabled" Value="False" />
+                                                            <Style.Triggers>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition Binding="{Binding ElementName=radioButton_useCustomChromeDriverUserAgentString, Path=IsEnabled}" Value="True" />
+                                                                        <Condition Binding="{Binding ElementName=radioButton_useCustomChromeDriverUserAgentString, Path=IsChecked}" Value="True" />
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="IsEnabled" Value="True" />
+                                                                </MultiDataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Scrupdate_UiElements_Controls:CustomTextBox.Style>
+                                                </Scrupdate_UiElements_Controls:CustomTextBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+            <Border x:Name="border_windowContentsSeparator" Grid.Row="1" Grid.Column="0" BorderThickness="0 1 0 0" BorderBrush="{StaticResource brightGraySolidColorBrush}" Margin="20 0 20 0" />
+            <Grid x:Name="grid_bottomWindowContent" Grid.Row="2" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <DockPanel x:Name="dockPanel_bottomBar" Grid.Row="0" Grid.Column="0" LastChildFill="False" Margin="10 10 10 10">
+                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_save" DockPanel.Dock="Right" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="0 10 10 10" VerticalAlignment="Bottom" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishGreenSolidColorBrush1}" HoveredBackground="{StaticResource brightGrayishGreenSolidColorBrush}" PressedBackground="{StaticResource lightGrayishGreenSolidColorBrush2}" DisabledBackground="{StaticResource paleGrayishGreenSolidColorBrush1}" Content="Save" Click="OnButtonClickEvent" />
+                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_cancel" DockPanel.Dock="Right" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="10 10 10 10" VerticalAlignment="Bottom" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource graySolidColorBrush}" HoveredBackground="{StaticResource brightGraySolidColorBrush}" PressedBackground="{StaticResource lightGraySolidColorBrush2}" DisabledBackground="{StaticResource paleGraySolidColorBrush}" Content="Cancel" Click="OnButtonClickEvent" />
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

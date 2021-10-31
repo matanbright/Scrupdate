@@ -1,0 +1,34 @@
+# Note: This file will be parsed by an external script while building the installer
+# [  #  ] --> This means the following line is a comment
+# [ ~32 ] --> This means the following line is the path of the root point for the 32bit version files
+# [ ~64 ] --> This means the following line is the path of the root point for the 64bit version files
+# [  ~  ] --> This means the following line is the path of the root point for the common files (files in both the 32bit and the 64bit versions)
+# [ +32 ] --> This means the following line is a path of a file to include in the 32bit version only
+# [ +64 ] --> This means the following line is a path of a file to include in the 64bit version only
+# [  +  ] --> This means the following line is a path of a file to include in both the 32bit and the 64bit versions
+# ---------------------------------------------------------------------------------------------------------------------------------------------
+
+# Note: The paths need to be surrounded by quotation marks
+
+# This path needs to be relative to the location of the ".nsi" script that the file commands will be inserted to
+~32 "..\..\Scrupdate\bin\x86\Release\net5.0-windows"
+~64 "..\..\Scrupdate\bin\x64\Release\net5.0-windows"
+~ "..\..\Scrupdate\bin\x86\Release\net5.0-windows"
+
+# These paths need to be relative to the selected root point
++32 "Scrupdate.dll"
++32 "Scrupdate.exe"
++32 "runtimes\win-x86\native\SQLite.Interop.dll"
++64 "Scrupdate.dll"
++64 "Scrupdate.exe"
++64 "runtimes\win-x64\native\SQLite.Interop.dll"
++ "Newtonsoft.Json.dll"
++ "Scrupdate.deps.json"
++ "Scrupdate.runtimeconfig.json"
++ "System.Data.SQLite.dll"
++ "WebDriver.dll"
++ "LICENSE.txt"
++ "LICENSE-MIT.txt"
++ "NOTICE.txt"
++ "docs\Scrupdate User Manual.pdf"
++ "docs\The XML Path Language (XPath).pdf"

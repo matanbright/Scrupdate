@@ -1,0 +1,10 @@
+Scrupdate is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].
+Copyright © 2021 Matan Brightbert.
+
+This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].
+Copyright © 2021 Software Freedom Conservancy.
+
+This program uses Newtonsoft.Json which is licensed under 'MIT License' [see 'LICENSE-MIT.txt' file].
+Copyright © 2008 James Newton-King.
+
+Google Chrome™ is a trademark of Google LLC.

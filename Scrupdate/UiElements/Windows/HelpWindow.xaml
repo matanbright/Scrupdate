@@ -1,0 +1,1341 @@
+﻿<!--
+    Copyright © 2021 Matan Brightbert
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+        http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+
+
+
+<Window x:Class="Scrupdate.UiElements.Windows.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
+        xmlns:Scrupdate_UiElements_Windows="clr-namespace:Scrupdate.UiElements.Windows"
+        mc:Ignorable="d"
+        Title="Scrupdate - Help" Width="980" Height="700" MinWidth="980" MinHeight="700" SnapsToDevicePixels="True" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" Closing="OnWindowClosingEvent">
+    <Grid x:Name="grid_window" SnapsToDevicePixels="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid_windowContent" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="grid_helpMenuAndContent" Grid.Row="0" Grid.Column="0" Margin="20 20 20 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="grid_helpMenu" Grid.Row="0" Grid.Column="0" Margin="0 0 0 0">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="{Binding Source={StaticResource whiteSolidColorBrush}, Path=Color}" />
+                            <GradientStop Offset="1" Color="{Binding Source={StaticResource warmWhiteSolidColorBrush}, Path=Color}" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="stackPanel_helpChapters" Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="10 10 10 10">
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_introductionHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 10 10 0" VerticalAlignment="Bottom" Content="Introduction" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Introduction">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_gettingStartedHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 0" VerticalAlignment="Bottom" Content="Getting Started" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="GettingStarted">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_userInterfaceHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 0" VerticalAlignment="Bottom" Content="User Interface" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="UserInterface">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_tipsHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 0" VerticalAlignment="Bottom" Content="Tips" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Tips">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_notesHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 0" VerticalAlignment="Bottom" Content="Notes" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Notes">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                        <Scrupdate_UiElements_Controls:CustomButton x:Name="button_referencesHelpChapter" Width="auto" Height="30" SnapsToDevicePixels="True" FontSize="20" FontFamily="Calibri" Margin="10 5 10 10" VerticalAlignment="Bottom" Content="References" Click="OnButtonClickEvent">
+                            <Scrupdate_UiElements_Controls:CustomButton.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="Foreground" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="References">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource darkGraySolidColorBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource graySolidColorBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomButton.Style>
+                        </Scrupdate_UiElements_Controls:CustomButton>
+                    </StackPanel>
+                </Grid>
+                <Border x:Name="border_helpMenuAndContentSeparator" Grid.Row="0" Grid.Column="1" BorderThickness="1 0 0 0" BorderBrush="{StaticResource brightGraySolidColorBrush}" Margin="0 0 0 0" />
+                <ScrollViewer x:Name="scrollViewer_helpContent" Grid.Row="0" Grid.Column="2" Margin="0 0 0 0">
+                    <ScrollViewer.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="{Binding Source={StaticResource lightBluishGraySolidColorBrush}, Path=Color}" />
+                            <GradientStop Offset="1" Color="{Binding Source={StaticResource whiteSolidColorBrush}, Path=Color}" />
+                        </LinearGradientBrush>
+                    </ScrollViewer.Background>
+                    <StackPanel x:Name="stackPanel_helpContent" Orientation="Vertical">
+                        <StackPanel x:Name="stackPanel_helpIntroductionContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Introduction">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpIntroductionContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="Introduction" />
+                            <StackPanel x:Name="stackPanel_whatIsScrupdateSection" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_whatIsScrupdateSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="What Is Scrupdate?" />
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    Scrupdate is a tool that lets you ensure your Windows programs are up to date.<Hyperlink x:Name="hyperlink_goToNote1" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                        <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[1]" />
+                                    </Hyperlink> It checks for program updates and informs you when updates are available.
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_howDoesItWorkSection" Orientation="Vertical" Margin="10 10 10 10">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_howDoesItWorkSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="How Does It Work?" />
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    Scrupdate gets the latest versions of the programs by extracting them from web pages.
+                                    For each program, you supply the URL of the web page that contains the program's latest version and choose the method for scraping the version from that web page.
+                                    From next time on, when Scrupdate checks for program updates, it will go to each web page, extract the version, and compare it with the current version of the installed program.<Hyperlink x:Name="hyperlink_goToNote2" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                        <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[2]" />
+                                    </Hyperlink> If there are new versions you will be informed.
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="stackPanel_helpGettingStartedContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="GettingStarted">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpGettingStartedContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="Getting Started" />
+                            <StackPanel x:Name="stackPanel_step1Section" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_step1SectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Step 1: Installing Google Chrome™ Browser" />
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    Scrupdate uses the Google Chrome™ browser for scraping the version information of the programs from web pages.
+                                    If you have not installed it yet, you can download it from <Hyperlink x:Name="hyperlink_googleChromeBrowserDownloadPage" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" NavigateUri="https://www.google.com/chrome/" RequestNavigate="OnHyperlinkRequestNavigateEvent">
+                                        <Hyperlink.Style>
+                                            <Style TargetType="Hyperlink">
+                                                <Setter Property="TextDecorations" Value="None" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="TextDecorations" Value="Underline" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Hyperlink.Style>
+                                        here
+                                    </Hyperlink>.<Hyperlink x:Name="hyperlink_goToNote3" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                        <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[3]" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_step2Section" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_step2SectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Step 2: Installing ChromeDriver" />
+                                <Border BorderBrush="{StaticResource graySolidColorBrush}" Background="{StaticResource smokeWhiteSolidColorBrush}" BorderThickness="1 1 1 1" Margin="0 5 0 0">
+                                    <TextBlock FontSize="18" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="5 5 5 5" Foreground="{StaticResource graySolidColorBrush}">
+                                        Before using Scrupdate, you will need to install ChromeDriver.
+                                        ChromeDriver is the "bridge" between Scrupdate and the installed Google Chrome™ browser.
+                                    </TextBlock>
+                                </Border>
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    Download ChromeDriver from <Hyperlink x:Name="hyperlink_chromeDriverDownloadPage" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" NavigateUri="https://chromedriver.chromium.org/" RequestNavigate="OnHyperlinkRequestNavigateEvent">
+                                        <Hyperlink.Style>
+                                            <Style TargetType="Hyperlink">
+                                                <Setter Property="TextDecorations" Value="None" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="TextDecorations" Value="Underline" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Hyperlink.Style>
+                                        here
+                                    </Hyperlink>.<Hyperlink x:Name="hyperlink_goToNote4" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                        <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[4]" />
+                                    </Hyperlink> Next, go to settings, click on the 'ChromeDriver' tab on the left side, click on the 'Install...' button, browse to the location where you've downloaded the ChromeDriver executable file and select it.
+                                    If the text above turns green, ChromeDriver has been installed successfully.
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_step3Section" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_step3SectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Step 3: Configuring Program Updates Check" />
+                                <Border BorderBrush="{StaticResource graySolidColorBrush}" Background="{StaticResource smokeWhiteSolidColorBrush}" BorderThickness="1 1 1 1" Margin="0 5 0 0">
+                                    <TextBlock FontSize="18" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="5 5 5 5" Foreground="{StaticResource graySolidColorBrush}">
+                                        Before configuring program updates check, you will probably want to hide unwanted programs from the list (these may be programs that are part of the operating system or part of another program).
+                                        In the list on the main window, select all the programs you want to hide and click on the 'Hide' button.<Hyperlink x:Name="hyperlink_goToNote5" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[5]" />
+                                        </Hyperlink><LineBreak />
+                                        You will probably want as well to add missing programs to the list.
+                                        If a program is missing, you can add it manually by clicking on the 'Add New' button on the main window, filling in the program information, and clicking on the 'Add' button.<Hyperlink x:Name="hyperlink_goToNote6" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[6]" />
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </Border>
+                                <Border BorderBrush="{StaticResource graySolidColorBrush}" Background="{StaticResource smokeWhiteSolidColorBrush}" BorderThickness="1 1 1 1" Margin="0 5 0 0">
+                                    <TextBlock FontSize="18" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="5 5 5 5" Foreground="{StaticResource graySolidColorBrush}">
+                                        Sometimes you will need to change the version of a listed program because the saved version is wrong, is not formatted properly, or is missing.
+                                        In these cases, you will need to convert the program from an automatically-added program to a manually-added program and change the version manually.
+                                        On the main window, click with the right mouse button on a program in the list and select the 'Edit' option (or double click on the program in the list), then uncheck the 'Detect Automatically' option, change the program's installed version to the right version, and save.
+                                    </TextBlock>
+                                </Border>
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    On the main window, click with the right mouse button on a program in the list and select the 'Edit' option (or double click on the program in the list),
+                                    then check the 'Configure Program Update Check' option, enter the URL of the web page that contains the latest version of the program in the 'Web Page URL' field,
+                                    select the appropriate method for scraping the version from the specified web page and fill the additional information for that method in the 'Version Search Method' field,
+                                    then select the desired options in the 'Version Search Options' field, and optionally, in the 'Advanced Options' field, and then save.
+                                    Repeat this procedure for every program in the list that you will want to check updates for.
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_step4Section" Orientation="Vertical" Margin="10 10 10 10">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_step4SectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Step 4: Checking for Program Updates" />
+                                <TextBlock FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="0 5 0 0">
+                                    Click on the 'Check for Updates' button.
+                                    If you have successfully installed the Google Chrome™ browser and ChromeDriver, the program updates check will start.
+                                    After the process is over, you will be informed if any updates are available and if there were any errors during the process.
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="stackPanel_helpUserInterfaceContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="UserInterface">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpUserInterfaceContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="User Interface" />
+                            <StackPanel x:Name="stackPanel_mainWindowSection" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Main Window" />
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection1" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="The Program List:" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This list shows you the programs in Scrupdate's program database.
+                                        You can add new programs to the list, edit the programs in the list, hide or unhide programs in the list, or remove programs from the list.
+                                        By clicking with the right mouse button on any program in the list or selecting multiple programs (by checking the checkboxes near each desired program) and clicking with the right mouse button on any selected program, you can access the options menu for the selected programs.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection2" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This textbox allows you to find specific programs in the list.
+                                        When you type a text in the textbox, the programs that contain the specified text in their name will remain in the list while the others will disappear.
+                                        To reset the search, clear the textbox by deleting the text or clicking on the red 'X' button inside the textbox.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection3" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Filter':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This option allows you to filter the programs that will be shown on the list.
+                                        You can show only specific programs in the list by enabling this option and selecting the desired filtering.
+                                        For example, you can show only the programs that have updates.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection4" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection4Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Show Hidden':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate show hidden programs in the list, so you will be able to unhide programs that were hidden from the list.
+                                        When enabling this option, hidden programs will also be included in the program updates check results.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection5" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection5Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Hide', 'Unhide', and 'Remove':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        These buttons allow you to hide, unhide, and remove the selected programs in the list respectively.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection6" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection6Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Add New':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This button allows you to manually add a new program to the list.
+                                        Clicking it opens a window in which you fill the program information.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection7" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection7Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Check for Updates':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This button allows you to manually check for program updates.
+                                        By clicking on this button, Scupdate will perform a check for program updates.
+                                        At the end of the check, you will be informed if any updates are available and if there were any errors during the check.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection8" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection8Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Rescan for Installed Programs':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This button allows you to manually scan for installed programs.
+                                        When Scrupdate scans for installed programs, it adds newly installed programs to the list and updates the automatically-added programs in the list if they have been changed on the computer (for example, when they have been updated or have been uninstalled).
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_mainWindowSubSection9" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_mainWindowSubSection9Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'About', 'Help', and 'Settings':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        These buttons allow you to open the 'About', 'Help', and 'Settings' windows respectively.
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_settingsWindowSection" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Settings Window" />
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection1" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Enable Scanning for Installed Programs':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate be able to scan for installed programs.
+                                        Scrupdate will add new programs to the list and update their information in the list automatically when they are updated or when they are uninstalled.
+                                        Disabling this option makes Scrupdate operate in a manual mode, where you manage the program list manually, regardless of the programs that are installed on your computer.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection2" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Scan for Installed Programs Automatically on Start':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate scan for installed programs automatically every time it's opened.
+                                        When this option is disabled, Scrupdate will scan for installed programs only when you click on the 'Rescan for Installed Programs' button on the main window, or when a scheduled check for program updates is performed.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection3" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Remember Last Program List Options':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate remember the last state of the 'Filter' and 'Show Hidden' options on the main window.
+                                        When enabling this option, every time you open Scrupdate, the 'Filter' and 'Show Hidden' options on the main window will remain in the same state they were when you closed Scrupdate the last time, instead of being in the default state.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection4" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection4Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Enable Scheduled Check for Program Updates':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate initiate a check for program updates automatically on a scheduled basis.<Hyperlink x:Name="hyperlink_goToNote7" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[7]" />
+                                        </Hyperlink><Hyperlink x:Name="hyperlink_goToNote8" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[8]" />
+                                        </Hyperlink> Scrupdate will check in the background, at the selected time on each selected day, for program updates, and at the end of each check, you will be informed if any updates are available and if there were any errors during the process.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection5" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection5Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Include Hidden Programs in Check Results':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate include hidden programs in the results of the scheduled checks for program updates.
+                                        When this option is disabled, you will not be informed, at the end of the scheduled checks for program updates, of updates to the programs that were hidden from the list.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection6" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection6Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Windows Scaling Factor':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This option allows you to increase the scale of Scrupdate's windows.
+                                        Use this option to increase Scrupdate's windows scale if you find it hard to use Scrupdate on displays with high resolutions.
+                                        If you set this option to "Auto", Scrupdate will determine and select the most appropriate scaling factor, so it will always be in the ideal size on any display resolution.
+                                        If you set this option to "No Scaling", Scrupdate will remain in its original size, which may be physically small on high display resolutions.
+                                        Please note that on low display resolutions, Scrupdate will decrease the scale of its windows automatically, regardless of this option, so it will always fit into displays with low resolutions.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection7" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection7Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Minimum Version Segments' and 'Maximum Version Segments':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        These options allow you to change the way Scrupdate displays versions.
+                                        Scrupdate will display no less than the selected minimum number of version segments and no more than the selected maximum number of version segments.
+                                        For example, if the selected minimum number of version segments is 3 and the selected maximum number of version segments is 3, Scrupdate will display the version "1.2" as "1.2.0" and the version "1.2.3.4" as "1.2.3".
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection8" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection8Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Remove Trailing Zero Segments':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate display versions without trailing zero segments (until the minimum number of version segments is reached).
+                                        For example, when this option is enabled, Scrupdate will display the version "1.0.0.0" as "1.0" (when the selected minimum number of version segments is 2).
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection9" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection9Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed ChromeDriver':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Displays the currently installed ChromeDriver along with its version.
+                                        You can install ChromeDriver by clicking on the 'Install...' button and selecting a ChromeDriver executable file, and you can uninstall it by clicking on the 'Uninstall' button.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection10" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection10Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'ChromeDriver Page-Load Timeout':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This option allows you to change the maximum time ChromeDriver will wait for a web page to load.
+                                        If a web page has not responded or has not been fully loaded within that time, ChromeDriver will move on to the next web page and an error will be reported to you.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_settingsWindowSubSection11" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_settingsWindowSubSection11Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'ChromeDriver User-Agent String':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        This option allows you to change the user-agent string that ChromeDriver uses when browsing web pages.
+                                        (This option is intended for advanced users and it should normally be set to 'Use the Default').
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSection" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Program Addition/Edition Window" />
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection1" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Detect Automatically':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate mark the program as an automatically-added program.
+                                        When this option is enabled, Scrupdate will automatically update the program's information when it is changed (for example, when you install a new version of the program or uninstall the program).
+                                        By disabling this option, you will be able to edit the program's information, but you will have to update it manually every time it is changed.
+                                        Please note that this option is enabled by default for each program that was automatically added to the list (by scanning for installed programs).
+                                        Also, please note that you can't enable this option after you have disabled it.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection2" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Program Name':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        The name of the program. The specified name should be unique, thus, you can't use the name of another program in the list.
+                                        For that reason, if you convert a program in the list from an automatically-added program to a manually-added program, it will not be recreated as an automatically-added program when Scrupdate scans for installed programs, because the name of the program will be already occupied by the manually-added program.
+                                        Please note that if you change the name of the manually-added program in the list, the program will be recreated as an automatically-added program (as long as automatic scanning for installed programs is enabled), because its name will no longer be occupied.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection3" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed For':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        The installation scope of the program.<LineBreak />
+                                        "None" - Means that the program is not installed.<LineBreak />
+                                        "Everyone" - Means that the program is installed for all users.<LineBreak />
+                                        "User" - Means that the program is installed only for the current user.<LineBreak />
+                                        Please note that when an automatically-added program is uninstalled, Scrupdate will not remove the program from the list, but instead, it will mark it as an uninstalled program (the program's 'Installed For' field will be set to "None").
+                                        You can then manually remove the program from the list if you wish.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection4" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection4Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed Version':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        The currently installed version of the program.
+                                        It can be empty, but in that case, you will not be informed of updates to the program, because there will not be a version that can be compared with the scraped version.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection5" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection5Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Latest Version':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Displays the latest version of the program that was scraped from the web page in the last program updates check.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection6" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection6Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Configure Program Update Check':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Makes Scrupdate check for an update for the program.
+                                        If this option is disabled, Scrupdate will do nothing with that program and will skip it.
+                                        By default, this option is disabled, so you will need to enable this option for each program that you want to check for an update for.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection7" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection7Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Web Page URL':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        The URL of the web page that contains the program's latest version.
+                                        Scrupdate will scrape the program's latest version from that web page.
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Method':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        The method used for scraping the version from the specified web page.
+                                    </TextBlock>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element with the Following ID':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            In this method, Scrupdate will try to extract a version from within an HTML element with the specified ID within the web page.
+                                            If the HTML element was not found within the web page or no version was found within the HTML element, Scrupdate will report an error.
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element(s) That Match the Following XPath':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            In this method, Scrupdate will try to extract a version from within all the HTML elements that match the specified XPath<Hyperlink x:Name="hyperlink_goToReference1" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                                <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="{}{1}" />
+                                            </Hyperlink> within the web page.
+                                            If no matching HTML elements were found within the web page or no version was found within the HTML elements, Scrupdate will report an error.
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection3" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search Globally within the Web Page':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            In this method, Scrupdate will try to extract a version from within the entire web page.
+                                            By selecting the 'Search from the Following Text within the Web Page' option or the 'Search until the Following Text within the Web Page' option, you can limit the version search to a specific section within the web page, instead of searching for a version within the entire web page.
+                                            If no version was found within the selected section within the web page (or within the entire web page, if no section was set), Scrupdate will report an error.
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Options':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Additional options for scraping the version.
+                                    </TextBlock>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Treat a Standalone Number as a Version':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            Makes Scrupdate treat standalone numbers as versions when searching for a version within the web page.
+                                            For example, if this option is enabled and Scrupdate encounters the number "1", it will consider it as the version "1.0", but if this option is disabled, Scrupdate will ignore the number, as it will not be considered as a version.
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Behavior':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            This option allows you to change the way Scrupdate searches for a version within the web page.
+                                        </TextBlock>
+                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found':" />
+                                            </Grid>
+                                            <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                                When this option is selected, Scrupdate will search for a version (from the start of the search scope to the end of the search scope).
+                                                It will stop searching when it encounters the first version, and it will set the program's latest version to the first encountered version.
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found from the End':" />
+                                            </Grid>
+                                            <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                                When this option is selected, Scrupdate will search for a version backwardly (from the end of the search scope to the start of the search scope).
+                                                It will stop searching when it encounters the first version, and it will set the program's latest version to the first encountered version.
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection3" Orientation="Vertical" Margin="45 5 0 0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the Latest Version from All the Versions That Are Found':" />
+                                            </Grid>
+                                            <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                                When this option is selected, Scrupdate will search for a version (from the start of the search scope to the end of the search scope).
+                                                It will not stop searching when it encounters the first version, but instead, it will remember each encountered version, and when reaching the end of the search scope, it will set the program's latest version to the latest version from all the encountered versions.
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10" Orientation="Vertical" Margin="0 5 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Advanced Options':" />
+                                    </Grid>
+                                    <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                        Advanced options for helping to search for a version in special cases.
+                                    </TextBlock>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'After the Web Page Is Loaded, Wait For...':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            This option allows you to change the time Scrupdate will wait after the web page is loaded before it continues to search for a version.
+                                            You can use this option to make an intentional delay if the web page is doing post-load processing for dynamically adjusting itself and Scrupdate is missing out on the processed elements.
+                                            For example, if a web page is designed to be loaded quickly (that is, just the core elements of the web page are loaded, and the rest of the elements are processed only after the web page has been loaded) or if the web page renders itself dynamically (after it has been loaded) according to the platform, you will need to set this option accordingly, so the web page will have a chance to finish its post-load processing before Scrupdate starts to search for a version within it.
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Before Searching for a Version, Simulate Mouse Clicks on...':" />
+                                        </Grid>
+                                        <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                            Makes Scrupdate simulate mouse clicks on the specified elements within the web page before it continues to search for a version.
+                                            When this option is enabled, Scrupdate will perform mouse clicks on elements (for example: buttons, links, labels, etc.) within the web page, according to the specified instructions.
+                                            You can use this option to make an interaction with the web page, in cases where mouse clicks are needed for making the version's text visible (for example, when the version is found within a pop-up dialog that is only shown when clicking on a button).
+                                        </TextBlock>
+                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="The Web Page Element Locating Instruction List:" />
+                                            </Grid>
+                                            <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
+                                                This list shows you the instructions that Scrupdate will use to locate the web page elements that a mouse click will be performed on, in order.
+                                                You can add new instructions to the list, move up and down instructions in the list, or remove instructions from the list.
+                                                To add a new instruction to the list, select the method for locating the web page element in the 'Locating Method' selection-box, enter the argument for that method (it can be an HTML element ID, an XPath, or an inner text of HTML element(s), according to the selected method) in the 'Locating Method Argument' text-box, select the duration for performing the click (that is, the time to wait after clicking on the element, before clicking on the next element) in the 'Duration' selection-box, and click on the '+' button.
+                                                To move an instruction up or down in the list, select the instruction in the list and click on the '↑' or '↓' buttons to move the instruction up or down respectively.
+                                                To remove instructions from the list, select the instructions in the list (for selecting multiple instructions hold the 'ctrl' key on the keyboard while clicking on the instructions in the list) and click on the 'X' button.
+                                                Please note that when selecting the 'By Inner Text' web page element locating method, you will have an additional option (the 'Exact' check-box) that will allow you to select whether only elements whose inner text exactly matches the given text will be located.
+                                                Also, please note that you can only add up to 5 web page element locating instructions.
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="stackPanel_helpTipsContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Tips">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpTipsContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="Tips" />
+                            <StackPanel x:Name="stackPanel_tipsSection" Orientation="Vertical" Margin="10 10 10 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        Try to use the least global version search method.
+                                        For example, If the program's version is found within a button that has an HTML element ID, use the method of searching for a version within an HTML element with a specific ID, instead of the method of searching for a version globally within the web page.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        Pay attention to URL redirects.
+                                        In cases where a generic URL redirects to a more specific URL, you will need to use the generic URL, so Scrupdate will always be redirected to the most recent URL.
+                                        For example, "http://example.com/current-version" may redirect to "http://example.com/versions/1.2.3.4", so you will need to use "http://example.com/current-version".
+                                        In most cases, you can get the generic URL from the web page element you've clicked that redirected you to the specific URL, by clicking with the right mouse button on the element and selecting the option to copy its URL.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        It's recommended to use the latest version of ChromeDriver that is compatible with the version of the installed Google Chrome™ browser.
+                                        As the Google Chrome™ browser is updated from time to time, ensure that you update the ChromeDriver as well, so you will always have the latest features and security improvements.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        Always prefer using the HTTPS protocol over the HTTP protocol, as it is more secure.
+                                    </TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="stackPanel_helpNotesContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="Notes">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpNotesContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="Notes" />
+                            <StackPanel x:Name="stackPanel_notesSection" Orientation="Vertical" Margin="10 10 10 10">
+                                <Grid x:Name="grid_note1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[1]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote1" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> Scrupdate only informs you about updates.
+                                        It doesn't update the programs.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[2]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote2" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> Scraping the program's latest version from a web page (usually from the program's download web page) is better than fetching it from a database that contains the latest version information of various programs because you get the latest version directly from the source.
+                                        However, keep in mind that web pages are dynamic.
+                                        The website's author can change the content of the web pages over time, which can result in errors in the scraping process.
+                                        [See the 'tips' section for information about how to reduce the likelihood of getting an error because of a content change in a web page and for more information].
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[3]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote3" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> Scrupdate only supports the Google Chrome™ browser.
+                                        It will not work with other browsers due to compatibility issues.
+                                        If you are using another browser as your primary browser, you can install Google Chrome™ browser side by side with your primary browser, it will not interfere with your primary browser (just don't set it as your default browser).
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[4]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote4" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> The version of the ChromeDriver must be equal to or below the version of the installed Google Chrome™ browser.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[5]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote5" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> If automatic scanning for installed programs is enabled and you delete a program from the list, the program may be recreated on the next scan.
+                                        To prevent this from happening, you will need to hide the program instead of deleting it, so it will not be recreated when scanning for installed programs.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[6]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote6" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> Manually-added programs will not be updated automatically in the list.
+                                        You will need to update a manually-added program's information in the list in yourself, every time you install a new version of the program or remove the program.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note7">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[7]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote7" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> A scheduled check for program updates will not start when Scrupdate is open.
+                                    </TextBlock>
+                                </Grid>
+                                <Grid x:Name="grid_note8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="[8]" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromNote8" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> If you've enabled scheduled check for program updates and a scheduled check was missed (for example, because the computer was turned off or was sleeping), the check will start as soon after the user logs in to or unlocks the computer.
+                                    </TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="stackPanel_helpReferencesContent" Orientation="Vertical" Margin="10 10 10 10">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:HelpWindow}, Path=SelectedHelpChapterMenuTab}" Value="References">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_helpReferencesContentTitle" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="10 10 10 10" Content="References" />
+                            <StackPanel x:Name="stackPanel_referencesSection" Orientation="Vertical" Margin="10 10 10 10">
+                                <Grid x:Name="grid_reference1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="{}{1}" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
+                                        <Hyperlink x:Name="hyperlink_goBackFromReference1" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="^" />
+                                        </Hyperlink> <Hyperlink x:Name="hyperlink_openXmlPathLanguagePdfFile" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                            <Hyperlink.Style>
+                                                <Style TargetType="Hyperlink">
+                                                    <Setter Property="TextDecorations" Value="None" />
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="TextDecorations" Value="Underline" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Hyperlink.Style>
+                                            The XML Path Language (XPath)
+                                        </Hyperlink>.
+                                    </TextBlock>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="15" FontFamily="Calibri" TextAlignment="Center" Padding="0 0 0 0" Margin="20 20 20 20" HorizontalAlignment="Left">
+                <Hyperlink x:Name="hyperlink_viewAsPdf" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                    <Hyperlink.Style>
+                        <Style TargetType="Hyperlink">
+                            <Setter Property="TextDecorations" Value="None" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="TextDecorations" Value="Underline" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Hyperlink.Style>
+                    View as PDF
+                </Hyperlink>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>
