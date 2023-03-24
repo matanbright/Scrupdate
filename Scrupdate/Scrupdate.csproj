@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Selenium.WebDriver" Version="4.0.0" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.8.1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
   </ItemGroup>
 
   <ItemGroup>

@@ -44,7 +44,7 @@ Copyright © 2021 Matan Brightbert.
 ## Notices
 
 * This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].\
-Copyright © 2021 Software Freedom Conservancy.
+Copyright © 2023 Software Freedom Conservancy.
 
 * This program uses Newtonsoft.Json which is licensed under 'MIT License' [see 'LICENSE-MIT.txt' file].\
 Copyright © 2008 James Newton-King.

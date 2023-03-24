@@ -92,7 +92,7 @@
                                 </Grid.RowDefinitions>
                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="12" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
                                 <TextBlock Grid.Row="0" Grid.Column="1" FontSize="12" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
-                                    Selenium.WebDriver (v4.0.0.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                    Selenium.WebDriver (v4.8.1.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
                                         <Hyperlink.Style>
                                             <Style TargetType="Hyperlink">
                                                 <Setter Property="TextDecorations" Value="None" />
@@ -105,7 +105,7 @@
                                         </Hyperlink.Style>
                                         Apache License 2.0
                                     </Hyperlink>.<LineBreak />
-                                    Copyright © 2021 Software Freedom Conservancy.
+                                    Copyright © 2023 Software Freedom Conservancy.
                                 </TextBlock>
                             </Grid>
                             <Grid>
@@ -118,7 +118,7 @@
                                 </Grid.RowDefinitions>
                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="12" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
                                 <TextBlock Grid.Row="0" Grid.Column="1" FontSize="12" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
-                                    Newtonsoft.Json (v12.0.3.23909) which is licensed under <Hyperlink x:Name="hyperlink_viewNewtonsoftJsonLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                    Newtonsoft.Json (v13.0.1.25517) which is licensed under <Hyperlink x:Name="hyperlink_viewNewtonsoftJsonLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
                                         <Hyperlink.Style>
                                             <Style TargetType="Hyperlink">
                                                 <Setter Property="TextDecorations" Value="None" />
