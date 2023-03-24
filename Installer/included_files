@@ -11,9 +11,9 @@
 # Note: The paths need to be surrounded by quotation marks
 
 # This path needs to be relative to the location of the ".nsi" script that the file commands will be inserted to
-~32 "..\..\Scrupdate\bin\x86\Release\net5.0-windows"
-~64 "..\..\Scrupdate\bin\x64\Release\net5.0-windows"
-~ "..\..\Scrupdate\bin\x86\Release\net5.0-windows"
+~32 "..\..\Scrupdate\bin\x86\Release\net6.0-windows"
+~64 "..\..\Scrupdate\bin\x64\Release\net6.0-windows"
+~ "..\..\Scrupdate\bin\x86\Release\net6.0-windows"
 
 # These paths need to be relative to the selected root point
 +32 "Scrupdate.dll"
