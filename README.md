@@ -38,15 +38,15 @@ If the build was successful, the compiled files will be located in the 'Scrupdat
 
 ## License
 
-Scrupdate is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].\
-Copyright © 2021 Matan Brightbert.
+Scrupdate is licensed under 'Apache License 2.0' [see '[LICENSE.txt](LICENSE.txt)' file].\
+Copyright © 2021-2023 Matan Brightbert.
 
 ## Notices
 
-* This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].\
+* This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see '[LICENSE.txt](LICENSE.txt)' file].\
 Copyright © 2023 Software Freedom Conservancy.
 
-* This program uses Newtonsoft.Json which is licensed under 'MIT License' [see 'LICENSE-MIT.txt' file].\
+* This program uses Newtonsoft.Json which is licensed under 'MIT License' [see '[LICENSE-MIT.txt](LICENSE-MIT.txt)' file].\
 Copyright © 2008 James Newton-King.
 
 * Google Chrome™ is a trademark of Google LLC.

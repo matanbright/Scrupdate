@@ -1,5 +1,5 @@
 Scrupdate is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].
-Copyright © 2021 Matan Brightbert.
+Copyright © 2021-2023 Matan Brightbert.
 
 This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].
 Copyright © 2023 Software Freedom Conservancy.
