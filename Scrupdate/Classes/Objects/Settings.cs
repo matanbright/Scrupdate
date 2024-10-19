@@ -227,13 +227,7 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Settings()
-        {
-            Cached = new CachedSettings();
-            General = new GeneralSettings();
-            Appearance = new AppearanceSettings();
-            ChromeDriver = new ChromeDriverSettings();
-        }
+        public Settings() : this(new CachedSettings(), new GeneralSettings(), new AppearanceSettings(), new ChromeDriverSettings()) { }
         public Settings(CachedSettings cached, GeneralSettings general, AppearanceSettings appearance, ChromeDriverSettings chromeDriver)
         {
             Cached = cached;
