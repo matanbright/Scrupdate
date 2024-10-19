@@ -372,12 +372,12 @@ namespace Scrupdate.UiElements.Windows
                     Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem),
                     (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
                 );
-            Settings.ChromeDriverSettings ChromeDriverSettings = new Settings.ChromeDriverSettings(
+            Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
                     ((Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)(Enum.Parse(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout), ((string)comboBox_chromeDriverPageLoadTimeout.SelectedItem).Replace(" ", "")))),
                     (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
                     textBox_customChromeDriverUserAgentString.Text.Trim()
                 );
-            return new Settings(currentSettings.Cached, globalSettings, appearanceSettings, ChromeDriverSettings);
+            return new Settings(currentSettings.Cached, globalSettings, appearanceSettings, chromeDriverSettings);
         }
         public void RefreshAvailableWindowsScalingFactorSelections()
         {

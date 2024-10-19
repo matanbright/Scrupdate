@@ -161,11 +161,11 @@ namespace Scrupdate
                 {
                     try
                     {
-                        using (SettingsHandler SettingsHandler = new SettingsHandler(ApplicationUtilities.settingsFilePath, ApplicationUtilities.settingsChecksumFilePath))
+                        using (SettingsHandler settingsHandler = new SettingsHandler(ApplicationUtilities.settingsFilePath, ApplicationUtilities.settingsChecksumFilePath))
                         {
                             bool settingsFileIsCorrupted;
-                            if (SettingsHandler.LoadSettingsToMemoryFromSettingsFile(out settingsFileIsCorrupted) && !settingsFileIsCorrupted)
-                                ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
+                            if (settingsHandler.LoadSettingsToMemoryFromSettingsFile(out settingsFileIsCorrupted) && !settingsFileIsCorrupted)
+                                ApplicationUtilities.UpdateScheduledTask(settingsHandler);
                         }
                     }
                     catch { }
