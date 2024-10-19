@@ -32,9 +32,9 @@ using Scrupdate.UiElements.Controls;
 namespace Scrupdate.UiElements.Windows
 {
     /// <summary>
-    /// Interaction logic for ProgramAdditionOrEditionWindow.xaml
+    /// Interaction logic for ProgramAddingOrEditingWindow.xaml
     /// </summary>
-    public partial class ProgramAdditionOrEditionWindow : Window, INotifyPropertyChanged
+    public partial class ProgramAddingOrEditingWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const int MAX_COUNT_OF_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = 5;
@@ -56,16 +56,16 @@ namespace Scrupdate.UiElements.Windows
         public enum WindowVariation
         {
             Unknown,
-            ProgramAdditionWindow,
-            ProgramEditionWindow
+            ProgramAddingWindow,
+            ProgramEditingWindow
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty CurrentWindowVariationProperty = DependencyProperty.Register(nameof(CurrentWindowVariation), typeof(WindowVariation), typeof(ProgramAdditionOrEditionWindow), new PropertyMetadata(WindowVariation.Unknown));
-        public static readonly DependencyProperty LastProgramUpdateCheckConfigurationStatusProperty = DependencyProperty.Register(nameof(LastProgramUpdateCheckConfigurationStatus), typeof(Program.ProgramUpdateCheckConfigurationStatus), typeof(ProgramAdditionOrEditionWindow), new PropertyMetadata(Program.ProgramUpdateCheckConfigurationStatus.Unknown));
+        public static readonly DependencyProperty CurrentWindowVariationProperty = DependencyProperty.Register(nameof(CurrentWindowVariation), typeof(WindowVariation), typeof(ProgramAddingOrEditingWindow), new PropertyMetadata(WindowVariation.Unknown));
+        public static readonly DependencyProperty LastProgramUpdateCheckConfigurationStatusProperty = DependencyProperty.Register(nameof(LastProgramUpdateCheckConfigurationStatus), typeof(Program.ProgramUpdateCheckConfigurationStatus), typeof(ProgramAddingOrEditingWindow), new PropertyMetadata(Program.ProgramUpdateCheckConfigurationStatus.Unknown));
         private StringBuilder tempStringBuilder;
         private Dictionary<string, Program> programsAlreadyInDatabase;
         private Program programToEdit;
@@ -113,8 +113,8 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public ProgramAdditionOrEditionWindow(Dictionary<string, Program> programsAlreadyInDatabase) : this(programsAlreadyInDatabase, null) { }
-        public ProgramAdditionOrEditionWindow(Dictionary<string, Program> programsAlreadyInDatabase, Program programToEdit)
+        public ProgramAddingOrEditingWindow(Dictionary<string, Program> programsAlreadyInDatabase) : this(programsAlreadyInDatabase, null) { }
+        public ProgramAddingOrEditingWindow(Dictionary<string, Program> programsAlreadyInDatabase, Program programToEdit)
         {
             tempStringBuilder = new StringBuilder();
             this.programsAlreadyInDatabase = programsAlreadyInDatabase;
@@ -151,13 +151,13 @@ namespace Scrupdate.UiElements.Windows
             CalculateWindowDynamicSizeAndResizeWindow();
             if (programToEdit == null)
             {
-                CurrentWindowVariation = WindowVariation.ProgramAdditionWindow;
-                Title = "Scrupdate - Program Addition";
+                CurrentWindowVariation = WindowVariation.ProgramAddingWindow;
+                Title = "Scrupdate - Program Adding";
             }
             else
             {
-                CurrentWindowVariation = WindowVariation.ProgramEditionWindow;
-                Title = "Scrupdate - Program Edition [N/A]";
+                CurrentWindowVariation = WindowVariation.ProgramEditingWindow;
+                Title = "Scrupdate - Program Editing [N/A]";
                 ApplyProgramToUIControlsValues(programToEdit);
             }
             button_addOrSave.Focus();

@@ -686,9 +686,9 @@
                                     </TextBlock>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSection" Orientation="Vertical" Margin="10 10 10 0">
-                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Program Addition/Edition Window" />
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection1" Orientation="Vertical" Margin="0 5 0 0">
+                            <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSection" Orientation="Vertical" Margin="10 10 10 0">
+                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSectionTitle" FontSize="27" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Program Adding/Editing Window" />
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection1" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -698,7 +698,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Detect Automatically':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Detect Automatically':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Makes Scrupdate mark the program as an automatically-added program.
@@ -708,7 +708,7 @@
                                         Also, please note that you can't enable this option after you have disabled it.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection2" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection2" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -718,7 +718,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Program Name':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Program Name':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         The name of the program. The specified name should be unique, thus, you can't use the name of another program in the list.
@@ -726,7 +726,7 @@
                                         Please note that if you change the name of the manually-added program in the list, the program will be recreated as an automatically-added program (as long as automatic scanning for installed programs is enabled), because its name will no longer be occupied.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection3" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection3" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -736,7 +736,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed For':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed For':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         The installation scope of the program.<LineBreak />
@@ -747,7 +747,7 @@
                                         You can then manually remove the program from the list if you wish.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection4" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection4" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -757,14 +757,14 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection4Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed Version':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection4Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Installed Version':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         The currently installed version of the program.
                                         It can be empty, but in that case, you will not be informed of updates to the program, because there will not be a version that can be compared with the scraped version.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection5" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection5" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -774,13 +774,13 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection5Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Latest Version':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection5Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Latest Version':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Displays the latest version of the program that was scraped from the web page in the last program updates check.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection6" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection6" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -790,7 +790,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection6Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Configure Program Update Check':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection6Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Configure Program Update Check':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Makes Scrupdate check for an update for the program.
@@ -798,7 +798,7 @@
                                         By default, this option is disabled, so you will need to enable this option for each program that you want to check for an update for.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection7" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection7" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -808,14 +808,14 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection7Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Web Page URL':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection7Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Web Page URL':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         The URL of the web page that contains the program's latest version.
                                         Scrupdate will scrape the program's latest version from that web page.
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection8" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -825,12 +825,12 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Method':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection8Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Method':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         The method used for scraping the version from the specified web page.
                                     </TextBlock>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection8SubSection1" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -840,14 +840,14 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element with the Following ID':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection8SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element with the Following ID':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             In this method, Scrupdate will try to extract a version from within an HTML element with the specified ID within the web page.
                                             If the HTML element was not found within the web page or no version was found within the HTML element, Scrupdate will report an error.
                                         </TextBlock>
                                     </StackPanel>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection8SubSection2" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -857,7 +857,7 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element(s) That Match the Following XPath':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection8SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search within the HTML Element(s) That Match the Following XPath':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             In this method, Scrupdate will try to extract a version from within all the HTML elements that match the specified XPath<Hyperlink x:Name="hyperlink_goToReference1" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
@@ -866,7 +866,7 @@
                                             If no matching HTML elements were found within the web page or no version was found within the HTML elements, Scrupdate will report an error.
                                         </TextBlock>
                                     </StackPanel>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection8SubSection3" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection8SubSection3" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -876,7 +876,7 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection8SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search Globally within the Web Page':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection8SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Search Globally within the Web Page':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             In this method, Scrupdate will try to extract a version from within the entire web page.
@@ -885,7 +885,7 @@
                                         </TextBlock>
                                     </StackPanel>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -895,12 +895,12 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Options':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Options':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Additional options for scraping the version.
                                     </TextBlock>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9SubSection1" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -910,14 +910,14 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Treat a Standalone Number as a Version':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Treat a Standalone Number as a Version':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             Makes Scrupdate treat standalone numbers as versions when searching for a version within the web page.
                                             For example, if this option is enabled and Scrupdate encounters the number "1", it will consider it as the version "1.0", but if this option is disabled, Scrupdate will ignore the number, as it will not be considered as a version.
                                         </TextBlock>
                                     </StackPanel>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9SubSection2" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -927,12 +927,12 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Behavior':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Version Search Behavior':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             This option allows you to change the way Scrupdate searches for a version within the web page.
                                         </TextBlock>
-                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                        <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" />
@@ -942,14 +942,14 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
-                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found':" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found':" />
                                             </Grid>
                                             <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                                 When this option is selected, Scrupdate will search for a version (from the start of the search scope to the end of the search scope).
                                                 It will stop searching when it encounters the first version, and it will set the program's latest version to the first encountered version.
                                             </TextBlock>
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                        <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9SubSection2SubSection2" Orientation="Vertical" Margin="45 5 0 0">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" />
@@ -959,14 +959,14 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
-                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found from the End':" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9SubSection2SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the First Version That Is Found from the End':" />
                                             </Grid>
                                             <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                                 When this option is selected, Scrupdate will search for a version backwardly (from the end of the search scope to the start of the search scope).
                                                 It will stop searching when it encounters the first version, and it will set the program's latest version to the first encountered version.
                                             </TextBlock>
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection9SubSection2SubSection3" Orientation="Vertical" Margin="45 5 0 0">
+                                        <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection9SubSection2SubSection3" Orientation="Vertical" Margin="45 5 0 0">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" />
@@ -976,7 +976,7 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
-                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection9SubSection2SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the Latest Version from All the Versions That Are Found':" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection9SubSection2SubSection3Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Get the Latest Version from All the Versions That Are Found':" />
                                             </Grid>
                                             <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                                 When this option is selected, Scrupdate will search for a version (from the start of the search scope to the end of the search scope).
@@ -985,7 +985,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
-                                <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10" Orientation="Vertical" Margin="0 5 0 0">
+                                <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection10" Orientation="Vertical" Margin="0 5 0 0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto" />
@@ -995,12 +995,12 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
-                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Advanced Options':" />
+                                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Advanced Options':" />
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Advanced options for helping to search for a version in special cases.
                                     </TextBlock>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection10SubSection1" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -1010,7 +1010,7 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'After the Web Page Is Loaded, Wait For...':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'After the Web Page Is Loaded, Wait For...':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             This option allows you to change the time Scrupdate will wait after the web page is loaded before it continues to search for a version.
@@ -1018,7 +1018,7 @@
                                             For example, if a web page is designed to be loaded quickly (that is, just the core elements of the web page are loaded, and the rest of the elements are processed only after the web page has been loaded) or if the web page renders itself dynamically (after it has been loaded) according to the platform, you will need to set this option accordingly, so the web page will have a chance to finish its post-load processing before Scrupdate starts to search for a version within it.
                                         </TextBlock>
                                     </StackPanel>
-                                    <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection2" Orientation="Vertical" Margin="45 5 0 0">
+                                    <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection10SubSection2" Orientation="Vertical" Margin="45 5 0 0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
@@ -1028,14 +1028,14 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Before Searching for a Version, Simulate Mouse Clicks on...':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Before Searching for a Version, Simulate Mouse Clicks on...':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             Makes Scrupdate simulate mouse clicks on the specified elements within the web page before it continues to search for a version.
                                             When this option is enabled, Scrupdate will perform mouse clicks on elements (for example: buttons, links, labels, etc.) within the web page, according to the specified instructions.
                                             You can use this option to make an interaction with the web page, in cases where mouse clicks are needed for making the version's text visible (for example, when the version is found within a pop-up dialog that is only shown when clicking on a button).
                                         </TextBlock>
-                                        <StackPanel x:Name="stackPanel_programAdditionOrEditionWindowSubSection10SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
+                                        <StackPanel x:Name="stackPanel_programAddingOrEditingWindowSubSection10SubSection2SubSection1" Orientation="Vertical" Margin="45 5 0 0">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="auto" />
@@ -1045,7 +1045,7 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="⁃" />
-                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAdditionOrEditionWindowSubSection10SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="The Web Page Element Locating Instruction List:" />
+                                                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection2SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="The Web Page Element Locating Instruction List:" />
                                             </Grid>
                                             <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                                 This list shows you the instructions that Scrupdate will use to locate the web page elements that a mouse click will be performed on, in order.

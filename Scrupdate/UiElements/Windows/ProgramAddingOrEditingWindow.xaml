@@ -17,7 +17,7 @@
 
 
 
-<Window x:Class="Scrupdate.UiElements.Windows.ProgramAdditionOrEditionWindow"
+<Window x:Class="Scrupdate.UiElements.Windows.ProgramAddingOrEditingWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -57,7 +57,7 @@
                                     <Style TargetType="Scrupdate_UiElements_Controls:CustomCheckBox">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=CurrentWindowVariation}" Value="ProgramEditionWindow">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=CurrentWindowVariation}" Value="ProgramEditingWindow">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -120,8 +120,8 @@
                                         <Style.Triggers>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=CurrentWindowVariation}" Value="ProgramEditionWindow" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=CurrentWindowVariation}" Value="ProgramEditingWindow" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </MultiDataTrigger>
@@ -633,10 +633,10 @@
                                     <Style TargetType="Border">
                                         <Setter Property="Background" Value="{x:Null}" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
                                                 <Setter Property="Background" Value="{StaticResource darkRedSolidColorBrush}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
                                                 <Setter Property="Background" Value="{StaticResource darkGreenSolidColorBrush}" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -653,7 +653,7 @@
                                             <Setter Property="Fill" Value="{x:Null}" />
                                             <Setter Property="Data" Value="{x:Null}" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
                                                     <Setter Property="StrokeThickness" Value="1.25" />
                                                     <Setter Property="Margin" Value="3.5 3.5 3.5 3.5" />
                                                     <Setter Property="StrokeStartLineCap" Value="Round" />
@@ -661,7 +661,7 @@
                                                     <Setter Property="Stroke" Value="{StaticResource blackSolidColorBrush}" />
                                                     <Setter Property="Data" Value="M 0,0 L 1,1 M 0,1 L 1,0" />
                                                 </DataTrigger>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
                                                     <Setter Property="StrokeThickness" Value="1" />
                                                     <Setter Property="Margin" Value="3.5 3.5 3.5 3.5" />
                                                     <Setter Property="Fill" Value="{StaticResource blackSolidColorBrush}" />
@@ -678,10 +678,10 @@
                                 <Style TargetType="Scrupdate_UiElements_Controls:CustomLabel">
                                     <Setter Property="Foreground" Value="{StaticResource blackSolidColorBrush}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Invalid">
                                             <Setter Property="Foreground" Value="{StaticResource redSolidColorBrush}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}" Value="Valid">
                                             <Setter Property="Foreground" Value="{StaticResource darkGreenSolidColorBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -694,10 +694,10 @@
                             <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
                                 <Setter Property="Content" Value="N/A" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=CurrentWindowVariation}" Value="ProgramAdditionWindow">
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=CurrentWindowVariation}" Value="ProgramAddingWindow">
                                         <Setter Property="Content" Value="Add" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAdditionOrEditionWindow}, Path=CurrentWindowVariation}" Value="ProgramEditionWindow">
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=CurrentWindowVariation}" Value="ProgramEditingWindow">
                                         <Setter Property="Content" Value="Save" />
                                     </DataTrigger>
                                 </Style.Triggers>

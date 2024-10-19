@@ -264,7 +264,7 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_addNewProgram)
             {
                 Program newProgram;
-                if (OpenProgramAdditionOrEditionWindowAsDialogForAddingAProgram(out newProgram) == true)
+                if (OpenProgramAddingOrEditingWindowAsDialogForAddingAProgram(out newProgram) == true)
                     AddNewProgramToDatabaseAndListView(newProgram);
             }
             else if (senderButton == button_checkForProgramUpdates)
@@ -342,7 +342,7 @@ namespace Scrupdate.UiElements.Windows
                     {
                         ProgramListViewItem programListViewItemOfProgramToEdit = (ProgramListViewItem)listView_programs.SelectedItems[0];
                         Program updatedProgram;
-                        if (OpenProgramAdditionOrEditionWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
+                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
                             UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
                     }
                 }
@@ -404,7 +404,7 @@ namespace Scrupdate.UiElements.Windows
                     if (programListViewItemOfProgramToEdit == listView_programs.SelectedItems[0])
                     {
                         Program updatedProgram;
-                        if (OpenProgramAdditionOrEditionWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
+                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
                             UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
                     }
                 }
@@ -417,7 +417,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 ProgramListViewItem programListViewItemOfProgramToEdit = (ProgramListViewItem)listView_programs.SelectedItems[0];
                 Program updatedProgram;
-                if (OpenProgramAdditionOrEditionWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
+                if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
                     UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
             }
             else if (senderMenuItem.Header.Equals("Hide") || senderMenuItem.Header.Equals("Hide Selected"))
@@ -547,37 +547,37 @@ namespace Scrupdate.UiElements.Windows
             });
             return returnValue;
         }
-        private bool? OpenProgramAdditionOrEditionWindowAsDialogForAddingAProgram(out Program newProgram)
+        private bool? OpenProgramAddingOrEditingWindowAsDialogForAddingAProgram(out Program newProgram)
         {
             newProgram = null;
             bool? returnValue = null;
-            ProgramAdditionOrEditionWindow programAdditionOrEditionWindow = null;
+            ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
             ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
             {
                 Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
-                programAdditionOrEditionWindow = new ProgramAdditionOrEditionWindow(programsAlreadyInDatabase);
-                programAdditionOrEditionWindow.Owner = this;
-                returnValue = programAdditionOrEditionWindow.ShowDialog();
+                programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(programsAlreadyInDatabase);
+                programAddingOrEditingWindow.Owner = this;
+                returnValue = programAddingOrEditingWindow.ShowDialog();
             });
             if (returnValue == true)
-                newProgram = programAdditionOrEditionWindow.GetNewOrUpdatedProgram();
+                newProgram = programAddingOrEditingWindow.GetNewOrUpdatedProgram();
             return returnValue;
         }
-        private bool? OpenProgramAdditionOrEditionWindowAsDialogForEditingAProgram(string nameOfProgramToEdit, out Program updatedProgram)
+        private bool? OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(string nameOfProgramToEdit, out Program updatedProgram)
         {
             updatedProgram = null;
             bool? returnValue = null;
-            ProgramAdditionOrEditionWindow programAdditionOrEditionWindow = null;
+            ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
             ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
             {
                 Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
                 Program programToEdit = programsAlreadyInDatabase[nameOfProgramToEdit];
-                programAdditionOrEditionWindow = new ProgramAdditionOrEditionWindow(programsAlreadyInDatabase, programToEdit);
-                programAdditionOrEditionWindow.Owner = this;
-                returnValue = programAdditionOrEditionWindow.ShowDialog();
+                programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(programsAlreadyInDatabase, programToEdit);
+                programAddingOrEditingWindow.Owner = this;
+                returnValue = programAddingOrEditingWindow.ShowDialog();
             });
             if (returnValue == true)
-                updatedProgram = programAdditionOrEditionWindow.GetNewOrUpdatedProgram();
+                updatedProgram = programAddingOrEditingWindow.GetNewOrUpdatedProgram();
             return returnValue;
         }
         private void RefreshListViewAndAllMessages()

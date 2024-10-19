@@ -260,8 +260,8 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfOpenWindow = ((HelpWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(SettingsWindow))
                         baseSizeOfOpenWindow = ((SettingsWindow)openWindow).BaseSizeOfWindow;
-                    else if (typeOfOpenWindow == typeof(ProgramAdditionOrEditionWindow))
-                        baseSizeOfOpenWindow = ((ProgramAdditionOrEditionWindow)openWindow).BaseSizeOfWindow;
+                    else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
+                        baseSizeOfOpenWindow = ((ProgramAddingOrEditingWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(ErrorDialogWindow))
                         baseSizeOfOpenWindow = ((ErrorDialogWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(QuestionDialogWindow))
@@ -277,8 +277,8 @@ namespace Scrupdate.Classes.Utilities
                         ((ErrorDialogWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfOpenWindow == typeof(QuestionDialogWindow))
                         ((QuestionDialogWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
-                    else if (typeOfOpenWindow == typeof(ProgramAdditionOrEditionWindow))
-                        ((ProgramAdditionOrEditionWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
+                        ((ProgramAddingOrEditingWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfOpenWindow == typeof(ProgramUpdatesScheduledCheckWindow))
                         ((ProgramUpdatesScheduledCheckWindow)openWindow).MoveWindowNearSystemTrayIcons();
                 }
