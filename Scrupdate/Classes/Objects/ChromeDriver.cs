@@ -22,6 +22,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class ChromeDriver : IDisposable

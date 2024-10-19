@@ -18,6 +18,7 @@
 using System;
 using System.Windows.Threading;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class ThreadsUtilities

@@ -18,6 +18,7 @@
 using System.IO;
 using Microsoft.Win32;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class GoogleChromeBrowserUtilities

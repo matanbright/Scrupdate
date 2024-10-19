@@ -18,6 +18,7 @@
 using System;
 using System.Threading;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class CancellableThread

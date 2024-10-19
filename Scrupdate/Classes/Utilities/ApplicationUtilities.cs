@@ -22,6 +22,7 @@ using System.Windows;
 using Scrupdate.Classes.Objects;
 using Scrupdate.UiElements.Windows;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class ApplicationUtilities

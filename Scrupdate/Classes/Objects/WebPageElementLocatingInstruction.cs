@@ -17,6 +17,7 @@
 
 using System.Text;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class WebPageElementLocatingInstruction

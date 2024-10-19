@@ -22,6 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Scrupdate.Classes.Utilities;
 
+
 namespace Scrupdate.UiElements.Controls
 {
     /// <summary>

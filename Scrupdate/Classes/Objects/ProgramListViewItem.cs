@@ -18,6 +18,7 @@
 using System.Windows;
 using System.Windows.Media;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class ProgramListViewItem

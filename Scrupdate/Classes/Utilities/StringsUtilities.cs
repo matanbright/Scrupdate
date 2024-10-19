@@ -18,6 +18,7 @@
 using System;
 using System.Text;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class StringsUtilities

@@ -21,6 +21,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Scrupdate.Classes.Objects;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class WindowsUtilities

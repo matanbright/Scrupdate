@@ -23,6 +23,7 @@ using System.IO;
 using System.Data.SQLite;
 using Scrupdate.Classes.Utilities;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class ProgramDatabase : IDisposable

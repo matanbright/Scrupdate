@@ -18,6 +18,7 @@
 using System;
 using System.Windows;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class Settings

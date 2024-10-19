@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Documents;
 using Scrupdate.Classes.Utilities;
 
+
 namespace Scrupdate.UiElements.Windows
 {
     /// <summary>

@@ -17,6 +17,7 @@
 
 using System.Windows.Controls;
 
+
 namespace Scrupdate.UiElements.Controls
 {
     /// <summary>

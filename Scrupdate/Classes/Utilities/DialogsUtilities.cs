@@ -19,6 +19,7 @@ using System;
 using System.Windows;
 using Scrupdate.UiElements.Windows;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class DialogsUtilities

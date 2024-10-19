@@ -21,6 +21,7 @@ using System.Text.Json;
 using System.IO;
 using Scrupdate.Classes.Utilities;
 
+
 namespace Scrupdate.Classes.Objects
 {
     public class SettingsHandler : IDisposable

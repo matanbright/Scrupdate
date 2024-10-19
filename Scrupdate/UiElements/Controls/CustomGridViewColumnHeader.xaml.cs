@@ -20,6 +20,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Scrupdate.Classes.Utilities;
 
+
 namespace Scrupdate.UiElements.Controls
 {
     /// <summary>

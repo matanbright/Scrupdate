@@ -20,6 +20,7 @@ using System.Text;
 using System.IO;
 using OpenQA.Selenium.Chrome;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class ChromeDriverUtilities

@@ -19,6 +19,7 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class HashingUtilities

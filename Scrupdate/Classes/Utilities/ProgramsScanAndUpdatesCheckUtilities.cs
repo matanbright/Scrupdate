@@ -22,6 +22,7 @@ using System.Threading;
 using Microsoft.Win32;
 using Scrupdate.Classes.Objects;
 
+
 namespace Scrupdate.Classes.Utilities
 {
     public static class ProgramsScanAndUpdatesCheckUtilities
