@@ -39,10 +39,6 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER = "An Error Has Occurred While Installing ChromeDriver\r\nor the Selected Executable File Is Not a Valid ChromeDriver!";
         private const string ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER = "An Error Has Occurred While Uninstalling ChromeDriver!";
         private const string ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED = "No ChromeDriver User-Agent String Was Specified!\r\n[In the 'ChromeDriver' tab under the 'ChromeDriver User-Agent String' Field]";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_DISABLING_SCANNING_FOR_INSTALLED_PROGRAMS = "Confirmation for Disabling Scanning for Installed Programs";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RESETTING_SETTINGS_TO_THEIR_DEFAULT_VALUES = "Confirmation for Resetting Settings to Their Default Values";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RESETTING_ALL_SETTINGS_AND_DATA = "Confirmation for Resetting All Settings and Data";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_UNINSTALLING_CHROMEDRIVER = "Confirmation for Uninstalling ChromeDriver";
         private const string QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS = "Disable Scanning for Installed Programs?\r\n\r\n•  All existing programs in the list will be converted to manually-added programs.\r\n•  It cannot be undone automatically.";
         private const string QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES = "Reset Settings to Their Default Values?\r\n\r\n•  The program database and the installed ChromeDriver will not be affected.";
         private const string QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA = "Reset All Settings and Data?\r\n\r\n•  This includes: the settings, the program database, and the installed ChromeDriver.\r\n•  It cannot be undone.\r\n•  Scrupdate will be closed.";
@@ -183,7 +179,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_resetToDefaultSettings)
             {
-                if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RESETTING_SETTINGS_TO_THEIR_DEFAULT_VALUES, QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES, this) == true)
                 {
                     updatedSettings = new Settings(currentSettings.Cached, new Settings.GlobalSettings(), new Settings.AppearanceSettings(), new Settings.ChromeDriverSettings());
                     DialogResult = true;
@@ -192,7 +188,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_resetAll)
             {
-                if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RESETTING_ALL_SETTINGS_AND_DATA, QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA, this) == true)
                 {
                     updatedSettings = null;
                     DialogResult = true;
@@ -210,7 +206,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_UninstallChromeDriver)
             {
-                if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_UNINSTALLING_CHROMEDRIVER, QUESTION_DIALOG_MESSAGE__UNINSTALL_CHROMEDRIVER, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__UNINSTALL_CHROMEDRIVER, this) == true)
                     if (!UninstallChromeDriver())
                         DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER, this);
             }
@@ -237,7 +233,7 @@ namespace Scrupdate.UiElements.Windows
             CustomCheckBox senderCheckBox = (CustomCheckBox)sender;
             if (senderCheckBox == checkBox_enableScanningForInstalledPrograms)
             {
-                if (!currentSettings.Global.EnableScanningForInstalledPrograms || DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_DISABLING_SCANNING_FOR_INSTALLED_PROGRAMS, QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS, this) == true)
+                if (!currentSettings.Global.EnableScanningForInstalledPrograms || DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS, this) == true)
                     checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = false;
                 else
                     checkBox_enableScanningForInstalledPrograms.IsChecked = true;

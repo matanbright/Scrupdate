@@ -47,7 +47,6 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_WERE_SELECTED_FOR_SIMULATING_A_CLICK = "No Web Page Elements Were Selected for Simulating a Click!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CONVERTING_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Confirmation for Converting the Program to a Manually-Added Program";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -238,7 +237,7 @@ namespace Scrupdate.UiElements.Windows
                     else
                     {
                         if (programToEdit != null && (programToEdit.IsAutomaticallyAdded && checkBox_detectAutomatically.IsChecked == false))
-                            if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CONVERTING_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM, QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM, this) == false)
+                            if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM, this) == false)
                                 return;
                         newOrUpdatedProgram = GetProgramFromUIControlsValues();
                         DialogResult = true;

@@ -50,9 +50,6 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED = "The ChromeDriver's Version Is Not Compatible with the Version of the Installed Google Chrome™ Browser\r\nor the Browser Cannot Be Opened!";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS = "Failed to Reset One or More Components!";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS = "Failed to Save Settings!";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CLOSING_SCRUPDATE_FORCEFULLY = "Confirmation for Closing Scrupdate Forcefully";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RECREATING_THE_PROGRAM_DATABASE = "Confirmation for Recreating the Program Database";
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_REMOVING_THE_SELECTED_PROGRAMS_FROM_THE_LIST = "Confirmation for Removing the Selected Program(s) from the List";
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
         private const string QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE = "Do You Want to Recreate the Program Database?\r\n\r\n•  All the program information and configurations will be lost.";
         private const string QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST = "Remove the Selected Program(s) from the List?";
@@ -245,7 +242,7 @@ namespace Scrupdate.UiElements.Windows
                     if ((CurrentOperation == Operation.CancellingOperation && !closeInQueue) || CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
                         CancelOperation(true);
                     else if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
-                        if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CLOSING_SCRUPDATE_FORCEFULLY, QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
+                        if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
                             PrepareWindowForClosing(true);
                 }
                 else
@@ -261,7 +258,7 @@ namespace Scrupdate.UiElements.Windows
                 UnhideSelectedProgramsInDatabaseAndListView();
             else if (senderButton == button_removeSelectedPrograms)
             {
-                if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_REMOVING_THE_SELECTED_PROGRAMS_FROM_THE_LIST, QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
                     RemoveSelectedProgramsFromDatabaseAndListView();
             }
             else if (senderButton == button_addNewProgram)
@@ -352,7 +349,7 @@ namespace Scrupdate.UiElements.Windows
                 else if (e.Key == Key.Delete)
                 {
                     if (listView_programs.SelectedItems.Count > 0)
-                        if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_REMOVING_THE_SELECTED_PROGRAMS_FROM_THE_LIST, QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                        if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
                             RemoveSelectedProgramsFromDatabaseAndListView();
                 }
             }
@@ -429,7 +426,7 @@ namespace Scrupdate.UiElements.Windows
                 UnhideSelectedProgramsInDatabaseAndListView();
             else if (senderMenuItem.Header.Equals("Remove") || senderMenuItem.Header.Equals("Remove Selected"))
             {
-                if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_REMOVING_THE_SELECTED_PROGRAMS_FROM_THE_LIST, QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
                     RemoveSelectedProgramsFromDatabaseAndListView();
             }
         }
@@ -440,7 +437,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (senderHyperlink == hyperlink_fixProgramDatabaseCorruption)
                 {
-                    if (!DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_RECREATING_THE_PROGRAM_DATABASE, QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE, this) == true)
+                    if (!DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE, this) == true)
                         return;
                     else
                     {

@@ -36,7 +36,6 @@ namespace Scrupdate.UiElements.Windows
     public partial class ProgramUpdatesScheduledCheckWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private const string QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CLOSING_SCRUPDATE_FORCEFULLY = "Confirmation for Closing Scrupdate Forcefully";
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
         private const string STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE = "Unable to Open the Program Database!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED = "The Program Database Is Corrupted!";
@@ -260,7 +259,7 @@ namespace Scrupdate.UiElements.Windows
                 if (CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
                     CancelOperationAndQueueWindowToBeClosedAfterCancelling();
                 else if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
-                    if (DialogsUtilities.ShowQuestionDialog(QUESTION_DIALOG_TITLE__CONFIRMATION_FOR_CLOSING_SCRUPDATE_FORCEFULLY, QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
+                    if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
                         PrepareWindowForClosing(true);
             }
             else
