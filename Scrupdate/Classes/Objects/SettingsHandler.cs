@@ -144,13 +144,13 @@ namespace Scrupdate.Classes.Objects
             try
             {
                 DateTime backupOfLastProgramUpdatesScheduledCheckAttemptionTime = SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
-                if (!SettingsInMemory.Global.EnableScheduledCheckForProgramUpdates)
+                if (!SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
                     SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = new DateTime();
                 else if (SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime.Equals(new DateTime()))
                     SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = DateTime.Now;
                 bool thereIsAnError = false;
-                if (SettingsInMemory.Global.EnableScheduledCheckForProgramUpdates)
-                    thereIsAnError = (!WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(SettingsInMemory.Global.ProgramUpdatesScheduledCheckDays, SettingsInMemory.Global.ProgramUpdatesScheduledCheckHour));
+                if (SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
+                    thereIsAnError = (!WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(SettingsInMemory.General.ProgramUpdatesScheduledCheckDays, SettingsInMemory.General.ProgramUpdatesScheduledCheckHour));
                 else
                     thereIsAnError = (!WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck());
                 if (thereIsAnError)

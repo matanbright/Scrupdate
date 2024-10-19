@@ -187,7 +187,7 @@ namespace Scrupdate.UiElements.Windows
                 if (!programFilteringOptionEnumItemName.Equals(Settings.CachedSettings.ProgramFilteringOption.Unknown.ToString()))
                     comboBox_programListFilteringOption.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(programFilteringOptionEnumItemName));
             comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Settings.CachedSettings.ProgramFilteringOption.All.ToString());
-            if (App.SettingsHandler.SettingsInMemory.Global.RememberLastProgramListOptions)
+            if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
             {
                 checkBox_filterProgramList.IsChecked = App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState;
                 comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption.ToString());
@@ -222,11 +222,11 @@ namespace Scrupdate.UiElements.Windows
                 Top = ((Point)(App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation)).Y;
             }
             WindowsUtilities.MoveWindowIntoScreenBoundaries(this, true);
-            IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms;
+            IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
             ((CustomGridViewColumnHeader)((((GridView)listView_programs.View).Columns[2]).Header)).RaiseEvent(new RoutedEventArgs(CustomGridViewColumnHeader.ClickEvent));
             if (CurrentError == Error.None)
             {
-                if (App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.Global.ScanForInstalledProgramsAutomaticallyOnStart)
+                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
                     StartProgramDatabaseUpdatingTask();
                 else
                     RefreshListViewAndAllMessages(true);
@@ -477,7 +477,7 @@ namespace Scrupdate.UiElements.Windows
                     return;
                 }
                 CurrentError = Error.None;
-                if (App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.Global.ScanForInstalledProgramsAutomaticallyOnStart)
+                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
                     StartProgramDatabaseUpdatingTask();
                 else
                     RefreshListViewAndAllMessages(true);
@@ -802,7 +802,7 @@ namespace Scrupdate.UiElements.Windows
         {
             Settings backupOfSettingsInMemory = App.SettingsHandler.SettingsInMemory;
             App.SettingsHandler.SettingsInMemory = updatedSettings;
-            if (!App.SettingsHandler.SettingsInMemory.Global.RememberLastProgramListOptions)
+            if (!App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
             {
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = false;
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption = Settings.CachedSettings.ProgramFilteringOption.All;
@@ -820,10 +820,10 @@ namespace Scrupdate.UiElements.Windows
                     double newWindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(App.SettingsHandler);
                     ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(newWindowsRenderingScale);
                 }
-                IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms;
+                IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
                 if (CurrentError == Error.None)
                 {
-                    if (!App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms)
+                    if (!App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
                         programDatabase.ConvertAllProgramsToManuallyInstalledPrograms();
                     RefreshListViewAndAllMessages(true);
                 }
@@ -941,7 +941,7 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler.SettingsInMemory.Cached.LastWindowState = WindowState;
                         App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize = new Size(Width, Height);
                         App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation = new Point(Left, Top);
-                        if (App.SettingsHandler.SettingsInMemory.Global.RememberLastProgramListOptions)
+                        if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
                         {
                             App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = (bool)checkBox_filterProgramList.IsChecked;
                             App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption = (Settings.CachedSettings.ProgramFilteringOption)(Enum.Parse(typeof(Settings.CachedSettings.ProgramFilteringOption), ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")));

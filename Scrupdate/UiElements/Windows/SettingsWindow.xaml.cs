@@ -101,7 +101,7 @@ namespace Scrupdate.UiElements.Windows
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
             WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
-            if (currentSettings.Global.EnableScanningForInstalledPrograms && !programDatabaseIsOpen)
+            if (currentSettings.General.EnableScanningForInstalledPrograms && !programDatabaseIsOpen)
                 checkBox_enableScanningForInstalledPrograms.IsEnabled = false;
             for (int i = 0; i < 24; i++)
             {
@@ -181,7 +181,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES, this) == true)
                 {
-                    updatedSettings = new Settings(currentSettings.Cached, new Settings.GlobalSettings(), new Settings.AppearanceSettings(), new Settings.ChromeDriverSettings());
+                    updatedSettings = new Settings(currentSettings.Cached, new Settings.GeneralSettings(), new Settings.AppearanceSettings(), new Settings.ChromeDriverSettings());
                     DialogResult = true;
                     Close();
                 }
@@ -233,7 +233,7 @@ namespace Scrupdate.UiElements.Windows
             CustomCheckBox senderCheckBox = (CustomCheckBox)sender;
             if (senderCheckBox == checkBox_enableScanningForInstalledPrograms)
             {
-                if (!currentSettings.Global.EnableScanningForInstalledPrograms || DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS, this) == true)
+                if (!currentSettings.General.EnableScanningForInstalledPrograms || DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS, this) == true)
                     checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = false;
                 else
                     checkBox_enableScanningForInstalledPrograms.IsChecked = true;
@@ -311,20 +311,20 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ApplySettingsToUIControlsValues(Settings settings)
         {
-            checkBox_enableScanningForInstalledPrograms.IsChecked = settings.Global.EnableScanningForInstalledPrograms;
-            checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = settings.Global.ScanForInstalledProgramsAutomaticallyOnStart;
-            checkBox_rememberLastProgramListOptions.IsChecked = settings.Global.RememberLastProgramListOptions;
-            checkBox_enableScheduledCheckForProgramUpdates.IsChecked = settings.Global.EnableScheduledCheckForProgramUpdates;
-            Settings.GlobalSettings.WeekDays scheduleDays = settings.Global.ProgramUpdatesScheduledCheckDays;
-            checkBox_programUpdatesScheduledCheckDaySunday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Sunday) != 0);
-            checkBox_programUpdatesScheduledCheckDayMonday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Monday) != 0);
-            checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Tuesday) != 0);
-            checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Wednesday) != 0);
-            checkBox_programUpdatesScheduledCheckDayThursday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Thursday) != 0);
-            checkBox_programUpdatesScheduledCheckDayFriday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Friday) != 0);
-            checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked = ((scheduleDays & Settings.GlobalSettings.WeekDays.Saturday) != 0);
-            comboBox_programUpdatesScheduledCheckHour.SelectedIndex = settings.Global.ProgramUpdatesScheduledCheckHour;
-            checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked = settings.Global.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults;
+            checkBox_enableScanningForInstalledPrograms.IsChecked = settings.General.EnableScanningForInstalledPrograms;
+            checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = settings.General.ScanForInstalledProgramsAutomaticallyOnStart;
+            checkBox_rememberLastProgramListOptions.IsChecked = settings.General.RememberLastProgramListOptions;
+            checkBox_enableScheduledCheckForProgramUpdates.IsChecked = settings.General.EnableScheduledCheckForProgramUpdates;
+            Settings.GeneralSettings.WeekDays scheduleDays = settings.General.ProgramUpdatesScheduledCheckDays;
+            checkBox_programUpdatesScheduledCheckDaySunday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0);
+            checkBox_programUpdatesScheduledCheckDayMonday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0);
+            checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0);
+            checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0);
+            checkBox_programUpdatesScheduledCheckDayThursday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0);
+            checkBox_programUpdatesScheduledCheckDayFriday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0);
+            checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0);
+            comboBox_programUpdatesScheduledCheckHour.SelectedIndex = settings.General.ProgramUpdatesScheduledCheckHour;
+            checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked = settings.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults;
             if (settings.Appearance.WindowsScalingFactor == 0.0D)
                 comboBox_windowsScalingFactor.SelectedIndex = 1;
             else if (settings.Appearance.WindowsScalingFactor == 1.0D)
@@ -345,15 +345,15 @@ namespace Scrupdate.UiElements.Windows
         }
         private Settings GetSettingsFromUIControlsValues()
         {
-            Settings.GlobalSettings.WeekDays scheduleDays = Settings.GlobalSettings.WeekDays.None;
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySunday.IsChecked ? (Settings.GlobalSettings.WeekDays)1 : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayMonday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 1) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 2) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 3) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayThursday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 4) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayFriday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 5) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked ? (Settings.GlobalSettings.WeekDays)(1 << 6) : 0);
-            Settings.GlobalSettings globalSettings = new Settings.GlobalSettings(
+            Settings.GeneralSettings.WeekDays scheduleDays = Settings.GeneralSettings.WeekDays.None;
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySunday.IsChecked ? (Settings.GeneralSettings.WeekDays)1 : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayMonday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 1) : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 2) : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 3) : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayThursday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 4) : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayFriday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 5) : 0);
+            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 6) : 0);
+            Settings.GeneralSettings generalSettings = new Settings.GeneralSettings(
                     (bool)checkBox_enableScanningForInstalledPrograms.IsChecked,
                     (bool)checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked,
                     (bool)checkBox_rememberLastProgramListOptions.IsChecked,
@@ -373,7 +373,7 @@ namespace Scrupdate.UiElements.Windows
                     (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
                     textBox_customChromeDriverUserAgentString.Text.Trim()
                 );
-            return new Settings(currentSettings.Cached, globalSettings, appearanceSettings, chromeDriverSettings);
+            return new Settings(currentSettings.Cached, generalSettings, appearanceSettings, chromeDriverSettings);
         }
         public void RefreshAvailableWindowsScalingFactorSelections()
         {

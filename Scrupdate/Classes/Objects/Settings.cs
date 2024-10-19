@@ -92,7 +92,7 @@ namespace Scrupdate.Classes.Objects
             }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
-        public class GlobalSettings
+        public class GeneralSettings
         {
             // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             public enum WeekDays
@@ -123,7 +123,7 @@ namespace Scrupdate.Classes.Objects
 
 
             // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            public GlobalSettings()
+            public GeneralSettings()
             {
                 EnableScanningForInstalledPrograms = true;
                 ScanForInstalledProgramsAutomaticallyOnStart = true;
@@ -133,7 +133,7 @@ namespace Scrupdate.Classes.Objects
                 ProgramUpdatesScheduledCheckHour = 0;
                 IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults = false;
             }
-            public GlobalSettings(bool enableScanningForInstalledPrograms, bool scanForInstalledProgramsAutomaticallyOnStart, bool rememberLastProgramListOptions, bool enableScheduledCheckForProgramUpdates, WeekDays programUpdatesScheduledCheckDays, int programUpdatesScheduledCheckHour, bool includeHiddenProgramsInProgramUpdatesScheduledCheckResults)
+            public GeneralSettings(bool enableScanningForInstalledPrograms, bool scanForInstalledProgramsAutomaticallyOnStart, bool rememberLastProgramListOptions, bool enableScheduledCheckForProgramUpdates, WeekDays programUpdatesScheduledCheckDays, int programUpdatesScheduledCheckHour, bool includeHiddenProgramsInProgramUpdatesScheduledCheckResults)
             {
                 EnableScanningForInstalledPrograms = enableScanningForInstalledPrograms;
                 ScanForInstalledProgramsAutomaticallyOnStart = scanForInstalledProgramsAutomaticallyOnStart;
@@ -219,7 +219,7 @@ namespace Scrupdate.Classes.Objects
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public CachedSettings Cached { get; set; }
-        public GlobalSettings Global { get; set; }
+        public GeneralSettings General { get; set; }
         public AppearanceSettings Appearance { get; set; }
         public ChromeDriverSettings ChromeDriver { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,14 +230,14 @@ namespace Scrupdate.Classes.Objects
         public Settings()
         {
             Cached = new CachedSettings();
-            Global = new GlobalSettings();
+            General = new GeneralSettings();
             Appearance = new AppearanceSettings();
             ChromeDriver = new ChromeDriverSettings();
         }
-        public Settings(CachedSettings cached, GlobalSettings global, AppearanceSettings appearance, ChromeDriverSettings chromeDriver)
+        public Settings(CachedSettings cached, GeneralSettings general, AppearanceSettings appearance, ChromeDriverSettings chromeDriver)
         {
             Cached = cached;
-            Global = global;
+            General = general;
             Appearance = appearance;
             ChromeDriver = chromeDriver;
         }

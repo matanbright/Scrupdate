@@ -298,7 +298,7 @@ namespace Scrupdate.UiElements.Windows
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 Close();
                 Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                (new MainWindow(initialProgramFilteringOption, App.SettingsHandler.SettingsInMemory.Global.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults)).Show();
+                (new MainWindow(initialProgramFilteringOption, App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults)).Show();
             }
             else if (senderButton == button_cancelOrDismiss)
             {
@@ -353,10 +353,10 @@ namespace Scrupdate.UiElements.Windows
                         if (program.InstallationScope != Program.ProgramInstallationScope.None)
                             thereIsANewerVersion = (program.LatestVersion.Equals("") ? false : (program.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion)));
                         if (thereIsANewerVersion == true)
-                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.Global.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
+                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
                                 updatesCount++;
                         if (program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
-                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.Global.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
+                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
                                 errorsCount++;
                     }
                     string statusMessage = (updatesCount > 0 ? (updatesCount > 1 ? STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) : STATUS_MESSAGE__THERE_IS_AN_UPDATE) : STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
@@ -412,7 +412,7 @@ namespace Scrupdate.UiElements.Windows
                 CurrentOperation = Operation.UpdatingProgramDatabase;
                 programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread = new CancellableThread((CancellationToken cancellationToken) =>
                 {
-                    if (App.SettingsHandler.SettingsInMemory.Global.EnableScanningForInstalledPrograms)
+                    if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
                     {
                         ChangeStatusMessages(STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
                         ChangeProgressBarValue(-1);

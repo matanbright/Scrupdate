@@ -73,17 +73,17 @@ namespace Scrupdate.Classes.Utilities
                 throw new ArgumentNullException();
             try
             {
-                if (!settings.Global.EnableScheduledCheckForProgramUpdates)
+                if (!settings.General.EnableScheduledCheckForProgramUpdates)
                     return false;
                 DateTime lastProgramUpdatesScheduledCheckAttemptionTime = settings.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
                 DateTime nextProgramUpdatesScheduledCheckAttemptionTime;
-                if (lastProgramUpdatesScheduledCheckAttemptionTime.Hour < settings.Global.ProgramUpdatesScheduledCheckHour)
-                    nextProgramUpdatesScheduledCheckAttemptionTime = new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.Global.ProgramUpdatesScheduledCheckHour, 0, 0, 0);
+                if (lastProgramUpdatesScheduledCheckAttemptionTime.Hour < settings.General.ProgramUpdatesScheduledCheckHour)
+                    nextProgramUpdatesScheduledCheckAttemptionTime = new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.General.ProgramUpdatesScheduledCheckHour, 0, 0, 0);
                 else
-                    nextProgramUpdatesScheduledCheckAttemptionTime = (new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.Global.ProgramUpdatesScheduledCheckHour, 0, 0, 0)).AddDays(1);
+                    nextProgramUpdatesScheduledCheckAttemptionTime = (new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.General.ProgramUpdatesScheduledCheckHour, 0, 0, 0)).AddDays(1);
                 for (int i = 0; i < 7; i++)
                 {
-                    if ((settings.Global.ProgramUpdatesScheduledCheckDays & ((Settings.GlobalSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek))) == 0)
+                    if ((settings.General.ProgramUpdatesScheduledCheckDays & ((Settings.GeneralSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek))) == 0)
                         nextProgramUpdatesScheduledCheckAttemptionTime = nextProgramUpdatesScheduledCheckAttemptionTime.AddDays(1);
                     else
                         return (DateTime.Now >= nextProgramUpdatesScheduledCheckAttemptionTime);
@@ -116,8 +116,8 @@ namespace Scrupdate.Classes.Utilities
             {
                 if (settingsHandler.SettingsInMemory == null)
                     return false;
-                if (settingsHandler.SettingsInMemory.Global.EnableScheduledCheckForProgramUpdates)
-                    return WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(settingsHandler.SettingsInMemory.Global.ProgramUpdatesScheduledCheckDays, settingsHandler.SettingsInMemory.Global.ProgramUpdatesScheduledCheckHour);
+                if (settingsHandler.SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
+                    return WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckDays, settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckHour);
                 else
                     return WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck();
             }

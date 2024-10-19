@@ -40,9 +40,9 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static bool ScheduleProgramUpdatesCheck(Settings.GlobalSettings.WeekDays scheduleDays, int scheduleHour)
+        public static bool ScheduleProgramUpdatesCheck(Settings.GeneralSettings.WeekDays scheduleDays, int scheduleHour)
         {
-            if (scheduleDays == Settings.GlobalSettings.WeekDays.None)
+            if (scheduleDays == Settings.GeneralSettings.WeekDays.None)
                 throw new ArgumentException();
             if (!((int)scheduleDays >= 0b00000001 && (int)scheduleDays <= 0b01111111) || !(scheduleHour >= 0 && scheduleHour < 24))
                 throw new ArgumentOutOfRangeException();
@@ -65,13 +65,13 @@ namespace Scrupdate.Classes.Utilities
                                         <Enabled>true</Enabled>
                                         <ScheduleByWeek>
                                             <DaysOfWeek>
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Sunday) != 0) ? "<Sunday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Monday) != 0) ? "<Monday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Tuesday) != 0) ? "<Tuesday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Wednesday) != 0) ? "<Wednesday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Thursday) != 0) ? "<Thursday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Friday) != 0) ? "<Friday />" : "")}
-                                                {(((scheduleDays & Settings.GlobalSettings.WeekDays.Saturday) != 0) ? "<Saturday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0) ? "<Sunday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0) ? "<Monday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0) ? "<Tuesday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0) ? "<Wednesday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0) ? "<Thursday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0) ? "<Friday />" : "")}
+                                                {(((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0) ? "<Saturday />" : "")}
                                             </DaysOfWeek>
                                             <WeeksInterval>1</WeeksInterval>
                                         </ScheduleByWeek>
