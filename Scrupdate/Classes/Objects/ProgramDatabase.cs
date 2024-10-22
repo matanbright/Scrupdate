@@ -191,18 +191,14 @@ namespace Scrupdate.Classes.Objects
                 File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
                 sqLiteConnection.Open();
                 open = true;
-                try
-                {
-                    byte[] buffer = new byte[fileStreamOfprogramDatabaseChecksumFile.Length];
-                    fileStreamOfprogramDatabaseChecksumFile.Position = 0;
-                    fileStreamOfprogramDatabaseChecksumFile.Read(buffer);
-                    string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
-                    if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
-                        programDatabaseFileIsCorrupted = true;
-                    else
-                        return true;
-                }
-                catch { }
+                byte[] buffer = new byte[fileStreamOfprogramDatabaseChecksumFile.Length];
+                fileStreamOfprogramDatabaseChecksumFile.Position = 0;
+                fileStreamOfprogramDatabaseChecksumFile.Read(buffer);
+                string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
+                if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
+                    programDatabaseFileIsCorrupted = true;
+                else
+                    return true;
             }
             catch { }
             fileStreamOfprogramDatabaseChecksumFile?.Dispose();
