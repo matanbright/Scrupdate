@@ -209,14 +209,6 @@ namespace Scrupdate.Classes.Objects
                 return false;
             }
         }
-        public bool EnsureSettingsAreLoadedToMemory()
-        {
-            if (disposed)
-                throw new ObjectDisposedException(GetType().Name);
-            if (SettingsInMemory != null)
-                return true;
-            return LoadSettingsToMemoryFromSettingsFile(out _);
-        }
         public void Dispose()
         {
             if (!disposed)
