@@ -79,22 +79,22 @@ namespace Scrupdate.Classes.Objects
         private const string TABLE_NAME__PROGRAMS = "programs";
         private static readonly TableColumn TABLE_COLUMN__ID = new TableColumn("id", "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT");
         private static readonly TableColumn TABLE_COLUMN__NAME = new TableColumn("name", "TEXT NOT NULL UNIQUE");
-        private static readonly TableColumn TABLE_COLUMN__INSTALLED_VERSION = new TableColumn("installed_version", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__LATEST_VERSION = new TableColumn("latest_version", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__INSTALLATION_SCOPE = new TableColumn("installation_scope", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED = new TableColumn("is_update_check_configured", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_URL = new TableColumn("web_page_url", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD = new TableColumn("version_search_method", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1 = new TableColumn("version_search_method_argument_1", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2 = new TableColumn("version_search_method_argument_2", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION = new TableColumn("treat_a_standalone_number_as_a_version", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR = new TableColumn("version_search_behavior", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY = new TableColumn("web_page_post_load_delay", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = new TableColumn("locating_instructions_of_web_page_elements_to_simulate_a_click_on", "TEXT NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__IS_AUTOMATICALLY_ADDED = new TableColumn("is_automatically_added", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS = new TableColumn("update_check_configuration_status", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL");
-        private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__INSTALLED_VERSION = new TableColumn("installed_version", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__LATEST_VERSION = new TableColumn("latest_version", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__INSTALLATION_SCOPE = new TableColumn("installation_scope", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED = new TableColumn("is_update_check_configured", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_URL = new TableColumn("web_page_url", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD = new TableColumn("version_search_method", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1 = new TableColumn("version_search_method_argument_1", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2 = new TableColumn("version_search_method_argument_2", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION = new TableColumn("treat_a_standalone_number_as_a_version", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR = new TableColumn("version_search_behavior", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY = new TableColumn("web_page_post_load_delay", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = new TableColumn("locating_instructions_of_web_page_elements_to_simulate_a_click_on", "TEXT NOT NULL DEFAULT \"\"");
+        private static readonly TableColumn TABLE_COLUMN__IS_AUTOMATICALLY_ADDED = new TableColumn("is_automatically_added", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS = new TableColumn("update_check_configuration_status", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL DEFAULT 0");
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
