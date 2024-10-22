@@ -96,49 +96,63 @@ namespace Scrupdate.Classes.Objects
             currentSqLiteTransaction = null;
             if (!File.Exists(programDatabaseFilePath))
             {
-                string programDatabaseFileDirectoryPath = Path.GetDirectoryName(programDatabaseFilePath);
-                if (!Directory.Exists(programDatabaseFileDirectoryPath))
-                    Directory.CreateDirectory(programDatabaseFileDirectoryPath);
-                string programDatabaseChecksumFileDirectoryPath = Path.GetDirectoryName(programDatabaseChecksumFilePath);
-                if (!Directory.Exists(programDatabaseChecksumFileDirectoryPath))
-                    Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
-                if (File.Exists(programDatabaseChecksumFilePath))
-                    File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
-                fileStreamOfprogramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-                File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
-                sqLiteConnection.Open();
-                open = true;
-                tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(DATABASE_VERSION).Append(';');
-                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
-                    sqLiteCommand.ExecuteNonQuery();
-                tempStringBuilder.Clear();
-                tempStringBuilder.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (")
-                    .Append($"{TABLE_COLUMN_NAME__ID} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ")
-                    .Append($"{TABLE_COLUMN_NAME__NAME} TEXT NOT NULL UNIQUE, ")
-                    .Append($"{TABLE_COLUMN_NAME__INSTALLED_VERSION} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__LATEST_VERSION} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__INSTALLATION_SCOPE} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_URL} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON} TEXT NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} INTEGER NOT NULL, ")
-                    .Append($"{TABLE_COLUMN_NAME__IS_HIDDEN} INTEGER NOT NULL");
-                tempStringBuilder.Append(");");
-                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
-                    sqLiteCommand.ExecuteNonQuery();
-                UpdateProgramDatabaseChecksumFile();
-                fileStreamOfprogramDatabaseChecksumFile.Dispose();
+                bool programDatabaseCreationWasSucceeded = false;
+                try
+                {
+                    string programDatabaseFileDirectoryPath = Path.GetDirectoryName(programDatabaseFilePath);
+                    if (!Directory.Exists(programDatabaseFileDirectoryPath))
+                        Directory.CreateDirectory(programDatabaseFileDirectoryPath);
+                    string programDatabaseChecksumFileDirectoryPath = Path.GetDirectoryName(programDatabaseChecksumFilePath);
+                    if (!Directory.Exists(programDatabaseChecksumFileDirectoryPath))
+                        Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
+                    if (File.Exists(programDatabaseChecksumFilePath))
+                        File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
+                    fileStreamOfprogramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                    File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
+                    sqLiteConnection.Open();
+                    open = true;
+                    tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(DATABASE_VERSION).Append(';');
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                        sqLiteCommand.ExecuteNonQuery();
+                    tempStringBuilder.Clear();
+                    tempStringBuilder.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (")
+                        .Append($"{TABLE_COLUMN_NAME__ID} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ")
+                        .Append($"{TABLE_COLUMN_NAME__NAME} TEXT NOT NULL UNIQUE, ")
+                        .Append($"{TABLE_COLUMN_NAME__INSTALLED_VERSION} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__LATEST_VERSION} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__INSTALLATION_SCOPE} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_URL} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON} TEXT NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} INTEGER NOT NULL, ")
+                        .Append($"{TABLE_COLUMN_NAME__IS_HIDDEN} INTEGER NOT NULL");
+                    tempStringBuilder.Append(");");
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                        sqLiteCommand.ExecuteNonQuery();
+                    programDatabaseCreationWasSucceeded = true;
+                }
+                catch { }
+                if (programDatabaseCreationWasSucceeded)
+                    UpdateProgramDatabaseChecksumFile();
+                fileStreamOfprogramDatabaseChecksumFile?.Dispose();
                 fileStreamOfprogramDatabaseChecksumFile = null;
                 sqLiteConnection.Close();
                 open = false;
+                if (!programDatabaseCreationWasSucceeded)
+                {
+                    if (File.Exists(programDatabaseFilePath))
+                        File.Delete(programDatabaseFilePath);
+                    if (File.Exists(programDatabaseChecksumFilePath))
+                        File.Delete(programDatabaseChecksumFilePath);
+                }
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
