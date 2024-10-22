@@ -41,6 +41,35 @@ namespace Scrupdate.Classes.Objects
             public DatabaseIsNotOpenException() : base(EXCEPTION_MESSAGE) { }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
+        public readonly struct TableColumn
+        {
+            // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            public string Name { get; init; }
+            public string Properties { get; init; }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            public TableColumn() : this("", "") { }
+            public TableColumn(string name, string properties)
+            {
+                Name = name;
+                Properties = properties;
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            public string ToSqlString()
+            {
+                StringBuilder sqlString = new StringBuilder();
+                sqlString.Append(Name).Append(' ').Append(Properties);
+                return sqlString.ToString();
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,24 +77,24 @@ namespace Scrupdate.Classes.Objects
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const int DATABASE_VERSION = 1;
         private const string TABLE_NAME__PROGRAMS = "programs";
-        private const string TABLE_COLUMN_NAME__ID = "id";
-        private const string TABLE_COLUMN_NAME__NAME = "name";
-        private const string TABLE_COLUMN_NAME__INSTALLED_VERSION = "installed_version";
-        private const string TABLE_COLUMN_NAME__LATEST_VERSION = "latest_version";
-        private const string TABLE_COLUMN_NAME__INSTALLATION_SCOPE = "installation_scope";
-        private const string TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED = "is_update_check_configured";
-        private const string TABLE_COLUMN_NAME__WEB_PAGE_URL = "web_page_url";
-        private const string TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD = "version_search_method";
-        private const string TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1 = "version_search_method_argument_1";
-        private const string TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2 = "version_search_method_argument_2";
-        private const string TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION = "treat_a_standalone_number_as_a_version";
-        private const string TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR = "version_search_behavior";
-        private const string TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY = "web_page_post_load_delay";
-        private const string TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "web_page_element_locating_instructions_of_web_page_elements_to_simulate_a_click_on";
-        private const string TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED = "is_automatically_added";
-        private const string TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS = "update_check_configuration_status";
-        private const string TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR = "update_check_configuration_error";
-        private const string TABLE_COLUMN_NAME__IS_HIDDEN = "is_hidden";
+        private static readonly TableColumn TABLE_COLUMN__ID = new TableColumn("id", "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT");
+        private static readonly TableColumn TABLE_COLUMN__NAME = new TableColumn("name", "TEXT NOT NULL UNIQUE");
+        private static readonly TableColumn TABLE_COLUMN__INSTALLED_VERSION = new TableColumn("installed_version", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__LATEST_VERSION = new TableColumn("latest_version", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__INSTALLATION_SCOPE = new TableColumn("installation_scope", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED = new TableColumn("is_update_check_configured", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_URL = new TableColumn("web_page_url", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD = new TableColumn("version_search_method", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1 = new TableColumn("version_search_method_argument_1", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2 = new TableColumn("version_search_method_argument_2", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION = new TableColumn("treat_a_standalone_number_as_a_version", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR = new TableColumn("version_search_behavior", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY = new TableColumn("web_page_post_load_delay", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = new TableColumn("web_page_element_locating_instructions_of_web_page_elements_to_simulate_a_click_on", "TEXT NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__IS_AUTOMATICALLY_ADDED = new TableColumn("is_automatically_added", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS = new TableColumn("update_check_configuration_status", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL");
+        private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL");
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -116,24 +145,24 @@ namespace Scrupdate.Classes.Objects
                         sqLiteCommand.ExecuteNonQuery();
                     tempStringBuilder.Clear();
                     tempStringBuilder.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (")
-                        .Append($"{TABLE_COLUMN_NAME__ID} INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ")
-                        .Append($"{TABLE_COLUMN_NAME__NAME} TEXT NOT NULL UNIQUE, ")
-                        .Append($"{TABLE_COLUMN_NAME__INSTALLED_VERSION} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__LATEST_VERSION} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__INSTALLATION_SCOPE} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_URL} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON} TEXT NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} INTEGER NOT NULL, ")
-                        .Append($"{TABLE_COLUMN_NAME__IS_HIDDEN} INTEGER NOT NULL");
+                        .Append($"{TABLE_COLUMN__ID.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__NAME.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__INSTALLED_VERSION.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__LATEST_VERSION.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__WEB_PAGE_URL.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.ToSqlString()}, ")
+                        .Append($"{TABLE_COLUMN__IS_HIDDEN.ToSqlString()}");
                     tempStringBuilder.Append(");");
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
                         sqLiteCommand.ExecuteNonQuery();
@@ -335,62 +364,62 @@ namespace Scrupdate.Classes.Objects
                 throw new DatabaseIsNotOpenException();
             tempStringBuilder.Clear();
             tempStringBuilder.Append($"INSERT INTO {TABLE_NAME__PROGRAMS} (")
-                .Append($"{TABLE_COLUMN_NAME__NAME}, ")
-                .Append($"{TABLE_COLUMN_NAME__INSTALLED_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__LATEST_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__INSTALLATION_SCOPE}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_URL}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2}, ")
-                .Append($"{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED}, ")
-                .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}, ")
-                .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_HIDDEN}");
+                .Append($"{TABLE_COLUMN__NAME.Name}, ")
+                .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__LATEST_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name}, ")
+                .Append($"{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
+                .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
+                .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}");
             tempStringBuilder.Append(") VALUES (")
-                .Append($"@{TABLE_COLUMN_NAME__NAME}, ")
-                .Append($"@{TABLE_COLUMN_NAME__INSTALLED_VERSION}, ")
-                .Append($"@{TABLE_COLUMN_NAME__LATEST_VERSION}, ")
-                .Append($"@{TABLE_COLUMN_NAME__INSTALLATION_SCOPE}, ")
-                .Append($"@{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED}, ")
-                .Append($"@{TABLE_COLUMN_NAME__WEB_PAGE_URL}, ")
-                .Append($"@{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD}, ")
-                .Append($"@{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1}, ")
-                .Append($"@{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2}, ")
-                .Append($"@{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION}, ")
-                .Append($"@{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR}, ")
-                .Append($"@{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY}, ")
-                .Append($"@{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON}, ")
-                .Append($"@{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED}, ")
-                .Append($"@{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}, ")
-                .Append($"@{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}, ")
-                .Append($"@{TABLE_COLUMN_NAME__IS_HIDDEN}");
+                .Append($"@{TABLE_COLUMN__NAME.Name}, ")
+                .Append($"@{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
+                .Append($"@{TABLE_COLUMN__LATEST_VERSION.Name}, ")
+                .Append($"@{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"@{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
+                .Append($"@{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
+                .Append($"@{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
+                .Append($"@{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name}, ")
+                .Append($"@{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name}, ")
+                .Append($"@{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name}, ")
+                .Append($"@{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
+                .Append($"@{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
+                .Append($"@{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
+                .Append($"@{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
+                .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
+                .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}");
             tempStringBuilder.Append(");");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, program.Name);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__INSTALLED_VERSION, program.InstalledVersion);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__LATEST_VERSION, program.LatestVersion);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__INSTALLATION_SCOPE, (long)program.InstallationScope);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED, Convert.ToInt64(program.IsUpdateCheckConfigured));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__WEB_PAGE_URL, program.WebPageUrl);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD, (long)program.VersionSearchMethod);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1, program.VersionSearchMethodArgument1);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2, program.VersionSearchMethodArgument2);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION, Convert.ToInt64(program.TreatAStandaloneNumberAsAVersion));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR, (long)program.VersionSearchBehavior);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY, (long)program.WebPagePostLoadDelay);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON, JsonSerializer.Serialize(program.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED, Convert.ToInt64(program.IsAutomaticallyAdded));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS, (long)program.UpdateCheckConfigurationStatus);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR, (long)program.UpdateCheckConfigurationError);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__IS_HIDDEN, Convert.ToInt64(program.IsHidden));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, program.Name);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__INSTALLED_VERSION.Name, program.InstalledVersion);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__LATEST_VERSION.Name, program.LatestVersion);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__INSTALLATION_SCOPE.Name, (long)program.InstallationScope);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name, Convert.ToInt64(program.IsUpdateCheckConfigured));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__WEB_PAGE_URL.Name, program.WebPageUrl);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_METHOD.Name, (long)program.VersionSearchMethod);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name, program.VersionSearchMethodArgument1);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name, program.VersionSearchMethodArgument2);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name, Convert.ToInt64(program.TreatAStandaloneNumberAsAVersion));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name, (long)program.VersionSearchBehavior);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name, (long)program.WebPagePostLoadDelay);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name, JsonSerializer.Serialize(program.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, Convert.ToInt64(program.IsAutomaticallyAdded));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name, (long)program.UpdateCheckConfigurationStatus);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name, (long)program.UpdateCheckConfigurationError);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_HIDDEN.Name, Convert.ToInt64(program.IsHidden));
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -408,16 +437,16 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool programIsHidden = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT {TABLE_COLUMN_NAME__IS_HIDDEN} FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT {TABLE_COLUMN__IS_HIDDEN.Name} FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
                         if (sQLiteDataReader.Read())
-                            programIsHidden = Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_HIDDEN]);
+                            programIsHidden = Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]);
                     }
                     catch { }
                     sQLiteDataReader.Close();
@@ -441,10 +470,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__IS_HIDDEN} = @new_{TABLE_COLUMN_NAME__IS_HIDDEN} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__IS_HIDDEN}", hidden ? 1L : 0L);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", hidden ? 1L : 0L);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -462,11 +491,11 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}, {TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}", (long)updateCheckConfigurationStatus);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}", (long)updateCheckConfigurationError);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)updateCheckConfigurationStatus);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)updateCheckConfigurationError);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -484,12 +513,12 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__INSTALLED_VERSION} = @new_{TABLE_COLUMN_NAME__INSTALLED_VERSION}, {TABLE_COLUMN_NAME__INSTALLATION_SCOPE} = @new_{TABLE_COLUMN_NAME__INSTALLATION_SCOPE} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME} AND {TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} = @{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, {TABLE_COLUMN__INSTALLATION_SCOPE.Name} = @new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name} AND {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__INSTALLED_VERSION}", installedVersion);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__INSTALLATION_SCOPE}", (long)installationScope);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED, 1);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", installedVersion);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}", (long)installationScope);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, 1);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -507,10 +536,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__LATEST_VERSION} = @new_{TABLE_COLUMN_NAME__LATEST_VERSION} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__LATEST_VERSION}", latestVersion);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", latestVersion);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -528,12 +557,12 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__LATEST_VERSION} = @new_{TABLE_COLUMN_NAME__LATEST_VERSION}, {TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}, {TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} WHERE {TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED} = @{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name} = @{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__LATEST_VERSION}", "");
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}", (long)Program.ProgramUpdateCheckConfigurationStatus.Unknown);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}", (long)Program.ProgramUpdateCheckConfigurationError.None);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED, 1);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", "");
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)Program.ProgramUpdateCheckConfigurationStatus.Unknown);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)Program.ProgramUpdateCheckConfigurationError.None);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name, 1);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -551,9 +580,9 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} = @new_{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED}", 0);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", 0);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -571,9 +600,9 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"DELETE FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"DELETE FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -591,9 +620,9 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             Program program = null;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT * FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT * FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
@@ -602,23 +631,23 @@ namespace Scrupdate.Classes.Objects
                         if (sQLiteDataReader.Read())
                         {
                             program = new Program(
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__NAME],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__INSTALLED_VERSION],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__LATEST_VERSION],
-                                    (Program.ProgramInstallationScope)((long)sQLiteDataReader[TABLE_COLUMN_NAME__INSTALLATION_SCOPE]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_URL],
-                                    (Program.ProgramVersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2],
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION]),
-                                    (Program.ProgramVersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR]),
-                                    (Program.ProgramWebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY]),
-                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED]),
-                                    (Program.ProgramUpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS]),
-                                    (Program.ProgramUpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_HIDDEN])
+                                    (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                    (Program.ProgramInstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                    (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                    (Program.ProgramVersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                    (Program.ProgramVersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                    (Program.ProgramWebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                    (Program.ProgramUpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                    (Program.ProgramUpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                                 ); ;
                         }
                     }
@@ -645,24 +674,24 @@ namespace Scrupdate.Classes.Objects
                     {
                         while (sQLiteDataReader.Read())
                         {
-                            programs.Add((string)sQLiteDataReader[TABLE_COLUMN_NAME__NAME], new Program(
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__NAME],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__INSTALLED_VERSION],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__LATEST_VERSION],
-                                    (Program.ProgramInstallationScope)((long)sQLiteDataReader[TABLE_COLUMN_NAME__INSTALLATION_SCOPE]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_URL],
-                                    (Program.ProgramVersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1],
-                                    (string)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2],
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION]),
-                                    (Program.ProgramVersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR]),
-                                    (Program.ProgramWebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY]),
-                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED]),
-                                    (Program.ProgramUpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS]),
-                                    (Program.ProgramUpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN_NAME__IS_HIDDEN])
+                            programs.Add((string)sQLiteDataReader[TABLE_COLUMN__NAME.Name], new Program(
+                                    (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                    (Program.ProgramInstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                    (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                    (Program.ProgramVersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                    (Program.ProgramVersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                    (Program.ProgramWebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                    (Program.ProgramUpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                    (Program.ProgramUpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                                 ));
                         }
                     }
@@ -681,45 +710,45 @@ namespace Scrupdate.Classes.Objects
                 throw new DatabaseIsNotOpenException();
             tempStringBuilder.Clear();
             tempStringBuilder.Append($"UPDATE {TABLE_NAME__PROGRAMS} SET ")
-                .Append($"{TABLE_COLUMN_NAME__NAME} = @new_{TABLE_COLUMN_NAME__NAME}, ")
-                .Append($"{TABLE_COLUMN_NAME__INSTALLED_VERSION} = @new_{TABLE_COLUMN_NAME__INSTALLED_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__LATEST_VERSION} = @new_{TABLE_COLUMN_NAME__LATEST_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__INSTALLATION_SCOPE} = @new_{TABLE_COLUMN_NAME__INSTALLATION_SCOPE}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED} = @new_{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_URL} = @new_{TABLE_COLUMN_NAME__WEB_PAGE_URL}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD} = @new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1} = @new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2} = @new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2}, ")
-                .Append($"{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION} = @new_{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION}, ")
-                .Append($"{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR} = @new_{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY} = @new_{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY}, ")
-                .Append($"{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON} = @new_{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED} = @new_{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED}, ")
-                .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}, ")
-                .Append($"{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR} = @new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}, ")
-                .Append($"{TABLE_COLUMN_NAME__IS_HIDDEN} = @new_{TABLE_COLUMN_NAME__IS_HIDDEN} ");
-            tempStringBuilder.Append($"WHERE {TABLE_COLUMN_NAME__NAME} = @{TABLE_COLUMN_NAME__NAME};");
+                .Append($"{TABLE_COLUMN__NAME.Name} = @new_{TABLE_COLUMN__NAME.Name}, ")
+                .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.Name} = @new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name} = @new_{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_URL.Name} = @new_{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name}, ")
+                .Append($"{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name} = @new_{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name}, ")
+                .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name} = @new_{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
+                .Append($"{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name} = @new_{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
+                .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
+                .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ");
+            tempStringBuilder.Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__NAME}", newProgram.Name);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__INSTALLED_VERSION}", newProgram.InstalledVersion);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__LATEST_VERSION}", newProgram.LatestVersion);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__INSTALLATION_SCOPE}", (long)newProgram.InstallationScope);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__IS_UPDATE_CHECK_CONFIGURED}", Convert.ToInt64(newProgram.IsUpdateCheckConfigured));
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__WEB_PAGE_URL}", newProgram.WebPageUrl);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD}", (long)newProgram.VersionSearchMethod);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_1}", newProgram.VersionSearchMethodArgument1);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__VERSION_SEARCH_METHOD_ARGUMENT_2}", newProgram.VersionSearchMethodArgument2);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION}", Convert.ToInt64(newProgram.TreatAStandaloneNumberAsAVersion));
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__VERSION_SEARCH_BEHAVIOR}", (long)newProgram.VersionSearchBehavior);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__WEB_PAGE_POST_LOAD_DELAY}", (long)newProgram.WebPagePostLoadDelay);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON}", JsonSerializer.Serialize(newProgram.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn));
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__IS_AUTOMATICALLY_ADDED}", Convert.ToInt64(newProgram.IsAutomaticallyAdded));
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_STATUS}", (long)newProgram.UpdateCheckConfigurationStatus);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__UPDATE_CHECK_CONFIGURATION_ERROR}", (long)newProgram.UpdateCheckConfigurationError);
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN_NAME__IS_HIDDEN}", Convert.ToInt64(newProgram.IsHidden));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN_NAME__NAME, programName);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__NAME.Name}", newProgram.Name);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", newProgram.InstalledVersion);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", newProgram.LatestVersion);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}", (long)newProgram.InstallationScope);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}", Convert.ToInt64(newProgram.IsUpdateCheckConfigured));
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__WEB_PAGE_URL.Name}", newProgram.WebPageUrl);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}", (long)newProgram.VersionSearchMethod);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name}", newProgram.VersionSearchMethodArgument1);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name}", newProgram.VersionSearchMethodArgument2);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name}", Convert.ToInt64(newProgram.TreatAStandaloneNumberAsAVersion));
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}", (long)newProgram.VersionSearchBehavior);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}", (long)newProgram.WebPagePostLoadDelay);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}", JsonSerializer.Serialize(newProgram.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn));
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", Convert.ToInt64(newProgram.IsAutomaticallyAdded));
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)newProgram.UpdateCheckConfigurationStatus);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)newProgram.UpdateCheckConfigurationError);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", Convert.ToInt64(newProgram.IsHidden));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
