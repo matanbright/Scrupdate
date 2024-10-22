@@ -98,13 +98,13 @@
                 </Grid.RowDefinitions>
                 <StackPanel x:Name="stackPanel_statusMessages" Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="20 20 20 20">
                     <DockPanel x:Name="dockPanel_statusMessageAndWarningIndicator" LastChildFill="True">
-                        <Viewbox x:Name="viewbox_settingsFileCorruptionWarningIndicatorImage" DockPanel.Dock="Right" ToolTipService.ShowDuration="1000000000" Width="28" Height="25" Margin="10 0 0 0">
+                        <Viewbox x:Name="viewbox_settingsFileWarningIndicatorImage" DockPanel.Dock="Right" ToolTipService.ShowDuration="1000000000" Width="28" Height="25" Margin="10 0 0 0">
                             <Viewbox.Style>
                                 <Style TargetType="Viewbox">
-                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="Visibility" Value="Visible" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=WasSettingsFileCorrupted}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible" />
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=SettingsFileError}" Value="Unspecified">
+                                            <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>

@@ -56,6 +56,7 @@ namespace Scrupdate
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE = "Unable to Access the Settings File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS = "Failed to Initialize Settings!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
         private const string ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED = "The Settings File Was Corrupted!\r\n\r\n•  The settings have been reset to their default values.\r\n•  If you have enabled scheduled check for program updates before, You will need to enable and set it again.\r\n•  The program database and the installed ChromeDriver were not affected.";
+        private const string ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE = "The Settings File Was Not Compatible!\r\n\r\n•  The settings have been reset to their default values.\r\n•  If you have enabled scheduled check for program updates before, You will need to enable and set it again.\r\n•  The program database and the installed ChromeDriver were not affected.";
         private const string ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID = "The Current Windows Scaling Factor Is Invalid for the Current Display Resolution!\r\n\r\n•  It has been set to the highest valid value.";
         public const string RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH = "transparentSolidColorBrush";
         public const string RESOURCE_KEY__WEAK_TRANSPARENT_RED_SOLID_COLOR_BRUSH = "weakTransparentRedSolidColorBrush";
@@ -164,8 +165,7 @@ namespace Scrupdate
                     {
                         using (SettingsHandler settingsHandler = new SettingsHandler(ApplicationUtilities.settingsFilePath, ApplicationUtilities.settingsChecksumFilePath))
                         {
-                            bool settingsFileIsCorrupted;
-                            if (settingsHandler.LoadSettingsToMemoryFromSettingsFile(out settingsFileIsCorrupted) && !settingsFileIsCorrupted)
+                            if (settingsHandler.LoadSettingsToMemoryFromSettingsFile(out _))
                                 ApplicationUtilities.UpdateScheduledTask(settingsHandler);
                         }
                     }
@@ -211,8 +211,8 @@ namespace Scrupdate
                     Shutdown();
                     return;
                 }
-                bool settingsFileIsCorrupted;
-                if (!SettingsHandler.LoadSettingsToMemoryFromSettingsFile(out settingsFileIsCorrupted))
+                ConfigError settingsFileError;
+                if (!SettingsHandler.LoadSettingsToMemoryFromSettingsFile(out settingsFileError))
                 {
                     SettingsHandler.SettingsInMemory = new Settings();
                     if (!SettingsHandler.SaveSettingsFromMemoryToSettingsFile())
@@ -230,8 +230,15 @@ namespace Scrupdate
                 {
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
                     SystemEvents.DisplaySettingsChanged += OnSystemDisplaySettingsChangedEvent;
-                    if (settingsFileIsCorrupted)
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED, null);
+                    switch (settingsFileError)
+                    {
+                        case ConfigError.Corrupted:
+                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED, null);
+                            break;
+                        case ConfigError.NotCompatible:
+                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE, null);
+                            break;
+                    }
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
@@ -242,7 +249,7 @@ namespace Scrupdate
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
                     StartListeningToScheduleInvokationCommand();
                     SystemEvents.DisplaySettingsChanged += OnSystemDisplaySettingsChangedEvent;
-                    ProgramUpdatesScheduledCheckWindow programUpdatesScheduledCheckWindow = new ProgramUpdatesScheduledCheckWindow(settingsFileIsCorrupted);
+                    ProgramUpdatesScheduledCheckWindow programUpdatesScheduledCheckWindow = new ProgramUpdatesScheduledCheckWindow(settingsFileError);
                     programUpdatesScheduledCheckWindow.Show();
                 }
                 else

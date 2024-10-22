@@ -54,6 +54,7 @@ namespace Scrupdate.UiElements.Windows
         private const string ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR = "There Is an Error";
         private const string ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS = "There Are {*} Errors";
         private const string TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED = "The Settings File Was Corrupted!\r\n\r\n•  The settings have been reset to their default values.\r\n•  You will need to enable and set again the scheduled check for program updates.\r\n•  The program database and the installed ChromeDriver were not affected.";
+        private const string TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE = "The Settings File Was Not Compatible!\r\n\r\n•  The settings have been reset to their default values.\r\n•  You will need to enable and set again the scheduled check for program updates.\r\n•  The program database and the installed ChromeDriver were not affected.";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -85,7 +86,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty WasSettingsFileCorruptedProperty = DependencyProperty.Register(nameof(WasSettingsFileCorrupted), typeof(bool), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(false));
+        public static readonly DependencyProperty SettingsFileErrorProperty = DependencyProperty.Register(nameof(SettingsFileError), typeof(ConfigError), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(ConfigError.Unspecified));
         public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(nameof(CurrentError), typeof(Error), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(Error.None));
         public static readonly DependencyProperty IsWindowCollapsedProperty = DependencyProperty.Register(nameof(IsWindowCollapsed), typeof(bool), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(false));
         public static readonly DependencyProperty CurrentOperationProperty = DependencyProperty.Register(nameof(CurrentOperation), typeof(Operation), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(Operation.None));
@@ -102,18 +103,18 @@ namespace Scrupdate.UiElements.Windows
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public Size BaseSizeOfWindow { get; private set; }
-        public bool WasSettingsFileCorrupted
+        public ConfigError SettingsFileError
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(WasSettingsFileCorruptedProperty));
+                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (ConfigError)GetValue(SettingsFileErrorProperty));
             }
             set
             {
                 ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
                 {
-                    SetValue(WasSettingsFileCorruptedProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(WasSettingsFileCorrupted)));
+                    SetValue(SettingsFileErrorProperty, value);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SettingsFileError)));
                 });
             }
         }
@@ -198,8 +199,8 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public ProgramUpdatesScheduledCheckWindow() : this(false) { }
-        public ProgramUpdatesScheduledCheckWindow(bool settingsFileWasCorrupted)
+        public ProgramUpdatesScheduledCheckWindow() : this(ConfigError.Unspecified) { }
+        public ProgramUpdatesScheduledCheckWindow(ConfigError settingsFileError)
         {
             try
             {
@@ -223,8 +224,16 @@ namespace Scrupdate.UiElements.Windows
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
             WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
-            viewbox_settingsFileCorruptionWarningIndicatorImage.ToolTip = TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED;
-            WasSettingsFileCorrupted = settingsFileWasCorrupted;
+            switch (settingsFileError)
+            {
+                case ConfigError.Corrupted:
+                    viewbox_settingsFileWarningIndicatorImage.ToolTip = TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED;
+                    break;
+                case ConfigError.NotCompatible:
+                    viewbox_settingsFileWarningIndicatorImage.ToolTip = TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE;
+                    break;
+            }
+            SettingsFileError = settingsFileError;
             App.ScheduleInvokationCommandReceived += OnAppScheduleInvokationCommandReceivedEvent;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,7 +286,7 @@ namespace Scrupdate.UiElements.Windows
                         Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                         Close();
                         Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                        (new ProgramUpdatesScheduledCheckWindow(WasSettingsFileCorrupted)).Show();
+                        (new ProgramUpdatesScheduledCheckWindow(SettingsFileError)).Show();
                     });
                 }
             }

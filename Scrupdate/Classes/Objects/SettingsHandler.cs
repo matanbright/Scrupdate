@@ -17,7 +17,6 @@
 
 using System;
 using System.Text;
-using System.Text.Json;
 using System.IO;
 using Scrupdate.Classes.Utilities;
 
@@ -160,7 +159,7 @@ namespace Scrupdate.Classes.Objects
                     return false;
                 }
                 byte[] buffer = null;
-                string jsonSerializedSettingsString = JsonSerializer.Serialize(SettingsInMemory);
+                string jsonSerializedSettingsString = SettingsInMemory.GetJsonRepresentation();
                 buffer = Encoding.UTF8.GetBytes(jsonSerializedSettingsString);
                 fileStreamOfSettingsFile.Position = 0;
                 fileStreamOfSettingsFile.SetLength(buffer.Length);
@@ -179,9 +178,9 @@ namespace Scrupdate.Classes.Objects
                 return false;
             }
         }
-        public bool LoadSettingsToMemoryFromSettingsFile(out bool settingsFileIsCorrupted)
+        public bool LoadSettingsToMemoryFromSettingsFile(out ConfigError settingsFileError)
         {
-            settingsFileIsCorrupted = false;
+            settingsFileError = ConfigError.Unspecified;
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             try
@@ -198,10 +197,18 @@ namespace Scrupdate.Classes.Objects
                 string savedChecksumOfJsonSerializedSettingsString = Encoding.UTF8.GetString(buffer);
                 if (!checksumOfSavedJsonSerializedSettingsString.Equals(savedChecksumOfJsonSerializedSettingsString, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    settingsFileIsCorrupted = true;
+                    settingsFileError = ConfigError.Corrupted;
                     return false;
                 }
-                SettingsInMemory = JsonSerializer.Deserialize<Settings>(savedJsonSerializedSettingsString);
+                try
+                {
+                    SettingsInMemory = Settings.CreateFromJsonRepresentation(savedJsonSerializedSettingsString);
+                }
+                catch (Settings.SettingsVersionIsNotCompatibleException)
+                {
+                    settingsFileError = ConfigError.NotCompatible;
+                    return false;
+                }
                 return true;
             }
             catch
