@@ -287,16 +287,10 @@ namespace Scrupdate
                     string scheduleInvokationCommand = Encoding.UTF8.GetString(buffer, 0, bufferLength);
                     if (scheduleInvokationCommand.Equals(STARTUP_ARGUMENT__START_IN_SCHEDULED_MODE))
                         ScheduleInvokationCommandReceived.Invoke();
-                    StopListeningToScheduleInvokationCommand();
-                    StartListeningToScheduleInvokationCommand();
-                    return;
                 }
-                catch
-                {
-                    StopListeningToScheduleInvokationCommand();
-                    StartListeningToScheduleInvokationCommand();
-                    return;
-                }
+                catch { }
+                StopListeningToScheduleInvokationCommand();
+                StartListeningToScheduleInvokationCommand();
             });
             scheduleInvokationCommandListeningThread.IsBackground = true;
             scheduleInvokationCommandListeningThread.Start();

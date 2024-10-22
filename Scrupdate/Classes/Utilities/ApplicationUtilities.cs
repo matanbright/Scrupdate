@@ -89,12 +89,9 @@ namespace Scrupdate.Classes.Utilities
                     else
                         return (DateTime.Now >= nextProgramUpdatesScheduledCheckAttemptionTime);
                 }
-                return false;
             }
-            catch
-            {
-                return false;
-            }
+            catch { }
+            return false;
         }
         public static bool CreateDataFolderIfNotExists()
         {
@@ -119,8 +116,7 @@ namespace Scrupdate.Classes.Utilities
                     return false;
                 if (settingsHandler.SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
                     return WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckDays, settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckHour);
-                else
-                    return WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck();
+                return WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck();
             }
             catch
             {
