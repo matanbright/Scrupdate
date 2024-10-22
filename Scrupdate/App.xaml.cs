@@ -230,9 +230,9 @@ namespace Scrupdate
                 {
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
                     SystemEvents.DisplaySettingsChanged += OnSystemDisplaySettingsChangedEvent;
-                    MainWindow mainWindow = new MainWindow(Settings.CachedSettings.ProgramFilteringOption.Unknown, null);
                     if (settingsFileIsCorrupted)
                         DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED, null);
+                    MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
                         DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID, null);
