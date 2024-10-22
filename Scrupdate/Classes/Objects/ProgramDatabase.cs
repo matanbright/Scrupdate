@@ -295,7 +295,7 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             if (currentSqLiteTransaction != null)
-                return true;
+                return false;
             try
             {
                 currentSqLiteTransaction = sqLiteConnection.BeginTransaction();
@@ -313,7 +313,7 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             if (currentSqLiteTransaction == null)
-                return true;
+                return false;
             try
             {
                 currentSqLiteTransaction.Commit();
