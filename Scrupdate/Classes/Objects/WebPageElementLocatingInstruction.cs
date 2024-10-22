@@ -23,14 +23,14 @@ namespace Scrupdate.Classes.Objects
     public class WebPageElementLocatingInstruction
     {
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public enum WebPageElementLocatingInstructionMethod
+        public enum _LocatingMethod
         {
             Unspecified,
             ByHtmlElementId,
             ByXPath,
             ByInnerText
         }
-        public enum WebPageElementLocatingInstructionDuration
+        public enum _LocatingDuration
         {
             _Unspecified,
             _1Ms,
@@ -45,10 +45,10 @@ namespace Scrupdate.Classes.Objects
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public WebPageElementLocatingInstructionMethod Method { get; set; }
+        public _LocatingMethod LocatingMethod { get; set; }
         public string MethodArgument { get; set; }
         public bool MatchExactText { get; set; }
-        public WebPageElementLocatingInstructionDuration Duration { get; set; }
+        public _LocatingDuration LocatingDuration { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -56,17 +56,17 @@ namespace Scrupdate.Classes.Objects
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public WebPageElementLocatingInstruction()
         {
-            Method = WebPageElementLocatingInstructionMethod.Unspecified;
+            LocatingMethod = _LocatingMethod.Unspecified;
             MethodArgument = "";
             MatchExactText = false;
-            Duration = WebPageElementLocatingInstructionDuration._Unspecified;
+            LocatingDuration = _LocatingDuration._Unspecified;
         }
-        public WebPageElementLocatingInstruction(WebPageElementLocatingInstructionMethod method, string methodArgument, bool matchExactText, WebPageElementLocatingInstructionDuration duration)
+        public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod, string methodArgument, bool matchExactText, _LocatingDuration locatingDuration)
         {
-            Method = method;
+            LocatingMethod = locatingMethod;
             MethodArgument = methodArgument;
             MatchExactText = matchExactText;
-            Duration = duration;
+            LocatingDuration = locatingDuration;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,18 +78,18 @@ namespace Scrupdate.Classes.Objects
             if (obj == null || GetType() != obj.GetType())
                 return false;
             WebPageElementLocatingInstruction otherWebPageElementLocatingInstruction = (WebPageElementLocatingInstruction)obj;
-            return (Method.Equals(otherWebPageElementLocatingInstruction.Method) &&
+            return (LocatingMethod.Equals(otherWebPageElementLocatingInstruction.LocatingMethod) &&
                 MethodArgument.Equals(otherWebPageElementLocatingInstruction.MethodArgument) &&
                 MatchExactText == otherWebPageElementLocatingInstruction.MatchExactText &&
-                Duration == otherWebPageElementLocatingInstruction.Duration);
+                LocatingDuration == otherWebPageElementLocatingInstruction.LocatingDuration);
         }
         public override int GetHashCode()
         {
             StringBuilder objectHashingString = new StringBuilder();
-            objectHashingString.Append(Method.GetHashCode());
+            objectHashingString.Append(LocatingMethod.GetHashCode());
             objectHashingString.Append(MethodArgument.GetHashCode());
             objectHashingString.Append(MatchExactText.GetHashCode());
-            objectHashingString.Append(Duration.GetHashCode());
+            objectHashingString.Append(LocatingDuration.GetHashCode());
             return objectHashingString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

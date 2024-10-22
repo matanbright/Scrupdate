@@ -203,15 +203,15 @@ namespace Scrupdate.Classes.Objects
             IWebElement webPageElement = null;
             try
             {
-                switch (webPageElementLocatingInstruction.Method)
+                switch (webPageElementLocatingInstruction.LocatingMethod)
                 {
-                    case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod.ByHtmlElementId:
+                    case WebPageElementLocatingInstruction._LocatingMethod.ByHtmlElementId:
                         webPageElement = chromeDriver.FindElement(By.Id(webPageElementLocatingInstruction.MethodArgument));
                         break;
-                    case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod.ByXPath:
+                    case WebPageElementLocatingInstruction._LocatingMethod.ByXPath:
                         webPageElement = chromeDriver.FindElement(By.XPath(webPageElementLocatingInstruction.MethodArgument));
                         break;
-                    case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod.ByInnerText:
+                    case WebPageElementLocatingInstruction._LocatingMethod.ByInnerText:
                         tempStringBuilder.Clear().Append("//*[contains(text(), '").Append(webPageElementLocatingInstruction.MethodArgument).Append("')]");
                         webPageElement = chromeDriver.FindElement(By.XPath(tempStringBuilder.ToString()));
                         if (webPageElementLocatingInstruction.MatchExactText && !webPageElementLocatingInstruction.MethodArgument.Equals(webPageElement.GetAttribute("innerText").Trim()))
@@ -233,29 +233,29 @@ namespace Scrupdate.Classes.Objects
             {
                 throw new FailedToPerformAClickOnTheElementException();
             }
-            int webPageElementLocatingInstructionDuration = 0;
-            switch (webPageElementLocatingInstruction.Duration)
+            int webPageElementLocatingDuration = 0;
+            switch (webPageElementLocatingInstruction.LocatingDuration)
             {
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._1Ms:
-                    webPageElementLocatingInstructionDuration = 1;
+                case WebPageElementLocatingInstruction._LocatingDuration._1Ms:
+                    webPageElementLocatingDuration = 1;
                     break;
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._10Ms:
-                    webPageElementLocatingInstructionDuration = 10;
+                case WebPageElementLocatingInstruction._LocatingDuration._10Ms:
+                    webPageElementLocatingDuration = 10;
                     break;
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._100Ms:
-                    webPageElementLocatingInstructionDuration = 100;
+                case WebPageElementLocatingInstruction._LocatingDuration._100Ms:
+                    webPageElementLocatingDuration = 100;
                     break;
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._250Ms:
-                    webPageElementLocatingInstructionDuration = 250;
+                case WebPageElementLocatingInstruction._LocatingDuration._250Ms:
+                    webPageElementLocatingDuration = 250;
                     break;
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._500Ms:
-                    webPageElementLocatingInstructionDuration = 500;
+                case WebPageElementLocatingInstruction._LocatingDuration._500Ms:
+                    webPageElementLocatingDuration = 500;
                     break;
-                case WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._1000Ms:
-                    webPageElementLocatingInstructionDuration = 1000;
+                case WebPageElementLocatingInstruction._LocatingDuration._1000Ms:
+                    webPageElementLocatingDuration = 1000;
                     break;
             }
-            cancellationToken.Value.WaitHandle.WaitOne(webPageElementLocatingInstructionDuration);
+            cancellationToken.Value.WaitHandle.WaitOne(webPageElementLocatingDuration);
         }
         public string GetAllTextWithinWebPage()
         {

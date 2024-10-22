@@ -463,14 +463,14 @@
                                                                                                 <Style.Triggers>
                                                                                                     <MultiDataTrigger>
                                                                                                         <MultiDataTrigger.Conditions>
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.Method}" Value="ByInnerText" />
+                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.LocatingMethod}" Value="ByInnerText" />
                                                                                                             <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.MatchExactText}" Value="False" />
                                                                                                         </MultiDataTrigger.Conditions>
                                                                                                         <Setter Property="Text" Value="Contains: " />
                                                                                                     </MultiDataTrigger>
                                                                                                     <MultiDataTrigger>
                                                                                                         <MultiDataTrigger.Conditions>
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.Method}" Value="ByInnerText" />
+                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.LocatingMethod}" Value="ByInnerText" />
                                                                                                             <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.MatchExactText}" Value="True" />
                                                                                                         </MultiDataTrigger.Conditions>
                                                                                                         <Setter Property="Text" Value="Equals: " />

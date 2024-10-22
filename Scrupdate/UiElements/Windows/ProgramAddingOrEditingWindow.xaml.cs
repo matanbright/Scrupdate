@@ -133,17 +133,17 @@ namespace Scrupdate.UiElements.Windows
             comboBox_webPagePostLoadDelay.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program._WebPagePostLoadDelay._None.ToString().Substring(1)).Replace(" Ms", "ms");
             ((GridView)listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged += OnGridViewColumnsCollectionCollectionChangedEvent;
             listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.ItemsSource = webPageElementLocatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn;
-            foreach (string webPageElementLocatingMethodEnumItemName in Enum.GetNames(typeof(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod)))
+            foreach (string webPageElementLocatingMethodEnumItemName in Enum.GetNames(typeof(WebPageElementLocatingInstruction._LocatingMethod)))
             {
-                if (webPageElementLocatingMethodEnumItemName.Equals(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod.Unspecified.ToString()))
+                if (webPageElementLocatingMethodEnumItemName.Equals(WebPageElementLocatingInstruction._LocatingMethod.Unspecified.ToString()))
                     comboBox_webPageElementLocatingMethod.Items.Add("");
                 else
                     comboBox_webPageElementLocatingMethod.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(webPageElementLocatingMethodEnumItemName).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"));
             }
             comboBox_webPageElementLocatingMethod.SelectedItem = "";
-            foreach (string webPageElementLocatingDurationEnumItemName in Enum.GetNames(typeof(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration)))
+            foreach (string webPageElementLocatingDurationEnumItemName in Enum.GetNames(typeof(WebPageElementLocatingInstruction._LocatingDuration)))
             {
-                if (webPageElementLocatingDurationEnumItemName.Equals(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration._Unspecified.ToString()))
+                if (webPageElementLocatingDurationEnumItemName.Equals(WebPageElementLocatingInstruction._LocatingDuration._Unspecified.ToString()))
                     comboBox_webPageElementLocatingDuration.Items.Add("");
                 else
                     comboBox_webPageElementLocatingDuration.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(webPageElementLocatingDurationEnumItemName.Substring(1)).Replace(" Ms", "ms"));
@@ -516,9 +516,9 @@ namespace Scrupdate.UiElements.Windows
         {
             if (listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON && (!comboBox_webPageElementLocatingMethod.SelectedItem.Equals("") && textBox_webPageElementLocatingMethodArgument.Text.Trim().Length > 0 && !comboBox_webPageElementLocatingDuration.SelectedItem.Equals("")))
             {
-                WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod selectedWebPageElementLocatingMethod = (WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod)(Enum.Parse(typeof(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod), ((string)comboBox_webPageElementLocatingMethod.SelectedItem).Replace(" ", "").Replace("ID", "Id").Replace("HTML", "Html")));
+                WebPageElementLocatingInstruction._LocatingMethod selectedWebPageElementLocatingMethod = (WebPageElementLocatingInstruction._LocatingMethod)(Enum.Parse(typeof(WebPageElementLocatingInstruction._LocatingMethod), ((string)comboBox_webPageElementLocatingMethod.SelectedItem).Replace(" ", "").Replace("ID", "Id").Replace("HTML", "Html")));
                 tempStringBuilder.Clear().Append('_').Append(((string)comboBox_webPageElementLocatingDuration.SelectedItem).Replace(" ", "").Replace("ms", "Ms"));
-                WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration selectedWebPageElementLocatingDuration = (WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration)(Enum.Parse(typeof(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionDuration), tempStringBuilder.ToString()));
+                WebPageElementLocatingInstruction._LocatingDuration selectedWebPageElementLocatingDuration = (WebPageElementLocatingInstruction._LocatingDuration)(Enum.Parse(typeof(WebPageElementLocatingInstruction._LocatingDuration), tempStringBuilder.ToString()));
                 WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView = new WebPageElementLocatingInstruction(selectedWebPageElementLocatingMethod, textBox_webPageElementLocatingMethodArgument.Text.Trim(), (bool)checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked, selectedWebPageElementLocatingDuration);
                 webPageElementLocatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(new WebPageElementLocatingInstructionListViewItem(listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count + 1, typedWebPageElementLocatingInstructionToListView));
                 RefreshListView();
