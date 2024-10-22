@@ -303,11 +303,18 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            sqLiteConnection.Close();
             try
             {
-                string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
-                sqLiteConnection.Open();
+                string programDatabaseFileChecksum;
+                sqLiteConnection.Close();
+                try
+                {
+                    programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
+                }
+                finally
+                {
+                    sqLiteConnection.Open();
+                }
                 byte[] buffer = Encoding.UTF8.GetBytes(programDatabaseFileChecksum);
                 fileStreamOfProgramDatabaseChecksumFile.Position = 0;
                 fileStreamOfProgramDatabaseChecksumFile.SetLength(buffer.Length);
@@ -317,7 +324,6 @@ namespace Scrupdate.Classes.Objects
             }
             catch
             {
-                sqLiteConnection.Open();
                 return false;
             }
         }
