@@ -317,6 +317,7 @@ namespace Scrupdate.Classes.Objects
             try
             {
                 currentSqLiteTransaction.Commit();
+                currentSqLiteTransaction.Dispose();
                 currentSqLiteTransaction = null;
                 UpdateProgramDatabaseChecksumFile();
                 return true;
