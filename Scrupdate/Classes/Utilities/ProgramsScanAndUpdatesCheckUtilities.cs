@@ -306,7 +306,7 @@ namespace Scrupdate.Classes.Utilities
                         programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(programAlreadyInDatabase.Name, installedProgram.InstalledVersion, installedProgram.InstallationScope);
                     }
                 }
-                programDatabase.CommitTransaction();
+                programDatabase.EndTransaction();
                 programDatabase.BeginTransaction();
                 for (Dictionary<string, Program>.Enumerator i = installedPrograms.GetEnumerator(); i.MoveNext();)
                 {
@@ -314,7 +314,7 @@ namespace Scrupdate.Classes.Utilities
                     if (foundProgram != null)
                         programDatabase.AddNewProgram(foundProgram);
                 }
-                programDatabase.CommitTransaction();
+                programDatabase.EndTransaction();
                 string backupOfLastHashOfAllInstalledPrograms = settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
                 settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = hashOfStringOfAllInstalledPrograms;
                 if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())

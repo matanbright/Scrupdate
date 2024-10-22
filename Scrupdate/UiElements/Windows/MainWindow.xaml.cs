@@ -718,7 +718,7 @@ namespace Scrupdate.UiElements.Windows
                     programDatabase.HideProgram(selectedProgram.Name);
                     selectedProgram.IsHidden = true;
                 }
-                programDatabase.CommitTransaction();
+                programDatabase.EndTransaction();
                 RefreshListViewAndAllMessages();
             }
         }
@@ -733,7 +733,7 @@ namespace Scrupdate.UiElements.Windows
                     programDatabase.UnhideProgram(selectedProgram.Name);
                     selectedProgram.IsHidden = false;
                 }
-                programDatabase.CommitTransaction();
+                programDatabase.EndTransaction();
                 RefreshListViewAndAllMessages();
             }
         }
@@ -757,7 +757,7 @@ namespace Scrupdate.UiElements.Windows
                     if (selectedProgram.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
                         errorsCount--;
                 }
-                programDatabase.CommitTransaction();
+                programDatabase.EndTransaction();
                 RefreshListViewAndAllMessages();
             }
         }

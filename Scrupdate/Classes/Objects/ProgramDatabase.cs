@@ -306,7 +306,11 @@ namespace Scrupdate.Classes.Objects
                 return false;
             }
         }
-        public bool CommitTransaction()
+        public bool EndTransaction()
+        {
+            return EndTransaction(false);
+        }
+        public bool EndTransaction(bool rollback)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
@@ -316,7 +320,10 @@ namespace Scrupdate.Classes.Objects
                 return false;
             try
             {
-                currentSqLiteTransaction.Commit();
+                if (rollback)
+                    currentSqLiteTransaction.Rollback();
+                else
+                    currentSqLiteTransaction.Commit();
                 currentSqLiteTransaction.Dispose();
                 currentSqLiteTransaction = null;
                 UpdateProgramDatabaseChecksumFile();
