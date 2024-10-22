@@ -178,41 +178,45 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (File.Exists(programDatabaseFilePath))
                 return false;
+            bool programDatabaseCreationWasSucceeded = false;
             try
             {
-                bool programDatabaseCreationWasSucceeded = false;
-                try
+                string programDatabaseFileDirectoryPath = Path.GetDirectoryName(programDatabaseFilePath);
+                if (!Directory.Exists(programDatabaseFileDirectoryPath))
+                    Directory.CreateDirectory(programDatabaseFileDirectoryPath);
+                string programDatabaseChecksumFileDirectoryPath = Path.GetDirectoryName(programDatabaseChecksumFilePath);
+                if (!Directory.Exists(programDatabaseChecksumFileDirectoryPath))
+                    Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
+                if (File.Exists(programDatabaseChecksumFilePath))
+                    File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
+                fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
+                sqLiteConnection.Open();
+                open = true;
+                tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(GetIntegerFromAVersion(DATABASE_VERSION)).Append(';');
+                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                    sqLiteCommand.ExecuteNonQuery();
+                List<TableColumn> actualTableColumns = GetActualTableColumns();
+                tempStringBuilder.Clear().Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
+                for (int i = 0; i < actualTableColumns.Count; i++)
                 {
-                    string programDatabaseFileDirectoryPath = Path.GetDirectoryName(programDatabaseFilePath);
-                    if (!Directory.Exists(programDatabaseFileDirectoryPath))
-                        Directory.CreateDirectory(programDatabaseFileDirectoryPath);
-                    string programDatabaseChecksumFileDirectoryPath = Path.GetDirectoryName(programDatabaseChecksumFilePath);
-                    if (!Directory.Exists(programDatabaseChecksumFileDirectoryPath))
-                        Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
-                    if (File.Exists(programDatabaseChecksumFilePath))
-                        File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
-                    fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-                    File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
-                    sqLiteConnection.Open();
-                    open = true;
-                    tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(GetIntegerFromAVersion(DATABASE_VERSION)).Append(';');
-                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
-                        sqLiteCommand.ExecuteNonQuery();
-                    List<TableColumn> actualTableColumns = GetActualTableColumns();
-                    tempStringBuilder.Clear().Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
-                    for (int i = 0; i < actualTableColumns.Count; i++)
-                    {
-                        TableColumn actualTableColumn = actualTableColumns[i];
-                        tempStringBuilder.Append(actualTableColumn.ToSqlString());
-                        if (i < actualTableColumns.Count - 1)
-                            tempStringBuilder.Append(", ");
-                    }
-                    tempStringBuilder.Append(");");
-                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
-                        sqLiteCommand.ExecuteNonQuery();
-                    programDatabaseCreationWasSucceeded = true;
+                    TableColumn actualTableColumn = actualTableColumns[i];
+                    tempStringBuilder.Append(actualTableColumn.ToSqlString());
+                    if (i < actualTableColumns.Count - 1)
+                        tempStringBuilder.Append(", ");
                 }
-                catch { }
+                tempStringBuilder.Append(");");
+                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                    sqLiteCommand.ExecuteNonQuery();
+                programDatabaseCreationWasSucceeded = true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
                 if (programDatabaseCreationWasSucceeded)
                     UpdateProgramDatabaseChecksumFile();
                 fileStreamOfProgramDatabaseChecksumFile?.Dispose();
@@ -226,11 +230,6 @@ namespace Scrupdate.Classes.Objects
                     if (File.Exists(programDatabaseChecksumFilePath))
                         File.Delete(programDatabaseChecksumFilePath);
                 }
-                return programDatabaseCreationWasSucceeded;
-            }
-            catch
-            {
-                return false;
             }
         }
         public bool IsOpen()
