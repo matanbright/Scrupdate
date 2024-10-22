@@ -179,13 +179,14 @@ namespace Scrupdate.Classes.Objects
             programDatabaseFileIsCorrupted = false;
             if (open)
                 return true;
+            if (!File.Exists(programDatabaseChecksumFilePath))
+            {
+                programDatabaseFileIsCorrupted = true;
+                return false;
+            }
+            bool programDatabaseOpenWasSucceeded = false;
             try
             {
-                if (!File.Exists(programDatabaseChecksumFilePath))
-                {
-                    programDatabaseFileIsCorrupted = true;
-                    return false;
-                }
                 string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
                 fileStreamOfprogramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
                 File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
@@ -196,16 +197,27 @@ namespace Scrupdate.Classes.Objects
                 fileStreamOfprogramDatabaseChecksumFile.Read(buffer);
                 string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
                 if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
+                {
                     programDatabaseFileIsCorrupted = true;
-                else
-                    return true;
+                    return false;
+                }
+                programDatabaseOpenWasSucceeded = true;
+                return true;
             }
-            catch { }
-            fileStreamOfprogramDatabaseChecksumFile?.Dispose();
-            fileStreamOfprogramDatabaseChecksumFile = null;
-            sqLiteConnection?.Close();
-            open = false;
-            return false;
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                if (!programDatabaseOpenWasSucceeded)
+                {
+                    fileStreamOfprogramDatabaseChecksumFile?.Dispose();
+                    fileStreamOfprogramDatabaseChecksumFile = null;
+                    sqLiteConnection?.Close();
+                    open = false;
+                }
+            }
         }
         public bool Close()
         {
