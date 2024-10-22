@@ -470,20 +470,37 @@
                         </Scrupdate_UiElements_Controls:CustomButton>
                     </DockPanel>
                 </Grid>
-                <StackPanel x:Name="stackPanel_programDatabaseCannotBeOpenedWarningAndFix" Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel x:Name="stackPanel_programDatabaseWarningAndFix" Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel.Style>
                         <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Visibility" Value="Visible" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="CanNotOpenProgramDatabase">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="None">
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
-                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programDatabaseCannotBeOpenedWarning" Foreground="{StaticResource redSolidColorBrush}" FontSize="25" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="Unable to Open the Program Database!" />
+                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programDatabaseWarning" Foreground="{StaticResource redSolidColorBrush}" FontSize="25" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0">
+                        <Scrupdate_UiElements_Controls:CustomLabel.Style>
+                            <Style TargetType="Scrupdate_UiElements_Controls:CustomLabel">
+                                <Setter Property="Content" Value="" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="CanNotOpenProgramDatabase">
+                                        <Setter Property="Content" Value="Unable to Open the Program Database!" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="ProgramDatabaseIsCorrupted">
+                                        <Setter Property="Content" Value="The Program Database Is Corrupted!" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="ProgramDatabaseIsNotCompatible">
+                                        <Setter Property="Content" Value="The Program Database Is Not Compatible!" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Scrupdate_UiElements_Controls:CustomLabel.Style>
+                    </Scrupdate_UiElements_Controls:CustomLabel>
                     <TextBlock FontSize="15" FontFamily="Calibri" TextAlignment="Center" Padding="0 0 0 0" Margin="0 5 0 0">
-                        <Hyperlink x:Name="hyperlink_fixProgramDatabaseCannotBeOpened" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                        <Hyperlink x:Name="hyperlink_fixProgramDatabase" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
                             <Hyperlink.Style>
                                 <Style TargetType="Hyperlink">
                                     <Setter Property="TextDecorations" Value="None" />
@@ -494,35 +511,24 @@
                                     </Style.Triggers>
                                 </Style>
                             </Hyperlink.Style>
-                            Click Here to Try Reopening the Program Database
-                        </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel x:Name="stackPanel_programDatabaseCorruptionWarningAndFix" Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="ProgramDatabaseIsCorrupted">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programDatabaseCorruptionWarning" Foreground="{StaticResource redSolidColorBrush}" FontSize="25" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" Content="The Program Database Is Corrupted!" />
-                    <TextBlock FontSize="15" FontFamily="Calibri" TextAlignment="Center" Padding="0 0 0 0" Margin="0 5 0 0">
-                        <Hyperlink x:Name="hyperlink_fixProgramDatabaseCorruption" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
-                            <Hyperlink.Style>
-                                <Style TargetType="Hyperlink">
-                                    <Setter Property="TextDecorations" Value="None" />
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="TextDecorations" Value="Underline" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Hyperlink.Style>
-                            Click Here to Recreate the Program Database
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="CanNotOpenProgramDatabase">
+                                                <Setter Property="Text" Value="Click Here to Try Reopening the Program Database" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="ProgramDatabaseIsCorrupted">
+                                                <Setter Property="Text" Value="Click Here to Recreate the Program Database" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentError}" Value="ProgramDatabaseIsNotCompatible">
+                                                <Setter Property="Text" Value="Click Here to Recreate the Program Database" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>

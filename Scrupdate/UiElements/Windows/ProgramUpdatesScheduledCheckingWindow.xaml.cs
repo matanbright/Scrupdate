@@ -40,6 +40,7 @@ namespace Scrupdate.UiElements.Windows
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
         private const string STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE = "Unable to Open the Program Database!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED = "The Program Database Is Corrupted!";
+        private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE = "The Program Database Is Not Compatible!";
         private const string STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED = "No ChromeDriver Is Installed!";
         private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER = "Unable to Access the ChromeDriver!";
         private const string STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED = "Google Chrome™ Browser Is Not Installed!";
@@ -64,7 +65,8 @@ namespace Scrupdate.UiElements.Windows
         {
             None,
             CanNotOpenProgramDatabase,
-            ProgramDatabaseIsCorrupted
+            ProgramDatabaseIsCorrupted,
+            ProgramDatabaseIsNotCompatible
         }
         public enum Operation
         {
@@ -211,11 +213,20 @@ namespace Scrupdate.UiElements.Windows
                     App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 }
                 programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
-                bool programDatabaseFileIsCorrupted;
-                if (!programDatabase.Open(out programDatabaseFileIsCorrupted))
+                ConfigError programDatabaseFileError;
+                if (!programDatabase.Open(true, true, out programDatabaseFileError))
+                {
                     CurrentError = Error.CanNotOpenProgramDatabase;
-                if (programDatabaseFileIsCorrupted)
-                    CurrentError = Error.ProgramDatabaseIsCorrupted;
+                    switch (programDatabaseFileError)
+                    {
+                        case ConfigError.Corrupted:
+                            CurrentError = Error.ProgramDatabaseIsCorrupted;
+                            break;
+                        case ConfigError.NotCompatible:
+                            CurrentError = Error.ProgramDatabaseIsNotCompatible;
+                            break;
+                    }
+                }
             }
             catch
             {
@@ -257,6 +268,9 @@ namespace Scrupdate.UiElements.Windows
                         break;
                     case Error.ProgramDatabaseIsCorrupted:
                         ChangeStatusMessages(STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+                        break;
+                    case Error.ProgramDatabaseIsNotCompatible:
+                        ChangeStatusMessages(STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
                         break;
                 }
             }

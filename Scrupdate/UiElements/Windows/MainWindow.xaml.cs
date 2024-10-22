@@ -73,7 +73,8 @@ namespace Scrupdate.UiElements.Windows
         {
             None,
             CanNotOpenProgramDatabase,
-            ProgramDatabaseIsCorrupted
+            ProgramDatabaseIsCorrupted,
+            ProgramDatabaseIsNotCompatible
         }
         public enum Operation
         {
@@ -167,11 +168,20 @@ namespace Scrupdate.UiElements.Windows
                     App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 }
                 programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
-                bool programDatabaseFileIsCorrupted;
-                if (!programDatabase.Open(out programDatabaseFileIsCorrupted))
+                ConfigError programDatabaseFileError;
+                if (!programDatabase.Open(true, true, out programDatabaseFileError))
+                {
                     CurrentError = Error.CanNotOpenProgramDatabase;
-                if (programDatabaseFileIsCorrupted)
-                    CurrentError = Error.ProgramDatabaseIsCorrupted;
+                    switch (programDatabaseFileError)
+                    {
+                        case ConfigError.Corrupted:
+                            CurrentError = Error.ProgramDatabaseIsCorrupted;
+                            break;
+                        case ConfigError.NotCompatible:
+                            CurrentError = Error.ProgramDatabaseIsNotCompatible;
+                            break;
+                    }
+                }
             }
             catch
             {
@@ -434,9 +444,9 @@ namespace Scrupdate.UiElements.Windows
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
         {
             Hyperlink senderHyperlink = (Hyperlink)sender;
-            if (senderHyperlink == hyperlink_fixProgramDatabaseCannotBeOpened || senderHyperlink == hyperlink_fixProgramDatabaseCorruption)
+            if (senderHyperlink == hyperlink_fixProgramDatabase)
             {
-                if (senderHyperlink == hyperlink_fixProgramDatabaseCorruption)
+                if (CurrentError == Error.ProgramDatabaseIsCorrupted || CurrentError == Error.ProgramDatabaseIsNotCompatible)
                 {
                     if (!DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE, this) == true)
                         return;
@@ -458,17 +468,19 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                     }
                     programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
-                    bool programDatabaseFileIsCorrupted;
-                    if (!programDatabase.Open(out programDatabaseFileIsCorrupted))
+                    ConfigError programDatabaseFileError;
+                    if (!programDatabase.Open(true, true, out programDatabaseFileError))
                     {
                         CurrentError = Error.CanNotOpenProgramDatabase;
-                        if (programDatabaseFileIsCorrupted)
-                            CurrentError = Error.ProgramDatabaseIsCorrupted;
-                        return;
-                    }
-                    else if (programDatabaseFileIsCorrupted)
-                    {
-                        CurrentError = Error.ProgramDatabaseIsCorrupted;
+                        switch (programDatabaseFileError)
+                        {
+                            case ConfigError.Corrupted:
+                                CurrentError = Error.ProgramDatabaseIsCorrupted;
+                                break;
+                            case ConfigError.NotCompatible:
+                                CurrentError = Error.ProgramDatabaseIsNotCompatible;
+                                break;
+                        }
                         return;
                     }
                 }

@@ -22,6 +22,7 @@ using System.Text.Json;
 using System.IO;
 using System.Data.SQLite;
 using Scrupdate.Classes.Utilities;
+using System.Linq;
 
 
 namespace Scrupdate.Classes.Objects
@@ -39,6 +40,18 @@ namespace Scrupdate.Classes.Objects
 
             // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             public DatabaseIsNotOpenException() : base(EXCEPTION_MESSAGE) { }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+        public class TransactionIsInProgressException : Exception
+        {
+            // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            private const string EXCEPTION_MESSAGE = "A transaction is in progress!";
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            public TransactionIsInProgressException() : base(EXCEPTION_MESSAGE) { }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
         public readonly struct TableColumn
@@ -75,8 +88,14 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private const int DATABASE_VERSION = 1;
+        private static readonly Version DATABASE_VERSION = new Version(1, 0); /* Note: When changing or removing existing table columns, adding new non-removable table columns (e.g, primary-key, unique),
+                                                                               *       or adding new non-null table columns without a default value, the major number should be incremented and the minor number should be zeroed.
+                                                                               *       Otherwise, when adding new table columns, the minor number should be incremented.
+                                                                               */
         private const string TABLE_NAME__PROGRAMS = "programs";
+        /* Note: The 'TABLE_COLUMN' constants may be unused in the code and the IDE may warn you about this, but don't remove them!
+         *       They are used in run-time (using reflection) to create the table in the database.
+         */
         private static readonly TableColumn TABLE_COLUMN__ID = new TableColumn("id", "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT");
         private static readonly TableColumn TABLE_COLUMN__NAME = new TableColumn("name", "TEXT NOT NULL UNIQUE");
         private static readonly TableColumn TABLE_COLUMN__INSTALLED_VERSION = new TableColumn("installed_version", "TEXT NOT NULL DEFAULT \"\"");
@@ -123,7 +142,43 @@ namespace Scrupdate.Classes.Objects
             tempStringBuilder.Clear().Append("Data Source='").Append(programDatabaseFilePath).Append('\'');
             sqLiteConnection = new SQLiteConnection(tempStringBuilder.ToString());
             currentSqLiteTransaction = null;
-            if (!File.Exists(programDatabaseFilePath))
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        // Destructors /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ~ProgramDatabase() => Dispose();
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private static uint GetIntegerFromAVersion(Version version)
+        {
+            if (version.MajorNumber > 99)
+                throw new ArgumentOutOfRangeException(nameof(version) + '.' + nameof(version.MajorNumber));
+            if (version.MinorNumber > 99)
+                throw new ArgumentOutOfRangeException(nameof(version) + '.' + nameof(version.MinorNumber));
+            return version.MajorNumber * 100 + version.MinorNumber;
+        }
+        private static Version GetVersionFromAnInteger(uint versionInteger)
+        {
+            if (versionInteger > 9999)
+                throw new ArgumentOutOfRangeException(nameof(versionInteger));
+            return new Version(versionInteger / 100, versionInteger % 100);
+        }
+        private static List<TableColumn> GetActualTableColumns()
+        {
+            return ReflectionUtilities.GetStaticFields(typeof(ProgramDatabase), "TABLE_COLUMN__").ConvertAll(x => (TableColumn)x.Value);
+        }
+        public bool Create()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (File.Exists(programDatabaseFilePath))
+                return false;
+            try
             {
                 bool programDatabaseCreationWasSucceeded = false;
                 try
@@ -140,29 +195,18 @@ namespace Scrupdate.Classes.Objects
                     File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
                     sqLiteConnection.Open();
                     open = true;
-                    tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(DATABASE_VERSION).Append(';');
+                    tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(GetIntegerFromAVersion(DATABASE_VERSION)).Append(';');
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
                         sqLiteCommand.ExecuteNonQuery();
-                    tempStringBuilder.Clear();
-                    tempStringBuilder.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (")
-                        .Append($"{TABLE_COLUMN__ID.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__NAME.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__INSTALLED_VERSION.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__LATEST_VERSION.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__WEB_PAGE_URL.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.ToSqlString()}, ")
-                        .Append($"{TABLE_COLUMN__IS_HIDDEN.ToSqlString()}");
+                    List<TableColumn> actualTableColumns = GetActualTableColumns();
+                    tempStringBuilder.Clear().Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
+                    for (int i = 0; i < actualTableColumns.Count; i++)
+                    {
+                        TableColumn actualTableColumn = actualTableColumns[i];
+                        tempStringBuilder.Append(actualTableColumn.ToSqlString());
+                        if (i < actualTableColumns.Count - 1)
+                            tempStringBuilder.Append(", ");
+                    }
                     tempStringBuilder.Append(");");
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
                         sqLiteCommand.ExecuteNonQuery();
@@ -182,35 +226,40 @@ namespace Scrupdate.Classes.Objects
                     if (File.Exists(programDatabaseChecksumFilePath))
                         File.Delete(programDatabaseChecksumFilePath);
                 }
+                return programDatabaseCreationWasSucceeded;
+            }
+            catch
+            {
+                return false;
             }
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        // Destructors /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ~ProgramDatabase() => Dispose();
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public bool IsOpen()
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             return open;
         }
-        public bool Open(out bool programDatabaseFileIsCorrupted)
+        public bool Open(out ConfigError programDatabaseFileError)
+        {
+            return Open(false, false, out programDatabaseFileError);
+        }
+        public bool Open(bool shouldCreateIfNotExist, bool shouldUpgradeOrDowngradeIfCompatible, out ConfigError programDatabaseFileError)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
-            programDatabaseFileIsCorrupted = false;
+            programDatabaseFileError = ConfigError.Unspecified;
             if (open)
                 return true;
+            if (!File.Exists(programDatabaseFilePath))
+            {
+                if (!shouldCreateIfNotExist)
+                    return false;
+                if (!Create())
+                    return false;
+            }
             if (!File.Exists(programDatabaseChecksumFilePath))
             {
-                programDatabaseFileIsCorrupted = true;
+                programDatabaseFileError = ConfigError.Corrupted;
                 return false;
             }
             bool programDatabaseOpenWasSucceeded = false;
@@ -227,8 +276,21 @@ namespace Scrupdate.Classes.Objects
                 string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
                 if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    programDatabaseFileIsCorrupted = true;
+                    programDatabaseFileError = ConfigError.Corrupted;
                     return false;
+                }
+                Version programDatabaseVersion = GetVersion();
+                if (programDatabaseVersion.MajorNumber != DATABASE_VERSION.MajorNumber)
+                {
+                    programDatabaseFileError = ConfigError.NotCompatible;
+                    return false;
+                }
+                if (programDatabaseVersion.MinorNumber != DATABASE_VERSION.MinorNumber)
+                {
+                    if (!shouldUpgradeOrDowngradeIfCompatible)
+                        return false;
+                    if (!UpgradeOrDowngrade())
+                        return false;
                 }
                 programDatabaseOpenWasSucceeded = true;
                 return true;
@@ -273,6 +335,65 @@ namespace Scrupdate.Classes.Objects
                 fileStreamOfProgramDatabaseChecksumFile = null;
                 sqLiteConnection.Close();
                 open = false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private bool UpgradeOrDowngrade()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            if (currentSqLiteTransaction != null)
+                throw new TransactionIsInProgressException();
+            try
+            {
+                Dictionary<string, TableColumn> actualTableColumns = GetActualTableColumns().ToDictionary(x => x.Name, x => x);
+                List<string> savedTableColumnNames = GetTableColumnNames();
+                List<string> actualTableColumnNames = actualTableColumns.Keys.ToList();
+                if (!savedTableColumnNames.TrueForAll(x => actualTableColumnNames.Any(y => y.Equals(x))) &&
+                    !actualTableColumnNames.TrueForAll(x => savedTableColumnNames.Any(y => y.Equals(x))))
+                {
+                    return false;
+                }
+                List<string> namesOfTableColumnsToAddOrRemove;
+                if (actualTableColumnNames.Count >= savedTableColumnNames.Count)
+                    namesOfTableColumnsToAddOrRemove = actualTableColumnNames.Except(savedTableColumnNames).ToList();
+                else
+                    namesOfTableColumnsToAddOrRemove = savedTableColumnNames.Except(actualTableColumnNames).ToList();
+                BeginTransaction();
+                bool succeeded = false;
+                try
+                {
+                    if (actualTableColumnNames.Count >= savedTableColumnNames.Count)
+                    {
+                        foreach (string nameOfTableColumnToAdd in namesOfTableColumnsToAddOrRemove)
+                        {
+                            TableColumn tableColumnToAdd = actualTableColumns[nameOfTableColumnToAdd];
+                            if (!AddNewTableColumn(tableColumnToAdd))
+                                return false;
+                        }
+                    }
+                    else
+                    {
+                        foreach (string nameOfTableColumnToRemove in namesOfTableColumnsToAddOrRemove)
+                        {
+                            if (!RemoveTableColumn(nameOfTableColumnToRemove))
+                                return false;
+                        }
+                    }
+                    succeeded = true;
+                }
+                finally
+                {
+                    if (succeeded)
+                        SetVersion(DATABASE_VERSION);
+                    EndTransaction(!succeeded);
+                }
                 return true;
             }
             catch
@@ -363,6 +484,114 @@ namespace Scrupdate.Classes.Objects
             {
                 return false;
             }
+        }
+        private Version GetVersion()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            Version version = new Version();
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand("PRAGMA user_version;", sqLiteConnection))
+            {
+                try
+                {
+                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    try
+                    {
+                        if (sQLiteDataReader.Read())
+                            version = GetVersionFromAnInteger(Convert.ToUInt32((long)sQLiteDataReader[0]));
+                    }
+                    catch { }
+                    sQLiteDataReader.Close();
+                }
+                catch { }
+            }
+            return version;
+        }
+        public bool SetVersion(Version version)
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"PRAGMA user_version = {GetIntegerFromAVersion(version)};", sqLiteConnection))
+            {
+                try
+                {
+                    sqLiteCommand.ExecuteNonQuery();
+                    succeeded = true;
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
+        }
+        private List<string> GetTableColumnNames()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            List<string> tableColumnNames = new List<string>();
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"PRAGMA table_info('{TABLE_NAME__PROGRAMS}');", sqLiteConnection))
+            {
+                try
+                {
+                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    try
+                    {
+                        while (sQLiteDataReader.Read())
+                            tableColumnNames.Add((string)sQLiteDataReader["name"]);
+                    }
+                    catch { }
+                    sQLiteDataReader.Close();
+                }
+                catch { }
+            }
+            return tableColumnNames;
+        }
+        public bool AddNewTableColumn(TableColumn tableColumn)
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"ALTER TABLE {TABLE_NAME__PROGRAMS} ADD COLUMN {tableColumn.ToSqlString()};", sqLiteConnection))
+            {
+                try
+                {
+                    sqLiteCommand.ExecuteNonQuery();
+                    succeeded = true;
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
+        }
+        public bool RemoveTableColumn(string tableColumnName)
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"ALTER TABLE {TABLE_NAME__PROGRAMS} DROP COLUMN {tableColumnName};", sqLiteConnection))
+            {
+                try
+                {
+                    sqLiteCommand.ExecuteNonQuery();
+                    succeeded = true;
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
         }
         public bool AddNewProgram(Program program)
         {
