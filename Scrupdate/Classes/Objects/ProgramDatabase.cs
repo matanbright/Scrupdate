@@ -75,7 +75,7 @@ namespace Scrupdate.Classes.Objects
         private StringBuilder tempStringBuilder;
         private string programDatabaseFilePath;
         private string programDatabaseChecksumFilePath;
-        private FileStream fileStreamOfprogramDatabaseChecksumFile;
+        private FileStream fileStreamOfProgramDatabaseChecksumFile;
         private SQLiteConnection sqLiteConnection;
         private SQLiteTransaction currentSqLiteTransaction;
         private volatile bool open;
@@ -107,7 +107,7 @@ namespace Scrupdate.Classes.Objects
                         Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
                     if (File.Exists(programDatabaseChecksumFilePath))
                         File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
-                    fileStreamOfprogramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                    fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
                     File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
                     sqLiteConnection.Open();
                     open = true;
@@ -142,8 +142,8 @@ namespace Scrupdate.Classes.Objects
                 catch { }
                 if (programDatabaseCreationWasSucceeded)
                     UpdateProgramDatabaseChecksumFile();
-                fileStreamOfprogramDatabaseChecksumFile?.Dispose();
-                fileStreamOfprogramDatabaseChecksumFile = null;
+                fileStreamOfProgramDatabaseChecksumFile?.Dispose();
+                fileStreamOfProgramDatabaseChecksumFile = null;
                 sqLiteConnection.Close();
                 open = false;
                 if (!programDatabaseCreationWasSucceeded)
@@ -188,13 +188,13 @@ namespace Scrupdate.Classes.Objects
             try
             {
                 string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
-                fileStreamOfprogramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+                fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
                 File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
                 sqLiteConnection.Open();
                 open = true;
-                byte[] buffer = new byte[fileStreamOfprogramDatabaseChecksumFile.Length];
-                fileStreamOfprogramDatabaseChecksumFile.Position = 0;
-                fileStreamOfprogramDatabaseChecksumFile.Read(buffer);
+                byte[] buffer = new byte[fileStreamOfProgramDatabaseChecksumFile.Length];
+                fileStreamOfProgramDatabaseChecksumFile.Position = 0;
+                fileStreamOfProgramDatabaseChecksumFile.Read(buffer);
                 string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
                 if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -212,8 +212,8 @@ namespace Scrupdate.Classes.Objects
             {
                 if (!programDatabaseOpenWasSucceeded)
                 {
-                    fileStreamOfprogramDatabaseChecksumFile?.Dispose();
-                    fileStreamOfprogramDatabaseChecksumFile = null;
+                    fileStreamOfProgramDatabaseChecksumFile?.Dispose();
+                    fileStreamOfProgramDatabaseChecksumFile = null;
                     sqLiteConnection?.Close();
                     open = false;
                 }
@@ -240,8 +240,8 @@ namespace Scrupdate.Classes.Objects
                     }
                 }
                 UpdateProgramDatabaseChecksumFile();
-                fileStreamOfprogramDatabaseChecksumFile.Dispose();
-                fileStreamOfprogramDatabaseChecksumFile = null;
+                fileStreamOfProgramDatabaseChecksumFile.Dispose();
+                fileStreamOfProgramDatabaseChecksumFile = null;
                 sqLiteConnection.Close();
                 open = false;
                 return true;
@@ -309,10 +309,10 @@ namespace Scrupdate.Classes.Objects
                 string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
                 sqLiteConnection.Open();
                 byte[] buffer = Encoding.UTF8.GetBytes(programDatabaseFileChecksum);
-                fileStreamOfprogramDatabaseChecksumFile.Position = 0;
-                fileStreamOfprogramDatabaseChecksumFile.SetLength(buffer.Length);
-                fileStreamOfprogramDatabaseChecksumFile.Write(buffer);
-                fileStreamOfprogramDatabaseChecksumFile.Flush();
+                fileStreamOfProgramDatabaseChecksumFile.Position = 0;
+                fileStreamOfProgramDatabaseChecksumFile.SetLength(buffer.Length);
+                fileStreamOfProgramDatabaseChecksumFile.Write(buffer);
+                fileStreamOfProgramDatabaseChecksumFile.Flush();
                 return true;
             }
             catch
