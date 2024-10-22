@@ -454,15 +454,15 @@ namespace Scrupdate.Classes.Utilities
                         }
                         if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
                             return;
-                        if (programToCheck.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
+                        if (programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
                         {
-                            foreach (WebPageElementLocatingInstruction webPageElementLocatingInstructionOfWebPageElementToSimulateAClickOn in programToCheck.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn)
+                            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
                             {
                                 if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
                                     return;
                                 try
                                 {
-                                    chromeDriver.ClickOnAnElementWithinTheWebpage(webPageElementLocatingInstructionOfWebPageElementToSimulateAClickOn, cancellationToken);
+                                    chromeDriver.ClickOnAnElementWithinTheWebpage(locatingInstructionOfWebPageElementToSimulateAClickOn, cancellationToken);
                                 }
                                 catch { }
                             }

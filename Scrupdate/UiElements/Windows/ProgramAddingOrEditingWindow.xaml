@@ -379,7 +379,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Grid x:Name="grid_listViewOfWebPageElementsToSimulateAClickOnAndWebElementAdditionField" Width="580" Height="140" Margin="10 0 0 0" HorizontalAlignment="Left">
+                                                <Grid x:Name="grid_listViewOfLocatingInstructionsOfWebPageElementsToSimulateAClickOnAndWebElementAdditionField" Width="580" Height="140" Margin="10 0 0 0" HorizontalAlignment="Left">
                                                     <Grid.Style>
                                                         <Style TargetType="Grid">
                                                             <Setter Property="IsEnabled" Value="False" />
@@ -397,7 +397,7 @@
                                                         <RowDefinition Height="*" />
                                                         <RowDefinition Height="auto" />
                                                     </Grid.RowDefinitions>
-                                                    <ListView x:Name="listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn" Grid.Row="0" Grid.Column="0" KeyDown="OnListViewKeyDownEvent">
+                                                    <ListView x:Name="listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn" Grid.Row="0" Grid.Column="0" KeyDown="OnListViewKeyDownEvent">
                                                         <ListView.Resources>
                                                             <ContextMenu x:Key="contextMenuOfSingleSelection">
                                                                 <MenuItem Header="Copy Locating Method Argument" Click="OnMenuItemClickEvent" />
@@ -415,10 +415,10 @@
                                                                 <Setter Property="Foreground" Value="{StaticResource blackSolidColorBrush}" />
                                                                 <Setter Property="ContextMenu" Value="{StaticResource contextMenuOfMultiSelection}" />
                                                                 <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding ElementName=listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
+                                                                    <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
                                                                         <Setter Property="ContextMenu" Value="{StaticResource contextMenuOfSingleSelection}" />
                                                                     </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding ElementName=listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="0">
+                                                                    <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="0">
                                                                         <Setter Property="ContextMenu" Value="{x:Null}" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
@@ -573,7 +573,7 @@
                                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
                                                                             <Setter Property="IsEnabled" Value="False" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
                                                                                     <Setter Property="IsEnabled" Value="True" />
                                                                                 </DataTrigger>
                                                                             </Style.Triggers>
@@ -585,7 +585,7 @@
                                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
                                                                             <Setter Property="IsEnabled" Value="False" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="1">
                                                                                     <Setter Property="IsEnabled" Value="True" />
                                                                                 </DataTrigger>
                                                                             </Style.Triggers>
@@ -597,7 +597,7 @@
                                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
                                                                             <Setter Property="IsEnabled" Value="True" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="0">
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}" Value="0">
                                                                                     <Setter Property="IsEnabled" Value="False" />
                                                                                 </DataTrigger>
                                                                             </Style.Triggers>
