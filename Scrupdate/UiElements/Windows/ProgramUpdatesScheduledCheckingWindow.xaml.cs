@@ -360,12 +360,12 @@ namespace Scrupdate.UiElements.Windows
                     {
                         Program program = i.Current.Value;
                         bool? thereIsANewerVersion = null;
-                        if (program.InstallationScope != Program.ProgramInstallationScope.None)
+                        if (program.InstallationScope != Program._InstallationScope.None)
                             thereIsANewerVersion = (program.LatestVersion.Equals("") ? false : (program.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion)));
                         if (thereIsANewerVersion == true)
                             if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
                                 updatesCount++;
-                        if (program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
+                        if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
                             if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
                                 errorsCount++;
                     }

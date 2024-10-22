@@ -66,7 +66,7 @@ namespace Scrupdate.UiElements.Windows
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static readonly DependencyProperty CurrentWindowVariationProperty = DependencyProperty.Register(nameof(CurrentWindowVariation), typeof(WindowVariation), typeof(ProgramAddingOrEditingWindow), new PropertyMetadata(WindowVariation.Unknown));
-        public static readonly DependencyProperty LastProgramUpdateCheckConfigurationStatusProperty = DependencyProperty.Register(nameof(LastProgramUpdateCheckConfigurationStatus), typeof(Program.ProgramUpdateCheckConfigurationStatus), typeof(ProgramAddingOrEditingWindow), new PropertyMetadata(Program.ProgramUpdateCheckConfigurationStatus.Unknown));
+        public static readonly DependencyProperty LastProgramUpdateCheckConfigurationStatusProperty = DependencyProperty.Register(nameof(LastProgramUpdateCheckConfigurationStatus), typeof(Program._UpdateCheckConfigurationStatus), typeof(ProgramAddingOrEditingWindow), new PropertyMetadata(Program._UpdateCheckConfigurationStatus.Unknown));
         private StringBuilder tempStringBuilder;
         private Dictionary<string, Program> programsAlreadyInDatabase;
         private Program programToEdit;
@@ -93,11 +93,11 @@ namespace Scrupdate.UiElements.Windows
                 });
             }
         }
-        public Program.ProgramUpdateCheckConfigurationStatus LastProgramUpdateCheckConfigurationStatus
+        public Program._UpdateCheckConfigurationStatus LastProgramUpdateCheckConfigurationStatus
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Program.ProgramUpdateCheckConfigurationStatus)GetValue(LastProgramUpdateCheckConfigurationStatusProperty));
+                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Program._UpdateCheckConfigurationStatus)GetValue(LastProgramUpdateCheckConfigurationStatusProperty));
             }
             set
             {
@@ -125,12 +125,12 @@ namespace Scrupdate.UiElements.Windows
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
             WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
-            foreach (string installationScopeEnumItemName in Enum.GetNames(typeof(Program.ProgramInstallationScope)))
+            foreach (string installationScopeEnumItemName in Enum.GetNames(typeof(Program._InstallationScope)))
                 comboBox_installedFor.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(installationScopeEnumItemName));
-            comboBox_installedFor.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program.ProgramInstallationScope.Everyone.ToString());
-            foreach (string webPagePostLoadDelayEnumItemName in Enum.GetNames(typeof(Program.ProgramWebPagePostLoadDelay)))
+            comboBox_installedFor.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program._InstallationScope.Everyone.ToString());
+            foreach (string webPagePostLoadDelayEnumItemName in Enum.GetNames(typeof(Program._WebPagePostLoadDelay)))
                 comboBox_webPagePostLoadDelay.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(webPagePostLoadDelayEnumItemName.Substring(1)).Replace(" Ms", "ms"));
-            comboBox_webPagePostLoadDelay.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program.ProgramWebPagePostLoadDelay._None.ToString().Substring(1)).Replace(" Ms", "ms");
+            comboBox_webPagePostLoadDelay.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program._WebPagePostLoadDelay._None.ToString().Substring(1)).Replace(" Ms", "ms");
             ((GridView)listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged += OnGridViewColumnsCollectionCollectionChangedEvent;
             listView_webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.ItemsSource = webPageElementLocatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn;
             foreach (string webPageElementLocatingMethodEnumItemName in Enum.GetNames(typeof(WebPageElementLocatingInstruction.WebPageElementLocatingInstructionMethod)))
@@ -211,12 +211,12 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (!textBox_installedVersion.Text.Trim().Equals(""))
                         textBox_installedVersion.Text = VersionsUtilities.TrimVersion(textBox_installedVersion.Text.Trim(), VersionsUtilities.MINIMUM_VERSION_SEGMENTS, VersionsUtilities.MAXIMUM_VERSION_SEGMENTS);
-                    Program.ProgramInstallationScope installationScope = GetSelectedInstallationScope();
+                    Program._InstallationScope installationScope = GetSelectedInstallationScope();
                     string versionSearchMethodArgument1;
                     string versionSearchMethodArgument2;
-                    Program.ProgramVersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(out versionSearchMethodArgument1, out versionSearchMethodArgument2);
-                    Program.ProgramVersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
-                    Program.ProgramWebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
+                    Program._VersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(out versionSearchMethodArgument1, out versionSearchMethodArgument2);
+                    Program._VersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
+                    Program._WebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
                     List<WebPageElementLocatingInstruction> webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn = GetSelectedWebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
                     if (programToEdit != null &&
                         checkBox_detectAutomatically.IsChecked == programToEdit.IsAutomaticallyAdded &&
@@ -278,7 +278,7 @@ namespace Scrupdate.UiElements.Windows
                     checkBox_treatAStandaloneNumberAsAVersion.IsChecked = false;
                     radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                     expander_advancedOptions.IsExpanded = false;
-                    comboBox_webPagePostLoadDelay.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program.ProgramWebPagePostLoadDelay._None.ToString().Substring(1)).Replace(" Ms", "ms");
+                    comboBox_webPagePostLoadDelay.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Program._WebPagePostLoadDelay._None.ToString().Substring(1)).Replace(" Ms", "ms");
                     RemoveAllWebPageElementLocatingInstructionsFromListView();
                     comboBox_webPageElementLocatingMethod.SelectedItem = "";
                     checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
@@ -415,26 +415,26 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private Program.ProgramInstallationScope GetSelectedInstallationScope()
+        private Program._InstallationScope GetSelectedInstallationScope()
         {
-            return (Program.ProgramInstallationScope)(Enum.Parse(typeof(Program.ProgramInstallationScope), ((string)comboBox_installedFor.SelectedItem).Replace(" ", "")));
+            return (Program._InstallationScope)(Enum.Parse(typeof(Program._InstallationScope), ((string)comboBox_installedFor.SelectedItem).Replace(" ", "")));
         }
-        private Program.ProgramVersionSearchMethod GetSelectedVersionSearchMethod(out string versionSearchMethodArgument1, out string versionSearchMethodArgument2)
+        private Program._VersionSearchMethod GetSelectedVersionSearchMethod(out string versionSearchMethodArgument1, out string versionSearchMethodArgument2)
         {
             versionSearchMethodArgument1 = null;
             versionSearchMethodArgument2 = null;
-            Program.ProgramVersionSearchMethod versionSearchMethod = Program.ProgramVersionSearchMethod.Unknown;
+            Program._VersionSearchMethod versionSearchMethod = Program._VersionSearchMethod.Unknown;
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
                 if (radioButton_searchInTheContentOfHtmlElementWithId.IsChecked == true)
                 {
-                    versionSearchMethod = Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementWithId;
+                    versionSearchMethod = Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId;
                     versionSearchMethodArgument1 = textBox_searchInTheContentOfHtmlElementWithIdParameter.Text.Trim();
                     versionSearchMethodArgument2 = "";
                 }
                 else if (radioButton_searchInTheContentOfHtmlElementsMatchingXPath.IsChecked == true)
                 {
-                    versionSearchMethod = Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath;
+                    versionSearchMethod = Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath;
                     versionSearchMethodArgument1 = textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text.Trim();
                     versionSearchMethodArgument2 = "";
                 }
@@ -442,25 +442,25 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (checkBox_searchFromTextWithinWebPage.IsChecked == true && checkBox_searchUntilTextWithinWebPage.IsChecked == true)
                     {
-                        versionSearchMethod = Program.ProgramVersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage;
+                        versionSearchMethod = Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage;
                         versionSearchMethodArgument1 = textBox_searchFromTextWithinWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 = textBox_searchUntilTextWithinWebPageParameter.Text.Trim();
                     }
                     else if (checkBox_searchFromTextWithinWebPage.IsChecked == true)
                     {
-                        versionSearchMethod = Program.ProgramVersionSearchMethod.SearchGloballyFromTextWithinWebPage;
+                        versionSearchMethod = Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage;
                         versionSearchMethodArgument1 = textBox_searchFromTextWithinWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
                     else if (checkBox_searchUntilTextWithinWebPage.IsChecked == true)
                     {
-                        versionSearchMethod = Program.ProgramVersionSearchMethod.SearchGloballyUntilTextWithinWebPage;
+                        versionSearchMethod = Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage;
                         versionSearchMethodArgument1 = textBox_searchUntilTextWithinWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
                     else
                     {
-                        versionSearchMethod = Program.ProgramVersionSearchMethod.SearchGloballyInTheWebPage;
+                        versionSearchMethod = Program._VersionSearchMethod.SearchGloballyInTheWebPage;
                         versionSearchMethodArgument1 = "";
                         versionSearchMethodArgument2 = "";
                     }
@@ -473,27 +473,27 @@ namespace Scrupdate.UiElements.Windows
             }
             return versionSearchMethod;
         }
-        private Program.ProgramVersionSearchBehavior GetSelectedVersionSearchBehavior()
+        private Program._VersionSearchBehavior GetSelectedVersionSearchBehavior()
         {
-            Program.ProgramVersionSearchBehavior versionSearchBehavior = Program.ProgramVersionSearchBehavior.Unknown;
+            Program._VersionSearchBehavior versionSearchBehavior = Program._VersionSearchBehavior.Unknown;
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
                 if (radioButton_getTheFirstVersionThatIsFound.IsChecked == true)
-                    versionSearchBehavior = Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFound;
+                    versionSearchBehavior = Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound;
                 else if (radioButton_getTheFirstVersionThatIsFoundFromTheEnd.IsChecked == true)
-                    versionSearchBehavior = Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd;
+                    versionSearchBehavior = Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd;
                 else if (radioButton_getTheLatestVersionFromAllTheVersionsThatAreFound.IsChecked == true)
-                    versionSearchBehavior = Program.ProgramVersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound;
+                    versionSearchBehavior = Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound;
             }
             return versionSearchBehavior;
         }
-        private Program.ProgramWebPagePostLoadDelay GetSelectedWebPagePostLoadDelay()
+        private Program._WebPagePostLoadDelay GetSelectedWebPagePostLoadDelay()
         {
-            Program.ProgramWebPagePostLoadDelay webPagePostLoadDelay = Program.ProgramWebPagePostLoadDelay._None;
+            Program._WebPagePostLoadDelay webPagePostLoadDelay = Program._WebPagePostLoadDelay._None;
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
                 tempStringBuilder.Clear().Append('_').Append(((string)comboBox_webPagePostLoadDelay.SelectedItem).Replace("ms", "Ms"));
-                webPagePostLoadDelay = (Program.ProgramWebPagePostLoadDelay)(Enum.Parse(typeof(Program.ProgramWebPagePostLoadDelay), tempStringBuilder.ToString()));
+                webPagePostLoadDelay = (Program._WebPagePostLoadDelay)(Enum.Parse(typeof(Program._WebPagePostLoadDelay), tempStringBuilder.ToString()));
             }
             return webPagePostLoadDelay;
         }
@@ -592,7 +592,7 @@ namespace Scrupdate.UiElements.Windows
             textBox_installedVersion.Text = program.InstalledVersion;
             label_latestVersion.Content = program.LatestVersion;
             label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH);
-            if (program.InstallationScope != Program.ProgramInstallationScope.None)
+            if (program.InstallationScope != Program._InstallationScope.None)
                 label_latestVersion.Foreground = (program.InstalledVersion.Equals("") || program.LatestVersion.Equals("") ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH) : (VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion) ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH) : (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH)));
             comboBox_installedFor.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(program.InstallationScope.ToString());
             checkBox_configureProgramUpdateCheck.IsChecked = false;
@@ -603,28 +603,28 @@ namespace Scrupdate.UiElements.Windows
                 textBox_webPageUrl.Text = program.WebPageUrl;
                 switch (program.VersionSearchMethod)
                 {
-                    case Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
+                    case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
                         radioButton_searchInTheContentOfHtmlElementWithId.IsChecked = true;
                         textBox_searchInTheContentOfHtmlElementWithIdParameter.Text = program.VersionSearchMethodArgument1;
                         break;
-                    case Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
+                    case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
                         radioButton_searchInTheContentOfHtmlElementsMatchingXPath.IsChecked = true;
                         textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text = program.VersionSearchMethodArgument1;
                         break;
-                    case Program.ProgramVersionSearchMethod.SearchGloballyInTheWebPage:
+                    case Program._VersionSearchMethod.SearchGloballyInTheWebPage:
                         radioButton_searchGloballyInTheWebPage.IsChecked = true;
                         break;
-                    case Program.ProgramVersionSearchMethod.SearchGloballyFromTextWithinWebPage:
+                    case Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage:
                         radioButton_searchGloballyInTheWebPage.IsChecked = true;
                         checkBox_searchFromTextWithinWebPage.IsChecked = true;
                         textBox_searchFromTextWithinWebPageParameter.Text = program.VersionSearchMethodArgument1;
                         break;
-                    case Program.ProgramVersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
+                    case Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
                         radioButton_searchGloballyInTheWebPage.IsChecked = true;
                         checkBox_searchUntilTextWithinWebPage.IsChecked = true;
                         textBox_searchUntilTextWithinWebPageParameter.Text = program.VersionSearchMethodArgument1;
                         break;
-                    case Program.ProgramVersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
+                    case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
                         radioButton_searchGloballyInTheWebPage.IsChecked = true;
                         checkBox_searchFromTextWithinWebPage.IsChecked = true;
                         checkBox_searchUntilTextWithinWebPage.IsChecked = true;
@@ -635,13 +635,13 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_treatAStandaloneNumberAsAVersion.IsChecked = program.TreatAStandaloneNumberAsAVersion;
                 switch (program.VersionSearchBehavior)
                 {
-                    case Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFound:
+                    case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
                         radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                         break;
-                    case Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
+                    case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
                         radioButton_getTheFirstVersionThatIsFoundFromTheEnd.IsChecked = true;
                         break;
-                    case Program.ProgramVersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
+                    case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
                         radioButton_getTheLatestVersionFromAllTheVersionsThatAreFound.IsChecked = true;
                         break;
                 }
@@ -653,21 +653,21 @@ namespace Scrupdate.UiElements.Windows
                         webPageElementLocatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(new WebPageElementLocatingInstructionListViewItem(i + 1, program.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn[i]));
                     RefreshListView();
                 }
-                ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError((program.UpdateCheckConfigurationStatus != Program.ProgramUpdateCheckConfigurationStatus.Unknown ? program.UpdateCheckConfigurationError : null));
+                ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError((program.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Unknown ? program.UpdateCheckConfigurationError : null));
             }
         }
         private Program GetProgramFromUIControlsValues()
         {
             string programLatestVersion = "";
-            Program.ProgramInstallationScope installationScope = GetSelectedInstallationScope();
+            Program._InstallationScope installationScope = GetSelectedInstallationScope();
             string versionSearchMethodArgument1;
             string versionSearchMethodArgument2;
-            Program.ProgramVersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(out versionSearchMethodArgument1, out versionSearchMethodArgument2);
-            Program.ProgramVersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
-            Program.ProgramWebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
+            Program._VersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(out versionSearchMethodArgument1, out versionSearchMethodArgument2);
+            Program._VersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
+            Program._WebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
             List<WebPageElementLocatingInstruction> webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn = GetSelectedWebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
-            Program.ProgramUpdateCheckConfigurationStatus updateCheckConfigurationStatus = Program.ProgramUpdateCheckConfigurationStatus.Unknown;
-            Program.ProgramUpdateCheckConfigurationError updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.None;
+            Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus = Program._UpdateCheckConfigurationStatus.Unknown;
+            Program._UpdateCheckConfigurationError updateCheckConfigurationError = Program._UpdateCheckConfigurationError.None;
             if (programToEdit != null)
             {
                 if (checkBox_configureProgramUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured && textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) && versionSearchMethod == programToEdit.VersionSearchMethod && versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) && versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) && checkBox_treatAStandaloneNumberAsAVersion.IsChecked == programToEdit.TreatAStandaloneNumberAsAVersion && versionSearchBehavior == programToEdit.VersionSearchBehavior && webPagePostLoadDelay == programToEdit.WebPagePostLoadDelay && webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(programToEdit.WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn))
@@ -697,30 +697,30 @@ namespace Scrupdate.UiElements.Windows
                     (programToEdit != null ? programToEdit.IsHidden : false)
                 );
         }
-        private void ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError(Program.ProgramUpdateCheckConfigurationError? updateCheckConfigurationError)
+        private void ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError(Program._UpdateCheckConfigurationError? updateCheckConfigurationError)
         {
             ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
             {
                 if (updateCheckConfigurationError == null)
                 {
-                    LastProgramUpdateCheckConfigurationStatus = Program.ProgramUpdateCheckConfigurationStatus.Unknown;
+                    LastProgramUpdateCheckConfigurationStatus = Program._UpdateCheckConfigurationStatus.Unknown;
                     label_lastProgramUpdateCheckConfigurationStatusMessage.Content = "";
                 }
-                else if (updateCheckConfigurationError == Program.ProgramUpdateCheckConfigurationError.None)
+                else if (updateCheckConfigurationError == Program._UpdateCheckConfigurationError.None)
                 {
-                    LastProgramUpdateCheckConfigurationStatus = Program.ProgramUpdateCheckConfigurationStatus.Valid;
+                    LastProgramUpdateCheckConfigurationStatus = Program._UpdateCheckConfigurationStatus.Valid;
                     label_lastProgramUpdateCheckConfigurationStatusMessage.Content = LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED;
                 }
                 else
                 {
-                    LastProgramUpdateCheckConfigurationStatus = Program.ProgramUpdateCheckConfigurationStatus.Invalid;
+                    LastProgramUpdateCheckConfigurationStatus = Program._UpdateCheckConfigurationStatus.Invalid;
                     label_lastProgramUpdateCheckConfigurationStatusMessage.Content = LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED.Replace("{*}", StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(updateCheckConfigurationError.ToString()));
                 }
             });
         }
         public void CalculateWindowDynamicSizeAndResizeWindow()
         {
-            double calculatedWindowHeight = Math.Floor((programToEdit == null ? 628 : (programToEdit.UpdateCheckConfigurationStatus != Program.ProgramUpdateCheckConfigurationStatus.Valid ? 658 : 688)) * App.WindowsRenderingScale);
+            double calculatedWindowHeight = Math.Floor((programToEdit == null ? 628 : (programToEdit.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Valid ? 658 : 688)) * App.WindowsRenderingScale);
             calculatedWindowHeight += SystemParameters.WindowNonClientFrameThickness.Top + SystemParameters.WindowNonClientFrameThickness.Bottom + SystemParameters.WindowResizeBorderThickness.Top + SystemParameters.WindowResizeBorderThickness.Bottom;
             MinHeight = calculatedWindowHeight;
             Height = calculatedWindowHeight;

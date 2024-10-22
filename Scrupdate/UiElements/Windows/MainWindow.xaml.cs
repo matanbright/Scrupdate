@@ -612,7 +612,7 @@ namespace Scrupdate.UiElements.Windows
                     programListViewItem.ProgramInstalledVersionToDisplay = (program.InstalledVersion.Equals("") ? "" : VersionsUtilities.TrimVersion(program.InstalledVersion, App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions));
                     programListViewItem.ProgramLatestVersionToDisplay = (program.LatestVersion.Equals("") ? "" : VersionsUtilities.TrimVersion(program.LatestVersion, App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions));
                     bool? thereIsANewerVersion = null;
-                    if (program.InstallationScope != Program.ProgramInstallationScope.None)
+                    if (program.InstallationScope != Program._InstallationScope.None)
                         thereIsANewerVersion = (program.InstalledVersion.Equals("") || program.LatestVersion.Equals("") ? false : VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion));
                     programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH);
                     if (!program.IsAutomaticallyAdded)
@@ -623,10 +623,10 @@ namespace Scrupdate.UiElements.Windows
                             updatesCount++;
                         programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH);
                     }
-                    if (program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
+                    if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
                         if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
                             errorsCount++;
-                    if (program.InstallationScope == Program.ProgramInstallationScope.None)
+                    if (program.InstallationScope == Program._InstallationScope.None)
                         programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH);
                     if (program.IsHidden)
                         programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2);
@@ -638,23 +638,23 @@ namespace Scrupdate.UiElements.Windows
                             case Settings.CachedSettings.ProgramFilteringOption.All:
                                 return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)));
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == true);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == true);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUpToDate:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == false);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == false);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyAutomaticallyAdded:
                                 return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsAutomaticallyAdded);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyManuallyAdded:
                                 return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && !program.IsAutomaticallyAdded);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyInstalled:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope != Program.ProgramInstallationScope.None);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope != Program._InstallationScope.None);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUninstalled:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope == Program.ProgramInstallationScope.None);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope == Program._InstallationScope.None);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Valid);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyInvalid:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyNotChecked:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Unknown);
+                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Unknown);
                             case Settings.CachedSettings.ProgramFilteringOption.OnlyNotConfigured:
                                 return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && !program.IsUpdateCheckConfigured);
                         }
@@ -692,18 +692,18 @@ namespace Scrupdate.UiElements.Windows
             programListViewItems.Add(new ProgramListViewItem(updatedProgram));
             programListViewItems.Sort(((ProgramListViewItem programListViewItem1, ProgramListViewItem programListViewItem2) => (string.Compare(programListViewItem1.UnderlyingProgram.Name, programListViewItem2.UnderlyingProgram.Name))));
             bool? selectedProgramHasAnUpdate = false;
-            if (selectedProgram.InstallationScope != Program.ProgramInstallationScope.None)
+            if (selectedProgram.InstallationScope != Program._InstallationScope.None)
                 selectedProgramHasAnUpdate = (selectedProgram.LatestVersion.Equals("") ? false : (selectedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(selectedProgram.LatestVersion, selectedProgram.InstalledVersion)));
             bool? updatedProgramHasAnUpdate = false;
-            if (updatedProgram.InstallationScope != Program.ProgramInstallationScope.None)
+            if (updatedProgram.InstallationScope != Program._InstallationScope.None)
                 updatedProgramHasAnUpdate = (updatedProgram.LatestVersion.Equals("") ? false : (updatedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(updatedProgram.LatestVersion, updatedProgram.InstalledVersion)));
             if (selectedProgramHasAnUpdate != true && updatedProgramHasAnUpdate == true)
                 updatesCount++;
             else if (selectedProgramHasAnUpdate == true && updatedProgramHasAnUpdate != true)
                 updatesCount--;
-            if (selectedProgram.UpdateCheckConfigurationStatus != Program.ProgramUpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
+            if (selectedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
                 errorsCount++;
-            else if (selectedProgram.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus != Program.ProgramUpdateCheckConfigurationStatus.Invalid)
+            else if (selectedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid)
                 errorsCount--;
             RefreshListViewAndAllMessages();
         }
@@ -750,11 +750,11 @@ namespace Scrupdate.UiElements.Windows
                     programListViewItems.Remove(selectedProgramListViewItem);
                     programDatabase.RemoveProgram(selectedProgram.Name);
                     bool? selectedProgramHasAnUpdate = false;
-                    if (selectedProgram.InstallationScope != Program.ProgramInstallationScope.None)
+                    if (selectedProgram.InstallationScope != Program._InstallationScope.None)
                         selectedProgramHasAnUpdate = (selectedProgram.LatestVersion.Equals("") ? false : (selectedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(selectedProgram.LatestVersion, selectedProgram.InstalledVersion)));
                     if (selectedProgramHasAnUpdate == true)
                         updatesCount--;
-                    if (selectedProgram.UpdateCheckConfigurationStatus == Program.ProgramUpdateCheckConfigurationStatus.Invalid)
+                    if (selectedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
                         errorsCount--;
                 }
                 programDatabase.EndTransaction();

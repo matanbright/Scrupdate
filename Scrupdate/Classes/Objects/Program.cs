@@ -25,13 +25,13 @@ namespace Scrupdate.Classes.Objects
     public class Program
     {
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public enum ProgramInstallationScope
+        public enum _InstallationScope
         {
             None,
             Everyone,
             User
         }
-        public enum ProgramVersionSearchMethod
+        public enum _VersionSearchMethod
         {
             Unknown,
             SearchInTheContentOfHtmlElementWithId,
@@ -41,14 +41,14 @@ namespace Scrupdate.Classes.Objects
             SearchGloballyUntilTextWithinWebPage,
             SearchGloballyFromTextUntilTextWithinWebPage
         }
-        public enum ProgramVersionSearchBehavior
+        public enum _VersionSearchBehavior
         {
             Unknown,
             GetTheFirstVersionThatIsFound,
             GetTheFirstVersionThatIsFoundFromTheEnd,
             GetTheLatestVersionFromAllTheVersionsThatAreFound
         }
-        public enum ProgramWebPagePostLoadDelay
+        public enum _WebPagePostLoadDelay
         {
             _None,
             _100Ms,
@@ -60,13 +60,13 @@ namespace Scrupdate.Classes.Objects
             _4000Ms,
             _5000Ms
         }
-        public enum ProgramUpdateCheckConfigurationStatus
+        public enum _UpdateCheckConfigurationStatus
         {
             Unknown,
             Invalid,
             Valid
         }
-        public enum ProgramUpdateCheckConfigurationError
+        public enum _UpdateCheckConfigurationError
         {
             None,
             GeneralFailure,
@@ -83,19 +83,19 @@ namespace Scrupdate.Classes.Objects
         public string Name { get; set; }
         public string InstalledVersion { get; set; }
         public string LatestVersion { get; set; }
-        public ProgramInstallationScope InstallationScope { get; set; }
+        public _InstallationScope InstallationScope { get; set; }
         public bool IsUpdateCheckConfigured { get; set; }
         public string WebPageUrl { get; set; }
-        public ProgramVersionSearchMethod VersionSearchMethod { get; set; }
+        public _VersionSearchMethod VersionSearchMethod { get; set; }
         public string VersionSearchMethodArgument1 { get; set; }
         public string VersionSearchMethodArgument2 { get; set; }
         public bool TreatAStandaloneNumberAsAVersion { get; set; }
-        public ProgramVersionSearchBehavior VersionSearchBehavior { get; set; }
-        public ProgramWebPagePostLoadDelay WebPagePostLoadDelay { get; set; }
+        public _VersionSearchBehavior VersionSearchBehavior { get; set; }
+        public _WebPagePostLoadDelay WebPagePostLoadDelay { get; set; }
         public List<WebPageElementLocatingInstruction> WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn { get; set; }
         public bool IsAutomaticallyAdded { get; set; }
-        public ProgramUpdateCheckConfigurationStatus UpdateCheckConfigurationStatus { get; set; }
-        public ProgramUpdateCheckConfigurationError UpdateCheckConfigurationError { get; set; }
+        public _UpdateCheckConfigurationStatus UpdateCheckConfigurationStatus { get; set; }
+        public _UpdateCheckConfigurationError UpdateCheckConfigurationError { get; set; }
         public bool IsHidden { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -107,22 +107,22 @@ namespace Scrupdate.Classes.Objects
             Name = "";
             InstalledVersion = "";
             LatestVersion = "";
-            InstallationScope = ProgramInstallationScope.None;
+            InstallationScope = _InstallationScope.None;
             IsUpdateCheckConfigured = false;
             WebPageUrl = "";
-            VersionSearchMethod = ProgramVersionSearchMethod.Unknown;
+            VersionSearchMethod = _VersionSearchMethod.Unknown;
             VersionSearchMethodArgument1 = "";
             VersionSearchMethodArgument2 = "";
             TreatAStandaloneNumberAsAVersion = false;
-            VersionSearchBehavior = ProgramVersionSearchBehavior.Unknown;
-            WebPagePostLoadDelay = ProgramWebPagePostLoadDelay._None;
+            VersionSearchBehavior = _VersionSearchBehavior.Unknown;
+            WebPagePostLoadDelay = _WebPagePostLoadDelay._None;
             WebPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn = new List<WebPageElementLocatingInstruction>();
             IsAutomaticallyAdded = false;
-            UpdateCheckConfigurationStatus = ProgramUpdateCheckConfigurationStatus.Unknown;
-            UpdateCheckConfigurationError = ProgramUpdateCheckConfigurationError.None;
+            UpdateCheckConfigurationStatus = _UpdateCheckConfigurationStatus.Unknown;
+            UpdateCheckConfigurationError = _UpdateCheckConfigurationError.None;
             IsHidden = false;
         }
-        public Program(string name, string installedVersion, string latestVersion, ProgramInstallationScope installationScope, bool isUpdateCheckConfigured, string webPageUrl, ProgramVersionSearchMethod versionSearchMethod, string versionSearchMethodArgument1, string versionSearchMethodArgument2, bool treatAStandaloneNumberAsAVersion, ProgramVersionSearchBehavior versionSearchBehavior, ProgramWebPagePostLoadDelay webPagePostLoadDelay, List<WebPageElementLocatingInstruction> webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, bool isAutomaticallyAdded, ProgramUpdateCheckConfigurationStatus updateCheckConfigurationStatus, ProgramUpdateCheckConfigurationError updateCheckConfigurationError, bool isHidden)
+        public Program(string name, string installedVersion, string latestVersion, _InstallationScope installationScope, bool isUpdateCheckConfigured, string webPageUrl, _VersionSearchMethod versionSearchMethod, string versionSearchMethodArgument1, string versionSearchMethodArgument2, bool treatAStandaloneNumberAsAVersion, _VersionSearchBehavior versionSearchBehavior, _WebPagePostLoadDelay webPagePostLoadDelay, List<WebPageElementLocatingInstruction> webPageElementLocatingInstructionsOfWebPageElementsToSimulateAClickOn, bool isAutomaticallyAdded, _UpdateCheckConfigurationStatus updateCheckConfigurationStatus, _UpdateCheckConfigurationError updateCheckConfigurationError, bool isHidden)
         {
             Name = name;
             InstalledVersion = installedVersion;

@@ -203,23 +203,23 @@ namespace Scrupdate.Classes.Utilities
             {
                 RegistryKey installedProgramsRegistryKey = null;
                 string[] installedProgramsRegistrySubKeysNames = null;
-                Program.ProgramInstallationScope installedProgramsInstallationScope = Program.ProgramInstallationScope.None;
+                Program._InstallationScope installedProgramsInstallationScope = Program._InstallationScope.None;
                 switch (installedProgramsType)
                 {
                     case ProgramType.UserProgram:
                         installedProgramsRegistryKey = installedUserProgramsRegistryKey;
                         installedProgramsRegistrySubKeysNames = installedUserProgramsRegistrySubKeysNames;
-                        installedProgramsInstallationScope = Program.ProgramInstallationScope.User;
+                        installedProgramsInstallationScope = Program._InstallationScope.User;
                         break;
                     case ProgramType.System32BitProgram:
                         installedProgramsRegistryKey = installedSystem32BitProgramsRegistryKey;
                         installedProgramsRegistrySubKeysNames = installedSystem32BitProgramsRegistrySubKeysNames;
-                        installedProgramsInstallationScope = Program.ProgramInstallationScope.Everyone;
+                        installedProgramsInstallationScope = Program._InstallationScope.Everyone;
                         break;
                     case ProgramType.System64BitProgram:
                         installedProgramsRegistryKey = installedSystem64BitProgramsRegistryKey;
                         installedProgramsRegistrySubKeysNames = installedSystem64BitProgramsRegistrySubKeysNames;
-                        installedProgramsInstallationScope = Program.ProgramInstallationScope.Everyone;
+                        installedProgramsInstallationScope = Program._InstallationScope.Everyone;
                         break;
                 }
                 if (installedProgramsRegistryKey != null && installedProgramsRegistrySubKeysNames != null)
@@ -243,13 +243,13 @@ namespace Scrupdate.Classes.Utilities
                                 installedProgramInstalledVersion = null;
                             }
                         }
-                        Program.ProgramInstallationScope installedInstallationScope = installedProgramsInstallationScope;
+                        Program._InstallationScope installedInstallationScope = installedProgramsInstallationScope;
                         if (installedProgramName != null)
                         {
                             stringOfAllInstalledPrograms.Append(installedProgramName);
                             stringOfAllInstalledPrograms.Append((installedProgramInstalledVersion != null ? installedProgramInstalledVersion : ""));
                             stringOfAllInstalledPrograms.Append(Convert.ToString((long)installedInstallationScope));
-                            if (installedInstallationScope == Program.ProgramInstallationScope.Everyone)
+                            if (installedInstallationScope == Program._InstallationScope.Everyone)
                                 stringOfAllInstalledPrograms.Append((installedProgramsType == ProgramType.System32BitProgram ? "32" : (installedProgramsType == ProgramType.System64BitProgram ? "64" : "")));
                             string versionFromProgramName;
                             installedProgramName = VersionsUtilities.GetStringWithoutTheFirstFoundVersion(installedProgramName.Trim(), false, false, true, out versionFromProgramName);
@@ -264,16 +264,16 @@ namespace Scrupdate.Classes.Utilities
                                     installedInstallationScope,
                                     false,
                                     "",
-                                    Program.ProgramVersionSearchMethod.Unknown,
+                                    Program._VersionSearchMethod.Unknown,
                                     "",
                                     "",
                                     false,
-                                    Program.ProgramVersionSearchBehavior.Unknown,
-                                    Program.ProgramWebPagePostLoadDelay._None,
+                                    Program._VersionSearchBehavior.Unknown,
+                                    Program._WebPagePostLoadDelay._None,
                                     new List<WebPageElementLocatingInstruction>(),
                                     true,
-                                    Program.ProgramUpdateCheckConfigurationStatus.Unknown,
-                                    Program.ProgramUpdateCheckConfigurationError.None,
+                                    Program._UpdateCheckConfigurationStatus.Unknown,
+                                    Program._UpdateCheckConfigurationError.None,
                                     false
                                 ));
                             }
@@ -298,7 +298,7 @@ namespace Scrupdate.Classes.Utilities
                 {
                     Program programAlreadyInDatabase = i.Current.Value;
                     if (!installedPrograms.ContainsKey(programAlreadyInDatabase.Name))
-                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(programAlreadyInDatabase.Name, "", Program.ProgramInstallationScope.None);
+                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(programAlreadyInDatabase.Name, "", Program._InstallationScope.None);
                     else
                     {
                         Program installedProgram = installedPrograms[programAlreadyInDatabase.Name];
@@ -420,28 +420,28 @@ namespace Scrupdate.Classes.Utilities
                         int webPagePostLoadDelayInMilliseconds = 0;
                         switch (programToCheck.WebPagePostLoadDelay)
                         {
-                            case Program.ProgramWebPagePostLoadDelay._100Ms:
+                            case Program._WebPagePostLoadDelay._100Ms:
                                 webPagePostLoadDelayInMilliseconds = 100;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._250Ms:
+                            case Program._WebPagePostLoadDelay._250Ms:
                                 webPagePostLoadDelayInMilliseconds = 250;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._500Ms:
+                            case Program._WebPagePostLoadDelay._500Ms:
                                 webPagePostLoadDelayInMilliseconds = 500;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._1000Ms:
+                            case Program._WebPagePostLoadDelay._1000Ms:
                                 webPagePostLoadDelayInMilliseconds = 1000;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._2000Ms:
+                            case Program._WebPagePostLoadDelay._2000Ms:
                                 webPagePostLoadDelayInMilliseconds = 2000;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._3000Ms:
+                            case Program._WebPagePostLoadDelay._3000Ms:
                                 webPagePostLoadDelayInMilliseconds = 3000;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._4000Ms:
+                            case Program._WebPagePostLoadDelay._4000Ms:
                                 webPagePostLoadDelayInMilliseconds = 4000;
                                 break;
-                            case Program.ProgramWebPagePostLoadDelay._5000Ms:
+                            case Program._WebPagePostLoadDelay._5000Ms:
                                 webPagePostLoadDelayInMilliseconds = 5000;
                                 break;
                         }
@@ -473,7 +473,7 @@ namespace Scrupdate.Classes.Utilities
                         string tempTextToSerachVersion = null;
                         switch (programToCheck.VersionSearchMethod)
                         {
-                            case Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
+                            case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
                                 try
                                 {
                                     textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(programToCheck.VersionSearchMethodArgument1);
@@ -483,7 +483,7 @@ namespace Scrupdate.Classes.Utilities
                                     throw new HtmlElementWasNotFoundException();
                                 }
                                 break;
-                            case Program.ProgramVersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
+                            case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
                                 try
                                 {
                                     textToSerachVersion = string.Join(" ", chromeDriver.GetTextsInsideHtmlElementsByXPath(programToCheck.VersionSearchMethodArgument1));
@@ -493,21 +493,21 @@ namespace Scrupdate.Classes.Utilities
                                     throw new HtmlElementWasNotFoundException();
                                 }
                                 break;
-                            case Program.ProgramVersionSearchMethod.SearchGloballyInTheWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyInTheWebPage:
                                 textToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 break;
-                            case Program.ProgramVersionSearchMethod.SearchGloballyFromTextWithinWebPage:
-                            case Program.ProgramVersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 int foundTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument1);
                                 if (foundTextIndex < 0)
                                     throw new TextWasNotFoundWithinWebPageException();
-                                if (programToCheck.VersionSearchMethod == Program.ProgramVersionSearchMethod.SearchGloballyFromTextWithinWebPage)
+                                if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage)
                                     textToSerachVersion = tempTextToSerachVersion.Substring(foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length);
                                 else
                                     textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
                                 break;
-                            case Program.ProgramVersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument1);
                                 int foundEndingTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument2);
@@ -522,36 +522,36 @@ namespace Scrupdate.Classes.Utilities
                         string versionString = null;
                         switch (programToCheck.VersionSearchBehavior)
                         {
-                            case Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFound:
+                            case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
                                 versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion, false);
                                 break;
-                            case Program.ProgramVersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
+                            case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
                                 versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion, true);
                                 break;
-                            case Program.ProgramVersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
+                            case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
                                 versionString = VersionsUtilities.GetTheLatestVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion);
                                 break;
                         }
                         if (versionString == null || versionString.Equals(""))
                             throw new NoVersionWasFoundException();
                         programDatabase.UpdateProgramLatestVersion(programToCheck.Name, VersionsUtilities.TrimVersion(versionString, VersionsUtilities.MINIMUM_VERSION_SEGMENTS, VersionsUtilities.MAXIMUM_VERSION_SEGMENTS));
-                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program.ProgramUpdateCheckConfigurationStatus.Valid, Program.ProgramUpdateCheckConfigurationError.None);
+                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program._UpdateCheckConfigurationStatus.Valid, Program._UpdateCheckConfigurationError.None);
                     }
                     catch (Exception e)
                     {
-                        Program.ProgramUpdateCheckConfigurationError updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.None;
+                        Program._UpdateCheckConfigurationError updateCheckConfigurationError = Program._UpdateCheckConfigurationError.None;
                         if (e.GetType().Equals(typeof(WebPageDidNotRespondException)))
-                            updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.WebPageDidNotRespond;
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
                         else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
-                            updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.HtmlElementWasNotFound;
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
                         else if (e.GetType().Equals(typeof(TextWasNotFoundWithinWebPageException)))
-                            updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.TextWasNotFoundWithinWebPage;
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinWebPage;
                         else if (e.GetType().Equals(typeof(NoVersionWasFoundException)))
-                            updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.NoVersionWasFound;
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
                         else
-                            updateCheckConfigurationError = Program.ProgramUpdateCheckConfigurationError.GeneralFailure;
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
                         programDatabase.UpdateProgramLatestVersion(programToCheck.Name, "");
-                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program.ProgramUpdateCheckConfigurationStatus.Invalid, updateCheckConfigurationError);
+                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program._UpdateCheckConfigurationStatus.Invalid, updateCheckConfigurationError);
                     }
                 }
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;
