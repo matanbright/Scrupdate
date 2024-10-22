@@ -438,20 +438,20 @@
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInstructionMethod" Width="130">
+                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingMethod" Width="130">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInstructionMethod" Text="Locating Method" Tag="WebPageElementLocatingInstructionMethodToDisplay" IsSortable="False" />
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethod" Text="Locating Method" Tag="WebPageElementLocatingMethodToDisplay" IsSortable="False" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingInstructionMethodToDisplay}" />
+                                                                                           Text="{Binding WebPageElementLocatingMethodToDisplay}" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInstructionMethodArgument" Width="308">
+                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingMethodArgument" Width="308">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInstructionMethodArgument" Text="Locating Method Argument" Tag="UnderlyingWebPageElementLocatingInstruction.MethodArgument" IsSortable="False" />
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethodArgument" Text="Locating Method Argument" Tag="UnderlyingWebPageElementLocatingInstruction.MethodArgument" IsSortable="False" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
@@ -485,14 +485,14 @@
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInstructionDuration" Width="75">
+                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingDuration" Width="75">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInstructionDuration" Text="Duration" Tag="WebPageElementLocatingInstructionDurationToDisplay" IsSortable="False" />
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingDuration" Text="Duration" Tag="WebPageElementLocatingDurationToDisplay" IsSortable="False" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingInstructionDurationToDisplay}" />
+                                                                                           Text="{Binding WebPageElementLocatingDurationToDisplay}" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
