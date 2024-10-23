@@ -106,7 +106,9 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static void ScanForInstalledProgramsAndUpdateProgramDatabase(ProgramDatabase programDatabase, SettingsHandler settingsHandler, CancellationToken? cancellationToken)
+        public static void ScanForInstalledProgramsAndUpdateProgramDatabase(ProgramDatabase programDatabase,
+                                                                            SettingsHandler settingsHandler,
+                                                                            CancellationToken? cancellationToken)
         {
             if (programDatabase == null)
                 throw new ArgumentNullException(nameof(programDatabase));
@@ -246,7 +248,11 @@ namespace Scrupdate.Classes.Utilities
                     settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = backupOfLastHashOfAllInstalledPrograms;
             }
         }
-        public static void CheckForProgramUpdatesAndUpdateDatabase(List<Program> programsToCheck, ProgramDatabase programDatabase, SettingsHandler settingsHandler, ProgramUpdatesCheckProgressChangedEventHandler updatesCheckProgressChangedEventHandler, CancellationToken? cancellationToken)
+        public static void CheckForProgramUpdatesAndUpdateDatabase(List<Program> programsToCheck,
+                                                                   ProgramDatabase programDatabase,
+                                                                   SettingsHandler settingsHandler,
+                                                                   ProgramUpdatesCheckProgressChangedEventHandler updatesCheckProgressChangedEventHandler,
+                                                                   CancellationToken? cancellationToken)
         {
             if (programsToCheck == null)
                 throw new ArgumentNullException(nameof(programsToCheck));

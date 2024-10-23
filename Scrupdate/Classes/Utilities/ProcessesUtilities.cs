@@ -134,12 +134,36 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)] private static extern bool SaferCreateLevel(SaferScope dwScopeId, SaferLevel dwLevelId, SaferOpenFlags OpenFlags, out IntPtr pLevelHandle, IntPtr lpReserved);
-        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)] private static extern bool SaferComputeTokenFromLevel(IntPtr LevelHandle, IntPtr InAccessToken, out IntPtr OutAccessToken, SaferComputeTokenFlags dwFlags, IntPtr lpReserved);
-        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)] private static extern bool SaferCloseLevel(IntPtr hLevelHandle);
-        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)] private static extern bool CreateProcessAsUser(IntPtr hToken, string lpApplicationName, string lpCommandLine, ref SECURITY_ATTRIBUTES lpProcessAttributes, ref SECURITY_ATTRIBUTES lpThreadAttributes, bool bInheritHandles, ProcessCreationFlags dwCreationFlags, IntPtr lpEnvironment, string lpCurrentDirectory, ref STARTUPINFO lpStartupInfo, out PROCESS_INFORMATION lpProcessInformation);
-        [DllImport("kernel32.dll", SetLastError = true)] private static extern bool CloseHandle(IntPtr hObject);
-        [DllImport("kernel32.dll", SetLastError = true)] private static extern bool GetExitCodeProcess(IntPtr hProcess, out uint lpExitCode);
+        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool SaferCreateLevel(SaferScope dwScopeId,
+                                                    SaferLevel dwLevelId,
+                                                    SaferOpenFlags OpenFlags,
+                                                    out IntPtr pLevelHandle,
+                                                    IntPtr lpReserved);
+        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool SaferComputeTokenFromLevel(IntPtr LevelHandle,
+                                                              IntPtr InAccessToken,
+                                                              out IntPtr OutAccessToken,
+                                                              SaferComputeTokenFlags dwFlags,
+                                                              IntPtr lpReserved);
+        [DllImport("advapi32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        private static extern bool SaferCloseLevel(IntPtr hLevelHandle);
+        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern bool CreateProcessAsUser(IntPtr hToken,
+                                                       string lpApplicationName,
+                                                       string lpCommandLine,
+                                                       ref SECURITY_ATTRIBUTES lpProcessAttributes,
+                                                       ref SECURITY_ATTRIBUTES lpThreadAttributes,
+                                                       bool bInheritHandles,
+                                                       ProcessCreationFlags dwCreationFlags,
+                                                       IntPtr lpEnvironment,
+                                                       string lpCurrentDirectory,
+                                                       ref STARTUPINFO lpStartupInfo,
+                                                       out PROCESS_INFORMATION lpProcessInformation);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool CloseHandle(IntPtr hObject);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool GetExitCodeProcess(IntPtr hProcess, out uint lpExitCode);
         public static int RunFile(string filePath)
         {
             return RunFile(filePath, null, false, false, false, -1, false, false, out _);
@@ -148,7 +172,15 @@ namespace Scrupdate.Classes.Utilities
         {
             return RunFile(filePath, arguments, false, false, false, -1, false, false, out _);
         }
-        public static int RunFile(string filePath, string arguments, bool useShellExecute, bool createNoWindow, bool waitForExit, int waitingTimeout, bool killProcessTreeOnTimeout, bool redirectStandardOutputIfWaitingForExit, out string standardOutput)
+        public static int RunFile(string filePath,
+                                  string arguments,
+                                  bool useShellExecute,
+                                  bool createNoWindow,
+                                  bool waitForExit,
+                                  int waitingTimeout,
+                                  bool killProcessTreeOnTimeout,
+                                  bool redirectStandardOutputIfWaitingForExit,
+                                  out string standardOutput)
         {
             standardOutput = null;
             if (filePath == null)
@@ -197,7 +229,12 @@ namespace Scrupdate.Classes.Utilities
         {
             return RunFileWithoutElevatedPrivileges(filePath, arguments, false, false, -1, false);
         }
-        public static int RunFileWithoutElevatedPrivileges(string filePath, string arguments, bool createNoWindow, bool waitForExit, int waitingTimeout, bool killProcessTreeOnTimeout)
+        public static int RunFileWithoutElevatedPrivileges(string filePath,
+                                                           string arguments,
+                                                           bool createNoWindow,
+                                                           bool waitForExit,
+                                                           int waitingTimeout,
+                                                           bool killProcessTreeOnTimeout)
         {
             if (filePath == null)
                 throw new ArgumentNullException(nameof(filePath));

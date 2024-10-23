@@ -279,8 +279,10 @@ namespace Scrupdate
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)] private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)] private static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
         private static void StartListeningToScheduleInvokationCommand()
         {
             scheduleInvokationCommandListeningThread = new Thread(() =>
