@@ -58,21 +58,32 @@ namespace Scrupdate.Classes.Objects
             public DateTime LastProgramUpdatesScheduledCheckAttemptionTime { get; set; }
             public string LastChecksumOfInstalledGoogleChromeBrowserExecutableFile { get; set; }
             public string LastDefaultChromeDriverUserAgentString { get; set; }
-            public CachedSettings()
-            {
-                LastWindowState = null;
-                LastWindowSize = null;
-                LastWindowLocation = null;
-                LastHashOfAllInstalledPrograms = "";
-                LastProgramFilteringState = false;
-                LastProgramFilteringOption = ProgramFilteringOption.Unknown;
-                LastShowHiddenProgramsState = false;
-                LastProgramUpdatesCheckTime = new DateTime();
-                LastProgramUpdatesScheduledCheckAttemptionTime = new DateTime();
-                LastChecksumOfInstalledGoogleChromeBrowserExecutableFile = "";
-                LastDefaultChromeDriverUserAgentString = "";
-            }
-            public CachedSettings(WindowState? lastWindowState, Size? lastWindowSize, Point? lastWindowLocation, string lastHashOfAllInstalledPrograms, bool lastProgramFilteringState, ProgramFilteringOption lastProgramFilteringOption, bool lastShowHiddenProgramsState, DateTime lastProgramUpdatesCheckTime, DateTime lastProgramUpdatesScheduledCheckAttemptionTime, string lastChecksumOfInstalledGoogleChromeBrowserExecutableFile, string lastDefaultChromeDriverUserAgentString)
+            public CachedSettings() :
+                this(
+                    null,
+                    null,
+                    null,
+                    "",
+                    false,
+                    ProgramFilteringOption.Unknown,
+                    false,
+                    new DateTime(),
+                    new DateTime(),
+                    "",
+                    ""
+                )
+            { }
+            public CachedSettings(WindowState? lastWindowState,
+                                  Size? lastWindowSize,
+                                  Point? lastWindowLocation,
+                                  string lastHashOfAllInstalledPrograms,
+                                  bool lastProgramFilteringState,
+                                  ProgramFilteringOption lastProgramFilteringOption,
+                                  bool lastShowHiddenProgramsState,
+                                  DateTime lastProgramUpdatesCheckTime,
+                                  DateTime lastProgramUpdatesScheduledCheckAttemptionTime,
+                                  string lastChecksumOfInstalledGoogleChromeBrowserExecutableFile,
+                                  string lastDefaultChromeDriverUserAgentString)
             {
                 LastWindowState = lastWindowState;
                 LastWindowSize = lastWindowSize;
@@ -107,17 +118,24 @@ namespace Scrupdate.Classes.Objects
             public WeekDays ProgramUpdatesScheduledCheckDays { get; set; }
             public int ProgramUpdatesScheduledCheckHour { get; set; }
             public bool IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults { get; set; }
-            public GeneralSettings()
-            {
-                EnableScanningForInstalledPrograms = true;
-                ScanForInstalledProgramsAutomaticallyOnStart = true;
-                RememberLastProgramListOptions = false;
-                EnableScheduledCheckForProgramUpdates = false;
-                ProgramUpdatesScheduledCheckDays = WeekDays.None;
-                ProgramUpdatesScheduledCheckHour = 0;
-                IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults = false;
-            }
-            public GeneralSettings(bool enableScanningForInstalledPrograms, bool scanForInstalledProgramsAutomaticallyOnStart, bool rememberLastProgramListOptions, bool enableScheduledCheckForProgramUpdates, WeekDays programUpdatesScheduledCheckDays, int programUpdatesScheduledCheckHour, bool includeHiddenProgramsInProgramUpdatesScheduledCheckResults)
+            public GeneralSettings() :
+                this(
+                    true,
+                    true,
+                    false,
+                    false,
+                    WeekDays.None,
+                    0,
+                    false
+                )
+            { }
+            public GeneralSettings(bool enableScanningForInstalledPrograms,
+                                   bool scanForInstalledProgramsAutomaticallyOnStart,
+                                   bool rememberLastProgramListOptions,
+                                   bool enableScheduledCheckForProgramUpdates,
+                                   WeekDays programUpdatesScheduledCheckDays,
+                                   int programUpdatesScheduledCheckHour,
+                                   bool includeHiddenProgramsInProgramUpdatesScheduledCheckResults)
             {
                 EnableScanningForInstalledPrograms = enableScanningForInstalledPrograms;
                 ScanForInstalledProgramsAutomaticallyOnStart = scanForInstalledProgramsAutomaticallyOnStart;
@@ -134,14 +152,18 @@ namespace Scrupdate.Classes.Objects
             public int MinimumVersionSegments { get; set; }
             public int MaximumVersionSegments { get; set; }
             public bool RemoveTrailingZeroSegmentsOfVersions { get; set; }
-            public AppearanceSettings()
-            {
-                WindowsScalingFactor = 0.0D;
-                MinimumVersionSegments = 2;
-                MaximumVersionSegments = 4;
-                RemoveTrailingZeroSegmentsOfVersions = true;
-            }
-            public AppearanceSettings(double windowsScalingFactor, int minimumVersionSegments, int maximumVersionSegments, bool removeTrailingZeroSegmentsOfVersions)
+            public AppearanceSettings() :
+                this(
+                    0.0D,
+                    2,
+                    4,
+                    true
+                )
+            { }
+            public AppearanceSettings(double windowsScalingFactor,
+                                      int minimumVersionSegments,
+                                      int maximumVersionSegments,
+                                      bool removeTrailingZeroSegmentsOfVersions)
             {
                 WindowsScalingFactor = windowsScalingFactor;
                 MinimumVersionSegments = minimumVersionSegments;
@@ -164,13 +186,16 @@ namespace Scrupdate.Classes.Objects
             public ChromeDriverPageLoadTimeout PageLoadTimeout { get; set; }
             public bool UseCustomUserAgentString { get; set; }
             public string CustomUserAgentString { get; set; }
-            public ChromeDriverSettings()
-            {
-                PageLoadTimeout = ChromeDriverPageLoadTimeout.After15Seconds;
-                UseCustomUserAgentString = false;
-                CustomUserAgentString = "";
-            }
-            public ChromeDriverSettings(ChromeDriverPageLoadTimeout pageLoadTimeout, bool useCustomUserAgentString, string customUserAgentString)
+            public ChromeDriverSettings() :
+                this(
+                    ChromeDriverPageLoadTimeout.After15Seconds,
+                    false,
+                    ""
+                )
+            { }
+            public ChromeDriverSettings(ChromeDriverPageLoadTimeout pageLoadTimeout,
+                                        bool useCustomUserAgentString,
+                                        string customUserAgentString)
             {
                 PageLoadTimeout = pageLoadTimeout;
                 UseCustomUserAgentString = useCustomUserAgentString;
@@ -215,8 +240,18 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Settings() : this(new CachedSettings(), new GeneralSettings(), new AppearanceSettings(), new ChromeDriverSettings()) { }
-        public Settings(CachedSettings cached, GeneralSettings general, AppearanceSettings appearance, ChromeDriverSettings chromeDriver)
+        public Settings() :
+            this(
+                new CachedSettings(),
+                new GeneralSettings(),
+                new AppearanceSettings(),
+                new ChromeDriverSettings()
+            )
+        { }
+        public Settings(CachedSettings cached,
+                        GeneralSettings general,
+                        AppearanceSettings appearance,
+                        ChromeDriverSettings chromeDriver)
         {
             Cached = cached;
             General = general;

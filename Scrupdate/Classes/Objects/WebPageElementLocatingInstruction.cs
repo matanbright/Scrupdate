@@ -54,14 +54,18 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public WebPageElementLocatingInstruction()
-        {
-            LocatingMethod = _LocatingMethod.Unspecified;
-            MethodArgument = "";
-            MatchExactText = false;
-            LocatingDuration = _LocatingDuration._Unspecified;
-        }
-        public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod, string methodArgument, bool matchExactText, _LocatingDuration locatingDuration)
+        public WebPageElementLocatingInstruction() :
+            this(
+                _LocatingMethod.Unspecified,
+                "",
+                false,
+                _LocatingDuration._Unspecified
+            )
+        { }
+        public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod,
+                                                 string methodArgument,
+                                                 bool matchExactText,
+                                                 _LocatingDuration locatingDuration)
         {
             LocatingMethod = locatingMethod;
             MethodArgument = methodArgument;

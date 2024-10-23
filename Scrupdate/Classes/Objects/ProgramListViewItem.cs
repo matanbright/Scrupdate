@@ -33,9 +33,27 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public ProgramListViewItem(Program underlyingProgram) : this(underlyingProgram, underlyingProgram.InstalledVersion, underlyingProgram.LatestVersion) { }
-        public ProgramListViewItem(Program underlyingProgram, string programInstalledVersionToDisplay, string programLatestVersionToDisplay) : this(underlyingProgram, programInstalledVersionToDisplay, programLatestVersionToDisplay, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH)) { }
-        public ProgramListViewItem(Program underlyingProgram, string programInstalledVersionToDisplay, string programLatestVersionToDisplay, Brush foreground)
+        public ProgramListViewItem(Program underlyingProgram) :
+            this(
+                underlyingProgram,
+                underlyingProgram.InstalledVersion,
+                underlyingProgram.LatestVersion
+            )
+        { }
+        public ProgramListViewItem(Program underlyingProgram,
+                                   string programInstalledVersionToDisplay,
+                                   string programLatestVersionToDisplay) :
+            this(
+                underlyingProgram,
+                programInstalledVersionToDisplay,
+                programLatestVersionToDisplay,
+                (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH)
+            )
+        { }
+        public ProgramListViewItem(Program underlyingProgram,
+                                   string programInstalledVersionToDisplay,
+                                   string programLatestVersionToDisplay,
+                                   Brush foreground)
         {
             UnderlyingProgram = underlyingProgram;
             ProgramInstalledVersionToDisplay = programInstalledVersionToDisplay;

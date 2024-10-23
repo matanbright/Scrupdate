@@ -32,8 +32,19 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex, WebPageElementLocatingInstruction underlyingWebPageElementLocatingInstruction) : this(webPageElementLocatingInstructionIndex, underlyingWebPageElementLocatingInstruction, StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingMethod.ToString()).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"), StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingDuration.ToString().Substring(1)).Replace(" Ms", "ms")) { }
-        public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex, WebPageElementLocatingInstruction underlyingWebPageElementLocatingInstruction, string webPageElementLocatingMethodToDisplay, string webPageElementLocatingDurationToDisplay)
+        public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex,
+                                                             WebPageElementLocatingInstruction underlyingWebPageElementLocatingInstruction) :
+            this(
+                webPageElementLocatingInstructionIndex,
+                underlyingWebPageElementLocatingInstruction,
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingMethod.ToString()).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingDuration.ToString().Substring(1)).Replace(" Ms", "ms")
+            )
+        { }
+        public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex,
+                                                             WebPageElementLocatingInstruction underlyingWebPageElementLocatingInstruction,
+                                                             string webPageElementLocatingMethodToDisplay,
+                                                             string webPageElementLocatingDurationToDisplay)
         {
             WebPageElementLocatingInstructionIndex = webPageElementLocatingInstructionIndex;
             UnderlyingWebPageElementLocatingInstruction = underlyingWebPageElementLocatingInstruction;

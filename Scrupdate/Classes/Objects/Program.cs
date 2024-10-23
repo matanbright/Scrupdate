@@ -102,27 +102,44 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Program()
-        {
-            Name = "";
-            InstalledVersion = "";
-            LatestVersion = "";
-            InstallationScope = _InstallationScope.None;
-            IsUpdateCheckConfigured = false;
-            WebPageUrl = "";
-            VersionSearchMethod = _VersionSearchMethod.Unknown;
-            VersionSearchMethodArgument1 = "";
-            VersionSearchMethodArgument2 = "";
-            TreatAStandaloneNumberAsAVersion = false;
-            VersionSearchBehavior = _VersionSearchBehavior.Unknown;
-            WebPagePostLoadDelay = _WebPagePostLoadDelay._None;
-            LocatingInstructionsOfWebPageElementsToSimulateAClickOn = new List<WebPageElementLocatingInstruction>();
-            IsAutomaticallyAdded = false;
-            UpdateCheckConfigurationStatus = _UpdateCheckConfigurationStatus.Unknown;
-            UpdateCheckConfigurationError = _UpdateCheckConfigurationError.None;
-            IsHidden = false;
-        }
-        public Program(string name, string installedVersion, string latestVersion, _InstallationScope installationScope, bool isUpdateCheckConfigured, string webPageUrl, _VersionSearchMethod versionSearchMethod, string versionSearchMethodArgument1, string versionSearchMethodArgument2, bool treatAStandaloneNumberAsAVersion, _VersionSearchBehavior versionSearchBehavior, _WebPagePostLoadDelay webPagePostLoadDelay, List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn, bool isAutomaticallyAdded, _UpdateCheckConfigurationStatus updateCheckConfigurationStatus, _UpdateCheckConfigurationError updateCheckConfigurationError, bool isHidden)
+        public Program() :
+            this(
+                "",
+                "",
+                "",
+                _InstallationScope.None,
+                false,
+                "",
+                _VersionSearchMethod.Unknown,
+                "",
+                "",
+                false,
+                _VersionSearchBehavior.Unknown,
+                _WebPagePostLoadDelay._None,
+                new List<WebPageElementLocatingInstruction>(),
+                false,
+                _UpdateCheckConfigurationStatus.Unknown,
+                _UpdateCheckConfigurationError.None,
+                false
+            )
+        { }
+        public Program(string name,
+                       string installedVersion,
+                       string latestVersion,
+                       _InstallationScope installationScope,
+                       bool isUpdateCheckConfigured,
+                       string webPageUrl,
+                       _VersionSearchMethod versionSearchMethod,
+                       string versionSearchMethodArgument1,
+                       string versionSearchMethodArgument2,
+                       bool treatAStandaloneNumberAsAVersion,
+                       _VersionSearchBehavior versionSearchBehavior,
+                       _WebPagePostLoadDelay webPagePostLoadDelay,
+                       List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn,
+                       bool isAutomaticallyAdded,
+                       _UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
+                       _UpdateCheckConfigurationError updateCheckConfigurationError,
+                       bool isHidden)
         {
             Name = name;
             InstalledVersion = installedVersion;
