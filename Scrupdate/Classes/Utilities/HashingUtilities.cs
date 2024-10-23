@@ -40,7 +40,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetMD5Hash(string stringToHash)
         {
             if (stringToHash == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stringToHash));
             try
             {
                 return GetMD5Hash(Encoding.Default.GetBytes(stringToHash));
@@ -53,7 +53,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetMD5Hash(byte[] bytesArrayToHash)
         {
             if (bytesArrayToHash == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(bytesArrayToHash));
             try
             {
                 byte[] hashedStringBytes = md5HashGenerator.ComputeHash(bytesArrayToHash);

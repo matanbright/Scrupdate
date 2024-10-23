@@ -30,6 +30,11 @@ namespace Scrupdate.Classes.Utilities
             private const string EXCEPTION_MESSAGE = "Invalid version string!";
             public InvalidVersionStringException() : base(EXCEPTION_MESSAGE) { }
         }
+        public class MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException : Exception
+        {
+            private const string EXCEPTION_MESSAGE = "The minimum version segments number is bigger than the maximum number!";
+            public MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException() : base(EXCEPTION_MESSAGE) { }
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -56,9 +61,9 @@ namespace Scrupdate.Classes.Utilities
         public static bool IsVersion(string stringToCheck, VersionValidation versionValidation)
         {
             if (stringToCheck == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stringToCheck));
             if (!(versionValidation >= VersionValidation.None && versionValidation <= VersionValidation.ValidateVersionSegmentsCount))
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(versionValidation));
             try
             {
                 if (stringToCheck.Equals(""))
@@ -100,8 +105,10 @@ namespace Scrupdate.Classes.Utilities
         }
         public static bool IsVersionNewer(string newVersionString, string oldVersionString, bool treatAStandaloneNumberAsAVersion)
         {
-            if (newVersionString == null || oldVersionString == null)
-                throw new ArgumentNullException();
+            if (newVersionString == null)
+                throw new ArgumentNullException(nameof(newVersionString));
+            if (oldVersionString == null)
+                throw new ArgumentNullException(nameof(oldVersionString));
             if (!IsVersion(newVersionString, (!treatAStandaloneNumberAsAVersion ? VersionValidation.ValidateVersionSegmentsCount : VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion)) || !IsVersion(oldVersionString, (!treatAStandaloneNumberAsAVersion ? VersionValidation.ValidateVersionSegmentsCount : VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion)))
                 throw new InvalidVersionStringException();
             try
@@ -145,7 +152,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetTheFirstFoundVersionFromString(string stringContainingTheVersion, bool treatAStandaloneNumberAsAVersion, bool reversedSearch)
         {
             if (stringContainingTheVersion == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stringContainingTheVersion));
             try
             {
                 string[] words = stringContainingTheVersion.Split(new char[] { ' ' });
@@ -182,7 +189,7 @@ namespace Scrupdate.Classes.Utilities
         {
             versionString = null;
             if (originalString == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(originalString));
             try
             {
                 versionString = GetTheFirstFoundVersionFromString(originalString, treatAStandaloneNumberAsAVersion, reversedSearch);
@@ -221,7 +228,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetTheLatestVersionFromString(string stringContainingTheVersion, bool treatAStandaloneNumberAsAVersion)
         {
             if (stringContainingTheVersion == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stringContainingTheVersion));
             try
             {
                 List<string> versionsFromString = new List<string>();
@@ -256,13 +263,15 @@ namespace Scrupdate.Classes.Utilities
         public static string TrimVersion(string versionStringToTrim, int minimumVersionSegments, int maximumVersionSegments, bool removeTrailingZeroSegmentsOfVersion)
         {
             if (versionStringToTrim == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(versionStringToTrim));
+            if (minimumVersionSegments < MINIMUM_VERSION_SEGMENTS || minimumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+                throw new ArgumentOutOfRangeException(nameof(minimumVersionSegments));
+            if (maximumVersionSegments < MINIMUM_VERSION_SEGMENTS || maximumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+                throw new ArgumentOutOfRangeException(nameof(maximumVersionSegments));
             if (!(versionStringToTrim.Equals("") || IsVersion(versionStringToTrim, VersionValidation.None)))
                 throw new InvalidVersionStringException();
-            if ((minimumVersionSegments < MINIMUM_VERSION_SEGMENTS || minimumVersionSegments > MAXIMUM_VERSION_SEGMENTS) || (maximumVersionSegments < MINIMUM_VERSION_SEGMENTS || maximumVersionSegments > MAXIMUM_VERSION_SEGMENTS))
-                throw new ArgumentOutOfRangeException();
             if (minimumVersionSegments > maximumVersionSegments)
-                throw new ArgumentException();
+                throw new MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException();
             try
             {
                 StringBuilder trimmedVersionString = new StringBuilder();

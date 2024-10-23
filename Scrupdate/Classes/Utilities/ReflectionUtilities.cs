@@ -30,8 +30,10 @@ namespace Scrupdate.Classes.Utilities
         }
         public static List<Field> GetStaticFields(Type type, string fieldNameFilter)
         {
-            if (type == null || fieldNameFilter == null)
-                throw new ArgumentNullException();
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+            if (fieldNameFilter == null)
+                throw new ArgumentNullException(nameof(fieldNameFilter));
             List<Field> staticFields = new List<Field>();
             foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {

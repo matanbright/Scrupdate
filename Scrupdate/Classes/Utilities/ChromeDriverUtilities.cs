@@ -47,7 +47,7 @@ namespace Scrupdate.Classes.Utilities
         {
             chromeDriverInformation = null;
             if (pathOfChromeDriverExecutableFileToInstall == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(pathOfChromeDriverExecutableFileToInstall));
             try
             {
                 chromeDriverInformation = GetChromeDriverInformationFromAFile(pathOfChromeDriverExecutableFileToInstall, out _);
@@ -92,7 +92,7 @@ namespace Scrupdate.Classes.Utilities
         {
             unableToAccessFile = false;
             if (filePath == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(filePath));
             try
             {
                 if (!File.Exists(filePath))

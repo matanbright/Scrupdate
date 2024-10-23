@@ -26,8 +26,10 @@ namespace Scrupdate.Classes.Utilities
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void RunOnAnotherThread(Dispatcher dispatcherOfThread, Action callback)
         {
-            if (dispatcherOfThread == null || callback == null)
-                throw new ArgumentNullException();
+            if (dispatcherOfThread == null)
+                throw new ArgumentNullException(nameof(dispatcherOfThread));
+            if (callback == null)
+                throw new ArgumentNullException(nameof(callback));
             try
             {
                 dispatcherOfThread.Invoke(callback);
@@ -36,8 +38,10 @@ namespace Scrupdate.Classes.Utilities
         }
         public static TReturn RunOnAnotherThread<TReturn>(Dispatcher dispatcherOfThread, Func<TReturn> callback)
         {
-            if (dispatcherOfThread == null || callback == null)
-                throw new ArgumentNullException();
+            if (dispatcherOfThread == null)
+                throw new ArgumentNullException(nameof(dispatcherOfThread));
+            if (callback == null)
+                throw new ArgumentNullException(nameof(callback));
             try
             {
                 return dispatcherOfThread.Invoke(callback);

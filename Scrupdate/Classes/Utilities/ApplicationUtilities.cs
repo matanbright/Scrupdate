@@ -64,7 +64,7 @@ namespace Scrupdate.Classes.Utilities
         public static bool IsItTimeForProgramUpdatesScheduledCheckAttemption(Settings settings)
         {
             if (settings == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(settings));
             try
             {
                 if (!settings.General.EnableScheduledCheckForProgramUpdates)
@@ -102,7 +102,7 @@ namespace Scrupdate.Classes.Utilities
         public static bool UpdateScheduledTask(SettingsHandler settingsHandler)
         {
             if (settingsHandler == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(settingsHandler));
             try
             {
                 if (settingsHandler.SettingsInMemory == null)
@@ -119,7 +119,7 @@ namespace Scrupdate.Classes.Utilities
         public static bool ResetProgramDatabase(SettingsHandler settingsHandler)
         {
             if (settingsHandler == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(settingsHandler));
             try
             {
                 if (settingsHandler.SettingsInMemory == null)

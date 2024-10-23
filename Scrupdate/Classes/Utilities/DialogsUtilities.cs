@@ -27,8 +27,10 @@ namespace Scrupdate.Classes.Utilities
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static bool? ShowErrorDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
         {
-            if (dialogTitle == null || dialogMessage == null)
-                throw new ArgumentNullException();
+            if (dialogTitle == null)
+                throw new ArgumentNullException(nameof(dialogTitle));
+            if (dialogMessage == null)
+                throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
             Action showErrorDialogCallback = (() =>
             {
@@ -47,8 +49,10 @@ namespace Scrupdate.Classes.Utilities
         }
         public static bool? ShowQuestionDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
         {
-            if (dialogTitle == null || dialogMessage == null)
-                throw new ArgumentNullException();
+            if (dialogTitle == null)
+                throw new ArgumentNullException(nameof(dialogTitle));
+            if (dialogMessage == null)
+                throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
             Action showQuestionDialogCallback = (() =>
             {

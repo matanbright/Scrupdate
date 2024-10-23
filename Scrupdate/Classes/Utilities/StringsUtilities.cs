@@ -42,7 +42,7 @@ namespace Scrupdate.Classes.Utilities
         public static bool IsOnlyDigits(string stringToCheck)
         {
             if (stringToCheck == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stringToCheck));
             try
             {
                 if (stringToCheck.Length == 0)
@@ -66,7 +66,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetSpaceSeparatedWordsStringFromPascalCasedWordsString(string pascalCasedWordsString)
         {
             if (pascalCasedWordsString == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(pascalCasedWordsString));
             if (pascalCasedWordsString.Length > 0 && !Array.TrueForAll(pascalCasedWordsString.ToCharArray(), (char pascalCasedWordsStringChar) => (char.IsLetterOrDigit(pascalCasedWordsStringChar))))
                 throw new StringDoesNotContainOnlyLettersAndDigitsException();
             if (pascalCasedWordsString.Length > 0 && !(char.IsUpper(pascalCasedWordsString[0]) || char.IsDigit(pascalCasedWordsString[0])))

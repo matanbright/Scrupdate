@@ -108,8 +108,10 @@ namespace Scrupdate.Classes.Utilities
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void ScanForInstalledProgramsAndUpdateProgramDatabase(ProgramDatabase programDatabase, SettingsHandler settingsHandler, CancellationToken? cancellationToken)
         {
-            if (programDatabase == null || settingsHandler == null)
-                throw new ArgumentNullException();
+            if (programDatabase == null)
+                throw new ArgumentNullException(nameof(programDatabase));
+            if (settingsHandler == null)
+                throw new ArgumentNullException(nameof(settingsHandler));
             if (!programDatabase.IsOpen())
                 throw new ProgramDatabaseIsNotOpenException();
             if (settingsHandler.SettingsInMemory == null)
@@ -246,8 +248,12 @@ namespace Scrupdate.Classes.Utilities
         }
         public static void CheckForProgramUpdatesAndUpdateDatabase(List<Program> programsToCheck, ProgramDatabase programDatabase, SettingsHandler settingsHandler, ProgramUpdatesCheckProgressChangedEventHandler updatesCheckProgressChangedEventHandler, CancellationToken? cancellationToken)
         {
-            if (programsToCheck == null || programDatabase == null || settingsHandler == null)
-                throw new ArgumentNullException();
+            if (programsToCheck == null)
+                throw new ArgumentNullException(nameof(programsToCheck));
+            if (programDatabase == null)
+                throw new ArgumentNullException(nameof(programDatabase));
+            if (settingsHandler == null)
+                throw new ArgumentNullException(nameof(settingsHandler));
             if (settingsHandler.SettingsInMemory == null)
                 throw new SettingsHandler.NoSettingsInMemoryException();
             bool unableToAccessInstalledChromeDriverExecutableFile;

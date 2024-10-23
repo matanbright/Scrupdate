@@ -27,6 +27,16 @@ namespace Scrupdate.Classes.Utilities
 {
     public static class WindowsTaskSchedulerUtilities
     {
+        // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public class NoScheduleDaysWereSpecifiedException : Exception
+        {
+            private const string EXCEPTION_MESSAGE = "No schedule days were specified!";
+            public NoScheduleDaysWereSpecifiedException() : base(EXCEPTION_MESSAGE) { }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const string SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK = "Scrupdate - Program Updates Scheduled Check Task (*)";
         private const int TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS = 1000;
@@ -43,10 +53,12 @@ namespace Scrupdate.Classes.Utilities
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static bool ScheduleProgramUpdatesCheck(Settings.GeneralSettings.WeekDays scheduleDays, int scheduleHour)
         {
+            if (!((int)scheduleDays >= 0b00000001 && (int)scheduleDays <= 0b01111111))
+                throw new ArgumentOutOfRangeException(nameof(scheduleDays));
+            if (!(scheduleHour >= 0 && scheduleHour < 24))
+                throw new ArgumentOutOfRangeException(nameof(scheduleHour));
             if (scheduleDays == Settings.GeneralSettings.WeekDays.None)
-                throw new ArgumentException();
-            if (!((int)scheduleDays >= 0b00000001 && (int)scheduleDays <= 0b01111111) || !(scheduleHour >= 0 && scheduleHour < 24))
-                throw new ArgumentOutOfRangeException();
+                throw new NoScheduleDaysWereSpecifiedException();
             string temporaryFilePath = Path.GetTempFileName();
             try
             {

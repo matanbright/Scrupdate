@@ -152,7 +152,7 @@ namespace Scrupdate.Classes.Utilities
         {
             standardOutput = null;
             if (filePath == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(filePath));
             if (!File.Exists(filePath))
                 throw new FileDoesNotExistException();
             try
@@ -200,7 +200,7 @@ namespace Scrupdate.Classes.Utilities
         public static int RunFileWithoutElevatedPrivileges(string filePath, string arguments, bool createNoWindow, bool waitForExit, int waitingTimeout, bool killProcessTreeOnTimeout)
         {
             if (filePath == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(filePath));
             if (!File.Exists(filePath))
                 throw new FileDoesNotExistException();
             try
@@ -253,7 +253,7 @@ namespace Scrupdate.Classes.Utilities
         public static bool OpenUrlInDefaultWebBrowser(string url)
         {
             if (url == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(url));
             try
             {
                 using (Process process = new Process())
