@@ -289,6 +289,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_save)
             {
+                string errorDialogMessage = null;
                 if (checkBox_enableScheduledCheckForProgramUpdates.IsChecked == true &&
                     !(checkBox_programUpdatesScheduledCheckDaySunday.IsChecked == true ||
                       checkBox_programUpdatesScheduledCheckDayMonday.IsChecked == true ||
@@ -298,27 +299,25 @@ namespace Scrupdate.UiElements.Windows
                       checkBox_programUpdatesScheduledCheckDayFriday.IsChecked == true ||
                       checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked == true))
                 {
-                    DialogsUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
-                        ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED,
-                        this
-                    );
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED;
                 }
                 else if (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true &&
                          textBox_customChromeDriverUserAgentString.Text.Trim().Equals(""))
                 {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED;
+                }
+                if (errorDialogMessage != null)
+                {
                     DialogsUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
-                        ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED,
+                        errorDialogMessage,
                         this
                     );
+                    return;
                 }
-                else
-                {
-                    updatedSettings = GetSettingsFromUiControlsValues();
-                    DialogResult = true;
-                    Close();
-                }
+                updatedSettings = GetSettingsFromUiControlsValues();
+                DialogResult = true;
+                Close();
             }
             else if (senderButton == button_cancel)
                 Close();

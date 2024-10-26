@@ -267,22 +267,23 @@ namespace Scrupdate
                 {
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
                     SystemEvents.DisplaySettingsChanged += OnSystemDisplaySettingsChangedEvent;
+                    string errorDialogMessage = null;
                     switch (settingsFileError)
                     {
                         case ConfigError.Corrupted:
-                            DialogsUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
-                                ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED,
-                                null
-                            );
+                            errorDialogMessage = ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED;
                             break;
                         case ConfigError.NotCompatible:
-                            DialogsUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
-                                ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE,
-                                null
-                            );
+                            errorDialogMessage = ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE;
                             break;
+                    }
+                    if (errorDialogMessage != null)
+                    {
+                        DialogsUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            errorDialogMessage,
+                            null
+                        );
                     }
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();

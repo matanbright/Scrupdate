@@ -354,45 +354,29 @@ namespace Scrupdate.UiElements.Windows
                 StartProgramDatabaseUpdatingAndProgramUpdatesCheckTask();
             else
             {
+                string statusMessage = "";
                 switch (CurrentError)
                 {
                     case Error.CanNotOpenProgramDatabase:
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                            ),
-                            "",
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                            )
-                        );
+                        statusMessage = STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE;
                         break;
                     case Error.ProgramDatabaseIsCorrupted:
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                            ),
-                            "",
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                            )
-                        );
+                        statusMessage = STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED;
                         break;
                     case Error.ProgramDatabaseIsNotCompatible:
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                            ),
-                            "",
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                            )
-                        );
+                        statusMessage = STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE;
                         break;
                 }
+                ChangeStatusMessages(
+                    statusMessage,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                    ),
+                    "",
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                    )
+                );
             }
         }
         private void OnWindowClosingEvent(object sender, CancelEventArgs e)
@@ -741,81 +725,47 @@ namespace Scrupdate.UiElements.Windows
                                     PrepareWindowForClosing(true);
                                 if (programUpdatesCheckException != null)
                                 {
+                                    string statusMessage = "";
                                     if (programUpdatesCheckException.GetType().Equals(
                                             typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
                                         ))
                                     {
-                                        ChangeStatusMessages(
-                                            STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED,
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                            ),
-                                            "",
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                                            )
-                                        );
+                                        statusMessage = STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED;
                                     }
                                     else if (programUpdatesCheckException.GetType().Equals(
                                                  typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
                                              ))
                                     {
-                                        ChangeStatusMessages(
-                                            STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER,
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                            ),
-                                            "",
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                                            )
-                                        );
+                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER;
                                     }
                                     else if (programUpdatesCheckException.GetType().Equals(
                                                  typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
                                              ))
                                     {
-                                        ChangeStatusMessages(
-                                            STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED,
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                            ),
-                                            "",
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                                            )
-                                        );
+                                        statusMessage = STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED;
                                     }
                                     else if (programUpdatesCheckException.GetType().Equals(
                                                  typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
                                              ))
                                     {
-                                        ChangeStatusMessages(
-                                            STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER,
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                            ),
-                                            "",
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                                            )
-                                        );
+                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER;
                                     }
                                     else if (programUpdatesCheckException.GetType().Equals(
                                                  typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
                                              ))
                                     {
-                                        ChangeStatusMessages(
-                                            STATUS_MESSAGE__CHROMEDRIVER_ERROR,
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                            ),
-                                            "",
-                                            (SolidColorBrush)Application.Current.FindResource(
-                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
-                                            )
-                                        );
+                                        statusMessage = STATUS_MESSAGE__CHROMEDRIVER_ERROR;
                                     }
+                                    ChangeStatusMessages(
+                                        statusMessage,
+                                        (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                        ),
+                                        "",
+                                        (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                        )
+                                    );
                                 }
                                 if (!closeInQueue && IsWindowCollapsed)
                                     CollapseOrExpandWindow();

@@ -1399,66 +1399,48 @@ namespace Scrupdate.UiElements.Windows
                             PrepareWindowForClosing(true);
                         if (programUpdatesCheckException != null)
                         {
+                            string errorDialogMessage = "";
                             if (programUpdatesCheckException.GetType().Equals(
                                     typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
                                 ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED;
                             }
                             else if (programUpdatesCheckException.GetType().Equals(
                                          typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
                                      ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE;
                             }
                             else if (programUpdatesCheckException.GetType().Equals(
                                          typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
                                      ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED;
                             }
                             else if (programUpdatesCheckException.GetType().Equals(
                                          typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
                                      ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE;
                             }
                             else if (programUpdatesCheckException.GetType().Equals(
                                          typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)
                                      ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING;
                             }
                             else if (programUpdatesCheckException.GetType().Equals(
                                          typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
                                      ))
                             {
-                                DialogsUtilities.ShowErrorDialog(
-                                    ERROR_DIALOG_TITLE__ERROR,
-                                    ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED,
-                                    this
-                                );
+                                errorDialogMessage = ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED;
                             }
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                errorDialogMessage,
+                                this
+                            );
                         }
                         programUpdatesCheckCancellableThread = null;
                     }
@@ -1469,54 +1451,29 @@ namespace Scrupdate.UiElements.Windows
         {
             if (CurrentOperation != Operation.None)
             {
+                double? newProgressBarValue = null;
                 if (CurrentOperation != Operation.CancellingOperation)
                 {
                     CurrentOperation = Operation.CancellingOperation;
                     closeInQueue = queueWindowToBeClosedAfterCancelling;
                     programDatabaseUpdatingCancellableThread?.RequestCancellation();
                     programUpdatesCheckCancellableThread?.RequestCancellation();
-                    if (queueWindowToBeClosedAfterCancelling)
-                    {
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__CANCELLING_AND_CLOSING,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                            )
-                        );
-                    }
-                    else
-                    {
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__CANCELLING,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                            )
-                        );
-                    }
-                    ChangeProgressBarValue(-1);
+                    newProgressBarValue = -1;
                 }
                 else
-                {
                     closeInQueue = queueWindowToBeClosedAfterCancelling;
-                    if (queueWindowToBeClosedAfterCancelling)
-                    {
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__CANCELLING_AND_CLOSING,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                            )
-                        );
-                    }
-                    else
-                    {
-                        ChangeStatusMessages(
-                            STATUS_MESSAGE__CANCELLING,
-                            (SolidColorBrush)Application.Current.FindResource(
-                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                            )
-                        );
-                    }
-                }
+                string statusMessage =
+                    (queueWindowToBeClosedAfterCancelling ?
+                        STATUS_MESSAGE__CANCELLING_AND_CLOSING :
+                        STATUS_MESSAGE__CANCELLING);
+                ChangeStatusMessages(
+                    statusMessage,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                    )
+                );
+                if (newProgressBarValue != null)
+                    ChangeProgressBarValue((double)newProgressBarValue);
             }
         }
         private void PrepareWindowForClosing()

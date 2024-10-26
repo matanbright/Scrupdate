@@ -340,12 +340,17 @@ namespace Scrupdate.UiElements.Windows
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.UserInterface;
                 hyperlink_goToReference1.BringIntoView();
             }
-            else if (senderHyperlink == hyperlink_openXmlPathLanguagePdfFile)
+            else if (senderHyperlink == hyperlink_openXmlPathLanguagePdfFile ||
+                     senderHyperlink == hyperlink_viewAsPdf)
             {
+                string pdfFilePath =
+                    (senderHyperlink == hyperlink_openXmlPathLanguagePdfFile ?
+                        xmlPathLanguagePdfFilePath :
+                        scrupdateUserManualPdfFilePath);
                 try
                 {
                     ProcessesUtilities.RunFile(
-                        xmlPathLanguagePdfFilePath,
+                        pdfFilePath,
                         null,
                         true,
                         false,
@@ -355,32 +360,8 @@ namespace Scrupdate.UiElements.Windows
                         false,
                         out _
                     );
-                }
-                catch
-                {
-                    DialogsUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
-                        ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
-                        this
-                    );
-                }
-            }
-            else if (senderHyperlink == hyperlink_viewAsPdf)
-            {
-                try
-                {
-                    ProcessesUtilities.RunFile(
-                        scrupdateUserManualPdfFilePath,
-                        null,
-                        true,
-                        false,
-                        false,
-                        -1,
-                        false,
-                        false,
-                        out _
-                    );
-                    Close();
+                    if (senderHyperlink == hyperlink_viewAsPdf)
+                        Close();
                 }
                 catch
                 {
