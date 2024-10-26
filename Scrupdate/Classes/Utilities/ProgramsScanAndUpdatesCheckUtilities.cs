@@ -258,7 +258,7 @@ namespace Scrupdate.Classes.Utilities
                                     "",
                                     false,
                                     Program._VersionSearchBehavior.Unknown,
-                                    Program._WebPagePostLoadDelay._None,
+                                    Program._WebPagePostLoadDelay.None,
                                     new List<WebPageElementLocatingInstruction>(),
                                     true,
                                     Program._UpdateCheckConfigurationStatus.Unknown,

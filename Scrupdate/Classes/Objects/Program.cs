@@ -50,7 +50,7 @@ namespace Scrupdate.Classes.Objects
         }
         public enum _WebPagePostLoadDelay
         {
-            _None,
+            None,
             _100Ms,
             _250Ms,
             _500Ms,
@@ -115,7 +115,7 @@ namespace Scrupdate.Classes.Objects
                 "",
                 false,
                 _VersionSearchBehavior.Unknown,
-                _WebPagePostLoadDelay._None,
+                _WebPagePostLoadDelay.None,
                 new List<WebPageElementLocatingInstruction>(),
                 false,
                 _UpdateCheckConfigurationStatus.Unknown,

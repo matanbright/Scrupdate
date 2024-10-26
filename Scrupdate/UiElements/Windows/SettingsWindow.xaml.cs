@@ -147,12 +147,12 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_minimumVersionSegments.Items.Add(i.ToString());
                 comboBox_maximumVersionSegments.Items.Add(i.ToString());
             }
-            foreach (string chromeDriverPageLoadTimeoutEnumItemName in
-                     Enum.GetNames(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
+            foreach (Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout chromeDriverPageLoadTimeout in
+                     Enum.GetValues(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
             {
                 comboBox_chromeDriverPageLoadTimeout.Items.Add(
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        chromeDriverPageLoadTimeoutEnumItemName
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        chromeDriverPageLoadTimeout
                     )
                 );
             }
@@ -493,8 +493,8 @@ namespace Scrupdate.UiElements.Windows
             checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked =
                 settings.Appearance.RemoveTrailingZeroSegmentsOfVersions;
             comboBox_chromeDriverPageLoadTimeout.SelectedItem =
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    settings.ChromeDriver.PageLoadTimeout.ToString()
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    settings.ChromeDriver.PageLoadTimeout
                 );
             if (!settings.ChromeDriver.UseCustomUserAgentString)
                 radioButton_useDefaultChromeDriverUserAgentString.IsChecked = true;
@@ -555,9 +555,8 @@ namespace Scrupdate.UiElements.Windows
                 (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
             );
             Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
-                (Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)Enum.Parse(
-                    typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout),
-                    ((string)comboBox_chromeDriverPageLoadTimeout.SelectedItem).Replace(" ", "")
+                EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout>(
+                    (string)comboBox_chromeDriverPageLoadTimeout.SelectedItem
                 ),
                 (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
                 textBox_customChromeDriverUserAgentString.Text.Trim()

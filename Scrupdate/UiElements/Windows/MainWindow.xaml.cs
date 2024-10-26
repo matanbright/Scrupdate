@@ -248,31 +248,29 @@ namespace Scrupdate.UiElements.Windows
                     "{*}",
                     Assembly.GetExecutingAssembly().GetName().Version.ToString()
                 );
-            foreach (string programFilteringOptionEnumItemName in
-                     Enum.GetNames(typeof(Settings.CachedSettings.ProgramFilteringOption)))
+            foreach (Settings.CachedSettings.ProgramFilteringOption programFilteringOption in
+                     Enum.GetValues(typeof(Settings.CachedSettings.ProgramFilteringOption)))
             {
-                if (!programFilteringOptionEnumItemName.Equals(
-                        Settings.CachedSettings.ProgramFilteringOption.Unknown.ToString()
-                    ))
+                if (programFilteringOption != Settings.CachedSettings.ProgramFilteringOption.Unknown)
                 {
                     comboBox_programListFilteringOption.Items.Add(
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            programFilteringOptionEnumItemName
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            programFilteringOption
                         )
                     );
                 }
             }
             comboBox_programListFilteringOption.SelectedItem =
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    Settings.CachedSettings.ProgramFilteringOption.All.ToString()
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    Settings.CachedSettings.ProgramFilteringOption.All
                 );
             if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
             {
                 checkBox_filterProgramList.IsChecked =
                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState;
                 comboBox_programListFilteringOption.SelectedItem =
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption.ToString()
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption
                     );
                 checkBox_showHiddenPrograms.IsChecked =
                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState;
@@ -281,8 +279,8 @@ namespace Scrupdate.UiElements.Windows
             {
                 checkBox_filterProgramList.IsChecked = true;
                 comboBox_programListFilteringOption.SelectedItem =
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        programFilteringOptionOnStart.ToString()
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        programFilteringOptionOnStart
                     );
             }
             if (isShowingHiddenProgramsOnStart != null)
@@ -435,8 +433,8 @@ namespace Scrupdate.UiElements.Windows
                 if (checkBox_filterProgramList.IsChecked == false)
                 {
                     comboBox_programListFilteringOption.SelectedItem =
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            Settings.CachedSettings.ProgramFilteringOption.All.ToString()
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            Settings.CachedSettings.ProgramFilteringOption.All
                         );
                 }
                 RefreshListViewAndAllMessages();
@@ -848,9 +846,8 @@ namespace Scrupdate.UiElements.Windows
                         Settings.CachedSettings.ProgramFilteringOption selectedProgramFilteringOption =
                             (!isFilteringPrograms ?
                                 Settings.CachedSettings.ProgramFilteringOption.All :
-                                (Settings.CachedSettings.ProgramFilteringOption)Enum.Parse(
-                                    typeof(Settings.CachedSettings.ProgramFilteringOption),
-                                    ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")
+                                EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
+                                    (string)comboBox_programListFilteringOption.SelectedItem
                                 ));
                         bool isShowingHiddenPrograms = (bool)checkBox_showHiddenPrograms.IsChecked;
                         listView_programs.Items.Filter = new Predicate<object>(
@@ -1549,9 +1546,8 @@ namespace Scrupdate.UiElements.Windows
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState =
                                         (bool)checkBox_filterProgramList.IsChecked;
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
-                                        (Settings.CachedSettings.ProgramFilteringOption)Enum.Parse(
-                                            typeof(Settings.CachedSettings.ProgramFilteringOption),
-                                            ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")
+                                        EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
+                                            (string)comboBox_programListFilteringOption.SelectedItem
                                         );
                                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState =
                                         (bool)checkBox_showHiddenPrograms.IsChecked;

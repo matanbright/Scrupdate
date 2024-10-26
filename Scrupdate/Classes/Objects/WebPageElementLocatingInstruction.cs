@@ -32,7 +32,7 @@ namespace Scrupdate.Classes.Objects
         }
         public enum _LocatingDuration
         {
-            _Unspecified,
+            Unspecified,
             _1Ms,
             _10Ms,
             _100Ms,
@@ -59,7 +59,7 @@ namespace Scrupdate.Classes.Objects
                 _LocatingMethod.Unspecified,
                 "",
                 false,
-                _LocatingDuration._Unspecified
+                _LocatingDuration.Unspecified
             )
         { }
         public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod,

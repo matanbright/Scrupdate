@@ -37,11 +37,11 @@ namespace Scrupdate.Classes.Objects
             this(
                 webPageElementLocatingInstructionIndex,
                 underlyingWebPageElementLocatingInstruction,
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    underlyingWebPageElementLocatingInstruction.LocatingMethod.ToString()
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    underlyingWebPageElementLocatingInstruction.LocatingMethod
                 ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    underlyingWebPageElementLocatingInstruction.LocatingDuration.ToString().Substring(1)
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    underlyingWebPageElementLocatingInstruction.LocatingDuration
                 ).Replace(" Ms", "ms")
             )
         { }

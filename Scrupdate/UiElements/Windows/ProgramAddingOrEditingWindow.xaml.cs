@@ -159,69 +159,61 @@ namespace Scrupdate.UiElements.Windows
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
             );
-            foreach (string installationScopeEnumItemName in
-                     Enum.GetNames(typeof(Program._InstallationScope)))
+            foreach (Program._InstallationScope installationScope in
+                     Enum.GetValues(typeof(Program._InstallationScope)))
             {
                 comboBox_installedFor.Items.Add(
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        installationScopeEnumItemName
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        installationScope
                     )
                 );
             }
             comboBox_installedFor.SelectedItem =
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    Program._InstallationScope.Everyone.ToString()
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    Program._InstallationScope.Everyone
                 );
-            foreach (string webPagePostLoadDelayEnumItemName in
-                     Enum.GetNames(typeof(Program._WebPagePostLoadDelay)))
+            foreach (Program._WebPagePostLoadDelay webPagePostLoadDelay in
+                     Enum.GetValues(typeof(Program._WebPagePostLoadDelay)))
             {
                 comboBox_webPagePostLoadDelay.Items.Add(
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        webPagePostLoadDelayEnumItemName.Substring(1)
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        webPagePostLoadDelay
                     ).Replace(" Ms", "ms")
                 );
             }
             comboBox_webPagePostLoadDelay.SelectedItem =
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    Program._WebPagePostLoadDelay._None.ToString().Substring(1)
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    Program._WebPagePostLoadDelay.None
                 ).Replace(" Ms", "ms");
             ((GridView)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged +=
                 OnGridViewColumnsCollectionCollectionChangedEvent;
             listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ItemsSource =
                 locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn;
-            foreach (string webPageElementLocatingMethodEnumItemName in
-                     Enum.GetNames(typeof(WebPageElementLocatingInstruction._LocatingMethod)))
+            foreach (WebPageElementLocatingInstruction._LocatingMethod locatingMethod in
+                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingMethod)))
             {
-                if (webPageElementLocatingMethodEnumItemName.Equals(
-                        WebPageElementLocatingInstruction._LocatingMethod.Unspecified.ToString()
-                    ))
-                {
+                if (locatingMethod == WebPageElementLocatingInstruction._LocatingMethod.Unspecified)
                     comboBox_webPageElementLocatingMethod.Items.Add("");
-                }
                 else
                 {
                     comboBox_webPageElementLocatingMethod.Items.Add(
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            webPageElementLocatingMethodEnumItemName
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            locatingMethod
                         ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath")
                     );
                 }
             }
             comboBox_webPageElementLocatingMethod.SelectedItem = "";
-            foreach (string webPageElementLocatingDurationEnumItemName in
-                     Enum.GetNames(typeof(WebPageElementLocatingInstruction._LocatingDuration)))
+            foreach (WebPageElementLocatingInstruction._LocatingDuration locatingDuration in
+                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingDuration)))
             {
-                if (webPageElementLocatingDurationEnumItemName.Equals(
-                        WebPageElementLocatingInstruction._LocatingDuration._Unspecified.ToString()
-                    ))
-                {
+                if (locatingDuration == WebPageElementLocatingInstruction._LocatingDuration.Unspecified)
                     comboBox_webPageElementLocatingDuration.Items.Add("");
-                }
                 else
                 {
                     comboBox_webPageElementLocatingDuration.Items.Add(
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            webPageElementLocatingDurationEnumItemName.Substring(1)
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            locatingDuration
                         ).Replace(" Ms", "ms")
                     );
                 }
@@ -409,8 +401,8 @@ namespace Scrupdate.UiElements.Windows
                     textBox_programName.Text = programToEdit.Name;
                     textBox_installedVersion.Text = programToEdit.InstalledVersion;
                     comboBox_installedFor.SelectedItem =
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            programToEdit.InstallationScope.ToString()
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            programToEdit.InstallationScope
                         );
                 }
             }
@@ -430,8 +422,8 @@ namespace Scrupdate.UiElements.Windows
                     radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                     expander_advancedOptions.IsExpanded = false;
                     comboBox_webPagePostLoadDelay.SelectedItem =
-                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                            Program._WebPagePostLoadDelay._None.ToString().Substring(1)
+                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                            Program._WebPagePostLoadDelay.None
                         ).Replace(" Ms", "ms");
                     RemoveAllWebPageElementLocatingInstructionsFromListView();
                     comboBox_webPageElementLocatingMethod.SelectedItem = "";
@@ -596,9 +588,8 @@ namespace Scrupdate.UiElements.Windows
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private Program._InstallationScope GetSelectedInstallationScope()
         {
-            return (Program._InstallationScope)Enum.Parse(
-                typeof(Program._InstallationScope),
-                ((string)comboBox_installedFor.SelectedItem).Replace(" ", "")
+            return EnumsUtilities.GetEnumItemFromHumanReadableString<Program._InstallationScope>(
+                (string)comboBox_installedFor.SelectedItem
             );
         }
         private Program._VersionSearchMethod GetSelectedVersionSearchMethod(out string versionSearchMethodArgument1,
@@ -697,16 +688,14 @@ namespace Scrupdate.UiElements.Windows
         private Program._WebPagePostLoadDelay GetSelectedWebPagePostLoadDelay()
         {
             Program._WebPagePostLoadDelay webPagePostLoadDelay =
-                Program._WebPagePostLoadDelay._None;
+                Program._WebPagePostLoadDelay.None;
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
-                tempStringBuilder.Clear()
-                    .Append('_')
-                    .Append(((string)comboBox_webPagePostLoadDelay.SelectedItem).Replace("ms", "Ms"));
-                webPagePostLoadDelay = (Program._WebPagePostLoadDelay)Enum.Parse(
-                    typeof(Program._WebPagePostLoadDelay),
-                    tempStringBuilder.ToString()
-                );
+                webPagePostLoadDelay =
+                    EnumsUtilities.GetEnumItemFromHumanReadableString<Program._WebPagePostLoadDelay>(
+                        ((string)comboBox_webPagePostLoadDelay.SelectedItem)
+                            .Replace("ms", "Ms")
+                    );
             }
             return webPagePostLoadDelay;
         }
@@ -743,24 +732,15 @@ namespace Scrupdate.UiElements.Windows
                  !comboBox_webPageElementLocatingDuration.SelectedItem.Equals("")))
             {
                 WebPageElementLocatingInstruction._LocatingMethod selectedWebPageElementLocatingMethod =
-                    (WebPageElementLocatingInstruction._LocatingMethod)Enum.Parse(
-                        typeof(WebPageElementLocatingInstruction._LocatingMethod),
+                    EnumsUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
                         ((string)comboBox_webPageElementLocatingMethod.SelectedItem)
-                            .Replace(" ", "")
                             .Replace("ID", "Id")
                             .Replace("HTML", "Html")
                     );
-                tempStringBuilder.Clear()
-                    .Append('_')
-                    .Append(
-                        ((string)comboBox_webPageElementLocatingDuration.SelectedItem)
-                            .Replace(" ", "")
-                            .Replace("ms", "Ms")
-                    );
                 WebPageElementLocatingInstruction._LocatingDuration selectedWebPageElementLocatingDuration =
-                    (WebPageElementLocatingInstruction._LocatingDuration)Enum.Parse(
-                        typeof(WebPageElementLocatingInstruction._LocatingDuration),
-                        tempStringBuilder.ToString()
+                    EnumsUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingDuration>(
+                        ((string)comboBox_webPageElementLocatingDuration.SelectedItem)
+                            .Replace("ms", "Ms")
                     );
                 WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView =
                     new WebPageElementLocatingInstruction(
@@ -918,8 +898,8 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
             comboBox_installedFor.SelectedItem =
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                    program.InstallationScope.ToString()
+                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    program.InstallationScope
                 );
             checkBox_configureProgramUpdateCheck.IsChecked = false;
             textBox_webPageUrl.Text = "";
@@ -979,8 +959,8 @@ namespace Scrupdate.UiElements.Windows
                         break;
                 }
                 comboBox_webPagePostLoadDelay.SelectedItem =
-                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                        program.WebPagePostLoadDelay.ToString().Substring(1)
+                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        program.WebPagePostLoadDelay
                     ).Replace(" Ms", "ms");
                 if (program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
                 {
@@ -1084,8 +1064,8 @@ namespace Scrupdate.UiElements.Windows
                             label_lastProgramUpdateCheckConfigurationStatusMessage.Content =
                                 LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED.Replace(
                                     "{*}",
-                                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
-                                        updateCheckConfigurationError.ToString()
+                                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                                        updateCheckConfigurationError
                                     )
                                 );
                         }
