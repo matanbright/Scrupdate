@@ -45,6 +45,11 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private static readonly string taskSchedulerFilePath = (new StringBuilder())
+            .Append(Environment.GetFolderPath(Environment.SpecialFolder.System))
+            .Append('\\')
+            .Append("schtasks.exe")
+            .ToString();
         private static readonly string scheduledTaskNameForCurrentUser =
             SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK.Replace(
                 "*",
@@ -134,21 +139,16 @@ namespace Scrupdate.Classes.Utilities
                     fileStreamOfTemporaryFile.Write(Encoding.UTF8.GetBytes(scheduledTaskXmlRepresentation));
                     fileStreamOfTemporaryFile.Flush();
                 }
-                StringBuilder tempStringBuilder = new StringBuilder();
-                tempStringBuilder.Clear()
-                    .Append(Environment.GetFolderPath(Environment.SpecialFolder.System))
-                    .Append('\\')
-                    .Append("schtasks.exe");
-                string fileName = tempStringBuilder.ToString();
-                tempStringBuilder.Clear()
+                StringBuilder taskSchedulerArguments = new StringBuilder();
+                taskSchedulerArguments
                     .Append("/Create /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /XML \"")
                     .Append(temporaryFilePath)
                     .Append("\" /F");
                 if (ProcessesUtilities.RunFileWithoutElevatedPrivileges(
-                        fileName,
-                        tempStringBuilder.ToString(),
+                        taskSchedulerFilePath,
+                        taskSchedulerArguments.ToString(),
                         true,
                         true,
                         TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
@@ -172,19 +172,14 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                StringBuilder tempStringBuilder = new StringBuilder();
-                tempStringBuilder.Clear()
-                    .Append(Environment.GetFolderPath(Environment.SpecialFolder.System))
-                    .Append('\\')
-                    .Append("schtasks.exe");
-                string fileName = tempStringBuilder.ToString();
-                tempStringBuilder.Clear()
+                StringBuilder taskSchedulerArguments = new StringBuilder();
+                taskSchedulerArguments
                     .Append("/Create /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /SC Once /SD 01/01/1970 /ST 00:00 /TR \"NULL\" /F");
                 if (ProcessesUtilities.RunFileWithoutElevatedPrivileges(
-                        fileName,
-                        tempStringBuilder.ToString(),
+                        taskSchedulerFilePath,
+                        taskSchedulerArguments.ToString(),
                         true,
                         true,
                         TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
@@ -193,13 +188,13 @@ namespace Scrupdate.Classes.Utilities
                 {
                     return false;
                 }
-                tempStringBuilder.Clear()
+                taskSchedulerArguments.Clear()
                     .Append("/Delete /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /F");
                 ProcessesUtilities.RunFileWithoutElevatedPrivileges(
-                    fileName,
-                    tempStringBuilder.ToString(),
+                    taskSchedulerFilePath,
+                    taskSchedulerArguments.ToString(),
                     true,
                     true,
                     TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
