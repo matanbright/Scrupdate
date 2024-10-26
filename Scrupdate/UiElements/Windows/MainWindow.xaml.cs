@@ -1102,7 +1102,7 @@ namespace Scrupdate.UiElements.Windows
                         programListViewItem2.UnderlyingProgram.Name
                     )
             );
-            bool? selectedProgramHasAnUpdate = false;
+            bool? selectedProgramHasAnUpdate = null;
             if (selectedProgram.InstallationScope != Program._InstallationScope.None)
             {
                 selectedProgramHasAnUpdate =
@@ -1115,7 +1115,7 @@ namespace Scrupdate.UiElements.Windows
                                 selectedProgram.InstalledVersion
                             )));
             }
-            bool? updatedProgramHasAnUpdate = false;
+            bool? updatedProgramHasAnUpdate = null;
             if (updatedProgram.InstallationScope != Program._InstallationScope.None)
             {
                 updatedProgramHasAnUpdate =
@@ -1186,7 +1186,7 @@ namespace Scrupdate.UiElements.Windows
                     Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
                     programListViewItems.Remove(selectedProgramListViewItem);
                     programDatabase.RemoveProgram(selectedProgram.Name);
-                    bool? selectedProgramHasAnUpdate = false;
+                    bool? selectedProgramHasAnUpdate = null;
                     if (selectedProgram.InstallationScope != Program._InstallationScope.None)
                     {
                         selectedProgramHasAnUpdate =
