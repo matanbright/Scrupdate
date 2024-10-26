@@ -297,7 +297,7 @@ namespace Scrupdate.Classes.Utilities
             {
                 if (openWindow != null && openWindow.IsLoaded)
                 {
-                    Size baseSizeOfOpenWindow = new Size();
+                    Size baseSizeOfOpenWindow;
                     Type typeOfOpenWindow = openWindow.GetType();
                     if (typeOfOpenWindow == typeof(MainWindow))
                         baseSizeOfOpenWindow = ((MainWindow)openWindow).BaseSizeOfWindow;

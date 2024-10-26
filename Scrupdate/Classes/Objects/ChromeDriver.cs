@@ -272,7 +272,7 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!googleChromeBrowserIsOpen)
                 throw new GoogleChromeBrowserIsNotOpenException();
-            IWebElement htmlElement = null;
+            IWebElement htmlElement;
             try
             {
                 htmlElement = chromeDriver.FindElement(By.Id(htmlElementId));
@@ -291,7 +291,7 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!googleChromeBrowserIsOpen)
                 throw new GoogleChromeBrowserIsNotOpenException();
-            IReadOnlyCollection<IWebElement> htmlElements = null;
+            IReadOnlyCollection<IWebElement> htmlElements;
             try
             {
                 htmlElements = chromeDriver.FindElements(By.XPath(htmlElementsXPath));
