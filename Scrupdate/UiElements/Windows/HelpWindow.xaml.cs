@@ -178,167 +178,145 @@ namespace Scrupdate.UiElements.Windows
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
         {
             Hyperlink senderHyperlink = (Hyperlink)sender;
-            if (senderHyperlink == hyperlink_goToNote1)
+            if (senderHyperlink == hyperlink_goToNote1 ||
+                senderHyperlink == hyperlink_goToNote2 ||
+                senderHyperlink == hyperlink_goToNote3 ||
+                senderHyperlink == hyperlink_goToNote4 ||
+                senderHyperlink == hyperlink_goToNote5 ||
+                senderHyperlink == hyperlink_goToNote6 ||
+                senderHyperlink == hyperlink_goToNote7 ||
+                senderHyperlink == hyperlink_goToNote8 ||
+                senderHyperlink == hyperlink_goToReference1 ||
+                senderHyperlink == hyperlink_goBackFromNote1 ||
+                senderHyperlink == hyperlink_goBackFromNote2 ||
+                senderHyperlink == hyperlink_goBackFromNote3 ||
+                senderHyperlink == hyperlink_goBackFromNote4 ||
+                senderHyperlink == hyperlink_goBackFromNote5 ||
+                senderHyperlink == hyperlink_goBackFromNote6 ||
+                senderHyperlink == hyperlink_goBackFromNote7 ||
+                senderHyperlink == hyperlink_goBackFromNote8 ||
+                senderHyperlink == hyperlink_goBackFromReference1)
             {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note1.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note1,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote2)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note2.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note2,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote3)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note3.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note3,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote4)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note4.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note4,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote5)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note5.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note5,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote6)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note6.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note6,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote7)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note7.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note7,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToNote8)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
-                grid_note8.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_note8,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goToReference1)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.References;
-                grid_reference1.BringIntoView();
-                FlashBackgroundOfPanel(
-                    grid_reference1,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
-                    ),
-                    300,
-                    2
-                );
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote1)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Introduction;
-                hyperlink_goToNote1.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote2)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.Introduction;
-                hyperlink_goToNote2.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote3)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.GettingStarted;
-                hyperlink_goToNote3.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote4)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.GettingStarted;
-                hyperlink_goToNote4.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote5)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.GettingStarted;
-                hyperlink_goToNote5.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote6)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.GettingStarted;
-                hyperlink_goToNote6.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote7)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.UserInterface;
-                hyperlink_goToNote7.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromNote8)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.UserInterface;
-                hyperlink_goToNote8.BringIntoView();
-            }
-            else if (senderHyperlink == hyperlink_goBackFromReference1)
-            {
-                SelectedHelpChapterMenuTab = HelpChapterMenuTab.UserInterface;
-                hyperlink_goToReference1.BringIntoView();
+                if (senderHyperlink == hyperlink_goToNote1 ||
+                    senderHyperlink == hyperlink_goToNote2 ||
+                    senderHyperlink == hyperlink_goToNote3 ||
+                    senderHyperlink == hyperlink_goToNote4 ||
+                    senderHyperlink == hyperlink_goToNote5 ||
+                    senderHyperlink == hyperlink_goToNote6 ||
+                    senderHyperlink == hyperlink_goToNote7 ||
+                    senderHyperlink == hyperlink_goToNote8 ||
+                    senderHyperlink == hyperlink_goToReference1)
+                {
+                    HelpChapterMenuTab helpChapterMenuTabToSelect;
+                    Panel panelToBringIntoViewAndFlash;
+                    if (senderHyperlink == hyperlink_goToNote1)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note1;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote2)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note2;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote3)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note3;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote4)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note4;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote5)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note5;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote6)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note6;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote7)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note7;
+                    }
+                    else if (senderHyperlink == hyperlink_goToNote8)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Notes;
+                        panelToBringIntoViewAndFlash = grid_note8;
+                    }
+                    else
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.References;
+                        panelToBringIntoViewAndFlash = grid_reference1;
+                    }
+                    SelectedHelpChapterMenuTab = helpChapterMenuTabToSelect;
+                    panelToBringIntoViewAndFlash.BringIntoView();
+                    FlashBackgroundOfPanel(
+                        panelToBringIntoViewAndFlash,
+                        (SolidColorBrush)Application.Current.FindResource(
+                            App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                        ),
+                        300,
+                        2
+                    );
+                }
+                else
+                {
+                    HelpChapterMenuTab helpChapterMenuTabToSelect;
+                    Hyperlink hyperlinkToBringIntoView;
+                    if (senderHyperlink == hyperlink_goBackFromNote1)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Introduction;
+                        hyperlinkToBringIntoView = hyperlink_goToNote1;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote2)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.Introduction;
+                        hyperlinkToBringIntoView = hyperlink_goToNote2;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote3)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.GettingStarted;
+                        hyperlinkToBringIntoView = hyperlink_goToNote3;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote4)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.GettingStarted;
+                        hyperlinkToBringIntoView = hyperlink_goToNote4;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote5)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.GettingStarted;
+                        hyperlinkToBringIntoView = hyperlink_goToNote5;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote6)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.GettingStarted;
+                        hyperlinkToBringIntoView = hyperlink_goToNote6;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote7)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.UserInterface;
+                        hyperlinkToBringIntoView = hyperlink_goToNote7;
+                    }
+                    else if (senderHyperlink == hyperlink_goBackFromNote8)
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.UserInterface;
+                        hyperlinkToBringIntoView = hyperlink_goToNote8;
+                    }
+                    else
+                    {
+                        helpChapterMenuTabToSelect = HelpChapterMenuTab.UserInterface;
+                        hyperlinkToBringIntoView = hyperlink_goToReference1;
+                    }
+                    SelectedHelpChapterMenuTab = helpChapterMenuTabToSelect;
+                    hyperlinkToBringIntoView.BringIntoView();
+                }
             }
             else if (senderHyperlink == hyperlink_openXmlPathLanguagePdfFile ||
                      senderHyperlink == hyperlink_viewAsPdf)
