@@ -331,7 +331,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (!textBox_installedVersion.Text.Trim().Equals(""))
                     {
-                        textBox_installedVersion.Text = VersionsUtilities.TrimVersion(
+                        textBox_installedVersion.Text = VersionsUtilities.NormalizeAndTrimVersion(
                             textBox_installedVersion.Text.Trim(),
                             VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
                             VersionsUtilities.MAXIMUM_VERSION_SEGMENTS

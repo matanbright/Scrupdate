@@ -139,27 +139,27 @@ namespace Scrupdate.Classes.Utilities
                 for (int i = 0; i < oldVersionString.Length; i++)
                     if (oldVersionString[i] == '.')
                         oldVersionDotsCount++;
-                StringBuilder tempNewVersionString = new StringBuilder(newVersionString);
-                StringBuilder tempOldVersionString = new StringBuilder(oldVersionString);
+                StringBuilder normalizedNewVersionString = new StringBuilder(newVersionString);
+                StringBuilder normalizedOldVersionString = new StringBuilder(oldVersionString);
                 if (newVersionDotsCount == 0)
                 {
                     newVersionDotsCount++;
-                    tempNewVersionString.Append(".0");
+                    normalizedNewVersionString.Append(".0");
                 }
                 if (oldVersionDotsCount == 0)
                 {
                     oldVersionDotsCount++;
-                    tempOldVersionString.Append(".0");
+                    normalizedOldVersionString.Append(".0");
                 }
                 if (newVersionDotsCount > oldVersionDotsCount)
                     for (int i = 0; i < newVersionDotsCount - oldVersionDotsCount; i++)
-                        tempOldVersionString.Append(".0");
+                        normalizedOldVersionString.Append(".0");
                 else if (oldVersionDotsCount > newVersionDotsCount)
                     for (int i = 0; i < oldVersionDotsCount - newVersionDotsCount; i++)
-                        tempNewVersionString.Append(".0");
-                return (Version.Parse(tempNewVersionString.ToString()).CompareTo(
-                            Version.Parse(tempOldVersionString.ToString())
-                        ) > 0);
+                        normalizedNewVersionString.Append(".0");
+                Version normalizedNewVersion = Version.Parse(normalizedNewVersionString.ToString());
+                Version normalizedOldVersion = Version.Parse(normalizedOldVersionString.ToString());
+                return (normalizedNewVersion.CompareTo(normalizedOldVersion) > 0);
             }
             catch
             {
@@ -334,24 +334,24 @@ namespace Scrupdate.Classes.Utilities
                 return null;
             }
         }
-        public static string TrimVersion(string versionStringToTrim,
-                                         int minimumVersionSegments,
-                                         int maximumVersionSegments)
+        public static string NormalizeAndTrimVersion(string versionStringToNormalizeAndTrim,
+                                                     int minimumVersionSegments,
+                                                     int maximumVersionSegments)
         {
-            return TrimVersion(
-                versionStringToTrim,
+            return NormalizeAndTrimVersion(
+                versionStringToNormalizeAndTrim,
                 minimumVersionSegments,
                 maximumVersionSegments,
                 false
             );
         }
-        public static string TrimVersion(string versionStringToTrim,
-                                         int minimumVersionSegments,
-                                         int maximumVersionSegments,
-                                         bool removeTrailingZeroSegmentsOfVersion)
+        public static string NormalizeAndTrimVersion(string versionStringToNormalizeAndTrim,
+                                                     int minimumVersionSegments,
+                                                     int maximumVersionSegments,
+                                                     bool removeTrailingZeroSegmentsOfVersion)
         {
-            if (versionStringToTrim == null)
-                throw new ArgumentNullException(nameof(versionStringToTrim));
+            if (versionStringToNormalizeAndTrim == null)
+                throw new ArgumentNullException(nameof(versionStringToNormalizeAndTrim));
             if (minimumVersionSegments < MINIMUM_VERSION_SEGMENTS ||
                 minimumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
             {
@@ -362,8 +362,8 @@ namespace Scrupdate.Classes.Utilities
             {
                 throw new ArgumentOutOfRangeException(nameof(maximumVersionSegments));
             }
-            if (!(versionStringToTrim.Equals("") ||
-                  IsVersion(versionStringToTrim, VersionValidation.None)))
+            if (!(versionStringToNormalizeAndTrim.Equals("") ||
+                  IsVersion(versionStringToNormalizeAndTrim, VersionValidation.None)))
             {
                 throw new InvalidVersionStringException();
             }
@@ -371,28 +371,31 @@ namespace Scrupdate.Classes.Utilities
                 throw new MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException();
             try
             {
-                StringBuilder trimmedVersionString = new StringBuilder();
-                string[] splittedVersionStringToTrim = versionStringToTrim.Split(new char[] { '.' });
-                if (splittedVersionStringToTrim.Length <= minimumVersionSegments)
+                StringBuilder normalizedAndTrimmedVersionString = new StringBuilder();
+                string[] splittedVersionStringToNormalizeAndTrim =
+                    versionStringToNormalizeAndTrim.Split(new char[] { '.' });
+                if (splittedVersionStringToNormalizeAndTrim.Length <= minimumVersionSegments)
                 {
-                    if (versionStringToTrim.Equals(""))
-                        trimmedVersionString.Append('0');
+                    if (versionStringToNormalizeAndTrim.Equals(""))
+                        normalizedAndTrimmedVersionString.Append('0');
                     else
                     {
-                        for (int i = 0; i < splittedVersionStringToTrim.Length; i++)
+                        for (int i = 0; i < splittedVersionStringToNormalizeAndTrim.Length; i++)
                         {
                             if (i != 0)
-                                trimmedVersionString.Append('.');
-                            trimmedVersionString.Append(Convert.ToInt32(splittedVersionStringToTrim[i]));
+                                normalizedAndTrimmedVersionString.Append('.');
+                            normalizedAndTrimmedVersionString.Append(
+                                Convert.ToInt32(splittedVersionStringToNormalizeAndTrim[i])
+                            );
                         }
                     }
-                    for (int i = 0; i < minimumVersionSegments - splittedVersionStringToTrim.Length; i++)
-                        trimmedVersionString.Append(".0");
+                    for (int i = 0; i < minimumVersionSegments - splittedVersionStringToNormalizeAndTrim.Length; i++)
+                        normalizedAndTrimmedVersionString.Append(".0");
                 }
                 else
                 {
                     int trimmedVersionNumberSegmentsCount = Math.Min(
-                        splittedVersionStringToTrim.Length,
+                        splittedVersionStringToNormalizeAndTrim.Length,
                         maximumVersionSegments
                     );
                     if (removeTrailingZeroSegmentsOfVersion)
@@ -400,7 +403,7 @@ namespace Scrupdate.Classes.Utilities
                         int versionTrailingZeroSegmentsCount = 0;
                         for (int i = trimmedVersionNumberSegmentsCount - 1; i >= 0; i--)
                         {
-                            if (Convert.ToInt32(splittedVersionStringToTrim[i]) == 0 &&
+                            if (Convert.ToInt32(splittedVersionStringToNormalizeAndTrim[i]) == 0 &&
                                 i >= minimumVersionSegments)
                             {
                                 versionTrailingZeroSegmentsCount++;
@@ -413,11 +416,13 @@ namespace Scrupdate.Classes.Utilities
                     for (int i = 0; i < trimmedVersionNumberSegmentsCount; i++)
                     {
                         if (i != 0)
-                            trimmedVersionString.Append('.');
-                        trimmedVersionString.Append(Convert.ToInt32(splittedVersionStringToTrim[i]));
+                            normalizedAndTrimmedVersionString.Append('.');
+                        normalizedAndTrimmedVersionString.Append(
+                            Convert.ToInt32(splittedVersionStringToNormalizeAndTrim[i])
+                        );
                     }
                 }
-                return trimmedVersionString.ToString();
+                return normalizedAndTrimmedVersionString.ToString();
             }
             catch
             {

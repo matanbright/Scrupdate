@@ -203,7 +203,7 @@ namespace Scrupdate.Classes.Utilities
                             }
                             try
                             {
-                                installedProgramInstalledVersion = VersionsUtilities.TrimVersion(
+                                installedProgramInstalledVersion = VersionsUtilities.NormalizeAndTrimVersion(
                                     installedProgramInstalledVersion,
                                     VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
                                     VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
@@ -632,7 +632,7 @@ namespace Scrupdate.Classes.Utilities
                             throw new NoVersionWasFoundException();
                         programDatabase.UpdateProgramLatestVersion(
                             programToCheck.Name,
-                            VersionsUtilities.TrimVersion(
+                            VersionsUtilities.NormalizeAndTrimVersion(
                                 versionString,
                                 VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
                                 VersionsUtilities.MAXIMUM_VERSION_SEGMENTS

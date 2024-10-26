@@ -858,7 +858,7 @@ namespace Scrupdate.UiElements.Windows
                                     programListViewItem.ProgramInstalledVersionToDisplay =
                                         (program.InstalledVersion.Equals("") ?
                                             "" :
-                                            VersionsUtilities.TrimVersion(
+                                            VersionsUtilities.NormalizeAndTrimVersion(
                                                 program.InstalledVersion,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
@@ -867,7 +867,7 @@ namespace Scrupdate.UiElements.Windows
                                     programListViewItem.ProgramLatestVersionToDisplay =
                                         (program.LatestVersion.Equals("") ?
                                             "" :
-                                            VersionsUtilities.TrimVersion(
+                                            VersionsUtilities.NormalizeAndTrimVersion(
                                                 program.LatestVersion,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
