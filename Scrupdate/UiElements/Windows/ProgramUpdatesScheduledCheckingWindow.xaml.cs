@@ -574,7 +574,7 @@ namespace Scrupdate.UiElements.Windows
                                         STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) :
                                         STATUS_MESSAGE__THERE_IS_AN_UPDATE) :
                                     STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
-                            Brush statusMessageColor =
+                            Brush statusMessageForegroundColor =
                                 (updatesCount > 0 ?
                                     (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
@@ -588,7 +588,7 @@ namespace Scrupdate.UiElements.Windows
                                         ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS.Replace("{*}", Convert.ToString(errorsCount)) :
                                         ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR) :
                                     "");
-                            Brush additionalStatusMessageColor =
+                            Brush additionalStatusMessageForegroundColor =
                                 (errorsCount > 0 ?
                                     (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
@@ -598,9 +598,9 @@ namespace Scrupdate.UiElements.Windows
                                     ));
                             ChangeStatusMessages(
                                 statusMessage,
-                                statusMessageColor,
+                                statusMessageForegroundColor,
                                 additionalStatusMessage,
-                                additionalStatusMessageColor
+                                additionalStatusMessageForegroundColor
                             );
                             AreThereUpdates = (updatesCount > 0);
                             AreThereErrors = (errorsCount > 0);
@@ -608,11 +608,11 @@ namespace Scrupdate.UiElements.Windows
                 );
             }
         }
-        private void ChangeStatusMessages(string statusMessage, Brush statusMessageColor)
+        private void ChangeStatusMessages(string statusMessage, Brush statusMessageForegroundColor)
         {
             ChangeStatusMessages(
                 statusMessage,
-                statusMessageColor,
+                statusMessageForegroundColor,
                 "",
                 (SolidColorBrush)Application.Current.FindResource(
                     App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
@@ -620,20 +620,20 @@ namespace Scrupdate.UiElements.Windows
             );
         }
         private void ChangeStatusMessages(string statusMessage,
-                                          Brush statusMessageColor,
+                                          Brush statusMessageForegroundColor,
                                           string additionalStatusMessage,
-                                          Brush additionalStatusMessageColor)
+                                          Brush additionalStatusMessageForegroundColor)
         {
             ThreadsUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
                         label_statusMessage.Content = statusMessage;
-                        label_statusMessage.Foreground = statusMessageColor;
+                        label_statusMessage.Foreground = statusMessageForegroundColor;
                         label_additionalStatusMessage.Content = additionalStatusMessage;
-                        label_additionalStatusMessage.Foreground = additionalStatusMessageColor;
+                        label_additionalStatusMessage.Foreground = additionalStatusMessageForegroundColor;
                         label_titleStatusMessage.Content = statusMessage;
-                        label_titleStatusMessage.Foreground = statusMessageColor;
+                        label_titleStatusMessage.Foreground = statusMessageForegroundColor;
                     }
             );
         }
