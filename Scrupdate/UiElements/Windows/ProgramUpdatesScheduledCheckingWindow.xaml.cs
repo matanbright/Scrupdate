@@ -371,10 +371,6 @@ namespace Scrupdate.UiElements.Windows
                     statusMessage,
                     (SolidColorBrush)Application.Current.FindResource(
                         App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                    ),
-                    "",
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
                     )
                 );
             }
@@ -760,10 +756,6 @@ namespace Scrupdate.UiElements.Windows
                                         statusMessage,
                                         (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                                        ),
-                                        "",
-                                        (SolidColorBrush)Application.Current.FindResource(
-                                            App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
                                         )
                                     );
                                 }
