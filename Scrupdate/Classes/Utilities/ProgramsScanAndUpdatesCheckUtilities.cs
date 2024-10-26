@@ -118,19 +118,41 @@ namespace Scrupdate.Classes.Utilities
                 throw new ProgramDatabaseIsNotOpenException();
             if (settingsHandler.SettingsInMemory == null)
                 throw new SettingsHandler.NoSettingsInMemoryException();
-            RegistryKey installedUserProgramsRegistryKey = Registry.CurrentUser?.OpenSubKey("SOFTWARE")?.OpenSubKey("Microsoft")?.OpenSubKey("Windows")?.OpenSubKey("CurrentVersion")?.OpenSubKey("Uninstall");
-            RegistryKey installedSystem32BitProgramsRegistryKey = Registry.LocalMachine?.OpenSubKey("SOFTWARE")?.OpenSubKey("WOW6432Node")?.OpenSubKey("Microsoft")?.OpenSubKey("Windows")?.OpenSubKey("CurrentVersion")?.OpenSubKey("Uninstall");
-            RegistryKey installedSystem64BitProgramsRegistryKey = Registry.LocalMachine?.OpenSubKey("SOFTWARE")?.OpenSubKey("Microsoft")?.OpenSubKey("Windows")?.OpenSubKey("CurrentVersion")?.OpenSubKey("Uninstall");
-            string[] installedUserProgramsRegistrySubKeysNames = installedUserProgramsRegistryKey?.GetSubKeyNames();
-            string[] installedSystem32BitProgramsRegistrySubKeysNames = installedSystem32BitProgramsRegistryKey?.GetSubKeyNames();
-            string[] installedSystem64BitProgramsRegistrySubKeysNames = installedSystem64BitProgramsRegistryKey?.GetSubKeyNames();
+            RegistryKey installedUserProgramsRegistryKey = Registry.CurrentUser?
+                .OpenSubKey("SOFTWARE")?
+                .OpenSubKey("Microsoft")?
+                .OpenSubKey("Windows")?
+                .OpenSubKey("CurrentVersion")?
+                .OpenSubKey("Uninstall");
+            RegistryKey installedSystem32BitProgramsRegistryKey = Registry.LocalMachine?
+                .OpenSubKey("SOFTWARE")?
+                .OpenSubKey("WOW6432Node")?
+                .OpenSubKey("Microsoft")?
+                .OpenSubKey("Windows")?
+                .OpenSubKey("CurrentVersion")?
+                .OpenSubKey("Uninstall");
+            RegistryKey installedSystem64BitProgramsRegistryKey = Registry.LocalMachine?
+                .OpenSubKey("SOFTWARE")?
+                .OpenSubKey("Microsoft")?
+                .OpenSubKey("Windows")?
+                .OpenSubKey("CurrentVersion")?
+                .OpenSubKey("Uninstall");
+            string[] installedUserProgramsRegistrySubKeysNames =
+                installedUserProgramsRegistryKey?.GetSubKeyNames();
+            string[] installedSystem32BitProgramsRegistrySubKeysNames =
+                installedSystem32BitProgramsRegistryKey?.GetSubKeyNames();
+            string[] installedSystem64BitProgramsRegistrySubKeysNames =
+                installedSystem64BitProgramsRegistryKey?.GetSubKeyNames();
             StringBuilder stringOfAllInstalledPrograms = new StringBuilder();
             Dictionary<string, Program> installedPrograms = new Dictionary<string, Program>();
-            for (ProgramType installedProgramsType = (ProgramType)1; ((int)installedProgramsType) < Enum.GetNames(typeof(ProgramType)).Length; installedProgramsType++)
+            for (ProgramType installedProgramsType = (ProgramType)1;
+                 ((int)installedProgramsType) < Enum.GetNames(typeof(ProgramType)).Length;
+                 installedProgramsType++)
             {
                 RegistryKey installedProgramsRegistryKey = null;
                 string[] installedProgramsRegistrySubKeysNames = null;
-                Program._InstallationScope installedProgramsInstallationScope = Program._InstallationScope.None;
+                Program._InstallationScope installedProgramsInstallationScope =
+                    Program._InstallationScope.None;
                 switch (installedProgramsType)
                 {
                     case ProgramType.UserProgram:
@@ -149,21 +171,43 @@ namespace Scrupdate.Classes.Utilities
                         installedProgramsInstallationScope = Program._InstallationScope.Everyone;
                         break;
                 }
-                if (installedProgramsRegistryKey != null && installedProgramsRegistrySubKeysNames != null)
+                if (installedProgramsRegistryKey != null &&
+                    installedProgramsRegistrySubKeysNames != null)
                 {
                     foreach (string installedProgramRegistrySubKeyName in installedProgramsRegistrySubKeysNames)
                     {
-                        if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        if (cancellationToken != null &&
+                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        {
                             return;
-                        string installedProgramName = (string)installedProgramsRegistryKey.OpenSubKey(installedProgramRegistrySubKeyName).GetValue("DisplayName");
-                        string installedProgramInstalledVersion = (string)installedProgramsRegistryKey.OpenSubKey(installedProgramRegistrySubKeyName).GetValue("DisplayVersion");
+                        }
+                        string installedProgramName = (string)installedProgramsRegistryKey.OpenSubKey(
+                            installedProgramRegistrySubKeyName
+                        ).GetValue("DisplayName");
+                        string installedProgramInstalledVersion = (string)installedProgramsRegistryKey.OpenSubKey(
+                            installedProgramRegistrySubKeyName
+                        ).GetValue("DisplayVersion");
                         if (installedProgramInstalledVersion != null)
                         {
-                            if (!VersionsUtilities.IsVersion(installedProgramInstalledVersion, VersionsUtilities.VersionValidation.ValidateVersionSegmentsCount))
-                                installedProgramInstalledVersion = new string(Array.FindAll(installedProgramInstalledVersion.ToCharArray(), ((char c) => (char.IsDigit(c) || c == '.'))));
+                            if (!VersionsUtilities.IsVersion(
+                                    installedProgramInstalledVersion,
+                                    VersionsUtilities.VersionValidation.ValidateVersionSegmentsCount
+                                ))
+                            {
+                                installedProgramInstalledVersion = new string(
+                                    Array.FindAll(
+                                        installedProgramInstalledVersion.ToCharArray(),
+                                        c => (char.IsDigit(c) || c == '.')
+                                    )
+                                );
+                            }
                             try
                             {
-                                installedProgramInstalledVersion = VersionsUtilities.TrimVersion(installedProgramInstalledVersion, VersionsUtilities.MINIMUM_VERSION_SEGMENTS, VersionsUtilities.MAXIMUM_VERSION_SEGMENTS);
+                                installedProgramInstalledVersion = VersionsUtilities.TrimVersion(
+                                    installedProgramInstalledVersion,
+                                    VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
+                                    VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
+                                );
                             }
                             catch
                             {
@@ -173,20 +217,38 @@ namespace Scrupdate.Classes.Utilities
                         Program._InstallationScope installedInstallationScope = installedProgramsInstallationScope;
                         if (installedProgramName != null)
                         {
-                            stringOfAllInstalledPrograms.Append(installedProgramName);
-                            stringOfAllInstalledPrograms.Append((installedProgramInstalledVersion != null ? installedProgramInstalledVersion : ""));
-                            stringOfAllInstalledPrograms.Append(Convert.ToString((long)installedInstallationScope));
+                            stringOfAllInstalledPrograms
+                                .Append(installedProgramName)
+                                .Append((installedProgramInstalledVersion ?? ""))
+                                .Append(Convert.ToString((long)installedInstallationScope));
                             if (installedInstallationScope == Program._InstallationScope.Everyone)
-                                stringOfAllInstalledPrograms.Append((installedProgramsType == ProgramType.System32BitProgram ? "32" : (installedProgramsType == ProgramType.System64BitProgram ? "64" : "")));
+                            {
+                                stringOfAllInstalledPrograms.Append(
+                                    (installedProgramsType == ProgramType.System32BitProgram ?
+                                        "32" :
+                                        (installedProgramsType == ProgramType.System64BitProgram ?
+                                            "64" :
+                                            ""))
+                                );
+                            }
                             string versionFromProgramName;
-                            installedProgramName = VersionsUtilities.GetStringWithoutTheFirstFoundVersion(installedProgramName.Trim(), false, false, true, out versionFromProgramName);
-                            if (versionFromProgramName != null && (installedProgramInstalledVersion == null || installedProgramInstalledVersion.Equals("")))
+                            installedProgramName = VersionsUtilities.GetStringWithoutTheFirstFoundVersion(
+                                installedProgramName.Trim(),
+                                false,
+                                false,
+                                true,
+                                out versionFromProgramName
+                            );
+                            if (versionFromProgramName != null &&
+                                (installedProgramInstalledVersion == null || installedProgramInstalledVersion.Equals("")))
+                            {
                                 installedProgramInstalledVersion = versionFromProgramName;
+                            }
                             if (!installedPrograms.ContainsKey(installedProgramName))
                             {
-                                installedPrograms.Add(installedProgramName, new Program(
+                                Program installedProgram = new Program(
                                     installedProgramName,
-                                    (installedProgramInstalledVersion != null ? installedProgramInstalledVersion : ""),
+                                    (installedProgramInstalledVersion ?? ""),
                                     "",
                                     installedInstallationScope,
                                     false,
@@ -202,12 +264,16 @@ namespace Scrupdate.Classes.Utilities
                                     Program._UpdateCheckConfigurationStatus.Unknown,
                                     Program._UpdateCheckConfigurationError.None,
                                     false
-                                ));
+                                );
+                                installedPrograms.Add(installedProgram.Name, installedProgram);
                             }
                             else if (installedProgramInstalledVersion != null)
                             {
                                 Program programAlreadyFound = installedPrograms[installedProgramName];
-                                if (VersionsUtilities.IsVersionNewer(installedProgramInstalledVersion, programAlreadyFound.InstalledVersion))
+                                if (VersionsUtilities.IsVersionNewer(
+                                        installedProgramInstalledVersion,
+                                        programAlreadyFound.InstalledVersion
+                                    ))
                                 {
                                     programAlreadyFound.InstalledVersion = installedProgramInstalledVersion;
                                     programAlreadyFound.InstallationScope = installedInstallationScope;
@@ -217,35 +283,56 @@ namespace Scrupdate.Classes.Utilities
                     }
                 }
             }
-            string hashOfStringOfAllInstalledPrograms = HashingUtilities.GetMD5Hash(stringOfAllInstalledPrograms.ToString());
-            if (!settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms.Equals(hashOfStringOfAllInstalledPrograms))
+            string hashOfStringOfAllInstalledPrograms = HashingUtilities.GetMD5Hash(
+                stringOfAllInstalledPrograms.ToString()
+            );
+            if (!settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms.Equals(
+                    hashOfStringOfAllInstalledPrograms
+                ))
             {
                 programDatabase.BeginTransaction();
-                for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator(); i.MoveNext();)
+                for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator();
+                     i.MoveNext();)
                 {
                     Program programAlreadyInDatabase = i.Current.Value;
                     if (!installedPrograms.ContainsKey(programAlreadyInDatabase.Name))
-                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(programAlreadyInDatabase.Name, "", Program._InstallationScope.None);
+                    {
+                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(
+                            programAlreadyInDatabase.Name,
+                            "",
+                            Program._InstallationScope.None
+                        );
+                    }
                     else
                     {
                         Program installedProgram = installedPrograms[programAlreadyInDatabase.Name];
                         installedPrograms[programAlreadyInDatabase.Name] = null;
-                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(programAlreadyInDatabase.Name, installedProgram.InstalledVersion, installedProgram.InstallationScope);
+                        programDatabase.UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(
+                            programAlreadyInDatabase.Name,
+                            installedProgram.InstalledVersion,
+                            installedProgram.InstallationScope
+                        );
                     }
                 }
                 programDatabase.EndTransaction();
                 programDatabase.BeginTransaction();
-                for (Dictionary<string, Program>.Enumerator i = installedPrograms.GetEnumerator(); i.MoveNext();)
+                for (Dictionary<string, Program>.Enumerator i = installedPrograms.GetEnumerator();
+                     i.MoveNext();)
                 {
                     Program foundProgram = i.Current.Value;
                     if (foundProgram != null)
                         programDatabase.AddNewProgram(foundProgram);
                 }
                 programDatabase.EndTransaction();
-                string backupOfLastHashOfAllInstalledPrograms = settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
-                settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = hashOfStringOfAllInstalledPrograms;
+                string backupOfLastHashOfAllInstalledPrograms =
+                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
+                settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms =
+                    hashOfStringOfAllInstalledPrograms;
                 if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())
-                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = backupOfLastHashOfAllInstalledPrograms;
+                {
+                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms =
+                        backupOfLastHashOfAllInstalledPrograms;
+                }
             }
         }
         public static void CheckForProgramUpdatesAndUpdateDatabase(List<Program> programsToCheck,
@@ -263,7 +350,9 @@ namespace Scrupdate.Classes.Utilities
             if (settingsHandler.SettingsInMemory == null)
                 throw new SettingsHandler.NoSettingsInMemoryException();
             bool unableToAccessInstalledChromeDriverExecutableFile;
-            if (ChromeDriverUtilities.GetInstalledChromeDriverInformation(out unableToAccessInstalledChromeDriverExecutableFile) == null)
+            if (ChromeDriverUtilities.GetInstalledChromeDriverInformation(
+                    out unableToAccessInstalledChromeDriverExecutableFile
+                ) == null)
             {
                 if (unableToAccessInstalledChromeDriverExecutableFile)
                     throw new UnableToAccessChromeDriverExecutableFileException();
@@ -271,32 +360,45 @@ namespace Scrupdate.Classes.Utilities
             }
             if (!GoogleChromeBrowserUtilities.IsGoogleChromeBrowserInstalled())
                 throw new GoogleChromeBrowserIsNotInstalledException();
-            string checksumOfInstalledGoogleChromeBrowserExecutableFile = GoogleChromeBrowserUtilities.GetChecksumOfInstalledGoogleChromeBrowserExecutableFile();
+            string checksumOfInstalledGoogleChromeBrowserExecutableFile =
+                GoogleChromeBrowserUtilities.GetChecksumOfInstalledGoogleChromeBrowserExecutableFile();
             if (checksumOfInstalledGoogleChromeBrowserExecutableFile == null)
                 throw new UnableToAccessGoogleChromeBrowserExecutableFileException();
-            string defaultChromeDriverUserAgentString = settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
-            if (settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString.Equals("") || !checksumOfInstalledGoogleChromeBrowserExecutableFile.Equals(settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile))
+            string defaultChromeDriverUserAgentString =
+                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
+            if (settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString.Equals("") ||
+                !checksumOfInstalledGoogleChromeBrowserExecutableFile.Equals(
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile
+                ))
             {
                 defaultChromeDriverUserAgentString = ChromeDriverUtilities.GetDefaultChromeDriverUserAgentString();
                 if (defaultChromeDriverUserAgentString == null)
                     throw new UnableToGetDefaultChromeDriverUserAgentStringException();
-                string backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile = settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
-                string backupOfLastDefaultChromeDriverUserAgentString = settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
-                settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile = checksumOfInstalledGoogleChromeBrowserExecutableFile;
-                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString = defaultChromeDriverUserAgentString;
+                string backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
+                string backupOfLastDefaultChromeDriverUserAgentString =
+                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
+                settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                    checksumOfInstalledGoogleChromeBrowserExecutableFile;
+                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
+                    defaultChromeDriverUserAgentString;
                 if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())
                 {
-                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile = backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
-                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString = backupOfLastDefaultChromeDriverUserAgentString;
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                        backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
+                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
+                        backupOfLastDefaultChromeDriverUserAgentString;
                 }
             }
-            if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+            if (cancellationToken != null &&
+                ((CancellationToken)cancellationToken).IsCancellationRequested)
+            {
                 return;
-            string chromeDriverUserAgentString = null;
-            if (!settingsHandler.SettingsInMemory.ChromeDriver.UseCustomUserAgentString)
-                chromeDriverUserAgentString = defaultChromeDriverUserAgentString;
-            else
-                chromeDriverUserAgentString = settingsHandler.SettingsInMemory.ChromeDriver.CustomUserAgentString;
+            }
+            string chromeDriverUserAgentString =
+                (settingsHandler.SettingsInMemory.ChromeDriver.UseCustomUserAgentString ?
+                    settingsHandler.SettingsInMemory.ChromeDriver.CustomUserAgentString :
+                    defaultChromeDriverUserAgentString);
             int chromeDriverPageLoadTimeoutInMilliseconds = 0;
             switch (settingsHandler.SettingsInMemory.ChromeDriver.PageLoadTimeout)
             {
@@ -319,7 +421,11 @@ namespace Scrupdate.Classes.Utilities
                     chromeDriverPageLoadTimeoutInMilliseconds = 30000;
                     break;
             }
-            using (ChromeDriver chromeDriver = new ChromeDriver(ChromeDriverUtilities.chromeDriverDirectoryPath, chromeDriverUserAgentString, chromeDriverPageLoadTimeoutInMilliseconds))
+            using (ChromeDriver chromeDriver = new ChromeDriver(
+                       ChromeDriverUtilities.chromeDriverDirectoryPath,
+                       chromeDriverUserAgentString,
+                       chromeDriverPageLoadTimeoutInMilliseconds
+                   ))
             {
                 try
                 {
@@ -329,8 +435,11 @@ namespace Scrupdate.Classes.Utilities
                 {
                     throw new ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException();
                 }
-                if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                if (cancellationToken != null &&
+                    ((CancellationToken)cancellationToken).IsCancellationRequested)
+                {
                     return;
+                }
                 programDatabase.ResetLatestVersionAndUpdateCheckConfigurationStatusOfAllConfiguredPrograms();
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;
                 settingsHandler.SaveSettingsFromMemoryToSettingsFile();
@@ -338,8 +447,11 @@ namespace Scrupdate.Classes.Utilities
                 {
                     Program programToCheck = programsToCheck[i];
                     updatesCheckProgressChangedEventHandler?.Invoke(((double)i / programsToCheck.Count) * 100.0D);
-                    if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                    if (cancellationToken != null &&
+                        ((CancellationToken)cancellationToken).IsCancellationRequested)
+                    {
                         return;
+                    }
                     try
                     {
                         try
@@ -350,8 +462,11 @@ namespace Scrupdate.Classes.Utilities
                         {
                             throw new WebPageDidNotRespondException();
                         }
-                        if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        if (cancellationToken != null &&
+                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        {
                             return;
+                        }
                         int webPagePostLoadDelayInMilliseconds = 0;
                         switch (programToCheck.WebPagePostLoadDelay)
                         {
@@ -387,23 +502,36 @@ namespace Scrupdate.Classes.Utilities
                             else
                                 Thread.Sleep(webPagePostLoadDelayInMilliseconds);
                         }
-                        if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        if (cancellationToken != null &&
+                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        {
                             return;
+                        }
                         if (programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
                         {
-                            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
+                            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
+                                     programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
                             {
-                                if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                                if (cancellationToken != null &&
+                                    ((CancellationToken)cancellationToken).IsCancellationRequested)
+                                {
                                     return;
+                                }
                                 try
                                 {
-                                    chromeDriver.ClickOnAnElementWithinTheWebpage(locatingInstructionOfWebPageElementToSimulateAClickOn, cancellationToken);
+                                    chromeDriver.ClickOnAnElementWithinTheWebpage(
+                                        locatingInstructionOfWebPageElementToSimulateAClickOn,
+                                        cancellationToken
+                                    );
                                 }
                                 catch { }
                             }
                         }
-                        if (cancellationToken != null && ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        if (cancellationToken != null &&
+                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        {
                             return;
+                        }
                         string textToSerachVersion = null;
                         string tempTextToSerachVersion = null;
                         switch (programToCheck.VersionSearchMethod)
@@ -411,7 +539,9 @@ namespace Scrupdate.Classes.Utilities
                             case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
                                 try
                                 {
-                                    textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(programToCheck.VersionSearchMethodArgument1);
+                                    textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(
+                                        programToCheck.VersionSearchMethodArgument1
+                                    );
                                 }
                                 catch
                                 {
@@ -421,7 +551,12 @@ namespace Scrupdate.Classes.Utilities
                             case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
                                 try
                                 {
-                                    textToSerachVersion = string.Join(" ", chromeDriver.GetTextsInsideHtmlElementsByXPath(programToCheck.VersionSearchMethodArgument1));
+                                    textToSerachVersion = string.Join(
+                                        " ",
+                                        chromeDriver.GetTextsInsideHtmlElementsByXPath(
+                                            programToCheck.VersionSearchMethodArgument1
+                                        )
+                                    );
                                 }
                                 catch
                                 {
@@ -434,22 +569,37 @@ namespace Scrupdate.Classes.Utilities
                             case Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage:
                             case Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
-                                int foundTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument1);
+                                int foundTextIndex = tempTextToSerachVersion.IndexOf(
+                                    programToCheck.VersionSearchMethodArgument1
+                                );
                                 if (foundTextIndex < 0)
                                     throw new TextWasNotFoundWithinWebPageException();
                                 if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage)
-                                    textToSerachVersion = tempTextToSerachVersion.Substring(foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length);
+                                {
+                                    textToSerachVersion = tempTextToSerachVersion.Substring(
+                                        foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length
+                                    );
+                                }
                                 else
                                     textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
                                 break;
                             case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
-                                int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument1);
-                                int foundEndingTextIndex = tempTextToSerachVersion.IndexOf(programToCheck.VersionSearchMethodArgument2);
+                                int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
+                                    programToCheck.VersionSearchMethodArgument1
+                                );
+                                int foundEndingTextIndex = tempTextToSerachVersion.IndexOf(
+                                    programToCheck.VersionSearchMethodArgument2
+                                );
                                 if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
                                     throw new TextWasNotFoundWithinWebPageException();
                                 if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
-                                    textToSerachVersion = tempTextToSerachVersion.Substring(foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length, foundEndingTextIndex - (foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length));
+                                {
+                                    textToSerachVersion = tempTextToSerachVersion.Substring(
+                                        foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length,
+                                        foundEndingTextIndex - (foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length)
+                                    );
+                                }
                                 break;
                         }
                         if (textToSerachVersion == null || textToSerachVersion.Equals(""))
@@ -458,23 +608,46 @@ namespace Scrupdate.Classes.Utilities
                         switch (programToCheck.VersionSearchBehavior)
                         {
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
-                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion, false);
+                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(
+                                    textToSerachVersion,
+                                    programToCheck.TreatAStandaloneNumberAsAVersion,
+                                    false
+                                );
                                 break;
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
-                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion, true);
+                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(
+                                    textToSerachVersion,
+                                    programToCheck.TreatAStandaloneNumberAsAVersion,
+                                    true
+                                );
                                 break;
                             case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
-                                versionString = VersionsUtilities.GetTheLatestVersionFromString(textToSerachVersion, programToCheck.TreatAStandaloneNumberAsAVersion);
+                                versionString = VersionsUtilities.GetTheLatestVersionFromString(
+                                    textToSerachVersion,
+                                    programToCheck.TreatAStandaloneNumberAsAVersion
+                                );
                                 break;
                         }
                         if (versionString == null || versionString.Equals(""))
                             throw new NoVersionWasFoundException();
-                        programDatabase.UpdateProgramLatestVersion(programToCheck.Name, VersionsUtilities.TrimVersion(versionString, VersionsUtilities.MINIMUM_VERSION_SEGMENTS, VersionsUtilities.MAXIMUM_VERSION_SEGMENTS));
-                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program._UpdateCheckConfigurationStatus.Valid, Program._UpdateCheckConfigurationError.None);
+                        programDatabase.UpdateProgramLatestVersion(
+                            programToCheck.Name,
+                            VersionsUtilities.TrimVersion(
+                                versionString,
+                                VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
+                                VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
+                            )
+                        );
+                        programDatabase.ChangeProgramConfigurationStatus(
+                            programToCheck.Name,
+                            Program._UpdateCheckConfigurationStatus.Valid,
+                            Program._UpdateCheckConfigurationError.None
+                        );
                     }
                     catch (Exception e)
                     {
-                        Program._UpdateCheckConfigurationError updateCheckConfigurationError = Program._UpdateCheckConfigurationError.None;
+                        Program._UpdateCheckConfigurationError updateCheckConfigurationError =
+                            Program._UpdateCheckConfigurationError.None;
                         if (e.GetType().Equals(typeof(WebPageDidNotRespondException)))
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
                         else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
@@ -486,7 +659,11 @@ namespace Scrupdate.Classes.Utilities
                         else
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
                         programDatabase.UpdateProgramLatestVersion(programToCheck.Name, "");
-                        programDatabase.ChangeProgramConfigurationStatus(programToCheck.Name, Program._UpdateCheckConfigurationStatus.Invalid, updateCheckConfigurationError);
+                        programDatabase.ChangeProgramConfigurationStatus(
+                            programToCheck.Name,
+                            Program._UpdateCheckConfigurationStatus.Invalid,
+                            updateCheckConfigurationError
+                        );
                     }
                 }
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;

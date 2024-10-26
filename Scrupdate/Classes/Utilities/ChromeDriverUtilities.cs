@@ -36,28 +36,43 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string chromeDriverDirectoryPath = ((new StringBuilder()).Append(ApplicationUtilities.dataDirectoryPath).Append('\\').Append(DIRECTORY_NAME__CHROMEDRIVER)).ToString();
-        public static readonly string chromeDriverExecutableFilePath = ((new StringBuilder()).Append(chromeDriverDirectoryPath).Append('\\').Append(FILE_NAME__CHROMEDRIVER_EXE)).ToString();
+        public static readonly string chromeDriverDirectoryPath = (new StringBuilder())
+            .Append(ApplicationUtilities.dataDirectoryPath)
+            .Append('\\')
+            .Append(DIRECTORY_NAME__CHROMEDRIVER)
+            .ToString();
+        public static readonly string chromeDriverExecutableFilePath = (new StringBuilder())
+            .Append(chromeDriverDirectoryPath)
+            .Append('\\')
+            .Append(FILE_NAME__CHROMEDRIVER_EXE)
+            .ToString();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static bool InstallChromeDriver(string pathOfChromeDriverExecutableFileToInstall, out string chromeDriverInformation)
+        public static bool InstallChromeDriver(string pathOfChromeDriverExecutableFileToInstall,
+                                               out string chromeDriverInformation)
         {
             chromeDriverInformation = null;
             if (pathOfChromeDriverExecutableFileToInstall == null)
                 throw new ArgumentNullException(nameof(pathOfChromeDriverExecutableFileToInstall));
             try
             {
-                chromeDriverInformation = GetChromeDriverInformationFromAFile(pathOfChromeDriverExecutableFileToInstall, out _);
+                chromeDriverInformation = GetChromeDriverInformationFromAFile(
+                    pathOfChromeDriverExecutableFileToInstall,
+                    out _
+                );
                 if (chromeDriverInformation == null)
                     return false;
                 if (!UninstallChromeDriver())
                     return false;
                 if (!Directory.Exists(chromeDriverDirectoryPath))
                     Directory.CreateDirectory(chromeDriverDirectoryPath);
-                File.Copy(pathOfChromeDriverExecutableFileToInstall, chromeDriverExecutableFilePath);
+                File.Copy(
+                    pathOfChromeDriverExecutableFileToInstall,
+                    chromeDriverExecutableFilePath
+                );
                 return true;
             }
             catch
@@ -74,8 +89,13 @@ namespace Scrupdate.Classes.Utilities
                     if (File.Exists(chromeDriverExecutableFilePath))
                         File.Delete(chromeDriverExecutableFilePath);
                     if (Directory.Exists(chromeDriverDirectoryPath))
-                        if (Directory.GetFiles(chromeDriverDirectoryPath).Length == 0 && Directory.GetDirectories(chromeDriverDirectoryPath).Length == 0)
+                    {
+                        if (Directory.GetFiles(chromeDriverDirectoryPath).Length == 0 &&
+                            Directory.GetDirectories(chromeDriverDirectoryPath).Length == 0)
+                        {
                             Directory.Delete(chromeDriverDirectoryPath);
+                        }
+                    }
                 }
                 return true;
             }
@@ -86,9 +106,13 @@ namespace Scrupdate.Classes.Utilities
         }
         public static string GetInstalledChromeDriverInformation(out bool unableToAccessInstalledChromeDriverExecutableFile)
         {
-            return GetChromeDriverInformationFromAFile(chromeDriverExecutableFilePath, out unableToAccessInstalledChromeDriverExecutableFile);
+            return GetChromeDriverInformationFromAFile(
+                chromeDriverExecutableFilePath,
+                out unableToAccessInstalledChromeDriverExecutableFile
+            );
         }
-        private static string GetChromeDriverInformationFromAFile(string filePath, out bool unableToAccessFile)
+        private static string GetChromeDriverInformationFromAFile(string filePath,
+                                                                  out bool unableToAccessFile)
         {
             unableToAccessFile = false;
             if (filePath == null)
@@ -98,19 +122,35 @@ namespace Scrupdate.Classes.Utilities
                 if (!File.Exists(filePath))
                     return null;
                 string result;
-                if (ProcessesUtilities.RunFile(filePath, "--version", false, true, true, CHROMEDRIVER_VERSION_RETRIEVAL_TIMEOUT_IN_MILLISECONDS, true, true, out result) != 0)
+                if (ProcessesUtilities.RunFile(
+                        filePath,
+                        "--version",
+                        false,
+                        true,
+                        true,
+                        CHROMEDRIVER_VERSION_RETRIEVAL_TIMEOUT_IN_MILLISECONDS,
+                        true,
+                        true,
+                        out result
+                    ) != 0)
                 {
                     unableToAccessFile = true;
                     return null;
                 }
                 if (result == null)
                     return null;
-                string[] splittedResult = result.Split(new char[] { ' ' }, CHROMEDRIVER_VERSION_RETRIEVAL_MAXIMUM_COUNT_OF_WORDS_TO_CHECK);
+                string[] splittedResult = result.Split(
+                    new char[] { ' ' },
+                    CHROMEDRIVER_VERSION_RETRIEVAL_MAXIMUM_COUNT_OF_WORDS_TO_CHECK
+                );
                 bool fileIsChromeDriver = false;
                 string chromeDriverVersion = null;
                 for (int i = 0; i < splittedResult.Length; i++)
                 {
-                    if (splittedResult[i].Contains(CHROMEDRIVER_NAME, StringComparison.CurrentCultureIgnoreCase))
+                    if (splittedResult[i].Contains(
+                            CHROMEDRIVER_NAME,
+                            StringComparison.CurrentCultureIgnoreCase
+                        ))
                     {
                         fileIsChromeDriver = true;
                         chromeDriverVersion = VersionsUtilities.GetTheFirstFoundVersionFromString(result);
@@ -120,7 +160,10 @@ namespace Scrupdate.Classes.Utilities
                 if (!fileIsChromeDriver || chromeDriverVersion == null)
                     return null;
                 StringBuilder tempStringBuilder = new StringBuilder();
-                tempStringBuilder.Clear().Append(CHROMEDRIVER_NAME).Append(' ').Append(chromeDriverVersion);
+                tempStringBuilder.Clear()
+                    .Append(CHROMEDRIVER_NAME)
+                    .Append(' ')
+                    .Append(chromeDriverVersion);
                 return tempStringBuilder.ToString();
             }
             catch
@@ -138,10 +181,14 @@ namespace Scrupdate.Classes.Utilities
                 OpenQA.Selenium.Chrome.ChromeDriver tempChromeDriver = null;
                 try
                 {
-                    tempChromeDriverService = ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(chromeDriverExecutableFilePath), Path.GetFileName(chromeDriverExecutableFilePath));
+                    tempChromeDriverService = ChromeDriverService.CreateDefaultService(
+                        Path.GetDirectoryName(chromeDriverExecutableFilePath),
+                        Path.GetFileName(chromeDriverExecutableFilePath)
+                    );
                     tempChromeDriverService.HideCommandPromptWindow = true;
                     tempChromeDriver = new OpenQA.Selenium.Chrome.ChromeDriver(tempChromeDriverService, tempChromeOptions);
-                    string defaultChromeDriverUserAgentString = (string)(tempChromeDriver.ExecuteScript("return navigator.userAgent;"));
+                    string defaultChromeDriverUserAgentString =
+                        (string)tempChromeDriver.ExecuteScript("return navigator.userAgent;");
                     tempChromeDriver.Quit();
                     tempChromeDriverService.Dispose();
                     tempChromeDriverService = null;

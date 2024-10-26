@@ -34,7 +34,13 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                RegistryKey installedGoogleChromeBrowserAppPathRegistryKey = Registry.LocalMachine?.OpenSubKey("SOFTWARE")?.OpenSubKey("Microsoft")?.OpenSubKey("Windows")?.OpenSubKey("CurrentVersion")?.OpenSubKey("App Paths")?.OpenSubKey(GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE_NAME);
+                RegistryKey installedGoogleChromeBrowserAppPathRegistryKey = Registry.LocalMachine?
+                    .OpenSubKey("SOFTWARE")?
+                    .OpenSubKey("Microsoft")?
+                    .OpenSubKey("Windows")?
+                    .OpenSubKey("CurrentVersion")?
+                    .OpenSubKey("App Paths")?
+                    .OpenSubKey(GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE_NAME);
                 if (installedGoogleChromeBrowserAppPathRegistryKey == null)
                     return null;
                 return (string)installedGoogleChromeBrowserAppPathRegistryKey.GetValue("");
@@ -48,10 +54,13 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                string googleChromeBrowserExecutableFilePath = GetPathOfInstalledGoogleChromeBrowserExecutableFile();
+                string googleChromeBrowserExecutableFilePath =
+                    GetPathOfInstalledGoogleChromeBrowserExecutableFile();
                 if (googleChromeBrowserExecutableFilePath == null)
                     return null;
-                return HashingUtilities.GetMD5Hash(File.ReadAllBytes(googleChromeBrowserExecutableFilePath));
+                return HashingUtilities.GetMD5Hash(
+                    File.ReadAllBytes(googleChromeBrowserExecutableFilePath)
+                );
             }
             catch
             {
@@ -62,7 +71,8 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                string googleChromeBrowserExecutableFilePath = GetPathOfInstalledGoogleChromeBrowserExecutableFile();
+                string googleChromeBrowserExecutableFilePath =
+                    GetPathOfInstalledGoogleChromeBrowserExecutableFile();
                 if (googleChromeBrowserExecutableFilePath == null)
                     return false;
                 return File.Exists(googleChromeBrowserExecutableFilePath);

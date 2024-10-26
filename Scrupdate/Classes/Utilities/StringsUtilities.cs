@@ -67,10 +67,19 @@ namespace Scrupdate.Classes.Utilities
         {
             if (pascalCasedWordsString == null)
                 throw new ArgumentNullException(nameof(pascalCasedWordsString));
-            if (pascalCasedWordsString.Length > 0 && !Array.TrueForAll(pascalCasedWordsString.ToCharArray(), (char pascalCasedWordsStringChar) => (char.IsLetterOrDigit(pascalCasedWordsStringChar))))
+            if (pascalCasedWordsString.Length > 0 &&
+                !Array.TrueForAll(
+                    pascalCasedWordsString.ToCharArray(),
+                    c => char.IsLetterOrDigit(c)
+                ))
+            {
                 throw new StringDoesNotContainOnlyLettersAndDigitsException();
-            if (pascalCasedWordsString.Length > 0 && !(char.IsUpper(pascalCasedWordsString[0]) || char.IsDigit(pascalCasedWordsString[0])))
+            }
+            if (pascalCasedWordsString.Length > 0 &&
+                !(char.IsUpper(pascalCasedWordsString[0]) || char.IsDigit(pascalCasedWordsString[0])))
+            {
                 throw new StringIsNotPascalCasedException();
+            }
             for (int i = 1; i < pascalCasedWordsString.Length; i++)
                 if (char.IsLower(pascalCasedWordsString[i]) && char.IsDigit(pascalCasedWordsString[i - 1]))
                     throw new StringIsNotPascalCasedException();
@@ -82,8 +91,12 @@ namespace Scrupdate.Classes.Utilities
                     spaceSeparatedWordsString.Append(pascalCasedWordsString[0]);
                     for (int i = 1; i < pascalCasedWordsString.Length; i++)
                     {
-                        if (char.IsUpper(pascalCasedWordsString[i]) || ((char.IsDigit(pascalCasedWordsString[i]) && !char.IsDigit(pascalCasedWordsString[i - 1])) || (!char.IsDigit(pascalCasedWordsString[i]) && char.IsDigit(pascalCasedWordsString[i - 1]))))
+                        if (char.IsUpper(pascalCasedWordsString[i]) ||
+                            ((char.IsDigit(pascalCasedWordsString[i]) && !char.IsDigit(pascalCasedWordsString[i - 1])) ||
+                             (!char.IsDigit(pascalCasedWordsString[i]) && char.IsDigit(pascalCasedWordsString[i - 1]))))
+                        {
                             spaceSeparatedWordsString.Append(' ');
+                        }
                         spaceSeparatedWordsString.Append(pascalCasedWordsString[i]);
                     }
                 }

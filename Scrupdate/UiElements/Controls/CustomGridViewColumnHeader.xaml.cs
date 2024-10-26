@@ -40,9 +40,24 @@ namespace Scrupdate.UiElements.Controls
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(CustomGridViewColumnHeader), new PropertyMetadata(null));
-        public static readonly DependencyProperty IsSortableProperty = DependencyProperty.Register(nameof(IsSortable), typeof(bool), typeof(CustomGridViewColumnHeader), new PropertyMetadata(false));
-        public static readonly DependencyProperty ListViewItemsSortingOrderProperty = DependencyProperty.Register(nameof(ListViewItemsSortingOrder), typeof(SortingOrder), typeof(CustomGridViewColumnHeader), new PropertyMetadata(SortingOrder.None));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            nameof(Text),
+            typeof(string),
+            typeof(CustomGridViewColumnHeader),
+            new PropertyMetadata(null)
+        );
+        public static readonly DependencyProperty IsSortableProperty = DependencyProperty.Register(
+            nameof(IsSortable),
+            typeof(bool),
+            typeof(CustomGridViewColumnHeader),
+            new PropertyMetadata(false)
+        );
+        public static readonly DependencyProperty ListViewItemsSortingOrderProperty = DependencyProperty.Register(
+            nameof(ListViewItemsSortingOrder),
+            typeof(SortingOrder),
+            typeof(CustomGridViewColumnHeader),
+            new PropertyMetadata(SortingOrder.None)
+        );
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -52,45 +67,72 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (string)GetValue(TextProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (string)GetValue(TextProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(TextProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(TextProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(Text))
+                            );
+                        }
+                );
             }
         }
         public bool IsSortable
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(IsSortableProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(IsSortableProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(IsSortableProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSortable)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(IsSortableProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(IsSortable))
+                            );
+                        }
+                );
             }
         }
         public SortingOrder ListViewItemsSortingOrder
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (SortingOrder)GetValue(ListViewItemsSortingOrderProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (SortingOrder)GetValue(ListViewItemsSortingOrderProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(ListViewItemsSortingOrderProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ListViewItemsSortingOrder)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(ListViewItemsSortingOrderProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(ListViewItemsSortingOrder))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

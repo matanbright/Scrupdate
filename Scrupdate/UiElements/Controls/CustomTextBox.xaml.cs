@@ -50,10 +50,30 @@ namespace Scrupdate.UiElements.Controls
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register(nameof(HintText), typeof(string), typeof(CustomTextBox), new PropertyMetadata(""));
-        public static readonly DependencyProperty IsShowingClearButtonProperty = DependencyProperty.Register(nameof(IsShowingClearButton), typeof(bool), typeof(CustomTextBox), new PropertyMetadata(false));
-        public static readonly RoutedEvent EnabledEvent = EventManager.RegisterRoutedEvent(nameof(Enabled), RoutingStrategy.Bubble, typeof(EnabledRoutedEventHandler), typeof(CustomTextBox));
-        public static readonly RoutedEvent DisabledEvent = EventManager.RegisterRoutedEvent(nameof(Disabled), RoutingStrategy.Bubble, typeof(DisabledRoutedEventHandler), typeof(CustomTextBox));
+        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register(
+            nameof(HintText),
+            typeof(string),
+            typeof(CustomTextBox),
+            new PropertyMetadata("")
+        );
+        public static readonly DependencyProperty IsShowingClearButtonProperty = DependencyProperty.Register(
+            nameof(IsShowingClearButton),
+            typeof(bool),
+            typeof(CustomTextBox),
+            new PropertyMetadata(false)
+        );
+        public static readonly RoutedEvent EnabledEvent = EventManager.RegisterRoutedEvent(
+            nameof(Enabled),
+            RoutingStrategy.Bubble,
+            typeof(EnabledRoutedEventHandler),
+            typeof(CustomTextBox)
+        );
+        public static readonly RoutedEvent DisabledEvent = EventManager.RegisterRoutedEvent(
+            nameof(Disabled),
+            RoutingStrategy.Bubble,
+            typeof(DisabledRoutedEventHandler),
+            typeof(CustomTextBox)
+        );
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -63,30 +83,48 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (string)GetValue(HintTextProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (string)GetValue(HintTextProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(HintTextProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HintText)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(HintTextProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(HintText))
+                            );
+                        }
+                );
             }
         }
         public bool IsShowingClearButton
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(IsShowingClearButtonProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(IsShowingClearButtonProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(IsShowingClearButtonProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsShowingClearButton)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(IsShowingClearButtonProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(IsShowingClearButton))
+                            );
+                        }
+                );
             }
         }
         public event EnabledRoutedEventHandler Enabled
@@ -128,11 +166,19 @@ namespace Scrupdate.UiElements.Controls
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnTextBoxLoadedEvent(object sender, RoutedEventArgs e)
         {
-            RaiseEvent((IsEnabled ? new EnabledRoutedEventArgs(EnabledEvent) : new DisabledRoutedEventArgs(DisabledEvent)));
+            RaiseEvent(
+                (IsEnabled ?
+                    new EnabledRoutedEventArgs(EnabledEvent) :
+                    new DisabledRoutedEventArgs(DisabledEvent))
+            );
         }
         private void OnTextBoxIsEnabledChangedEvent(object sender, DependencyPropertyChangedEventArgs e)
         {
-            RaiseEvent((IsEnabled ? new EnabledRoutedEventArgs(EnabledEvent) : new DisabledRoutedEventArgs(DisabledEvent)));
+            RaiseEvent(
+                (IsEnabled ?
+                    new EnabledRoutedEventArgs(EnabledEvent) :
+                    new DisabledRoutedEventArgs(DisabledEvent))
+            );
         }
         private void OnBorderMouseDownEvent(object sender, MouseButtonEventArgs e)
         {

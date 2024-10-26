@@ -35,7 +35,8 @@ namespace Scrupdate.Classes.Utilities
             if (fieldNameFilter == null)
                 throw new ArgumentNullException(nameof(fieldNameFilter));
             List<Field> staticFields = new List<Field>();
-            foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            foreach (FieldInfo fieldInfo in
+                     type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 string fieldName = fieldInfo.Name;
                 if (fieldName.Contains(fieldNameFilter))

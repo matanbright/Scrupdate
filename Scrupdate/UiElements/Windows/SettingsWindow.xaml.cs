@@ -63,7 +63,12 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty SelectedSettingsCategoryMenuTabProperty = DependencyProperty.Register(nameof(SelectedSettingsCategoryMenuTab), typeof(SettingsCategoryMenuTab), typeof(SettingsWindow), new PropertyMetadata(SettingsCategoryMenuTab.None));
+        public static readonly DependencyProperty SelectedSettingsCategoryMenuTabProperty = DependencyProperty.Register(
+            nameof(SelectedSettingsCategoryMenuTab),
+            typeof(SettingsCategoryMenuTab),
+            typeof(SettingsWindow),
+            new PropertyMetadata(SettingsCategoryMenuTab.None)
+        );
         private StringBuilder tempStringBuilder;
         private Settings currentSettings;
         private Settings updatedSettings;
@@ -77,15 +82,24 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (SettingsCategoryMenuTab)GetValue(SelectedSettingsCategoryMenuTabProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (SettingsCategoryMenuTab)GetValue(SelectedSettingsCategoryMenuTabProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(SelectedSettingsCategoryMenuTabProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedSettingsCategoryMenuTab)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(SelectedSettingsCategoryMenuTabProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(SelectedSettingsCategoryMenuTab))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -101,7 +115,11 @@ namespace Scrupdate.UiElements.Windows
             updatedSettings = null;
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
+            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                this,
+                BaseSizeOfWindow,
+                App.WindowsRenderingScale
+            );
             if (currentSettings.General.EnableScanningForInstalledPrograms && !programDatabaseIsOpen)
                 checkBox_enableScanningForInstalledPrograms.IsEnabled = false;
             for (int i = 0; i < 24; i++)
@@ -117,8 +135,11 @@ namespace Scrupdate.UiElements.Windows
             Rect displayWorkArea = SystemParameters.WorkArea;
             for (double i = 1.25D; true; i += 0.25D)
             {
-                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width || WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
+                    WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                {
                     break;
+                }
                 comboBox_windowsScalingFactor.Items.Add(i.ToString("0.00"));
             }
             for (int i = 2; i <= 4; i++)
@@ -126,8 +147,15 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_minimumVersionSegments.Items.Add(i.ToString());
                 comboBox_maximumVersionSegments.Items.Add(i.ToString());
             }
-            foreach (string chromeDriverPageLoadTimeoutEnumItemName in Enum.GetNames(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
-                comboBox_chromeDriverPageLoadTimeout.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(chromeDriverPageLoadTimeoutEnumItemName));
+            foreach (string chromeDriverPageLoadTimeoutEnumItemName in
+                     Enum.GetNames(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
+            {
+                comboBox_chromeDriverPageLoadTimeout.Items.Add(
+                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                        chromeDriverPageLoadTimeoutEnumItemName
+                    )
+                );
+            }
             ApplySettingsToUIControlsValues(currentSettings);
             SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.General;
         }
@@ -156,40 +184,68 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_chromeDriverSettingsCategory)
             {
                 bool unableToAccessInstalledChromeDriverExecutableFile;
-                string installedChromeDriverInformation = ChromeDriverUtilities.GetInstalledChromeDriverInformation(out unableToAccessInstalledChromeDriverExecutableFile);
+                string installedChromeDriverInformation =
+                    ChromeDriverUtilities.GetInstalledChromeDriverInformation(
+                        out unableToAccessInstalledChromeDriverExecutableFile
+                    );
                 if (installedChromeDriverInformation == null)
                 {
                     if (unableToAccessInstalledChromeDriverExecutableFile)
                     {
-                        label_chromeDriverInstallationStatusMessage.Content = CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__UNKNOWN;
-                        label_chromeDriverInstallationStatusMessage.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH);
+                        label_chromeDriverInstallationStatusMessage.Content =
+                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__UNKNOWN;
+                        label_chromeDriverInstallationStatusMessage.Foreground =
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            );
                     }
                     else
                     {
-                        label_chromeDriverInstallationStatusMessage.Content = CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE;
-                        label_chromeDriverInstallationStatusMessage.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH);
+                        label_chromeDriverInstallationStatusMessage.Content =
+                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE;
+                        label_chromeDriverInstallationStatusMessage.Foreground =
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                            );
                     }
                 }
                 else
                 {
-                    label_chromeDriverInstallationStatusMessage.Content = installedChromeDriverInformation;
-                    label_chromeDriverInstallationStatusMessage.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH);
+                    label_chromeDriverInstallationStatusMessage.Content =
+                        installedChromeDriverInformation;
+                    label_chromeDriverInstallationStatusMessage.Foreground =
+                        (SolidColorBrush)Application.Current.FindResource(
+                            App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH
+                        );
                 }
                 SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.ChromeDriver;
                 scrollViewer_settingsControls.ScrollToTop();
             }
             else if (senderButton == button_resetToDefaultSettings)
             {
-                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES,
+                        this
+                    ) == true)
                 {
-                    updatedSettings = new Settings(currentSettings.Cached, new Settings.GeneralSettings(), new Settings.AppearanceSettings(), new Settings.ChromeDriverSettings());
+                    updatedSettings = new Settings(
+                        currentSettings.Cached,
+                        new Settings.GeneralSettings(),
+                        new Settings.AppearanceSettings(),
+                        new Settings.ChromeDriverSettings()
+                    );
                     DialogResult = true;
                     Close();
                 }
             }
             else if (senderButton == button_resetAll)
             {
-                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA,
+                        this
+                    ) == true)
                 {
                     updatedSettings = null;
                     DialogResult = true;
@@ -202,21 +258,61 @@ namespace Scrupdate.UiElements.Windows
                 openFileDialog.Filter = "Executable Files (.exe)| *.exe";
                 openFileDialog.Multiselect = false;
                 if (openFileDialog.ShowDialog() == true)
+                {
                     if (!InstallChromeDriver(openFileDialog.FileName))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER, this);
+                    {
+                        DialogsUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER,
+                            this
+                        );
+                    }
+                }
             }
             else if (senderButton == button_UninstallChromeDriver)
             {
-                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__UNINSTALL_CHROMEDRIVER, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__UNINSTALL_CHROMEDRIVER,
+                        this
+                    ) == true)
+                {
                     if (!UninstallChromeDriver())
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER, this);
+                    {
+                        DialogsUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER,
+                            this
+                        );
+                    }
+                }
             }
             else if (senderButton == button_save)
             {
-                if (checkBox_enableScheduledCheckForProgramUpdates.IsChecked == true && !(checkBox_programUpdatesScheduledCheckDaySunday.IsChecked == true || checkBox_programUpdatesScheduledCheckDayMonday.IsChecked == true || checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked == true || checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked == true || checkBox_programUpdatesScheduledCheckDayThursday.IsChecked == true || checkBox_programUpdatesScheduledCheckDayFriday.IsChecked == true || checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked == true))
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED, this);
-                else if (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true && textBox_customChromeDriverUserAgentString.Text.Trim().Equals(""))
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED, this);
+                if (checkBox_enableScheduledCheckForProgramUpdates.IsChecked == true &&
+                    !(checkBox_programUpdatesScheduledCheckDaySunday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDayMonday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDayThursday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDayFriday.IsChecked == true ||
+                      checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked == true))
+                {
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED,
+                        this
+                    );
+                }
+                else if (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true &&
+                         textBox_customChromeDriverUserAgentString.Text.Trim().Equals(""))
+                {
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED,
+                        this
+                    );
+                }
                 else
                 {
                     updatedSettings = GetSettingsFromUIControlsValues();
@@ -225,17 +321,22 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
             else if (senderButton == button_cancel)
-            {
                 Close();
-            }
         }
         private void OnCheckBoxUncheckedEvent(object sender, RoutedEventArgs e)
         {
             CustomCheckBox senderCheckBox = (CustomCheckBox)sender;
             if (senderCheckBox == checkBox_enableScanningForInstalledPrograms)
             {
-                if (!currentSettings.General.EnableScanningForInstalledPrograms || DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS, this) == true)
+                if (!currentSettings.General.EnableScanningForInstalledPrograms ||
+                    DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS,
+                        this
+                    ) == true)
+                {
                     checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = false;
+                }
                 else
                     checkBox_enableScanningForInstalledPrograms.IsChecked = true;
             }
@@ -257,12 +358,20 @@ namespace Scrupdate.UiElements.Windows
             CustomComboBox senderComboBox = (CustomComboBox)sender;
             if (senderComboBox == comboBox_maximumVersionSegments)
             {
-                int previousSelectionOfMinimumVersionSegments = Convert.ToInt32((string)comboBox_minimumVersionSegments.SelectedItem);
-                int currentSelectionOfMaximumVersionSegments = Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem);
+                int previousSelectionOfMinimumVersionSegments = Convert.ToInt32(
+                    (string)comboBox_minimumVersionSegments.SelectedItem
+                );
+                int currentSelectionOfMaximumVersionSegments = Convert.ToInt32(
+                    (string)comboBox_maximumVersionSegments.SelectedItem
+                );
                 comboBox_minimumVersionSegments.Items.Clear();
                 for (int i = 2; i <= currentSelectionOfMaximumVersionSegments; i++)
                     comboBox_minimumVersionSegments.Items.Add(i.ToString());
-                comboBox_minimumVersionSegments.SelectedItem = Convert.ToString((previousSelectionOfMinimumVersionSegments > currentSelectionOfMaximumVersionSegments ? currentSelectionOfMaximumVersionSegments : previousSelectionOfMinimumVersionSegments));
+                comboBox_minimumVersionSegments.SelectedItem = Convert.ToString(
+                    (previousSelectionOfMinimumVersionSegments > currentSelectionOfMaximumVersionSegments ?
+                        currentSelectionOfMaximumVersionSegments :
+                        previousSelectionOfMinimumVersionSegments)
+                );
             }
         }
         private void OnRadioButtonClickEvent(object sender, RoutedEventArgs e)
@@ -275,8 +384,15 @@ namespace Scrupdate.UiElements.Windows
         {
             CustomTextBox senderTextBox = (CustomTextBox)sender;
             if (senderTextBox == textBox_customChromeDriverUserAgentString)
-                if (Array.TrueForAll(textBox_customChromeDriverUserAgentString.Text.ToCharArray(), (char customChromeDriverUserAgentStringTextBoxTextCharacter) => (char.IsWhiteSpace(customChromeDriverUserAgentStringTextBoxTextCharacter))))
+            {
+                if (Array.TrueForAll(
+                        textBox_customChromeDriverUserAgentString.Text.ToCharArray(),
+                        c => char.IsWhiteSpace(c)
+                    ))
+                {
                     textBox_customChromeDriverUserAgentString.Text = "";
+                }
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -286,9 +402,17 @@ namespace Scrupdate.UiElements.Windows
         private bool InstallChromeDriver(string chromeDriverExecutableFilePath)
         {
             string chromeDriverInformation;
-            if (ChromeDriverUtilities.InstallChromeDriver(chromeDriverExecutableFilePath, out chromeDriverInformation))
+            if (ChromeDriverUtilities.InstallChromeDriver(
+                    chromeDriverExecutableFilePath,
+                    out chromeDriverInformation
+                ))
             {
-                ChangeChromeDriverInstallationStatusMessage(chromeDriverInformation, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH));
+                ChangeChromeDriverInstallationStatusMessage(
+                    chromeDriverInformation,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH
+                    )
+                );
                 return true;
             }
             return false;
@@ -297,45 +421,81 @@ namespace Scrupdate.UiElements.Windows
         {
             if (ChromeDriverUtilities.UninstallChromeDriver())
             {
-                ChangeChromeDriverInstallationStatusMessage(CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH));
+                ChangeChromeDriverInstallationStatusMessage(
+                    CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                    )
+                );
                 return true;
             }
             return false;
         }
-        private void ChangeChromeDriverInstallationStatusMessage(string chromeDriverInstallationStatusMessage, Brush chromeDriverInstallationStatusMessageColor)
+        private void ChangeChromeDriverInstallationStatusMessage(string chromeDriverInstallationStatusMessage,
+                                                                 Brush chromeDriverInstallationStatusMessageColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                label_chromeDriverInstallationStatusMessage.Content = chromeDriverInstallationStatusMessage;
-                label_chromeDriverInstallationStatusMessage.Foreground = chromeDriverInstallationStatusMessageColor;
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        label_chromeDriverInstallationStatusMessage.Content =
+                            chromeDriverInstallationStatusMessage;
+                        label_chromeDriverInstallationStatusMessage.Foreground =
+                            chromeDriverInstallationStatusMessageColor;
+                    }
+            );
         }
         private void ApplySettingsToUIControlsValues(Settings settings)
         {
-            checkBox_enableScanningForInstalledPrograms.IsChecked = settings.General.EnableScanningForInstalledPrograms;
-            checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked = settings.General.ScanForInstalledProgramsAutomaticallyOnStart;
-            checkBox_rememberLastProgramListOptions.IsChecked = settings.General.RememberLastProgramListOptions;
-            checkBox_enableScheduledCheckForProgramUpdates.IsChecked = settings.General.EnableScheduledCheckForProgramUpdates;
-            Settings.GeneralSettings.WeekDays scheduleDays = settings.General.ProgramUpdatesScheduledCheckDays;
-            checkBox_programUpdatesScheduledCheckDaySunday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0);
-            checkBox_programUpdatesScheduledCheckDayMonday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0);
-            checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0);
-            checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0);
-            checkBox_programUpdatesScheduledCheckDayThursday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0);
-            checkBox_programUpdatesScheduledCheckDayFriday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0);
-            checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked = ((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0);
-            comboBox_programUpdatesScheduledCheckHour.SelectedIndex = settings.General.ProgramUpdatesScheduledCheckHour;
-            checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked = settings.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults;
+            checkBox_enableScanningForInstalledPrograms.IsChecked =
+                settings.General.EnableScanningForInstalledPrograms;
+            checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked =
+                settings.General.ScanForInstalledProgramsAutomaticallyOnStart;
+            checkBox_rememberLastProgramListOptions.IsChecked =
+                settings.General.RememberLastProgramListOptions;
+            checkBox_enableScheduledCheckForProgramUpdates.IsChecked =
+                settings.General.EnableScheduledCheckForProgramUpdates;
+            Settings.GeneralSettings.WeekDays scheduleDays =
+                settings.General.ProgramUpdatesScheduledCheckDays;
+            checkBox_programUpdatesScheduledCheckDaySunday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0);
+            checkBox_programUpdatesScheduledCheckDayMonday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0);
+            checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0);
+            checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0);
+            checkBox_programUpdatesScheduledCheckDayThursday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0);
+            checkBox_programUpdatesScheduledCheckDayFriday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0);
+            checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked =
+                ((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0);
+            comboBox_programUpdatesScheduledCheckHour.SelectedIndex =
+                settings.General.ProgramUpdatesScheduledCheckHour;
+            checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked =
+                settings.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults;
             if (settings.Appearance.WindowsScalingFactor == 0.0D)
                 comboBox_windowsScalingFactor.SelectedIndex = 1;
             else if (settings.Appearance.WindowsScalingFactor == 1.0D)
                 comboBox_windowsScalingFactor.SelectedIndex = 0;
             else
-                comboBox_windowsScalingFactor.SelectedIndex = 2 + (int)((settings.Appearance.WindowsScalingFactor - 1.25D) / 0.25D);
-            comboBox_minimumVersionSegments.SelectedItem = Convert.ToString(settings.Appearance.MinimumVersionSegments);
-            comboBox_maximumVersionSegments.SelectedItem = Convert.ToString(settings.Appearance.MaximumVersionSegments);
-            checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked = settings.Appearance.RemoveTrailingZeroSegmentsOfVersions;
-            comboBox_chromeDriverPageLoadTimeout.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(settings.ChromeDriver.PageLoadTimeout.ToString());
+            {
+                comboBox_windowsScalingFactor.SelectedIndex =
+                    2 + (int)((settings.Appearance.WindowsScalingFactor - 1.25D) / 0.25D);
+            }
+            comboBox_minimumVersionSegments.SelectedItem = Convert.ToString(
+                settings.Appearance.MinimumVersionSegments
+            );
+            comboBox_maximumVersionSegments.SelectedItem = Convert.ToString(
+                settings.Appearance.MaximumVersionSegments
+            );
+            checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked =
+                settings.Appearance.RemoveTrailingZeroSegmentsOfVersions;
+            comboBox_chromeDriverPageLoadTimeout.SelectedItem =
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                    settings.ChromeDriver.PageLoadTimeout.ToString()
+                );
             if (!settings.ChromeDriver.UseCustomUserAgentString)
                 radioButton_useDefaultChromeDriverUserAgentString.IsChecked = true;
             else
@@ -347,34 +507,67 @@ namespace Scrupdate.UiElements.Windows
         private Settings GetSettingsFromUIControlsValues()
         {
             Settings.GeneralSettings.WeekDays scheduleDays = Settings.GeneralSettings.WeekDays.None;
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySunday.IsChecked ? (Settings.GeneralSettings.WeekDays)1 : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayMonday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 1) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 2) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 3) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayThursday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 4) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDayFriday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 5) : 0);
-            scheduleDays |= ((bool)checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked ? (Settings.GeneralSettings.WeekDays)(1 << 6) : 0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDaySunday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)1 :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDayMonday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 1) :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 2) :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 3) :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDayThursday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 4) :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDayFriday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 5) :
+                    0);
+            scheduleDays |=
+                ((bool)checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked ?
+                    (Settings.GeneralSettings.WeekDays)(1 << 6) :
+                    0);
             Settings.GeneralSettings generalSettings = new Settings.GeneralSettings(
-                    (bool)checkBox_enableScanningForInstalledPrograms.IsChecked,
-                    (bool)checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked,
-                    (bool)checkBox_rememberLastProgramListOptions.IsChecked,
-                    (bool)checkBox_enableScheduledCheckForProgramUpdates.IsChecked,
-                    scheduleDays,
-                    comboBox_programUpdatesScheduledCheckHour.SelectedIndex,
-                    (bool)checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked
-                );
+                (bool)checkBox_enableScanningForInstalledPrograms.IsChecked,
+                (bool)checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked,
+                (bool)checkBox_rememberLastProgramListOptions.IsChecked,
+                (bool)checkBox_enableScheduledCheckForProgramUpdates.IsChecked,
+                scheduleDays,
+                comboBox_programUpdatesScheduledCheckHour.SelectedIndex,
+                (bool)checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked
+            );
             Settings.AppearanceSettings appearanceSettings = new Settings.AppearanceSettings(
-                    (comboBox_windowsScalingFactor.SelectedIndex == 0 ? 1.0D : (comboBox_windowsScalingFactor.SelectedIndex == 1 ? 0.0D : 1.25D + ((comboBox_windowsScalingFactor.SelectedIndex - 2) * 0.25D))),
-                    Convert.ToInt32((string)comboBox_minimumVersionSegments.SelectedItem),
-                    Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem),
-                    (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
-                );
+                (comboBox_windowsScalingFactor.SelectedIndex == 0 ?
+                    1.0D :
+                    (comboBox_windowsScalingFactor.SelectedIndex == 1 ?
+                        0.0D :
+                        1.25D + ((comboBox_windowsScalingFactor.SelectedIndex - 2) * 0.25D))),
+                Convert.ToInt32((string)comboBox_minimumVersionSegments.SelectedItem),
+                Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem),
+                (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
+            );
             Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
-                    ((Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)(Enum.Parse(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout), ((string)comboBox_chromeDriverPageLoadTimeout.SelectedItem).Replace(" ", "")))),
-                    (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
-                    textBox_customChromeDriverUserAgentString.Text.Trim()
-                );
-            return new Settings(currentSettings.Cached, generalSettings, appearanceSettings, chromeDriverSettings);
+                (Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)Enum.Parse(
+                    typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout),
+                    ((string)comboBox_chromeDriverPageLoadTimeout.SelectedItem).Replace(" ", "")
+                ),
+                (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
+                textBox_customChromeDriverUserAgentString.Text.Trim()
+            );
+            return new Settings(
+                currentSettings.Cached,
+                generalSettings,
+                appearanceSettings,
+                chromeDriverSettings
+            );
         }
         public void RefreshAvailableWindowsScalingFactorSelections()
         {
@@ -385,8 +578,11 @@ namespace Scrupdate.UiElements.Windows
             Rect displayWorkArea = SystemParameters.WorkArea;
             for (double i = 1.25D; true; i += 0.25D)
             {
-                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width || WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
+                    WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                {
                     break;
+                }
                 comboBox_windowsScalingFactor.Items.Add(i.ToString("0.00"));
             }
             if (currentWindowsScalingFactorComboBoxSelectionIndex < comboBox_windowsScalingFactor.Items.Count)

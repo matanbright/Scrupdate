@@ -47,7 +47,9 @@ namespace Scrupdate.Classes.Objects
                 underlyingProgram,
                 programInstalledVersionToDisplay,
                 programLatestVersionToDisplay,
-                (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH)
+                (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                )
             )
         { }
         public ProgramListViewItem(Program underlyingProgram,

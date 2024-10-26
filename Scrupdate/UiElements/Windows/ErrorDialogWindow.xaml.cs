@@ -41,7 +41,11 @@ namespace Scrupdate.UiElements.Windows
         {
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
+            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                this,
+                BaseSizeOfWindow,
+                App.WindowsRenderingScale
+            );
             Title = dialogTitle;
             label_dialogMessage.Content = dialogMessage;
             CalculateWindowDynamicSizeAndResizeWindow();
@@ -64,9 +68,7 @@ namespace Scrupdate.UiElements.Windows
         {
             CustomButton senderButton = (CustomButton)sender;
             if (senderButton == button_ok)
-            {
                 Close();
-            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -76,9 +78,24 @@ namespace Scrupdate.UiElements.Windows
         public void CalculateWindowDynamicSizeAndResizeWindow()
         {
             label_dialogMessage.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            Size calculatedWindowSize = new Size(Math.Floor((Math.Round(label_dialogMessage.DesiredSize.Width) + 122.0D) * App.WindowsRenderingScale), Math.Floor((Math.Round(label_dialogMessage.DesiredSize.Height) + 142.0D) * App.WindowsRenderingScale));
-            calculatedWindowSize.Width += SystemParameters.WindowNonClientFrameThickness.Left + SystemParameters.WindowNonClientFrameThickness.Right + SystemParameters.WindowResizeBorderThickness.Left + SystemParameters.WindowResizeBorderThickness.Right;
-            calculatedWindowSize.Height += SystemParameters.WindowNonClientFrameThickness.Top + SystemParameters.WindowNonClientFrameThickness.Bottom + SystemParameters.WindowResizeBorderThickness.Top + SystemParameters.WindowResizeBorderThickness.Bottom;
+            Size calculatedWindowSize = new Size(
+                Math.Floor(
+                    (Math.Round(label_dialogMessage.DesiredSize.Width) + 122.0D) * App.WindowsRenderingScale
+                ),
+                Math.Floor(
+                    (Math.Round(label_dialogMessage.DesiredSize.Height) + 142.0D) * App.WindowsRenderingScale
+                )
+            );
+            calculatedWindowSize.Width +=
+                SystemParameters.WindowNonClientFrameThickness.Left +
+                SystemParameters.WindowNonClientFrameThickness.Right +
+                SystemParameters.WindowResizeBorderThickness.Left +
+                SystemParameters.WindowResizeBorderThickness.Right;
+            calculatedWindowSize.Height +=
+                SystemParameters.WindowNonClientFrameThickness.Top +
+                SystemParameters.WindowNonClientFrameThickness.Bottom +
+                SystemParameters.WindowResizeBorderThickness.Top +
+                SystemParameters.WindowResizeBorderThickness.Bottom;
             MinWidth = calculatedWindowSize.Width;
             Width = calculatedWindowSize.Width;
             MaxWidth = calculatedWindowSize.Width;

@@ -31,7 +31,12 @@ namespace Scrupdate.UiElements.Controls
     public partial class CustomProgressBar : ProgressBar, INotifyPropertyChanged
     {
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty GlowColorProperty = DependencyProperty.Register(nameof(GlowColor), typeof(Color), typeof(CustomProgressBar), new PropertyMetadata(Colors.White));
+        public static readonly DependencyProperty GlowColorProperty = DependencyProperty.Register(
+            nameof(GlowColor),
+            typeof(Color),
+            typeof(CustomProgressBar),
+            new PropertyMetadata(Colors.White)
+        );
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -41,15 +46,24 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Color)GetValue(GlowColorProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Color)GetValue(GlowColorProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(GlowColorProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GlowColor)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(GlowColorProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(GlowColor))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

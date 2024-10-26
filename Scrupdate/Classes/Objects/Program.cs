@@ -153,7 +153,8 @@ namespace Scrupdate.Classes.Objects
             TreatAStandaloneNumberAsAVersion = treatAStandaloneNumberAsAVersion;
             VersionSearchBehavior = versionSearchBehavior;
             WebPagePostLoadDelay = webPagePostLoadDelay;
-            LocatingInstructionsOfWebPageElementsToSimulateAClickOn = locatingInstructionsOfWebPageElementsToSimulateAClickOn;
+            LocatingInstructionsOfWebPageElementsToSimulateAClickOn =
+                locatingInstructionsOfWebPageElementsToSimulateAClickOn;
             IsAutomaticallyAdded = isAutomaticallyAdded;
             UpdateCheckConfigurationStatus = updateCheckConfigurationStatus;
             UpdateCheckConfigurationError = updateCheckConfigurationError;
@@ -170,44 +171,53 @@ namespace Scrupdate.Classes.Objects
                 return false;
             Program otherProgram = (Program)obj;
             return (Name.Equals(otherProgram.Name) &&
-                InstalledVersion.Equals(otherProgram.InstalledVersion) &&
-                LatestVersion.Equals(otherProgram.LatestVersion) &&
-                InstallationScope == otherProgram.InstallationScope &&
-                IsUpdateCheckConfigured == otherProgram.IsUpdateCheckConfigured &&
-                WebPageUrl.Equals(otherProgram.WebPageUrl) &&
-                VersionSearchMethod == otherProgram.VersionSearchMethod &&
-                VersionSearchMethodArgument1.Equals(otherProgram.VersionSearchMethodArgument1) &&
-                VersionSearchMethodArgument2.Equals(otherProgram.VersionSearchMethodArgument2) &&
-                TreatAStandaloneNumberAsAVersion == otherProgram.TreatAStandaloneNumberAsAVersion &&
-                VersionSearchBehavior == otherProgram.VersionSearchBehavior &&
-                WebPagePostLoadDelay == otherProgram.WebPagePostLoadDelay &&
-                LocatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(otherProgram.LocatingInstructionsOfWebPageElementsToSimulateAClickOn) &&
-                IsAutomaticallyAdded == otherProgram.IsAutomaticallyAdded &&
-                UpdateCheckConfigurationStatus == otherProgram.UpdateCheckConfigurationStatus &&
-                UpdateCheckConfigurationError == otherProgram.UpdateCheckConfigurationError &&
-                IsHidden == otherProgram.IsHidden);
+                    InstalledVersion.Equals(otherProgram.InstalledVersion) &&
+                    LatestVersion.Equals(otherProgram.LatestVersion) &&
+                    InstallationScope == otherProgram.InstallationScope &&
+                    IsUpdateCheckConfigured == otherProgram.IsUpdateCheckConfigured &&
+                    WebPageUrl.Equals(otherProgram.WebPageUrl) &&
+                    VersionSearchMethod == otherProgram.VersionSearchMethod &&
+                    VersionSearchMethodArgument1.Equals(otherProgram.VersionSearchMethodArgument1) &&
+                    VersionSearchMethodArgument2.Equals(otherProgram.VersionSearchMethodArgument2) &&
+                    TreatAStandaloneNumberAsAVersion == otherProgram.TreatAStandaloneNumberAsAVersion &&
+                    VersionSearchBehavior == otherProgram.VersionSearchBehavior &&
+                    WebPagePostLoadDelay == otherProgram.WebPagePostLoadDelay &&
+                    LocatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
+                        otherProgram.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
+                    ) &&
+                    IsAutomaticallyAdded == otherProgram.IsAutomaticallyAdded &&
+                    UpdateCheckConfigurationStatus == otherProgram.UpdateCheckConfigurationStatus &&
+                    UpdateCheckConfigurationError == otherProgram.UpdateCheckConfigurationError &&
+                    IsHidden == otherProgram.IsHidden);
         }
         public override int GetHashCode()
         {
             StringBuilder objectHashingString = new StringBuilder();
-            objectHashingString.Append(Name.GetHashCode());
-            objectHashingString.Append(InstalledVersion.GetHashCode());
-            objectHashingString.Append(LatestVersion.GetHashCode());
-            objectHashingString.Append(InstallationScope.GetHashCode());
-            objectHashingString.Append(IsUpdateCheckConfigured.GetHashCode());
-            objectHashingString.Append(WebPageUrl.GetHashCode());
-            objectHashingString.Append(VersionSearchMethod.GetHashCode());
-            objectHashingString.Append(VersionSearchMethodArgument1.GetHashCode());
-            objectHashingString.Append(VersionSearchMethodArgument2.GetHashCode());
-            objectHashingString.Append(TreatAStandaloneNumberAsAVersion.GetHashCode());
-            objectHashingString.Append(VersionSearchBehavior.GetHashCode());
-            objectHashingString.Append(WebPagePostLoadDelay.GetHashCode());
-            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
-                objectHashingString.Append(locatingInstructionOfWebPageElementToSimulateAClickOn.GetHashCode());
-            objectHashingString.Append(IsAutomaticallyAdded.GetHashCode());
-            objectHashingString.Append(UpdateCheckConfigurationStatus.GetHashCode());
-            objectHashingString.Append(UpdateCheckConfigurationError.GetHashCode());
-            objectHashingString.Append(IsHidden.GetHashCode());
+            objectHashingString
+                .Append(Name.GetHashCode())
+                .Append(InstalledVersion.GetHashCode())
+                .Append(LatestVersion.GetHashCode())
+                .Append(InstallationScope.GetHashCode())
+                .Append(IsUpdateCheckConfigured.GetHashCode())
+                .Append(WebPageUrl.GetHashCode())
+                .Append(VersionSearchMethod.GetHashCode())
+                .Append(VersionSearchMethodArgument1.GetHashCode())
+                .Append(VersionSearchMethodArgument2.GetHashCode())
+                .Append(TreatAStandaloneNumberAsAVersion.GetHashCode())
+                .Append(VersionSearchBehavior.GetHashCode())
+                .Append(WebPagePostLoadDelay.GetHashCode());
+            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
+                     LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
+            {
+                objectHashingString.Append(
+                    locatingInstructionOfWebPageElementToSimulateAClickOn.GetHashCode()
+                );
+            }
+            objectHashingString
+                .Append(IsAutomaticallyAdded.GetHashCode())
+                .Append(UpdateCheckConfigurationStatus.GetHashCode())
+                .Append(UpdateCheckConfigurationError.GetHashCode())
+                .Append(IsHidden.GetHashCode());
             return objectHashingString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

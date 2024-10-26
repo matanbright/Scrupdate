@@ -66,10 +66,23 @@ namespace Scrupdate.Classes.Objects
                 string settingsChecksumFileDirectoryPath = Path.GetDirectoryName(settingsChecksumFilePath);
                 if (!Directory.Exists(settingsChecksumFileDirectoryPath))
                     Directory.CreateDirectory(settingsChecksumFileDirectoryPath);
-                fileStreamOfSettingsChecksumFile = new FileStream(settingsChecksumFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
-                File.SetAttributes(settingsChecksumFilePath, File.GetAttributes(settingsChecksumFilePath) | FileAttributes.Hidden);
-                bool createNewSettingsFileWithDefaultValues = (!File.Exists(settingsFilePath));
-                fileStreamOfSettingsFile = new FileStream(settingsFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+                fileStreamOfSettingsChecksumFile = new FileStream(
+                    settingsChecksumFilePath,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.Read
+                );
+                File.SetAttributes(
+                    settingsChecksumFilePath,
+                    File.GetAttributes(settingsChecksumFilePath) | FileAttributes.Hidden
+                );
+                bool createNewSettingsFileWithDefaultValues = !File.Exists(settingsFilePath);
+                fileStreamOfSettingsFile = new FileStream(
+                    settingsFilePath,
+                    FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite,
+                    FileShare.Read
+                );
                 if (createNewSettingsFileWithDefaultValues)
                 {
                     SettingsInMemory = new Settings();
@@ -129,19 +142,26 @@ namespace Scrupdate.Classes.Objects
                 throw new NoSettingsInMemoryException();
             try
             {
-                DateTime backupOfLastProgramUpdatesScheduledCheckAttemptionTime = SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
+                DateTime backupOfLastProgramUpdatesScheduledCheckAttemptionTime =
+                    SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
                 if (!SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
                     SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = new DateTime();
                 else if (SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime.Equals(new DateTime()))
                     SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = DateTime.Now;
                 bool thereIsAnError = false;
                 if (SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
-                    thereIsAnError = (!WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(SettingsInMemory.General.ProgramUpdatesScheduledCheckDays, SettingsInMemory.General.ProgramUpdatesScheduledCheckHour));
+                {
+                    thereIsAnError = !WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(
+                        SettingsInMemory.General.ProgramUpdatesScheduledCheckDays,
+                        SettingsInMemory.General.ProgramUpdatesScheduledCheckHour
+                    );
+                }
                 else
-                    thereIsAnError = (!WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck());
+                    thereIsAnError = !WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck();
                 if (thereIsAnError)
                 {
-                    SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = backupOfLastProgramUpdatesScheduledCheckAttemptionTime;
+                    SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime =
+                        backupOfLastProgramUpdatesScheduledCheckAttemptionTime;
                     return false;
                 }
                 byte[] buffer = null;
@@ -151,7 +171,9 @@ namespace Scrupdate.Classes.Objects
                 fileStreamOfSettingsFile.SetLength(buffer.Length);
                 fileStreamOfSettingsFile.Write(buffer);
                 fileStreamOfSettingsFile.Flush();
-                string checksumOfJsonSerializedSettingsString = HashingUtilities.GetMD5Hash(jsonSerializedSettingsString);
+                string checksumOfJsonSerializedSettingsString = HashingUtilities.GetMD5Hash(
+                    jsonSerializedSettingsString
+                );
                 buffer = Encoding.UTF8.GetBytes(checksumOfJsonSerializedSettingsString);
                 fileStreamOfSettingsChecksumFile.Position = 0;
                 fileStreamOfSettingsChecksumFile.SetLength(buffer.Length);
@@ -176,19 +198,26 @@ namespace Scrupdate.Classes.Objects
                 fileStreamOfSettingsFile.Position = 0;
                 fileStreamOfSettingsFile.Read(buffer);
                 string savedJsonSerializedSettingsString = Encoding.UTF8.GetString(buffer);
-                string checksumOfSavedJsonSerializedSettingsString = HashingUtilities.GetMD5Hash(savedJsonSerializedSettingsString);
+                string checksumOfSavedJsonSerializedSettingsString = HashingUtilities.GetMD5Hash(
+                    savedJsonSerializedSettingsString
+                );
                 buffer = new byte[fileStreamOfSettingsChecksumFile.Length];
                 fileStreamOfSettingsChecksumFile.Position = 0;
                 fileStreamOfSettingsChecksumFile.Read(buffer);
                 string savedChecksumOfJsonSerializedSettingsString = Encoding.UTF8.GetString(buffer);
-                if (!checksumOfSavedJsonSerializedSettingsString.Equals(savedChecksumOfJsonSerializedSettingsString, StringComparison.CurrentCultureIgnoreCase))
+                if (!checksumOfSavedJsonSerializedSettingsString.Equals(
+                        savedChecksumOfJsonSerializedSettingsString,
+                        StringComparison.CurrentCultureIgnoreCase
+                    ))
                 {
                     settingsFileError = ConfigError.Corrupted;
                     return false;
                 }
                 try
                 {
-                    SettingsInMemory = Settings.CreateFromJsonRepresentation(savedJsonSerializedSettingsString);
+                    SettingsInMemory = Settings.CreateFromJsonRepresentation(
+                        savedJsonSerializedSettingsString
+                    );
                 }
                 catch (Settings.SettingsVersionIsNotCompatibleException)
                 {

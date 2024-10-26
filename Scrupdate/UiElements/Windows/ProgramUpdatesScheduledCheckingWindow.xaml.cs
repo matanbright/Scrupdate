@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows;
@@ -88,12 +87,42 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty SettingsFileErrorProperty = DependencyProperty.Register(nameof(SettingsFileError), typeof(ConfigError), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(ConfigError.Unspecified));
-        public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(nameof(CurrentError), typeof(Error), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(Error.None));
-        public static readonly DependencyProperty IsWindowCollapsedProperty = DependencyProperty.Register(nameof(IsWindowCollapsed), typeof(bool), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(false));
-        public static readonly DependencyProperty CurrentOperationProperty = DependencyProperty.Register(nameof(CurrentOperation), typeof(Operation), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(Operation.None));
-        public static readonly DependencyProperty AreThereUpdatesProperty = DependencyProperty.Register(nameof(AreThereUpdates), typeof(bool), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(false));
-        public static readonly DependencyProperty AreThereErrorsProperty = DependencyProperty.Register(nameof(AreThereErrors), typeof(bool), typeof(ProgramUpdatesScheduledCheckWindow), new PropertyMetadata(false));
+        public static readonly DependencyProperty SettingsFileErrorProperty = DependencyProperty.Register(
+            nameof(SettingsFileError),
+            typeof(ConfigError),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(ConfigError.Unspecified)
+        );
+        public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(
+            nameof(CurrentError),
+            typeof(Error),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(Error.None)
+        );
+        public static readonly DependencyProperty IsWindowCollapsedProperty = DependencyProperty.Register(
+            nameof(IsWindowCollapsed),
+            typeof(bool),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(false)
+        );
+        public static readonly DependencyProperty CurrentOperationProperty = DependencyProperty.Register(
+            nameof(CurrentOperation),
+            typeof(Operation),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(Operation.None)
+        );
+        public static readonly DependencyProperty AreThereUpdatesProperty = DependencyProperty.Register(
+            nameof(AreThereUpdates),
+            typeof(bool),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(false)
+        );
+        public static readonly DependencyProperty AreThereErrorsProperty = DependencyProperty.Register(
+            nameof(AreThereErrors),
+            typeof(bool),
+            typeof(ProgramUpdatesScheduledCheckWindow),
+            new PropertyMetadata(false)
+        );
         private ProgramDatabase programDatabase;
         private volatile int updatesCount;
         private volatile int errorsCount;
@@ -109,90 +138,144 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (ConfigError)GetValue(SettingsFileErrorProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (ConfigError)GetValue(SettingsFileErrorProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(SettingsFileErrorProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SettingsFileError)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(SettingsFileErrorProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(SettingsFileError))
+                            );
+                        }
+                );
             }
         }
         public Error CurrentError
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Error)GetValue(CurrentErrorProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Error)GetValue(CurrentErrorProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(CurrentErrorProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentError)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(CurrentErrorProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(CurrentError))
+                            );
+                        }
+                );
             }
         }
         public bool IsWindowCollapsed
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(IsWindowCollapsedProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(IsWindowCollapsedProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(IsWindowCollapsedProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsWindowCollapsed)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(IsWindowCollapsedProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(IsWindowCollapsed))
+                            );
+                        }
+                );
             }
         }
         public Operation CurrentOperation
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Operation)GetValue(CurrentOperationProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Operation)GetValue(CurrentOperationProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(CurrentOperationProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentOperation)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(CurrentOperationProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(CurrentOperation))
+                            );
+                        }
+                );
             }
         }
         public bool AreThereUpdates
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(AreThereUpdatesProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(AreThereUpdatesProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(AreThereUpdatesProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AreThereUpdates)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(AreThereUpdatesProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(AreThereUpdates))
+                            );
+                        }
+                );
             }
         }
         public bool AreThereErrors
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(AreThereErrorsProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(AreThereErrorsProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(AreThereErrorsProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AreThereErrors)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(AreThereErrorsProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(AreThereErrors))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -212,7 +295,10 @@ namespace Scrupdate.UiElements.Windows
                     App.SettingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = "";
                     App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 }
-                programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
+                programDatabase = new ProgramDatabase(
+                    ApplicationUtilities.programDatabaseFilePath,
+                    ApplicationUtilities.programDatabaseChecksumFilePath
+                );
                 ConfigError programDatabaseFileError;
                 if (!programDatabase.Open(true, true, out programDatabaseFileError))
                 {
@@ -234,14 +320,20 @@ namespace Scrupdate.UiElements.Windows
             }
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
+            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                this,
+                BaseSizeOfWindow,
+                App.WindowsRenderingScale
+            );
             switch (settingsFileError)
             {
                 case ConfigError.Corrupted:
-                    viewbox_settingsFileWarningIndicatorImage.ToolTip = TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED;
+                    viewbox_settingsFileWarningIndicatorImage.ToolTip =
+                        TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED;
                     break;
                 case ConfigError.NotCompatible:
-                    viewbox_settingsFileWarningIndicatorImage.ToolTip = TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE;
+                    viewbox_settingsFileWarningIndicatorImage.ToolTip =
+                        TOOLTIP_ERROR_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE;
                     break;
             }
             SettingsFileError = settingsFileError;
@@ -255,7 +347,8 @@ namespace Scrupdate.UiElements.Windows
         private void OnWindowLoadedEvent(object sender, RoutedEventArgs e)
         {
             MoveWindowNearSystemTrayIcons();
-            App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime = DateTime.Now;
+            App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime =
+                DateTime.Now;
             App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
             if (CurrentError == Error.None)
                 StartProgramDatabaseUpdatingAndProgramUpdatesCheckTask();
@@ -264,27 +357,67 @@ namespace Scrupdate.UiElements.Windows
                 switch (CurrentError)
                 {
                     case Error.CanNotOpenProgramDatabase:
-                        ChangeStatusMessages(STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                            ),
+                            "",
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                            )
+                        );
                         break;
                     case Error.ProgramDatabaseIsCorrupted:
-                        ChangeStatusMessages(STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                            ),
+                            "",
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                            )
+                        );
                         break;
                     case Error.ProgramDatabaseIsNotCompatible:
-                        ChangeStatusMessages(STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                            ),
+                            "",
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                            )
+                        );
                         break;
                 }
             }
         }
         private void OnWindowClosingEvent(object sender, CancelEventArgs e)
         {
-            if (CurrentOperation == Operation.CancellingOperation || CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
+            if (CurrentOperation == Operation.CancellingOperation ||
+                CurrentOperation == Operation.UpdatingProgramDatabase ||
+                CurrentOperation == Operation.CheckingForProgramUpdates)
             {
                 e.Cancel = true;
-                if (CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
+                if (CurrentOperation == Operation.UpdatingProgramDatabase ||
+                    CurrentOperation == Operation.CheckingForProgramUpdates)
+                {
                     CancelOperationAndQueueWindowToBeClosedAfterCancelling();
+                }
                 else if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
-                    if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
+                {
+                    if (DialogsUtilities.ShowQuestionDialog(
+                            "",
+                            QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY,
+                            this
+                        ) == true)
+                    {
                         PrepareWindowForClosing(true);
+                    }
+                }
             }
             else
                 PrepareWindowForClosing();
@@ -293,15 +426,21 @@ namespace Scrupdate.UiElements.Windows
         {
             if (CurrentOperation == Operation.None)
             {
-                if (App.SettingsHandler != null && ApplicationUtilities.IsItTimeForProgramUpdatesScheduledCheckAttemption(App.SettingsHandler.SettingsInMemory))
+                if (App.SettingsHandler != null &&
+                    ApplicationUtilities.IsItTimeForProgramUpdatesScheduledCheckAttemption(
+                        App.SettingsHandler.SettingsInMemory
+                    ))
                 {
-                    ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                    {
-                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                        Close();
-                        Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                        (new ProgramUpdatesScheduledCheckWindow(SettingsFileError)).Show();
-                    });
+                    ThreadsUtilities.RunOnAnotherThread(
+                        Dispatcher,
+                        () =>
+                            {
+                                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                                Close();
+                                Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
+                                (new ProgramUpdatesScheduledCheckWindow(SettingsFileError)).Show();
+                            }
+                    );
                 }
             }
         }
@@ -314,7 +453,8 @@ namespace Scrupdate.UiElements.Windows
                 CollapseOrExpandWindow();
             else if (senderButton == button_show)
             {
-                Settings.CachedSettings.ProgramFilteringOption initialProgramFilteringOption = Settings.CachedSettings.ProgramFilteringOption.Unknown;
+                Settings.CachedSettings.ProgramFilteringOption initialProgramFilteringOption =
+                    Settings.CachedSettings.ProgramFilteringOption.Unknown;
                 if (updatesCount > 0 && errorsCount == 0)
                     initialProgramFilteringOption = Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates;
                 else if (errorsCount > 0 && updatesCount == 0)
@@ -322,14 +462,25 @@ namespace Scrupdate.UiElements.Windows
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 Close();
                 Application.Current.ShutdownMode = ShutdownMode.OnLastWindowClose;
-                (new MainWindow(initialProgramFilteringOption, App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults)).Show();
+                MainWindow mainWindow = new MainWindow(
+                    initialProgramFilteringOption,
+                    App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults
+                );
+                mainWindow.Show();
             }
             else if (senderButton == button_cancelOrDismiss)
             {
-                if (CurrentOperation != Operation.CancellingOperation && CurrentOperation != Operation.UpdatingProgramDatabase && CurrentOperation != Operation.CheckingForProgramUpdates)
+                if (CurrentOperation != Operation.CancellingOperation &&
+                    CurrentOperation != Operation.UpdatingProgramDatabase &&
+                    CurrentOperation != Operation.CheckingForProgramUpdates)
+                {
                     Close();
-                else if (CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
+                }
+                else if (CurrentOperation == Operation.UpdatingProgramDatabase ||
+                         CurrentOperation == Operation.CheckingForProgramUpdates)
+                {
                     CancelOperationAndQueueWindowToBeClosedAfterCancelling();
+                }
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -339,28 +490,37 @@ namespace Scrupdate.UiElements.Windows
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void CollapseOrExpandWindow()
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                Size calculatedWindowSize = new Size();
-                if (!IsWindowCollapsed)
-                {
-                    IsWindowCollapsed = true;
-                    calculatedWindowSize = new Size(Math.Floor(470.0D * App.WindowsRenderingScale), Math.Floor(27.0D * App.WindowsRenderingScale));
-                }
-                else
-                {
-                    IsWindowCollapsed = false;
-                    calculatedWindowSize = new Size(Math.Floor(620.0D * App.WindowsRenderingScale), Math.Floor(120.0D * App.WindowsRenderingScale));
-                }
-                MinWidth = calculatedWindowSize.Width;
-                Width = calculatedWindowSize.Width;
-                MaxWidth = calculatedWindowSize.Width;
-                MinHeight = calculatedWindowSize.Height;
-                Height = calculatedWindowSize.Height;
-                MaxHeight = calculatedWindowSize.Height;
-                BaseSizeOfWindow = new Size(Width, Height);
-                MoveWindowNearSystemTrayIcons();
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        Size calculatedWindowSize;
+                        if (!IsWindowCollapsed)
+                        {
+                            IsWindowCollapsed = true;
+                            calculatedWindowSize = new Size(
+                                Math.Floor(470.0D * App.WindowsRenderingScale),
+                                Math.Floor(27.0D * App.WindowsRenderingScale)
+                            );
+                        }
+                        else
+                        {
+                            IsWindowCollapsed = false;
+                            calculatedWindowSize = new Size(
+                                Math.Floor(620.0D * App.WindowsRenderingScale),
+                                Math.Floor(120.0D * App.WindowsRenderingScale)
+                            );
+                        }
+                        MinWidth = calculatedWindowSize.Width;
+                        Width = calculatedWindowSize.Width;
+                        MaxWidth = calculatedWindowSize.Width;
+                        MinHeight = calculatedWindowSize.Height;
+                        Height = calculatedWindowSize.Height;
+                        MaxHeight = calculatedWindowSize.Height;
+                        BaseSizeOfWindow = new Size(Width, Height);
+                        MoveWindowNearSystemTrayIcons();
+                    }
+            );
         }
         private void RefreshStatusMessagesAndButtons()
         {
@@ -368,130 +528,303 @@ namespace Scrupdate.UiElements.Windows
             {
                 updatesCount = 0;
                 errorsCount = 0;
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator(); i.MoveNext();)
-                    {
-                        Program program = i.Current.Value;
-                        bool? thereIsANewerVersion = null;
-                        if (program.InstallationScope != Program._InstallationScope.None)
-                            thereIsANewerVersion = (program.LatestVersion.Equals("") ? false : (program.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion)));
-                        if (thereIsANewerVersion == true)
-                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
-                                updatesCount++;
-                        if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
-                            if (!program.IsHidden || (program.IsHidden && App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
-                                errorsCount++;
-                    }
-                    string statusMessage = (updatesCount > 0 ? (updatesCount > 1 ? STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) : STATUS_MESSAGE__THERE_IS_AN_UPDATE) : STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
-                    Brush statusMessageColor = (updatesCount > 0 ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH) : (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__LIGHT_BLACK_SOLID_COLOR_BRUSH));
-                    string additionalStatusMessage = (errorsCount > 0 ? (errorsCount > 1 ? ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS.Replace("{*}", Convert.ToString(errorsCount)) : ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR) : "");
-                    Brush additionalStatusMessageColor = (errorsCount > 0 ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH) : (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                    ChangeStatusMessages(statusMessage, statusMessageColor, additionalStatusMessage, additionalStatusMessageColor);
-                    AreThereUpdates = (updatesCount > 0);
-                    AreThereErrors = (errorsCount > 0);
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator();
+                                 i.MoveNext();)
+                            {
+                                Program program = i.Current.Value;
+                                bool? thereIsANewerVersion = null;
+                                if (program.InstallationScope != Program._InstallationScope.None)
+                                {
+                                    thereIsANewerVersion =
+                                        (program.LatestVersion.Equals("") ?
+                                            false :
+                                            (program.InstalledVersion.Equals("") ?
+                                                true :
+                                                VersionsUtilities.IsVersionNewer(
+                                                    program.LatestVersion,
+                                                    program.InstalledVersion
+                                                )));
+                                }
+                                if (thereIsANewerVersion == true)
+                                {
+                                    if (!program.IsHidden ||
+                                        (program.IsHidden &&
+                                         App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
+                                    {
+                                        updatesCount++;
+                                    }
+                                }
+                                if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
+                                {
+                                    if (!program.IsHidden ||
+                                        (program.IsHidden &&
+                                         App.SettingsHandler.SettingsInMemory.General.IncludeHiddenProgramsInProgramUpdatesScheduledCheckResults))
+                                    {
+                                        errorsCount++;
+                                    }
+                                }
+                            }
+                            string statusMessage =
+                                (updatesCount > 0 ?
+                                    (updatesCount > 1 ?
+                                        STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) :
+                                        STATUS_MESSAGE__THERE_IS_AN_UPDATE) :
+                                    STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
+                            Brush statusMessageColor =
+                                (updatesCount > 0 ?
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
+                                    ) :
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__LIGHT_BLACK_SOLID_COLOR_BRUSH
+                                    ));
+                            string additionalStatusMessage =
+                                (errorsCount > 0 ?
+                                    (errorsCount > 1 ?
+                                        ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS.Replace("{*}", Convert.ToString(errorsCount)) :
+                                        ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR) :
+                                    "");
+                            Brush additionalStatusMessageColor =
+                                (errorsCount > 0 ?
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                    ) :
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                    ));
+                            ChangeStatusMessages(
+                                statusMessage,
+                                statusMessageColor,
+                                additionalStatusMessage,
+                                additionalStatusMessageColor
+                            );
+                            AreThereUpdates = (updatesCount > 0);
+                            AreThereErrors = (errorsCount > 0);
+                        }
+                );
             }
         }
         private void ChangeStatusMessages(string statusMessage, Brush statusMessageColor)
         {
-            ChangeStatusMessages(statusMessage, statusMessageColor, "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+            ChangeStatusMessages(
+                statusMessage,
+                statusMessageColor,
+                "",
+                (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                )
+            );
         }
-        private void ChangeStatusMessages(string statusMessage, Brush statusMessageColor, string additionalStatusMessage, Brush additionalStatusMessageColor)
+        private void ChangeStatusMessages(string statusMessage,
+                                          Brush statusMessageColor,
+                                          string additionalStatusMessage,
+                                          Brush additionalStatusMessageColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                label_statusMessage.Content = statusMessage;
-                label_statusMessage.Foreground = statusMessageColor;
-                label_additionalStatusMessage.Content = additionalStatusMessage;
-                label_additionalStatusMessage.Foreground = additionalStatusMessageColor;
-                label_titleStatusMessage.Content = statusMessage;
-                label_titleStatusMessage.Foreground = statusMessageColor;
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        label_statusMessage.Content = statusMessage;
+                        label_statusMessage.Foreground = statusMessageColor;
+                        label_additionalStatusMessage.Content = additionalStatusMessage;
+                        label_additionalStatusMessage.Foreground = additionalStatusMessageColor;
+                        label_titleStatusMessage.Content = statusMessage;
+                        label_titleStatusMessage.Foreground = statusMessageColor;
+                    }
+            );
         }
         private void ChangeProgressBarValue(double progressBarValue)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                if (progressBarValue < 0)
-                {
-                    progressBar_progress.IsIndeterminate = true;
-                    progressBar_progress.ChangeValueSmoothly(0, new Duration(new TimeSpan(0, 0, 0, 0)));
-                    progressBar_titleProgress.IsIndeterminate = true;
-                    progressBar_titleProgress.ChangeValueSmoothly(0, new Duration(new TimeSpan(0, 0, 0, 0)));
-                }
-                else
-                {
-                    progressBar_progress.IsIndeterminate = false;
-                    progressBar_progress.ChangeValueSmoothly(progressBarValue, new Duration(new TimeSpan(0, 0, 0, 1)));
-                    progressBar_titleProgress.IsIndeterminate = false;
-                    progressBar_titleProgress.ChangeValueSmoothly(progressBarValue, new Duration(new TimeSpan(0, 0, 0, 1)));
-                }
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        if (progressBarValue < 0)
+                        {
+                            progressBar_progress.IsIndeterminate = true;
+                            progressBar_progress.ChangeValueSmoothly(
+                                0,
+                                new Duration(new TimeSpan(0, 0, 0, 0))
+                            );
+                            progressBar_titleProgress.IsIndeterminate = true;
+                            progressBar_titleProgress.ChangeValueSmoothly(
+                                0,
+                                new Duration(new TimeSpan(0, 0, 0, 0))
+                            );
+                        }
+                        else
+                        {
+                            progressBar_progress.IsIndeterminate = false;
+                            progressBar_progress.ChangeValueSmoothly(
+                                progressBarValue,
+                                new Duration(new TimeSpan(0, 0, 0, 1))
+                            );
+                            progressBar_titleProgress.IsIndeterminate = false;
+                            progressBar_titleProgress.ChangeValueSmoothly(
+                                progressBarValue,
+                                new Duration(new TimeSpan(0, 0, 0, 1))
+                            );
+                        }
+                    }
+            );
         }
         private void StartProgramDatabaseUpdatingAndProgramUpdatesCheckTask()
         {
             if (CurrentError == Error.None)
             {
                 CurrentOperation = Operation.UpdatingProgramDatabase;
-                programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread = new CancellableThread((CancellationToken cancellationToken) =>
-                {
-                    if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
-                    {
-                        ChangeStatusMessages(STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
-                        ChangeProgressBarValue(-1);
-                        if (!closeInQueue && !cancellationToken.IsCancellationRequested)
-                            ProgramsScanAndUpdatesCheckUtilities.ScanForInstalledProgramsAndUpdateProgramDatabase(programDatabase, App.SettingsHandler, cancellationToken);
-                    }
-                    if (!closeInQueue)
-                    {
-                        CurrentOperation = Operation.CheckingForProgramUpdates;
-                        Exception programUpdatesCheckException = null;
-                        ChangeStatusMessages(STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
-                        ChangeProgressBarValue(-1);
-                        if (!closeInQueue && !cancellationToken.IsCancellationRequested)
+                programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread = new CancellableThread(
+                    cancellationToken =>
                         {
-                            try
+                            if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
                             {
-                                List<Program> programsToCheck = new List<Program>();
-                                for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator(); i.MoveNext();)
+                                ChangeStatusMessages(
+                                    STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS,
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                                    )
+                                );
+                                ChangeProgressBarValue(-1);
+                                if (!closeInQueue && !cancellationToken.IsCancellationRequested)
                                 {
-                                    Program program = i.Current.Value;
-                                    if (program.IsUpdateCheckConfigured)
-                                        programsToCheck.Add(program);
+                                    ProgramsScanAndUpdatesCheckUtilities.ScanForInstalledProgramsAndUpdateProgramDatabase(
+                                        programDatabase,
+                                        App.SettingsHandler,
+                                        cancellationToken
+                                    );
                                 }
-                                ProgramsScanAndUpdatesCheckUtilities.CheckForProgramUpdatesAndUpdateDatabase(programsToCheck, programDatabase, App.SettingsHandler, ChangeProgressBarValue, cancellationToken);
                             }
-                            catch (Exception e)
+                            if (!closeInQueue)
                             {
-                                programUpdatesCheckException = e;
+                                CurrentOperation = Operation.CheckingForProgramUpdates;
+                                Exception programUpdatesCheckException = null;
+                                ChangeStatusMessages(
+                                    STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES,
+                                    (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                                    )
+                                );
+                                ChangeProgressBarValue(-1);
+                                if (!closeInQueue && !cancellationToken.IsCancellationRequested)
+                                {
+                                    try
+                                    {
+                                        List<Program> programsToCheck = new List<Program>();
+                                        for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator();
+                                             i.MoveNext();)
+                                        {
+                                            Program program = i.Current.Value;
+                                            if (program.IsUpdateCheckConfigured)
+                                                programsToCheck.Add(program);
+                                        }
+                                        ProgramsScanAndUpdatesCheckUtilities.CheckForProgramUpdatesAndUpdateDatabase(
+                                            programsToCheck,
+                                            programDatabase,
+                                            App.SettingsHandler,
+                                            ChangeProgressBarValue,
+                                            cancellationToken
+                                        );
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        programUpdatesCheckException = e;
+                                    }
+                                }
+                                RefreshStatusMessagesAndButtons();
+                                CurrentOperation = Operation.None;
+                                ChangeProgressBarValue(-1);
+                                if (closeInQueue)
+                                    PrepareWindowForClosing(true);
+                                if (programUpdatesCheckException != null)
+                                {
+                                    if (programUpdatesCheckException.GetType().Equals(
+                                            typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
+                                        ))
+                                    {
+                                        ChangeStatusMessages(
+                                            STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED,
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                            ),
+                                            "",
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                            )
+                                        );
+                                    }
+                                    else if (programUpdatesCheckException.GetType().Equals(
+                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
+                                             ))
+                                    {
+                                        ChangeStatusMessages(
+                                            STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER,
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                            ),
+                                            "",
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                            )
+                                        );
+                                    }
+                                    else if (programUpdatesCheckException.GetType().Equals(
+                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
+                                             ))
+                                    {
+                                        ChangeStatusMessages(
+                                            STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED,
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                            ),
+                                            "",
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                            )
+                                        );
+                                    }
+                                    else if (programUpdatesCheckException.GetType().Equals(
+                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
+                                             ))
+                                    {
+                                        ChangeStatusMessages(
+                                            STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER,
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                            ),
+                                            "",
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                            )
+                                        );
+                                    }
+                                    else if (programUpdatesCheckException.GetType().Equals(
+                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
+                                             ))
+                                    {
+                                        ChangeStatusMessages(
+                                            STATUS_MESSAGE__CHROMEDRIVER_ERROR,
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                            ),
+                                            "",
+                                            (SolidColorBrush)Application.Current.FindResource(
+                                                App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                            )
+                                        );
+                                    }
+                                }
+                                if (!closeInQueue && IsWindowCollapsed)
+                                    CollapseOrExpandWindow();
                             }
+                            ChangeProgressBarValue(-1);
+                            if (closeInQueue)
+                                PrepareWindowForClosing(true);
                         }
-                        RefreshStatusMessagesAndButtons();
-                        CurrentOperation = Operation.None;
-                        ChangeProgressBarValue(-1);
-                        if (closeInQueue)
-                            PrepareWindowForClosing(true);
-                        if (programUpdatesCheckException != null)
-                        {
-                            if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)))
-                                ChangeStatusMessages(STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                            else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)))
-                                ChangeStatusMessages(STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                            else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)))
-                                ChangeStatusMessages(STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                            else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)))
-                                ChangeStatusMessages(STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                            else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)))
-                                ChangeStatusMessages(STATUS_MESSAGE__CHROMEDRIVER_ERROR, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH), "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-                        }
-                        if (!closeInQueue && IsWindowCollapsed)
-                            CollapseOrExpandWindow();
-                    }
-                    ChangeProgressBarValue(-1);
-                    if (closeInQueue)
-                        PrepareWindowForClosing(true);
-                });
+                );
                 programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread.Start();
             }
         }
@@ -502,7 +835,12 @@ namespace Scrupdate.UiElements.Windows
                 CurrentOperation = Operation.CancellingOperation;
                 closeInQueue = true;
                 programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
-                ChangeStatusMessages(STATUS_MESSAGE__CANCELLING_AND_CLOSING, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
+                ChangeStatusMessages(
+                    STATUS_MESSAGE__CANCELLING_AND_CLOSING,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                    )
+                );
                 ChangeProgressBarValue(-1);
             }
         }
@@ -512,73 +850,91 @@ namespace Scrupdate.UiElements.Windows
         }
         private void PrepareWindowForClosing(bool forceCloseApplication)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                App.ScheduleInvokationCommandReceived -= OnAppScheduleInvokationCommandReceivedEvent;
-                programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
-                programDatabase?.Close();
-                App.SettingsHandler?.SaveSettingsFromMemoryToSettingsFile();
-                if (forceCloseApplication)
-                {
-                    App.SettingsHandler?.Dispose();
-                    App.SettingsHandler = null;
-                    try
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
                     {
-                        foreach (Process chromeDriverProcess in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(ChromeDriverUtilities.chromeDriverExecutableFilePath)))
-                            chromeDriverProcess.Kill(true);
+                        App.ScheduleInvokationCommandReceived -= OnAppScheduleInvokationCommandReceivedEvent;
+                        programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
+                        programDatabase?.Close();
+                        App.SettingsHandler?.SaveSettingsFromMemoryToSettingsFile();
+                        if (forceCloseApplication)
+                        {
+                            App.SettingsHandler?.Dispose();
+                            App.SettingsHandler = null;
+                            try
+                            {
+                                foreach (Process chromeDriverProcess in
+                                         Process.GetProcessesByName(
+                                             Path.GetFileNameWithoutExtension(
+                                                 ChromeDriverUtilities.chromeDriverExecutableFilePath
+                                             )
+                                         ))
+                                {
+                                    chromeDriverProcess.Kill(true);
+                                }
+                            }
+                            catch { }
+                            Process.GetCurrentProcess().Kill();
+                        }
                     }
-                    catch { }
-                    Process.GetCurrentProcess().Kill();
-                }
-            });
+            );
         }
         public void MoveWindowNearSystemTrayIcons()
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                Rect screenResolution = new Rect(new Size(SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight));
-                Rect workingAreaResolution = SystemParameters.WorkArea;
-                WindowsTaskbarLocation windowsTaskbarLocation = WindowsTaskbarLocation.Bottom;
-                if (screenResolution.Height != workingAreaResolution.Height)
-                {
-                    if (workingAreaResolution.Y > 0)
-                        windowsTaskbarLocation = WindowsTaskbarLocation.Top;
-                    else
-                        windowsTaskbarLocation = WindowsTaskbarLocation.Bottom;
-                }
-                else if (screenResolution.Width != workingAreaResolution.Width)
-                {
-                    if (workingAreaResolution.X > 0)
-                        windowsTaskbarLocation = WindowsTaskbarLocation.Left;
-                    else
-                        windowsTaskbarLocation = WindowsTaskbarLocation.Right;
-                }
-                switch (windowsTaskbarLocation)
-                {
-                    case WindowsTaskbarLocation.Left:
-                        Left = workingAreaResolution.X;
-                        Top = screenResolution.Height - Height;
-                        break;
-                    case WindowsTaskbarLocation.Top:
-                        if (!CultureInfo.CurrentCulture.TextInfo.IsRightToLeft)
-                            Left = screenResolution.Width - Width;
-                        else
-                            Left = screenResolution.X;
-                        Top = workingAreaResolution.Y;
-                        break;
-                    case WindowsTaskbarLocation.Right:
-                        Left = workingAreaResolution.Width - Width;
-                        Top = screenResolution.Height - Height;
-                        break;
-                    case WindowsTaskbarLocation.Bottom:
-                        if (!CultureInfo.CurrentCulture.TextInfo.IsRightToLeft)
-                            Left = screenResolution.Width - Width;
-                        else
-                            Left = screenResolution.X;
-                        Top = workingAreaResolution.Height - Height;
-                        break;
-                }
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        Rect screenResolution = new Rect(
+                            new Size(
+                                SystemParameters.PrimaryScreenWidth,
+                                SystemParameters.PrimaryScreenHeight
+                            )
+                        );
+                        Rect workingAreaResolution = SystemParameters.WorkArea;
+                        WindowsTaskbarLocation windowsTaskbarLocation = WindowsTaskbarLocation.Bottom;
+                        if (screenResolution.Height != workingAreaResolution.Height)
+                        {
+                            if (workingAreaResolution.Y > 0)
+                                windowsTaskbarLocation = WindowsTaskbarLocation.Top;
+                            else
+                                windowsTaskbarLocation = WindowsTaskbarLocation.Bottom;
+                        }
+                        else if (screenResolution.Width != workingAreaResolution.Width)
+                        {
+                            if (workingAreaResolution.X > 0)
+                                windowsTaskbarLocation = WindowsTaskbarLocation.Left;
+                            else
+                                windowsTaskbarLocation = WindowsTaskbarLocation.Right;
+                        }
+                        switch (windowsTaskbarLocation)
+                        {
+                            case WindowsTaskbarLocation.Left:
+                                Left = workingAreaResolution.X;
+                                Top = screenResolution.Height - Height;
+                                break;
+                            case WindowsTaskbarLocation.Top:
+                                if (!CultureInfo.CurrentCulture.TextInfo.IsRightToLeft)
+                                    Left = screenResolution.Width - Width;
+                                else
+                                    Left = screenResolution.X;
+                                Top = workingAreaResolution.Y;
+                                break;
+                            case WindowsTaskbarLocation.Right:
+                                Left = workingAreaResolution.Width - Width;
+                                Top = screenResolution.Height - Height;
+                                break;
+                            case WindowsTaskbarLocation.Bottom:
+                                if (!CultureInfo.CurrentCulture.TextInfo.IsRightToLeft)
+                                    Left = screenResolution.Width - Width;
+                                else
+                                    Left = screenResolution.X;
+                                Top = workingAreaResolution.Height - Height;
+                                break;
+                        }
+                    }
+            );
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

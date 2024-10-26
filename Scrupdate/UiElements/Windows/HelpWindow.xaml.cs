@@ -17,7 +17,6 @@
 
 using System.Text;
 using System.IO;
-using System.Threading;
 using System.Reflection;
 using System.ComponentModel;
 using System.Windows;
@@ -49,8 +48,20 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string scrupdateUserManualPdfFilePath = ((new StringBuilder()).Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).Append('\\').Append(DIRECTORY_NAME__DOCS).Append('\\').Append(FILE_NAME__SCRUPDATE_USER_MANUAL_PDF)).ToString();
-        public static readonly string xmlPathLanguagePdfFilePath = ((new StringBuilder()).Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).Append('\\').Append(DIRECTORY_NAME__DOCS).Append('\\').Append(FILE_NAME__XML_PATH_LANGUAGE_PDF)).ToString();
+        public static readonly string scrupdateUserManualPdfFilePath = (new StringBuilder())
+            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            .Append('\\')
+            .Append(DIRECTORY_NAME__DOCS)
+            .Append('\\')
+            .Append(FILE_NAME__SCRUPDATE_USER_MANUAL_PDF)
+            .ToString();
+        public static readonly string xmlPathLanguagePdfFilePath = (new StringBuilder())
+            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            .Append('\\')
+            .Append(DIRECTORY_NAME__DOCS)
+            .Append('\\')
+            .Append(FILE_NAME__XML_PATH_LANGUAGE_PDF)
+            .ToString();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -71,7 +82,12 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty SelectedHelpChapterMenuTabProperty = DependencyProperty.Register(nameof(SelectedHelpChapterMenuTab), typeof(HelpChapterMenuTab), typeof(HelpWindow), new PropertyMetadata(HelpChapterMenuTab.None));
+        public static readonly DependencyProperty SelectedHelpChapterMenuTabProperty = DependencyProperty.Register(
+            nameof(SelectedHelpChapterMenuTab),
+            typeof(HelpChapterMenuTab),
+            typeof(HelpWindow),
+            new PropertyMetadata(HelpChapterMenuTab.None)
+        );
         private CancellableThread panelBackgroundFlashingCancellableThread;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -88,15 +104,24 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (HelpChapterMenuTab)GetValue(SelectedHelpChapterMenuTabProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (HelpChapterMenuTab)GetValue(SelectedHelpChapterMenuTabProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(SelectedHelpChapterMenuTabProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedHelpChapterMenuTab)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(SelectedHelpChapterMenuTabProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(SelectedHelpChapterMenuTab))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -109,7 +134,11 @@ namespace Scrupdate.UiElements.Windows
         {
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
+            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                this,
+                BaseSizeOfWindow,
+                App.WindowsRenderingScale
+            );
             SelectedHelpChapterMenuTab = HelpChapterMenuTab.Introduction;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,55 +192,118 @@ namespace Scrupdate.UiElements.Windows
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note1.BringIntoView();
-                FlashBackgroundOfPanel(grid_note1, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note1,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote2)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note2.BringIntoView();
-                FlashBackgroundOfPanel(grid_note2, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note2,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote3)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note3.BringIntoView();
-                FlashBackgroundOfPanel(grid_note3, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note3,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote4)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note4.BringIntoView();
-                FlashBackgroundOfPanel(grid_note4, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note4,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote5)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note5.BringIntoView();
-                FlashBackgroundOfPanel(grid_note5, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note5,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote6)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note6.BringIntoView();
-                FlashBackgroundOfPanel(grid_note6, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note6,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote7)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note7.BringIntoView();
-                FlashBackgroundOfPanel(grid_note7, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note7,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToNote8)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.Notes;
                 grid_note8.BringIntoView();
-                FlashBackgroundOfPanel(grid_note8, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_note8,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goToReference1)
             {
                 SelectedHelpChapterMenuTab = HelpChapterMenuTab.References;
                 grid_reference1.BringIntoView();
-                FlashBackgroundOfPanel(grid_reference1, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH), 300, 2);
+                FlashBackgroundOfPanel(
+                    grid_reference1,
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH
+                    ),
+                    300,
+                    2
+                );
             }
             else if (senderHyperlink == hyperlink_goBackFromNote1)
             {
@@ -262,55 +354,107 @@ namespace Scrupdate.UiElements.Windows
             {
                 try
                 {
-                    ProcessesUtilities.RunFile(xmlPathLanguagePdfFilePath, null, true, false, false, -1, false, false, out _);
+                    ProcessesUtilities.RunFile(
+                        xmlPathLanguagePdfFilePath,
+                        null,
+                        true,
+                        false,
+                        false,
+                        -1,
+                        false,
+                        false,
+                        out _
+                    );
                 }
                 catch
                 {
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE, this);
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
+                        this
+                    );
                 }
             }
             else if (senderHyperlink == hyperlink_viewAsPdf)
             {
                 try
                 {
-                    ProcessesUtilities.RunFile(scrupdateUserManualPdfFilePath, null, true, false, false, -1, false, false, out _);
+                    ProcessesUtilities.RunFile(
+                        scrupdateUserManualPdfFilePath,
+                        null,
+                        true,
+                        false,
+                        false,
+                        -1,
+                        false,
+                        false,
+                        out _
+                    );
                     Close();
                 }
                 catch
                 {
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE, this);
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
+                        this
+                    );
                 }
             }
         }
         private void OnHyperlinkRequestNavigateEvent(object sender, RequestNavigateEventArgs e)
         {
             Hyperlink senderHyperlink = (Hyperlink)sender;
-            if (senderHyperlink == hyperlink_googleChromeBrowserDownloadPage || senderHyperlink == hyperlink_chromeDriverDownloadPage)
+            if (senderHyperlink == hyperlink_googleChromeBrowserDownloadPage ||
+                senderHyperlink == hyperlink_chromeDriverDownloadPage)
+            {
                 if (!ProcessesUtilities.OpenUrlInDefaultWebBrowser(e.Uri.ToString()))
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_HYPER_LINK, this);
+                {
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_HYPER_LINK,
+                        this
+                    );
+                }
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void FlashBackgroundOfPanel(Panel panel, Brush flashColor, int singleFlashDurationInMilliseconds, int flashesCount)
+        private void FlashBackgroundOfPanel(Panel panel,
+                                            Brush flashColor,
+                                            int singleFlashDurationInMilliseconds,
+                                            int flashesCount)
         {
             if (panelBackgroundFlashingCancellableThread == null)
             {
                 Brush currentBackgroundColorOfPanel = panel.Background;
                 int singleFlashHalfDurationInMilliseconds = singleFlashDurationInMilliseconds / 2;
-                panelBackgroundFlashingCancellableThread = new CancellableThread((CancellationToken cancellationToken) =>
-                {
-                    for (int i = 0; i < flashesCount; i++)
-                    {
-                        cancellationToken.WaitHandle.WaitOne(singleFlashHalfDurationInMilliseconds);
-                        Dispatcher.Invoke(() => panel.Background = flashColor);
-                        cancellationToken.WaitHandle.WaitOne(singleFlashHalfDurationInMilliseconds);
-                        Dispatcher.Invoke(() => panel.Background = currentBackgroundColorOfPanel);
-                    }
-                    panelBackgroundFlashingCancellableThread = null;
-                });
+                panelBackgroundFlashingCancellableThread = new CancellableThread(
+                    cancellationToken =>
+                        {
+                            for (int i = 0; i < flashesCount; i++)
+                            {
+                                cancellationToken.WaitHandle.WaitOne(
+                                    singleFlashHalfDurationInMilliseconds
+                                );
+                                ThreadsUtilities.RunOnAnotherThread(
+                                    Dispatcher,
+                                    () => panel.Background = flashColor
+                                );
+                                cancellationToken.WaitHandle.WaitOne(
+                                    singleFlashHalfDurationInMilliseconds
+                                );
+                                ThreadsUtilities.RunOnAnotherThread(
+                                    Dispatcher,
+                                    () => panel.Background = currentBackgroundColorOfPanel
+                                );
+                            }
+                            panelBackgroundFlashingCancellableThread = null;
+                        }
+                );
                 panelBackgroundFlashingCancellableThread.Start();
             }
         }

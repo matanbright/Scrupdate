@@ -166,11 +166,31 @@ namespace Scrupdate.Classes.Utilities
         private static extern bool GetExitCodeProcess(IntPtr hProcess, out uint lpExitCode);
         public static int RunFile(string filePath)
         {
-            return RunFile(filePath, null, false, false, false, -1, false, false, out _);
+            return RunFile(
+                filePath,
+                null,
+                false,
+                false,
+                false,
+                -1,
+                false,
+                false,
+                out _
+            );
         }
         public static int RunFile(string filePath, string arguments)
         {
-            return RunFile(filePath, arguments, false, false, false, -1, false, false, out _);
+            return RunFile(
+                filePath,
+                arguments,
+                false,
+                false,
+                false,
+                -1,
+                false,
+                false,
+                out _
+            );
         }
         public static int RunFile(string filePath,
                                   string arguments,
@@ -223,11 +243,25 @@ namespace Scrupdate.Classes.Utilities
         }
         public static int RunFileWithoutElevatedPrivileges(string filePath)
         {
-            return RunFileWithoutElevatedPrivileges(filePath, null, false, false, -1, false);
+            return RunFileWithoutElevatedPrivileges(
+                filePath,
+                null,
+                false,
+                false,
+                -1,
+                false
+            );
         }
         public static int RunFileWithoutElevatedPrivileges(string filePath, string arguments)
         {
-            return RunFileWithoutElevatedPrivileges(filePath, arguments, false, false, -1, false);
+            return RunFileWithoutElevatedPrivileges(
+                filePath,
+                arguments,
+                false,
+                false,
+                -1,
+                false
+            );
         }
         public static int RunFileWithoutElevatedPrivileges(string filePath,
                                                            string arguments,
@@ -250,12 +284,47 @@ namespace Scrupdate.Classes.Utilities
                 PROCESS_INFORMATION lpProcessInformation = default(PROCESS_INFORMATION);
                 try
                 {
-                    if (!SaferCreateLevel(SaferScope.User, SaferLevel.NormalUser, SaferOpenFlags.Open, out hSaferLevel, IntPtr.Zero))
+                    if (!SaferCreateLevel(
+                            SaferScope.User,
+                            SaferLevel.NormalUser,
+                            SaferOpenFlags.Open,
+                            out hSaferLevel,
+                            IntPtr.Zero
+                        ))
+                    {
                         return -1;
-                    if (!SaferComputeTokenFromLevel(hSaferLevel, IntPtr.Zero, out hToken, SaferComputeTokenFlags.None, IntPtr.Zero))
+                    }
+                    if (!SaferComputeTokenFromLevel(
+                            hSaferLevel,
+                            IntPtr.Zero,
+                            out hToken,
+                            SaferComputeTokenFlags.None,
+                            IntPtr.Zero
+                        ))
+                    {
                         return -1;
-                    if (!CreateProcessAsUser(hToken, filePath, ((arguments == null || arguments.Equals("")) ? null : (new StringBuilder(1 + arguments.Length).Append(' ').Append(arguments)).ToString()), ref lpProcessAttributes, ref lpThreadAttributes, true, (createNoWindow ? ProcessCreationFlags.CreateNoWindow : ProcessCreationFlags.None), IntPtr.Zero, null, ref lpStartupInfo, out lpProcessInformation))
+                    }
+                    if (!CreateProcessAsUser(
+                            hToken,
+                            filePath,
+                            ((arguments == null || arguments.Equals("")) ?
+                                null :
+                                (new StringBuilder())
+                                    .Append(' ')
+                                    .Append(arguments)
+                                    .ToString()),
+                            ref lpProcessAttributes,
+                            ref lpThreadAttributes,
+                            true,
+                            (createNoWindow ? ProcessCreationFlags.CreateNoWindow : ProcessCreationFlags.None),
+                            IntPtr.Zero,
+                            null,
+                            ref lpStartupInfo,
+                            out lpProcessInformation
+                        ))
+                    {
                         return -1;
+                    }
                     if (waitForExit)
                     {
                         using (Process process = Process.GetProcessById((int)lpProcessInformation.dwProcessId))

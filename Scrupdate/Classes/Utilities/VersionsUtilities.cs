@@ -62,14 +62,20 @@ namespace Scrupdate.Classes.Utilities
         {
             if (stringToCheck == null)
                 throw new ArgumentNullException(nameof(stringToCheck));
-            if (!(versionValidation >= VersionValidation.None && versionValidation <= VersionValidation.ValidateVersionSegmentsCount))
+            if (!(versionValidation >= VersionValidation.None &&
+                  versionValidation <= VersionValidation.ValidateVersionSegmentsCount))
+            {
                 throw new ArgumentOutOfRangeException(nameof(versionValidation));
+            }
             try
             {
                 if (stringToCheck.Equals(""))
                     return false;
-                if (versionValidation == VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion && StringsUtilities.IsOnlyDigits(stringToCheck))
+                if (versionValidation == VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion &&
+                    StringsUtilities.IsOnlyDigits(stringToCheck))
+                {
                     return int.TryParse(stringToCheck, out _);
+                }
                 if (!(char.IsDigit(stringToCheck[0]) && char.IsDigit(stringToCheck[stringToCheck.Length - 1])))
                     return false;
                 for (int i = 0; i < stringToCheck.Length; i++)
@@ -101,16 +107,29 @@ namespace Scrupdate.Classes.Utilities
         }
         public static bool IsVersionNewer(string newVersionString, string oldVersionString)
         {
-            return IsVersionNewer(newVersionString, oldVersionString, false);
+            return IsVersionNewer(
+                newVersionString,
+                oldVersionString,
+                false
+            );
         }
-        public static bool IsVersionNewer(string newVersionString, string oldVersionString, bool treatAStandaloneNumberAsAVersion)
+        public static bool IsVersionNewer(string newVersionString,
+                                          string oldVersionString,
+                                          bool treatAStandaloneNumberAsAVersion)
         {
             if (newVersionString == null)
                 throw new ArgumentNullException(nameof(newVersionString));
             if (oldVersionString == null)
                 throw new ArgumentNullException(nameof(oldVersionString));
-            if (!IsVersion(newVersionString, (!treatAStandaloneNumberAsAVersion ? VersionValidation.ValidateVersionSegmentsCount : VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion)) || !IsVersion(oldVersionString, (!treatAStandaloneNumberAsAVersion ? VersionValidation.ValidateVersionSegmentsCount : VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion)))
+            VersionValidation versionValidation =
+                (treatAStandaloneNumberAsAVersion ?
+                    VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion :
+                    VersionValidation.ValidateVersionSegmentsCount);
+            if (!IsVersion(newVersionString, versionValidation) ||
+                !IsVersion(oldVersionString, versionValidation))
+            {
                 throw new InvalidVersionStringException();
+            }
             try
             {
                 int newVersionDotsCount = 0, oldVersionDotsCount = 0;
@@ -138,7 +157,9 @@ namespace Scrupdate.Classes.Utilities
                 else if (oldVersionDotsCount > newVersionDotsCount)
                     for (int i = 0; i < oldVersionDotsCount - newVersionDotsCount; i++)
                         tempNewVersionString.Append(".0");
-                return (Version.Parse(tempNewVersionString.ToString()).CompareTo(Version.Parse(tempOldVersionString.ToString())) > 0);
+                return (Version.Parse(tempNewVersionString.ToString()).CompareTo(
+                            Version.Parse(tempOldVersionString.ToString())
+                        ) > 0);
             }
             catch
             {
@@ -147,9 +168,15 @@ namespace Scrupdate.Classes.Utilities
         }
         public static string GetTheFirstFoundVersionFromString(string stringContainingTheVersion)
         {
-            return GetTheFirstFoundVersionFromString(stringContainingTheVersion, false, false);
+            return GetTheFirstFoundVersionFromString(
+                stringContainingTheVersion,
+                false,
+                false
+            );
         }
-        public static string GetTheFirstFoundVersionFromString(string stringContainingTheVersion, bool treatAStandaloneNumberAsAVersion, bool reversedSearch)
+        public static string GetTheFirstFoundVersionFromString(string stringContainingTheVersion,
+                                                               bool treatAStandaloneNumberAsAVersion,
+                                                               bool reversedSearch)
         {
             if (stringContainingTheVersion == null)
                 throw new ArgumentNullException(nameof(stringContainingTheVersion));
@@ -166,11 +193,24 @@ namespace Scrupdate.Classes.Utilities
                     foreach (string versionString in versionStrings)
                     {
                         string versionStringWithoutEdgeDots = versionString;
-                        if (versionStringWithoutEdgeDots.Length > 0 && versionStringWithoutEdgeDots[0] == '.')
+                        if (versionStringWithoutEdgeDots.Length > 0 &&
+                            versionStringWithoutEdgeDots[0] == '.')
+                        {
                             versionStringWithoutEdgeDots = versionStringWithoutEdgeDots.Substring(1);
-                        if (versionStringWithoutEdgeDots.Length > 0 && versionStringWithoutEdgeDots[versionStringWithoutEdgeDots.Length - 1] == '.')
-                            versionStringWithoutEdgeDots = versionStringWithoutEdgeDots.Substring(0, versionStringWithoutEdgeDots.Length - 1);
-                        if (IsVersion(versionStringWithoutEdgeDots, (!treatAStandaloneNumberAsAVersion ? VersionValidation.ValidateVersionSegmentsCount : VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion)))
+                        }
+                        if (versionStringWithoutEdgeDots.Length > 0 &&
+                            versionStringWithoutEdgeDots[versionStringWithoutEdgeDots.Length - 1] == '.')
+                        {
+                            versionStringWithoutEdgeDots = versionStringWithoutEdgeDots.Substring(
+                                0,
+                                versionStringWithoutEdgeDots.Length - 1
+                            );
+                        }
+                        VersionValidation versionValidation =
+                            (treatAStandaloneNumberAsAVersion ?
+                                VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion :
+                                VersionValidation.ValidateVersionSegmentsCount);
+                        if (IsVersion(versionStringWithoutEdgeDots, versionValidation))
                             return versionStringWithoutEdgeDots;
                     }
                 }
@@ -183,16 +223,30 @@ namespace Scrupdate.Classes.Utilities
         }
         public static string GetStringWithoutTheFirstFoundVersion(string originalString, out string versionString)
         {
-            return GetStringWithoutTheFirstFoundVersion(originalString, false, false, false, out versionString);
+            return GetStringWithoutTheFirstFoundVersion(
+                originalString,
+                false,
+                false,
+                false,
+                out versionString
+            );
         }
-        public static string GetStringWithoutTheFirstFoundVersion(string originalString, bool treatAStandaloneNumberAsAVersion, bool reversedSearch, bool removeVersionWholeWordAndLeftOverSeparators, out string versionString)
+        public static string GetStringWithoutTheFirstFoundVersion(string originalString,
+                                                                  bool treatAStandaloneNumberAsAVersion,
+                                                                  bool reversedSearch,
+                                                                  bool removeVersionWholeWordAndLeftOverSeparators,
+                                                                  out string versionString)
         {
             versionString = null;
             if (originalString == null)
                 throw new ArgumentNullException(nameof(originalString));
             try
             {
-                versionString = GetTheFirstFoundVersionFromString(originalString, treatAStandaloneNumberAsAVersion, reversedSearch);
+                versionString = GetTheFirstFoundVersionFromString(
+                    originalString,
+                    treatAStandaloneNumberAsAVersion,
+                    reversedSearch
+                );
                 if (versionString == null)
                     return new string(originalString);
                 StringBuilder stringWithoutVersion = new StringBuilder();
@@ -206,11 +260,19 @@ namespace Scrupdate.Classes.Utilities
                     {
                         versionWasFound = true;
                         if (!removeVersionWholeWordAndLeftOverSeparators)
-                            stringWithoutVersion.Append(words[i].Substring(0, words[i].IndexOf(versionString))).Append(words[i].Substring(words[i].IndexOf(versionString) + versionString.Length)).Append(' ');
+                        {
+                            stringWithoutVersion
+                                .Append(words[i].Substring(0, words[i].IndexOf(versionString)))
+                                .Append(words[i].Substring(words[i].IndexOf(versionString) + versionString.Length))
+                                .Append(' ');
+                        }
                         else
                         {
-                            if ((i == words.Length - 1 && i > 0) && (words[i - 1].Length == 1 && !char.IsLetterOrDigit(words[i - 1][0])))
+                            if ((i == words.Length - 1 && i > 0) &&
+                                (words[i - 1].Length == 1 && !char.IsLetterOrDigit(words[i - 1][0])))
+                            {
                                 stringWithoutVersion[stringWithoutVersion.Length - 2] = ' ';
+                            }
                         }
                     }
                 }
@@ -223,9 +285,13 @@ namespace Scrupdate.Classes.Utilities
         }
         public static string GetTheLatestVersionFromString(string stringContainingTheVersion)
         {
-            return GetTheLatestVersionFromString(stringContainingTheVersion, false);
+            return GetTheLatestVersionFromString(
+                stringContainingTheVersion,
+                false
+            );
         }
-        public static string GetTheLatestVersionFromString(string stringContainingTheVersion, bool treatAStandaloneNumberAsAVersion)
+        public static string GetTheLatestVersionFromString(string stringContainingTheVersion,
+                                                           bool treatAStandaloneNumberAsAVersion)
         {
             if (stringContainingTheVersion == null)
                 throw new ArgumentNullException(nameof(stringContainingTheVersion));
@@ -236,7 +302,13 @@ namespace Scrupdate.Classes.Utilities
                 while (true)
                 {
                     string currentFoundVersionString;
-                    tempStringContainingTheVersion = GetStringWithoutTheFirstFoundVersion(tempStringContainingTheVersion, treatAStandaloneNumberAsAVersion, false, false, out currentFoundVersionString);
+                    tempStringContainingTheVersion = GetStringWithoutTheFirstFoundVersion(
+                        tempStringContainingTheVersion,
+                        treatAStandaloneNumberAsAVersion,
+                        false,
+                        false,
+                        out currentFoundVersionString
+                    );
                     if (currentFoundVersionString == null)
                         break;
                     versionsFromString.Add(currentFoundVersionString);
@@ -246,8 +318,14 @@ namespace Scrupdate.Classes.Utilities
                 string latestVersion = versionsFromString[0];
                 for (int i = 1; i < versionsFromString.Count; i++)
                 {
-                    if (IsVersionNewer(versionsFromString[i], latestVersion, treatAStandaloneNumberAsAVersion))
+                    if (IsVersionNewer(
+                            versionsFromString[i],
+                            latestVersion,
+                            treatAStandaloneNumberAsAVersion
+                        ))
+                    {
                         latestVersion = versionsFromString[i];
+                    }
                 }
                 return latestVersion;
             }
@@ -256,20 +334,39 @@ namespace Scrupdate.Classes.Utilities
                 return null;
             }
         }
-        public static string TrimVersion(string versionStringToTrim, int minimumVersionSegments, int maximumVersionSegments)
+        public static string TrimVersion(string versionStringToTrim,
+                                         int minimumVersionSegments,
+                                         int maximumVersionSegments)
         {
-            return TrimVersion(versionStringToTrim, minimumVersionSegments, maximumVersionSegments, false);
+            return TrimVersion(
+                versionStringToTrim,
+                minimumVersionSegments,
+                maximumVersionSegments,
+                false
+            );
         }
-        public static string TrimVersion(string versionStringToTrim, int minimumVersionSegments, int maximumVersionSegments, bool removeTrailingZeroSegmentsOfVersion)
+        public static string TrimVersion(string versionStringToTrim,
+                                         int minimumVersionSegments,
+                                         int maximumVersionSegments,
+                                         bool removeTrailingZeroSegmentsOfVersion)
         {
             if (versionStringToTrim == null)
                 throw new ArgumentNullException(nameof(versionStringToTrim));
-            if (minimumVersionSegments < MINIMUM_VERSION_SEGMENTS || minimumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+            if (minimumVersionSegments < MINIMUM_VERSION_SEGMENTS ||
+                minimumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+            {
                 throw new ArgumentOutOfRangeException(nameof(minimumVersionSegments));
-            if (maximumVersionSegments < MINIMUM_VERSION_SEGMENTS || maximumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+            }
+            if (maximumVersionSegments < MINIMUM_VERSION_SEGMENTS ||
+                maximumVersionSegments > MAXIMUM_VERSION_SEGMENTS)
+            {
                 throw new ArgumentOutOfRangeException(nameof(maximumVersionSegments));
-            if (!(versionStringToTrim.Equals("") || IsVersion(versionStringToTrim, VersionValidation.None)))
+            }
+            if (!(versionStringToTrim.Equals("") ||
+                  IsVersion(versionStringToTrim, VersionValidation.None)))
+            {
                 throw new InvalidVersionStringException();
+            }
             if (minimumVersionSegments > maximumVersionSegments)
                 throw new MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException();
             try
@@ -294,14 +391,20 @@ namespace Scrupdate.Classes.Utilities
                 }
                 else
                 {
-                    int trimmedVersionNumberSegmentsCount = Math.Min(splittedVersionStringToTrim.Length, maximumVersionSegments);
+                    int trimmedVersionNumberSegmentsCount = Math.Min(
+                        splittedVersionStringToTrim.Length,
+                        maximumVersionSegments
+                    );
                     if (removeTrailingZeroSegmentsOfVersion)
                     {
                         int versionTrailingZeroSegmentsCount = 0;
                         for (int i = trimmedVersionNumberSegmentsCount - 1; i >= 0; i--)
                         {
-                            if (Convert.ToInt32(splittedVersionStringToTrim[i]) == 0 && i >= minimumVersionSegments)
+                            if (Convert.ToInt32(splittedVersionStringToTrim[i]) == 0 &&
+                                i >= minimumVersionSegments)
+                            {
                                 versionTrailingZeroSegmentsCount++;
+                            }
                             else
                                 break;
                         }

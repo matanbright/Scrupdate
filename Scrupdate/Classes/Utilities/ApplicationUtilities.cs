@@ -45,16 +45,44 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string dataDirectoryPath = ((new StringBuilder()).Append(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)).Append('\\').Append(AppDomain.CurrentDomain.FriendlyName).Append("\\Data")).ToString();
-        public static readonly string settingsFilePath = ((new StringBuilder()).Append(dataDirectoryPath).Append('\\').Append(FILE_NAME__SETTINGS)).ToString();
-        public static readonly string settingsChecksumFilePath = ((new StringBuilder()).Append(settingsFilePath).Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)).ToString();
-        public static readonly string programDatabaseFilePath = ((new StringBuilder()).Append(dataDirectoryPath).Append('\\').Append(FILE_NAME__PROGRAM_DATABASE)).ToString();
-        public static readonly string programDatabaseChecksumFilePath = ((new StringBuilder()).Append(programDatabaseFilePath).Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)).ToString();
+        public static readonly string dataDirectoryPath = (new StringBuilder())
+            .Append(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+            .Append('\\')
+            .Append(AppDomain.CurrentDomain.FriendlyName)
+            .Append("\\Data")
+            .ToString();
+        public static readonly string settingsFilePath = (new StringBuilder())
+            .Append(dataDirectoryPath)
+            .Append('\\')
+            .Append(FILE_NAME__SETTINGS)
+            .ToString();
+        public static readonly string settingsChecksumFilePath = (new StringBuilder())
+            .Append(settingsFilePath)
+            .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
+            .ToString();
+        public static readonly string programDatabaseFilePath = (new StringBuilder())
+            .Append(dataDirectoryPath)
+            .Append('\\')
+            .Append(FILE_NAME__PROGRAM_DATABASE)
+            .ToString();
+        public static readonly string programDatabaseChecksumFilePath = (new StringBuilder())
+            .Append(programDatabaseFilePath)
+            .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
+            .ToString();
         public static readonly string[] programDatabaseTemporaryFilesPaths = new string[]
         {
-            ((new StringBuilder()).Append(programDatabaseFilePath).Append("-journal")).ToString(),
-            ((new StringBuilder()).Append(programDatabaseFilePath).Append("-wal")).ToString(),
-            ((new StringBuilder()).Append(programDatabaseFilePath).Append("-shm")).ToString()
+            (new StringBuilder())
+                .Append(programDatabaseFilePath)
+                .Append("-journal")
+                .ToString(),
+            (new StringBuilder())
+                .Append(programDatabaseFilePath)
+                .Append("-wal")
+                .ToString(),
+            (new StringBuilder())
+                .Append(programDatabaseFilePath)
+                .Append("-shm")
+                .ToString()
         };
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,12 +97,19 @@ namespace Scrupdate.Classes.Utilities
             {
                 if (!settings.General.EnableScheduledCheckForProgramUpdates)
                     return false;
-                DateTime lastProgramUpdatesScheduledCheckAttemptionTime = settings.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
-                DateTime nextProgramUpdatesScheduledCheckAttemptionTime;
-                if (lastProgramUpdatesScheduledCheckAttemptionTime.Hour < settings.General.ProgramUpdatesScheduledCheckHour)
-                    nextProgramUpdatesScheduledCheckAttemptionTime = new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.General.ProgramUpdatesScheduledCheckHour, 0, 0, 0);
-                else
-                    nextProgramUpdatesScheduledCheckAttemptionTime = (new DateTime(lastProgramUpdatesScheduledCheckAttemptionTime.Year, lastProgramUpdatesScheduledCheckAttemptionTime.Month, lastProgramUpdatesScheduledCheckAttemptionTime.Day, settings.General.ProgramUpdatesScheduledCheckHour, 0, 0, 0)).AddDays(1);
+                DateTime lastProgramUpdatesScheduledCheckAttemptionTime =
+                    settings.Cached.LastProgramUpdatesScheduledCheckAttemptionTime;
+                DateTime nextProgramUpdatesScheduledCheckAttemptionTime = new DateTime(
+                    lastProgramUpdatesScheduledCheckAttemptionTime.Year,
+                    lastProgramUpdatesScheduledCheckAttemptionTime.Month,
+                    lastProgramUpdatesScheduledCheckAttemptionTime.Day,
+                    settings.General.ProgramUpdatesScheduledCheckHour,
+                    0,
+                    0,
+                    0
+                );
+                if (lastProgramUpdatesScheduledCheckAttemptionTime.Hour >= settings.General.ProgramUpdatesScheduledCheckHour)
+                    nextProgramUpdatesScheduledCheckAttemptionTime = nextProgramUpdatesScheduledCheckAttemptionTime.AddDays(1);
                 for (int i = 0; i < 7; i++)
                 {
                     if ((settings.General.ProgramUpdatesScheduledCheckDays & ((Settings.GeneralSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek))) == 0)
@@ -108,7 +143,12 @@ namespace Scrupdate.Classes.Utilities
                 if (settingsHandler.SettingsInMemory == null)
                     return false;
                 if (settingsHandler.SettingsInMemory.General.EnableScheduledCheckForProgramUpdates)
-                    return WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckDays, settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckHour);
+                {
+                    return WindowsTaskSchedulerUtilities.ScheduleProgramUpdatesCheck(
+                        settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckDays,
+                        settingsHandler.SettingsInMemory.General.ProgramUpdatesScheduledCheckHour
+                    );
+                }
                 return WindowsTaskSchedulerUtilities.UnscheduleProgramUpdatesCheck();
             }
             catch
@@ -124,11 +164,13 @@ namespace Scrupdate.Classes.Utilities
             {
                 if (settingsHandler.SettingsInMemory == null)
                     return false;
-                string backupOfLastHashOfAllInstalledPrograms = settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
+                string backupOfLastHashOfAllInstalledPrograms =
+                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
                 settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = "";
                 if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())
                 {
-                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = backupOfLastHashOfAllInstalledPrograms;
+                    settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms =
+                        backupOfLastHashOfAllInstalledPrograms;
                     return false;
                 }
                 if (File.Exists(programDatabaseFilePath))
@@ -202,8 +244,13 @@ namespace Scrupdate.Classes.Utilities
                     if (File.Exists(ChromeDriverUtilities.chromeDriverExecutableFilePath))
                         File.Delete(ChromeDriverUtilities.chromeDriverExecutableFilePath);
                     if (Directory.Exists(ChromeDriverUtilities.chromeDriverDirectoryPath))
-                        if (Directory.GetFiles(ChromeDriverUtilities.chromeDriverDirectoryPath).Length == 0 && Directory.GetDirectories(ChromeDriverUtilities.chromeDriverDirectoryPath).Length == 0)
+                    {
+                        if (Directory.GetFiles(ChromeDriverUtilities.chromeDriverDirectoryPath).Length == 0 &&
+                            Directory.GetDirectories(ChromeDriverUtilities.chromeDriverDirectoryPath).Length == 0)
+                        {
                             Directory.Delete(ChromeDriverUtilities.chromeDriverDirectoryPath);
+                        }
+                    }
                 }
                 catch
                 {
@@ -214,12 +261,22 @@ namespace Scrupdate.Classes.Utilities
                     try
                     {
                         if (Directory.Exists(dataDirectoryPath))
-                            if (Directory.GetFiles(dataDirectoryPath).Length == 0 && Directory.GetDirectories(dataDirectoryPath).Length == 0)
+                        {
+                            if (Directory.GetFiles(dataDirectoryPath).Length == 0 &&
+                                Directory.GetDirectories(dataDirectoryPath).Length == 0)
+                            {
                                 Directory.Delete(dataDirectoryPath);
+                            }
+                        }
                         string appDirectoryInsideAppDataDirectory = Path.GetDirectoryName(dataDirectoryPath);
                         if (Directory.Exists(appDirectoryInsideAppDataDirectory))
-                            if (Directory.GetFiles(appDirectoryInsideAppDataDirectory).Length == 0 && Directory.GetDirectories(appDirectoryInsideAppDataDirectory).Length == 0)
+                        {
+                            if (Directory.GetFiles(appDirectoryInsideAppDataDirectory).Length == 0 &&
+                                Directory.GetDirectories(appDirectoryInsideAppDataDirectory).Length == 0)
+                            {
                                 Directory.Delete(appDirectoryInsideAppDataDirectory);
+                            }
+                        }
                     }
                     catch
                     {
@@ -260,7 +317,11 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfOpenWindow = ((ProgramUpdatesScheduledCheckWindow)openWindow).BaseSizeOfWindow;
                     else
                         continue;
-                    WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(openWindow, baseSizeOfOpenWindow, windowsRenderingScale);
+                    WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                        openWindow,
+                        baseSizeOfOpenWindow,
+                        windowsRenderingScale
+                    );
                     if (typeOfOpenWindow == typeof(SettingsWindow))
                         ((SettingsWindow)openWindow).RefreshAvailableWindowsScalingFactorSelections();
                     else if (typeOfOpenWindow == typeof(ErrorDialogWindow))

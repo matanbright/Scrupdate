@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
 using System.ComponentModel;
@@ -88,9 +87,24 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(nameof(CurrentError), typeof(Error), typeof(MainWindow), new PropertyMetadata(Error.None));
-        public static readonly DependencyProperty IsAutomaticScanningForInstalledProgramsEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticScanningForInstalledProgramsEnabled), typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-        public static readonly DependencyProperty CurrentOperationProperty = DependencyProperty.Register(nameof(CurrentOperation), typeof(Operation), typeof(MainWindow), new PropertyMetadata(Operation.None));
+        public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(
+            nameof(CurrentError),
+            typeof(Error),
+            typeof(MainWindow),
+            new PropertyMetadata(Error.None)
+        );
+        public static readonly DependencyProperty IsAutomaticScanningForInstalledProgramsEnabledProperty = DependencyProperty.Register(
+            nameof(IsAutomaticScanningForInstalledProgramsEnabled),
+            typeof(bool),
+            typeof(MainWindow),
+            new PropertyMetadata(false)
+        );
+        public static readonly DependencyProperty CurrentOperationProperty = DependencyProperty.Register(
+            nameof(CurrentOperation),
+            typeof(Operation),
+            typeof(MainWindow),
+            new PropertyMetadata(Operation.None)
+        );
         private ProgramDatabase programDatabase;
         private volatile List<ProgramListViewItem> programListViewItems;
         private volatile int updatesCount;
@@ -109,45 +123,72 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Error)GetValue(CurrentErrorProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Error)GetValue(CurrentErrorProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(CurrentErrorProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentError)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(CurrentErrorProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(CurrentError))
+                            );
+                        }
+                );
             }
         }
         public bool IsAutomaticScanningForInstalledProgramsEnabled
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (bool)GetValue(IsAutomaticScanningForInstalledProgramsEnabledProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (bool)GetValue(IsAutomaticScanningForInstalledProgramsEnabledProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(IsAutomaticScanningForInstalledProgramsEnabledProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsAutomaticScanningForInstalledProgramsEnabled)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(IsAutomaticScanningForInstalledProgramsEnabledProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(IsAutomaticScanningForInstalledProgramsEnabled))
+                            );
+                        }
+                );
             }
         }
         public Operation CurrentOperation
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Operation)GetValue(CurrentOperationProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Operation)GetValue(CurrentOperationProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(CurrentOperationProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentOperation)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(CurrentOperationProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(CurrentOperation))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -157,7 +198,8 @@ namespace Scrupdate.UiElements.Windows
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public MainWindow() : this(Settings.CachedSettings.ProgramFilteringOption.Unknown, null) { }
-        public MainWindow(Settings.CachedSettings.ProgramFilteringOption programFilteringOptionOnStart, bool? isShowingHiddenProgramsOnStart)
+        public MainWindow(Settings.CachedSettings.ProgramFilteringOption programFilteringOptionOnStart,
+                          bool? isShowingHiddenProgramsOnStart)
         {
             try
             {
@@ -167,7 +209,10 @@ namespace Scrupdate.UiElements.Windows
                     App.SettingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = "";
                     App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 }
-                programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
+                programDatabase = new ProgramDatabase(
+                    ApplicationUtilities.programDatabaseFilePath,
+                    ApplicationUtilities.programDatabaseChecksumFilePath
+                );
                 ConfigError programDatabaseFileError;
                 if (!programDatabase.Open(true, true, out programDatabaseFileError))
                 {
@@ -190,24 +235,55 @@ namespace Scrupdate.UiElements.Windows
             programListViewItems = new List<ProgramListViewItem>();
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(this, BaseSizeOfWindow, App.WindowsRenderingScale);
-            ((GridView)listView_programs.View).Columns.CollectionChanged += OnGridViewColumnsCollectionCollectionChangedEvent;
+            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                this,
+                BaseSizeOfWindow,
+                App.WindowsRenderingScale
+            );
+            ((GridView)listView_programs.View).Columns.CollectionChanged +=
+                OnGridViewColumnsCollectionCollectionChangedEvent;
             listView_programs.ItemsSource = programListViewItems;
-            label_appVersion.Content = ((string)label_appVersion.Content).Replace("{*}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            foreach (string programFilteringOptionEnumItemName in Enum.GetNames(typeof(Settings.CachedSettings.ProgramFilteringOption)))
-                if (!programFilteringOptionEnumItemName.Equals(Settings.CachedSettings.ProgramFilteringOption.Unknown.ToString()))
-                    comboBox_programListFilteringOption.Items.Add(StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(programFilteringOptionEnumItemName));
-            comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Settings.CachedSettings.ProgramFilteringOption.All.ToString());
+            label_appVersion.Content =
+                ((string)label_appVersion.Content).Replace(
+                    "{*}",
+                    Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                );
+            foreach (string programFilteringOptionEnumItemName in
+                     Enum.GetNames(typeof(Settings.CachedSettings.ProgramFilteringOption)))
+            {
+                if (!programFilteringOptionEnumItemName.Equals(
+                        Settings.CachedSettings.ProgramFilteringOption.Unknown.ToString()
+                    ))
+                {
+                    comboBox_programListFilteringOption.Items.Add(
+                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                            programFilteringOptionEnumItemName
+                        )
+                    );
+                }
+            }
+            comboBox_programListFilteringOption.SelectedItem =
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                    Settings.CachedSettings.ProgramFilteringOption.All.ToString()
+                );
             if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
             {
-                checkBox_filterProgramList.IsChecked = App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState;
-                comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption.ToString());
-                checkBox_showHiddenPrograms.IsChecked = App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState;
+                checkBox_filterProgramList.IsChecked =
+                    App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState;
+                comboBox_programListFilteringOption.SelectedItem =
+                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                        App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption.ToString()
+                    );
+                checkBox_showHiddenPrograms.IsChecked =
+                    App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState;
             }
             if (programFilteringOptionOnStart != Settings.CachedSettings.ProgramFilteringOption.Unknown)
             {
                 checkBox_filterProgramList.IsChecked = true;
-                comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(programFilteringOptionOnStart.ToString());
+                comboBox_programListFilteringOption.SelectedItem =
+                    StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                        programFilteringOptionOnStart.ToString()
+                    );
             }
             if (isShowingHiddenProgramsOnStart != null)
                 checkBox_showHiddenPrograms.IsChecked = isShowingHiddenProgramsOnStart;
@@ -224,21 +300,27 @@ namespace Scrupdate.UiElements.Windows
                 WindowState = (WindowState)App.SettingsHandler.SettingsInMemory.Cached.LastWindowState;
             if (App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize != null)
             {
-                Width = ((Size)(App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize)).Width;
-                Height = ((Size)(App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize)).Height;
+                Width = ((Size)App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize).Width;
+                Height = ((Size)App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize).Height;
             }
             if (App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation != null)
             {
-                Left = ((Point)(App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation)).X;
-                Top = ((Point)(App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation)).Y;
+                Left = ((Point)App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation).X;
+                Top = ((Point)App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation).Y;
             }
             WindowsUtilities.MoveWindowIntoScreenBoundaries(this, true);
-            IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
-            ((CustomGridViewColumnHeader)((((GridView)listView_programs.View).Columns[2]).Header)).RaiseEvent(new RoutedEventArgs(CustomGridViewColumnHeader.ClickEvent));
+            IsAutomaticScanningForInstalledProgramsEnabled =
+                App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
+            ((CustomGridViewColumnHeader)((GridView)listView_programs.View).Columns[2].Header).RaiseEvent(
+                new RoutedEventArgs(CustomGridViewColumnHeader.ClickEvent)
+            );
             if (CurrentError == Error.None)
             {
-                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
+                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms &&
+                    App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
+                {
                     StartProgramDatabaseUpdatingTask();
+                }
                 else
                     RefreshListViewAndAllMessages(true);
             }
@@ -247,14 +329,24 @@ namespace Scrupdate.UiElements.Windows
         {
             if (!resettingAllSettingsAndData)
             {
-                if (CurrentOperation == Operation.CancellingOperation || CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
+                if (CurrentOperation == Operation.CancellingOperation ||
+                    CurrentOperation == Operation.UpdatingProgramDatabase ||
+                    CurrentOperation == Operation.CheckingForProgramUpdates)
                 {
                     e.Cancel = true;
-                    if ((CurrentOperation == Operation.CancellingOperation && !closeInQueue) || CurrentOperation == Operation.UpdatingProgramDatabase || CurrentOperation == Operation.CheckingForProgramUpdates)
-                        CancelOperation(true);
-                    else if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
-                        if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY, this) == true)
+                    if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
+                    {
+                        if (DialogsUtilities.ShowQuestionDialog(
+                                "",
+                                QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY,
+                                this
+                            ) == true)
+                        {
                             PrepareWindowForClosing(true);
+                        }
+                    }
+                    else
+                        CancelOperation(true);
                 }
                 else
                     PrepareWindowForClosing();
@@ -269,8 +361,14 @@ namespace Scrupdate.UiElements.Windows
                 UnhideSelectedProgramsInDatabaseAndListView();
             else if (senderButton == button_removeSelectedPrograms)
             {
-                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                if (DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
+                        this
+                    ) == true)
+                {
                     RemoveSelectedProgramsFromDatabaseAndListView();
+                }
             }
             else if (senderButton == button_addNewProgram)
             {
@@ -302,7 +400,13 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler?.Dispose();
                         App.SettingsHandler = null;
                         if (!ApplicationUtilities.ResetAll())
-                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS, this);
+                        {
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS,
+                                this
+                            );
+                        }
                         Application.Current.Shutdown();
                     }
                 }
@@ -313,8 +417,13 @@ namespace Scrupdate.UiElements.Windows
             CustomTextBox senderTextBox = (CustomTextBox)sender;
             if (senderTextBox == textBox_programListSearchingPhrase)
             {
-                if (Array.TrueForAll(textBox_programListSearchingPhrase.Text.ToCharArray(), (char programListSearchingPhraseTextBoxTextCharacter) => (char.IsWhiteSpace(programListSearchingPhraseTextBoxTextCharacter))))
+                if (Array.TrueForAll(
+                        textBox_programListSearchingPhrase.Text.ToCharArray(),
+                        c => char.IsWhiteSpace(c)
+                    ))
+                {
                     textBox_programListSearchingPhrase.Text = "";
+                }
                 RefreshListViewAndAllMessages();
             }
         }
@@ -324,7 +433,12 @@ namespace Scrupdate.UiElements.Windows
             if (senderCheckBox == checkBox_filterProgramList)
             {
                 if (checkBox_filterProgramList.IsChecked == false)
-                    comboBox_programListFilteringOption.SelectedItem = StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(Settings.CachedSettings.ProgramFilteringOption.All.ToString());
+                {
+                    comboBox_programListFilteringOption.SelectedItem =
+                        StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                            Settings.CachedSettings.ProgramFilteringOption.All.ToString()
+                        );
+                }
                 RefreshListViewAndAllMessages();
             }
             else if (senderCheckBox == checkBox_showHiddenPrograms)
@@ -340,7 +454,11 @@ namespace Scrupdate.UiElements.Windows
         {
             ListView senderListView = (ListView)sender;
             if (senderListView == listView_programs)
-                ((CheckBox)(gridViewColumnHeader_programSelectionCheckBox.Content)).IsChecked = (listView_programs.Items.Count != 0 && (listView_programs.SelectedItems.Count == listView_programs.Items.Count));
+            {
+                ((CheckBox)gridViewColumnHeader_programSelectionCheckBox.Content).IsChecked =
+                    (listView_programs.Items.Count != 0 &&
+                     (listView_programs.SelectedItems.Count == listView_programs.Items.Count));
+            }
         }
         private void OnListViewKeyDownEvent(object sender, KeyEventArgs e)
         {
@@ -351,31 +469,54 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (listView_programs.SelectedItems.Count == 1)
                     {
-                        ProgramListViewItem programListViewItemOfProgramToEdit = (ProgramListViewItem)listView_programs.SelectedItems[0];
+                        ProgramListViewItem programListViewItemOfProgramToEdit =
+                            (ProgramListViewItem)listView_programs.SelectedItems[0];
                         Program updatedProgram;
-                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
-                            UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
+                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(
+                                programListViewItemOfProgramToEdit.UnderlyingProgram.Name,
+                                out updatedProgram
+                            ) == true)
+                        {
+                            UpdateProgramInDatabaseAndListView(
+                                programListViewItemOfProgramToEdit,
+                                updatedProgram
+                            );
+                        }
                     }
                 }
                 else if (e.Key == Key.Delete)
                 {
                     if (listView_programs.SelectedItems.Count > 0)
-                        if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                    {
+                        if (DialogsUtilities.ShowQuestionDialog(
+                                "",
+                                QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
+                                this
+                            ) == true)
+                        {
                             RemoveSelectedProgramsFromDatabaseAndListView();
+                        }
+                    }
                 }
             }
         }
         private void OnGridViewColumnHeaderPreviewMouseMoveEvent(object sender, MouseEventArgs e)
         {
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
-            if (senderGridViewColumnHeader == gridViewColumnHeader_programSelectionCheckBox || senderGridViewColumnHeader == gridViewColumnHeader_programUpdateCheckConfigurationStatus)
+            if (senderGridViewColumnHeader == gridViewColumnHeader_programSelectionCheckBox ||
+                senderGridViewColumnHeader == gridViewColumnHeader_programUpdateCheckConfigurationStatus)
+            {
                 e.Handled = true;
+            }
         }
         private void OnGridViewColumnHeaderPreviewMouseDoubleClickEvent(object sender, MouseButtonEventArgs e)
         {
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
-            if (senderGridViewColumnHeader == gridViewColumnHeader_programSelectionCheckBox || senderGridViewColumnHeader == gridViewColumnHeader_programUpdateCheckConfigurationStatus)
+            if (senderGridViewColumnHeader == gridViewColumnHeader_programSelectionCheckBox ||
+                senderGridViewColumnHeader == gridViewColumnHeader_programUpdateCheckConfigurationStatus)
+            {
                 e.Handled = true;
+            }
         }
         private void OnGridViewColumnHeaderClickEvent(object sender, RoutedEventArgs e)
         {
@@ -396,11 +537,21 @@ namespace Scrupdate.UiElements.Windows
                 else
                 {
                     foreach (GridViewColumn gridViewColumn in ((GridView)listView_programs.View).Columns)
-                        ((CustomGridViewColumnHeader)gridViewColumn.Header).ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.None;
+                    {
+                        ((CustomGridViewColumnHeader)gridViewColumn.Header).ListViewItemsSortingOrder =
+                            CustomGridViewColumnHeader.SortingOrder.None;
+                    }
                     senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Ascending;
                 }
                 listView_programs.Items.SortDescriptions.Clear();
-                listView_programs.Items.SortDescriptions.Add(new SortDescription((string)senderGridViewColumnHeader.Tag, (senderGridViewColumnHeader.ListViewItemsSortingOrder == CustomGridViewColumnHeader.SortingOrder.Descending ? ListSortDirection.Descending : ListSortDirection.Ascending)));
+                listView_programs.Items.SortDescriptions.Add(
+                    new SortDescription(
+                        (string)senderGridViewColumnHeader.Tag,
+                        (senderGridViewColumnHeader.ListViewItemsSortingOrder == CustomGridViewColumnHeader.SortingOrder.Descending ?
+                            ListSortDirection.Descending :
+                            ListSortDirection.Ascending)
+                    )
+                );
                 RefreshListViewAndAllMessages();
             }
         }
@@ -411,12 +562,21 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (listView_programs.SelectedItems.Count == 1)
                 {
-                    ProgramListViewItem programListViewItemOfProgramToEdit = (ProgramListViewItem)senderListViewItem.Content;
+                    ProgramListViewItem programListViewItemOfProgramToEdit =
+                        (ProgramListViewItem)senderListViewItem.Content;
                     if (programListViewItemOfProgramToEdit == listView_programs.SelectedItems[0])
                     {
                         Program updatedProgram;
-                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
-                            UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
+                        if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(
+                                programListViewItemOfProgramToEdit.UnderlyingProgram.Name,
+                                out updatedProgram
+                            ) == true)
+                        {
+                            UpdateProgramInDatabaseAndListView(
+                                programListViewItemOfProgramToEdit,
+                                updatedProgram
+                            );
+                        }
                     }
                 }
             }
@@ -426,19 +586,41 @@ namespace Scrupdate.UiElements.Windows
             MenuItem senderMenuItem = (MenuItem)sender;
             if (senderMenuItem.Header.Equals("Edit"))
             {
-                ProgramListViewItem programListViewItemOfProgramToEdit = (ProgramListViewItem)listView_programs.SelectedItems[0];
+                ProgramListViewItem programListViewItemOfProgramToEdit =
+                    (ProgramListViewItem)listView_programs.SelectedItems[0];
                 Program updatedProgram;
-                if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(programListViewItemOfProgramToEdit.UnderlyingProgram.Name, out updatedProgram) == true)
-                    UpdateProgramInDatabaseAndListView(programListViewItemOfProgramToEdit, updatedProgram);
+                if (OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(
+                        programListViewItemOfProgramToEdit.UnderlyingProgram.Name,
+                        out updatedProgram
+                    ) == true)
+                {
+                    UpdateProgramInDatabaseAndListView(
+                        programListViewItemOfProgramToEdit,
+                        updatedProgram
+                    );
+                }
             }
-            else if (senderMenuItem.Header.Equals("Hide") || senderMenuItem.Header.Equals("Hide Selected"))
-                HideSelectedProgramsInDatabaseAndListView();
-            else if (senderMenuItem.Header.Equals("Unhide") || senderMenuItem.Header.Equals("Unhide Selected"))
-                UnhideSelectedProgramsInDatabaseAndListView();
-            else if (senderMenuItem.Header.Equals("Remove") || senderMenuItem.Header.Equals("Remove Selected"))
+            else if (senderMenuItem.Header.Equals("Hide") ||
+                     senderMenuItem.Header.Equals("Hide Selected"))
             {
-                if (DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST, this) == true)
+                HideSelectedProgramsInDatabaseAndListView();
+            }
+            else if (senderMenuItem.Header.Equals("Unhide") ||
+                     senderMenuItem.Header.Equals("Unhide Selected"))
+            {
+                UnhideSelectedProgramsInDatabaseAndListView();
+            }
+            else if (senderMenuItem.Header.Equals("Remove") ||
+                     senderMenuItem.Header.Equals("Remove Selected"))
+            {
+                if (DialogsUtilities.ShowQuestionDialog(
+                        "",
+                        QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
+                        this
+                    ) == true)
+                {
                     RemoveSelectedProgramsFromDatabaseAndListView();
+                }
             }
         }
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
@@ -446,15 +628,26 @@ namespace Scrupdate.UiElements.Windows
             Hyperlink senderHyperlink = (Hyperlink)sender;
             if (senderHyperlink == hyperlink_fixProgramDatabase)
             {
-                if (CurrentError == Error.ProgramDatabaseIsCorrupted || CurrentError == Error.ProgramDatabaseIsNotCompatible)
+                if (CurrentError == Error.ProgramDatabaseIsCorrupted ||
+                    CurrentError == Error.ProgramDatabaseIsNotCompatible)
                 {
-                    if (!DialogsUtilities.ShowQuestionDialog("", QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE, this) == true)
+                    if (!DialogsUtilities.ShowQuestionDialog(
+                            "",
+                            QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE,
+                            this
+                        ) == true)
+                    {
                         return;
+                    }
                     else
                     {
                         if (!ApplicationUtilities.ResetProgramDatabase(App.SettingsHandler))
                         {
-                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED, this);
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED,
+                                this
+                            );
                             return;
                         }
                     }
@@ -467,7 +660,10 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms = "";
                         App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                     }
-                    programDatabase = new ProgramDatabase(ApplicationUtilities.programDatabaseFilePath, ApplicationUtilities.programDatabaseChecksumFilePath);
+                    programDatabase = new ProgramDatabase(
+                        ApplicationUtilities.programDatabaseFilePath,
+                        ApplicationUtilities.programDatabaseChecksumFilePath
+                    );
                     ConfigError programDatabaseFileError;
                     if (!programDatabase.Open(true, true, out programDatabaseFileError))
                     {
@@ -490,8 +686,11 @@ namespace Scrupdate.UiElements.Windows
                     return;
                 }
                 CurrentError = Error.None;
-                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms && App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
+                if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms &&
+                    App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
+                {
                     StartProgramDatabaseUpdatingTask();
+                }
                 else
                     RefreshListViewAndAllMessages(true);
             }
@@ -516,12 +715,18 @@ namespace Scrupdate.UiElements.Windows
             updatedSettings = null;
             bool? returnValue = null;
             SettingsWindow settingsWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                settingsWindow = new SettingsWindow(App.SettingsHandler.SettingsInMemory, (programDatabase == null ? false : programDatabase.IsOpen()));
-                settingsWindow.Owner = this;
-                returnValue = settingsWindow.ShowDialog();
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        settingsWindow = new SettingsWindow(
+                            App.SettingsHandler.SettingsInMemory,
+                            (programDatabase == null ? false : programDatabase.IsOpen())
+                        );
+                        settingsWindow.Owner = this;
+                        returnValue = settingsWindow.ShowDialog();
+                    }
+            );
             if (returnValue == true)
                 updatedSettings = settingsWindow.GetUpdatedSettings();
             return returnValue;
@@ -541,23 +746,29 @@ namespace Scrupdate.UiElements.Windows
             }
             if (!helpWindowIsAlreadyOpen)
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    HelpWindow helpWindow = new HelpWindow();
-                    helpWindow.Owner = this;
-                    helpWindow.Show();
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            HelpWindow helpWindow = new HelpWindow();
+                            helpWindow.Owner = this;
+                            helpWindow.Show();
+                        }
+                );
             }
         }
         private bool? OpenAboutWindowAsDialog()
         {
             bool? returnValue = null;
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                AboutWindow aboutWindow = new AboutWindow();
-                aboutWindow.Owner = this;
-                returnValue = aboutWindow.ShowDialog();
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        AboutWindow aboutWindow = new AboutWindow();
+                        aboutWindow.Owner = this;
+                        returnValue = aboutWindow.ShowDialog();
+                    }
+            );
             return returnValue;
         }
         private bool? OpenProgramAddingOrEditingWindowAsDialogForAddingAProgram(out Program newProgram)
@@ -565,30 +776,40 @@ namespace Scrupdate.UiElements.Windows
             newProgram = null;
             bool? returnValue = null;
             ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
-                programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(programsAlreadyInDatabase);
-                programAddingOrEditingWindow.Owner = this;
-                returnValue = programAddingOrEditingWindow.ShowDialog();
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
+                        programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(programsAlreadyInDatabase);
+                        programAddingOrEditingWindow.Owner = this;
+                        returnValue = programAddingOrEditingWindow.ShowDialog();
+                    }
+            );
             if (returnValue == true)
                 newProgram = programAddingOrEditingWindow.GetNewOrUpdatedProgram();
             return returnValue;
         }
-        private bool? OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(string nameOfProgramToEdit, out Program updatedProgram)
+        private bool? OpenProgramAddingOrEditingWindowAsDialogForEditingAProgram(string nameOfProgramToEdit,
+                                                                                 out Program updatedProgram)
         {
             updatedProgram = null;
             bool? returnValue = null;
             ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
-                Program programToEdit = programsAlreadyInDatabase[nameOfProgramToEdit];
-                programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(programsAlreadyInDatabase, programToEdit);
-                programAddingOrEditingWindow.Owner = this;
-                returnValue = programAddingOrEditingWindow.ShowDialog();
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        Dictionary<string, Program> programsAlreadyInDatabase = programDatabase.GetPrograms();
+                        Program programToEdit = programsAlreadyInDatabase[nameOfProgramToEdit];
+                        programAddingOrEditingWindow = new ProgramAddingOrEditingWindow(
+                            programsAlreadyInDatabase,
+                            programToEdit
+                        );
+                        programAddingOrEditingWindow.Owner = this;
+                        returnValue = programAddingOrEditingWindow.ShowDialog();
+                    }
+            );
             if (returnValue == true)
                 updatedProgram = programAddingOrEditingWindow.GetNewOrUpdatedProgram();
             return returnValue;
@@ -602,85 +823,253 @@ namespace Scrupdate.UiElements.Windows
             if (retrieveNewProgramInformationFromDatabase)
             {
                 programListViewItems.Clear();
-                for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator(); i.MoveNext();)
+                for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator();
+                     i.MoveNext();)
                 {
                     Program program = i.Current.Value;
                     programListViewItems.Add(new ProgramListViewItem(program));
                 }
-                programListViewItems.Sort(((ProgramListViewItem programListViewItem1, ProgramListViewItem programListViewItem2) => (string.Compare(programListViewItem1.UnderlyingProgram.Name, programListViewItem2.UnderlyingProgram.Name))));
+                programListViewItems.Sort(
+                    (programListViewItem1, programListViewItem2) =>
+                        string.Compare(
+                            programListViewItem1.UnderlyingProgram.Name,
+                            programListViewItem2.UnderlyingProgram.Name
+                        )
+                );
             }
             updatesCount = 0;
             errorsCount = 0;
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                string programSearchPhrase = textBox_programListSearchingPhrase.Text.Trim();
-                bool isFilteringPrograms = (bool)checkBox_filterProgramList.IsChecked;
-                Settings.CachedSettings.ProgramFilteringOption selectedProgramFilteringOption = (!isFilteringPrograms ? Settings.CachedSettings.ProgramFilteringOption.All : (Settings.CachedSettings.ProgramFilteringOption)Enum.Parse(typeof(Settings.CachedSettings.ProgramFilteringOption), ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")));
-                bool isShowingHiddenPrograms = (bool)checkBox_showHiddenPrograms.IsChecked;
-                listView_programs.Items.Filter = new Predicate<object>((object o) =>
-                {
-                    ProgramListViewItem programListViewItem = (ProgramListViewItem)o;
-                    Program program = programListViewItem.UnderlyingProgram;
-                    programListViewItem.ProgramInstalledVersionToDisplay = (program.InstalledVersion.Equals("") ? "" : VersionsUtilities.TrimVersion(program.InstalledVersion, App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions));
-                    programListViewItem.ProgramLatestVersionToDisplay = (program.LatestVersion.Equals("") ? "" : VersionsUtilities.TrimVersion(program.LatestVersion, App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments, App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions));
-                    bool? thereIsANewerVersion = null;
-                    if (program.InstallationScope != Program._InstallationScope.None)
-                        thereIsANewerVersion = (program.InstalledVersion.Equals("") || program.LatestVersion.Equals("") ? false : VersionsUtilities.IsVersionNewer(program.LatestVersion, program.InstalledVersion));
-                    programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH);
-                    if (!program.IsAutomaticallyAdded)
-                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__GRAY_SOLID_COLOR_BRUSH);
-                    if (thereIsANewerVersion == true)
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
                     {
-                        if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
-                            updatesCount++;
-                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH);
+                        string programSearchPhrase = textBox_programListSearchingPhrase.Text.Trim();
+                        bool isFilteringPrograms = (bool)checkBox_filterProgramList.IsChecked;
+                        Settings.CachedSettings.ProgramFilteringOption selectedProgramFilteringOption =
+                            (!isFilteringPrograms ?
+                                Settings.CachedSettings.ProgramFilteringOption.All :
+                                (Settings.CachedSettings.ProgramFilteringOption)Enum.Parse(
+                                    typeof(Settings.CachedSettings.ProgramFilteringOption),
+                                    ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")
+                                ));
+                        bool isShowingHiddenPrograms = (bool)checkBox_showHiddenPrograms.IsChecked;
+                        listView_programs.Items.Filter = new Predicate<object>(
+                            o =>
+                                {
+                                    ProgramListViewItem programListViewItem = (ProgramListViewItem)o;
+                                    Program program = programListViewItem.UnderlyingProgram;
+                                    programListViewItem.ProgramInstalledVersionToDisplay =
+                                        (program.InstalledVersion.Equals("") ?
+                                            "" :
+                                            VersionsUtilities.TrimVersion(
+                                                program.InstalledVersion,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions
+                                            ));
+                                    programListViewItem.ProgramLatestVersionToDisplay =
+                                        (program.LatestVersion.Equals("") ?
+                                            "" :
+                                            VersionsUtilities.TrimVersion(
+                                                program.LatestVersion,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
+                                                App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions
+                                            ));
+                                    bool? thereIsANewerVersion = null;
+                                    if (program.InstallationScope != Program._InstallationScope.None)
+                                    {
+                                        thereIsANewerVersion =
+                                            ((program.InstalledVersion.Equals("") || program.LatestVersion.Equals("")) ?
+                                                false :
+                                                VersionsUtilities.IsVersionNewer(
+                                                    program.LatestVersion,
+                                                    program.InstalledVersion
+                                                ));
+                                    }
+                                    programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                                    );
+                                    if (!program.IsAutomaticallyAdded)
+                                    {
+                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__GRAY_SOLID_COLOR_BRUSH
+                                        );
+                                    }
+                                    if (thereIsANewerVersion == true)
+                                    {
+                                        if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
+                                            updatesCount++;
+                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
+                                        );
+                                    }
+                                    if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
+                                        if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
+                                            errorsCount++;
+                                    if (program.InstallationScope == Program._InstallationScope.None)
+                                    {
+                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                                        );
+                                    }
+                                    if (program.IsHidden)
+                                    {
+                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2
+                                        );
+                                    }
+                                    if (isFilteringPrograms)
+                                    {
+                                        switch (selectedProgramFilteringOption)
+                                        {
+                                            default:
+                                            case Settings.CachedSettings.ProgramFilteringOption.All:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )));
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsUpdateCheckConfigured &&
+                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid &&
+                                                        thereIsANewerVersion == true);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUpToDate:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsUpdateCheckConfigured &&
+                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid &&
+                                                        thereIsANewerVersion == false);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyAutomaticallyAdded:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsAutomaticallyAdded);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyManuallyAdded:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        !program.IsAutomaticallyAdded);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyInstalled:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.InstallationScope != Program._InstallationScope.None);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUninstalled:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.InstallationScope == Program._InstallationScope.None);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsUpdateCheckConfigured &&
+                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyInvalid:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsUpdateCheckConfigured &&
+                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyNotChecked:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        program.IsUpdateCheckConfigured &&
+                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Unknown);
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlyNotConfigured:
+                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                                        (programSearchPhrase.Equals("") ||
+                                                         program.Name.Contains(
+                                                             programSearchPhrase,
+                                                             StringComparison.CurrentCultureIgnoreCase
+                                                         )) &&
+                                                        !program.IsUpdateCheckConfigured);
+                                        }
+                                    }
+                                    return (!(program.IsHidden && !isShowingHiddenPrograms) &&
+                                            (programSearchPhrase.Equals("") ||
+                                             program.Name.Contains(
+                                                 programSearchPhrase,
+                                                 StringComparison.CurrentCultureIgnoreCase
+                                             )));
+                                }
+                        );
+                        ((CheckBox)gridViewColumnHeader_programSelectionCheckBox.Content).IsChecked =
+                            (listView_programs.Items.Count != 0 &&
+                             listView_programs.SelectedItems.Count == listView_programs.Items.Count);
                     }
-                    if (program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
-                        if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
-                            errorsCount++;
-                    if (program.InstallationScope == Program._InstallationScope.None)
-                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH);
-                    if (program.IsHidden)
-                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2);
-                    if (isFilteringPrograms)
-                    {
-                        switch (selectedProgramFilteringOption)
-                        {
-                            default:
-                            case Settings.CachedSettings.ProgramFilteringOption.All:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)));
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == true);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUpToDate:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid && thereIsANewerVersion == false);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyAutomaticallyAdded:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsAutomaticallyAdded);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyManuallyAdded:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && !program.IsAutomaticallyAdded);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyInstalled:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope != Program._InstallationScope.None);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyUninstalled:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.InstallationScope == Program._InstallationScope.None);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyInvalid:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyNotChecked:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && program.IsUpdateCheckConfigured && program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Unknown);
-                            case Settings.CachedSettings.ProgramFilteringOption.OnlyNotConfigured:
-                                return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)) && !program.IsUpdateCheckConfigured);
-                        }
-                    }
-                    return (!(program.IsHidden && !isShowingHiddenPrograms) && (programSearchPhrase.Equals("") || program.Name.Contains(programSearchPhrase, StringComparison.CurrentCultureIgnoreCase)));
-                });
-                ((CheckBox)(gridViewColumnHeader_programSelectionCheckBox.Content)).IsChecked = (listView_programs.Items.Count != 0 && (listView_programs.SelectedItems.Count == listView_programs.Items.Count));
-            });
-            string statusMessage = (updatesCount > 0 ? (updatesCount > 1 ? STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) : STATUS_MESSAGE__THERE_IS_AN_UPDATE) : STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
-            Brush statusMessageForegroundColor = (updatesCount > 0 ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH) : (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__LIGHT_BLACK_SOLID_COLOR_BRUSH));
-            string additionalStatusMessage = (errorsCount > 0 ? (errorsCount > 1 ? ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS.Replace("{*}", Convert.ToString(errorsCount)) : ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR) : "");
-            Brush additionalStatusMessageForegroundColor = (errorsCount > 0 ? (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH) : (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
-            ChangeStatusMessages(statusMessage, statusMessageForegroundColor, additionalStatusMessage, additionalStatusMessageForegroundColor);
-            ChangeTimeToShowInLastProgramUpdatesCheckTimeMessage(App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime);
+            );
+            string statusMessage =
+                (updatesCount > 0 ?
+                    (updatesCount > 1 ?
+                        STATUS_MESSAGE__THERE_ARE_N_UPDATES.Replace("{*}", Convert.ToString(updatesCount)) :
+                        STATUS_MESSAGE__THERE_IS_AN_UPDATE) :
+                    STATUS_MESSAGE__NO_UPDATES_WERE_FOUND);
+            Brush statusMessageForegroundColor =
+                (updatesCount > 0 ?
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
+                    ) :
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__LIGHT_BLACK_SOLID_COLOR_BRUSH
+                    ));
+            string additionalStatusMessage =
+                (errorsCount > 0 ?
+                    (errorsCount > 1 ?
+                        ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS.Replace("{*}", Convert.ToString(errorsCount)) :
+                        ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR) :
+                    "");
+            Brush additionalStatusMessageForegroundColor =
+                (errorsCount > 0 ?
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
+                    ) :
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                    ));
+            ChangeStatusMessages(
+                statusMessage,
+                statusMessageForegroundColor,
+                additionalStatusMessage,
+                additionalStatusMessageForegroundColor
+            );
+            ChangeTimeToShowInLastProgramUpdatesCheckTimeMessage(
+                App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime
+            );
         }
         private void AddNewProgramToDatabaseAndListView(Program newProgram)
         {
@@ -688,10 +1077,17 @@ namespace Scrupdate.UiElements.Windows
             App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
             programDatabase.AddNewProgram(newProgram);
             programListViewItems.Add(new ProgramListViewItem(newProgram));
-            programListViewItems.Sort(((ProgramListViewItem programListViewItem1, ProgramListViewItem programListViewItem2) => (string.Compare(programListViewItem1.UnderlyingProgram.Name, programListViewItem2.UnderlyingProgram.Name))));
+            programListViewItems.Sort(
+                (programListViewItem1, programListViewItem2) =>
+                    string.Compare(
+                        programListViewItem1.UnderlyingProgram.Name,
+                        programListViewItem2.UnderlyingProgram.Name
+                    )
+            );
             RefreshListViewAndAllMessages();
         }
-        private void UpdateProgramInDatabaseAndListView(ProgramListViewItem selectedProgramListViewItem, Program updatedProgram)
+        private void UpdateProgramInDatabaseAndListView(ProgramListViewItem selectedProgramListViewItem,
+                                                        Program updatedProgram)
         {
             Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
             if (!selectedProgram.Name.Equals(updatedProgram.Name))
@@ -702,21 +1098,53 @@ namespace Scrupdate.UiElements.Windows
             programDatabase.UpdateProgram(selectedProgram.Name, updatedProgram);
             programListViewItems.Remove(selectedProgramListViewItem);
             programListViewItems.Add(new ProgramListViewItem(updatedProgram));
-            programListViewItems.Sort(((ProgramListViewItem programListViewItem1, ProgramListViewItem programListViewItem2) => (string.Compare(programListViewItem1.UnderlyingProgram.Name, programListViewItem2.UnderlyingProgram.Name))));
+            programListViewItems.Sort(
+                (programListViewItem1, programListViewItem2) =>
+                    string.Compare(
+                        programListViewItem1.UnderlyingProgram.Name,
+                        programListViewItem2.UnderlyingProgram.Name
+                    )
+            );
             bool? selectedProgramHasAnUpdate = false;
             if (selectedProgram.InstallationScope != Program._InstallationScope.None)
-                selectedProgramHasAnUpdate = (selectedProgram.LatestVersion.Equals("") ? false : (selectedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(selectedProgram.LatestVersion, selectedProgram.InstalledVersion)));
+            {
+                selectedProgramHasAnUpdate =
+                    (selectedProgram.LatestVersion.Equals("") ?
+                        false :
+                        (selectedProgram.InstalledVersion.Equals("") ?
+                            true :
+                            VersionsUtilities.IsVersionNewer(
+                                selectedProgram.LatestVersion,
+                                selectedProgram.InstalledVersion
+                            )));
+            }
             bool? updatedProgramHasAnUpdate = false;
             if (updatedProgram.InstallationScope != Program._InstallationScope.None)
-                updatedProgramHasAnUpdate = (updatedProgram.LatestVersion.Equals("") ? false : (updatedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(updatedProgram.LatestVersion, updatedProgram.InstalledVersion)));
+            {
+                updatedProgramHasAnUpdate =
+                    (updatedProgram.LatestVersion.Equals("") ?
+                        false :
+                        (updatedProgram.InstalledVersion.Equals("") ?
+                            true :
+                            VersionsUtilities.IsVersionNewer(
+                                updatedProgram.LatestVersion,
+                                updatedProgram.InstalledVersion
+                            )));
+            }
             if (selectedProgramHasAnUpdate != true && updatedProgramHasAnUpdate == true)
                 updatesCount++;
             else if (selectedProgramHasAnUpdate == true && updatedProgramHasAnUpdate != true)
                 updatesCount--;
-            if (selectedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
+            if (selectedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid &&
+                updatedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
+            {
                 errorsCount++;
-            else if (selectedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid && updatedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid)
+            }
+            else if (selectedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid &&
+                     updatedProgram.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid)
+            {
                 errorsCount--;
+            }
             RefreshListViewAndAllMessages();
         }
         private void HideSelectedProgramsInDatabaseAndListView()
@@ -763,7 +1191,17 @@ namespace Scrupdate.UiElements.Windows
                     programDatabase.RemoveProgram(selectedProgram.Name);
                     bool? selectedProgramHasAnUpdate = false;
                     if (selectedProgram.InstallationScope != Program._InstallationScope.None)
-                        selectedProgramHasAnUpdate = (selectedProgram.LatestVersion.Equals("") ? false : (selectedProgram.InstalledVersion.Equals("") ? true : VersionsUtilities.IsVersionNewer(selectedProgram.LatestVersion, selectedProgram.InstalledVersion)));
+                    {
+                        selectedProgramHasAnUpdate =
+                            (selectedProgram.LatestVersion.Equals("") ?
+                                false :
+                                (selectedProgram.InstalledVersion.Equals("") ?
+                                    true :
+                                    VersionsUtilities.IsVersionNewer(
+                                        selectedProgram.LatestVersion,
+                                        selectedProgram.InstalledVersion
+                                    )));
+                    }
                     if (selectedProgramHasAnUpdate == true)
                         updatesCount--;
                     if (selectedProgram.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid)
@@ -775,41 +1213,73 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ChangeStatusMessages(string statusMessage, Brush statusMessageForegroundColor)
         {
-            ChangeStatusMessages(statusMessage, statusMessageForegroundColor, "", (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH));
+            ChangeStatusMessages(
+                statusMessage,
+                statusMessageForegroundColor,
+                "",
+                (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                )
+            );
         }
-        private void ChangeStatusMessages(string statusMessage, Brush statusMessageForegroundColor, string additionalStatusMessage, Brush additionalStatusMessageForegroundColor)
+        private void ChangeStatusMessages(string statusMessage,
+                                          Brush statusMessageForegroundColor,
+                                          string additionalStatusMessage,
+                                          Brush additionalStatusMessageForegroundColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                label_statusMessage.Content = statusMessage;
-                label_statusMessage.Foreground = statusMessageForegroundColor;
-                label_additionalStatusMessage.Content = additionalStatusMessage;
-                label_additionalStatusMessage.Foreground = additionalStatusMessageForegroundColor;
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        label_statusMessage.Content = statusMessage;
+                        label_statusMessage.Foreground = statusMessageForegroundColor;
+                        label_additionalStatusMessage.Content = additionalStatusMessage;
+                        label_additionalStatusMessage.Foreground = additionalStatusMessageForegroundColor;
+                    }
+            );
         }
         private void ChangeTimeToShowInLastProgramUpdatesCheckTimeMessage(DateTime timeToShowInLastProgramUpdatesCheckTimeMessage)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                string lastCheckTimeString = timeToShowInLastProgramUpdatesCheckTimeMessage.ToString();
-                label_lastProgramUpdatesCheckTimeMessage.Content = LAST_CHECK_TIME_MESSAGE__LAST_CHECK.Replace("{*}", (!lastCheckTimeString.Equals((new DateTime()).ToString()) ? lastCheckTimeString : "Never"));
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        string lastCheckTimeString =
+                            timeToShowInLastProgramUpdatesCheckTimeMessage.ToString();
+                        label_lastProgramUpdatesCheckTimeMessage.Content =
+                            LAST_CHECK_TIME_MESSAGE__LAST_CHECK.Replace(
+                                "{*}",
+                                (!lastCheckTimeString.Equals((new DateTime()).ToString()) ?
+                                    lastCheckTimeString :
+                                    "Never")
+                            );
+                    }
+            );
         }
         private void ChangeProgressBarValue(double progressBarValue)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                if (progressBarValue < 0)
-                {
-                    progressBar_progress.IsIndeterminate = true;
-                    progressBar_progress.ChangeValueSmoothly(0, new Duration(new TimeSpan(0, 0, 0, 0)));
-                }
-                else
-                {
-                    progressBar_progress.IsIndeterminate = false;
-                    progressBar_progress.ChangeValueSmoothly(progressBarValue, new Duration(new TimeSpan(0, 0, 0, 1)));
-                }
-            });
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        if (progressBarValue < 0)
+                        {
+                            progressBar_progress.IsIndeterminate = true;
+                            progressBar_progress.ChangeValueSmoothly(
+                                0,
+                                new Duration(new TimeSpan(0, 0, 0, 0))
+                            );
+                        }
+                        else
+                        {
+                            progressBar_progress.IsIndeterminate = false;
+                            progressBar_progress.ChangeValueSmoothly(
+                                progressBarValue,
+                                new Duration(new TimeSpan(0, 0, 0, 1))
+                            );
+                        }
+                    }
+            );
         }
         private void ApplyUpdatedSettings(Settings updatedSettings)
         {
@@ -818,22 +1288,31 @@ namespace Scrupdate.UiElements.Windows
             if (!App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
             {
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = false;
-                App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption = Settings.CachedSettings.ProgramFilteringOption.All;
+                App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
+                    Settings.CachedSettings.ProgramFilteringOption.All;
                 App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = false;
             }
             if (!App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile())
             {
                 App.SettingsHandler.SettingsInMemory = backupOfSettingsInMemory;
-                DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS, this);
+                DialogsUtilities.ShowErrorDialog(
+                    ERROR_DIALOG_TITLE__ERROR,
+                    ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS,
+                    this
+                );
             }
             else
             {
                 if (App.SettingsHandler.SettingsInMemory.Appearance.WindowsScalingFactor != backupOfSettingsInMemory.Appearance.WindowsScalingFactor)
                 {
-                    double newWindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(App.SettingsHandler);
-                    ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(newWindowsRenderingScale);
+                    double newWindowsRenderingScale =
+                        WindowsUtilities.GetWindowsRenderingScale(App.SettingsHandler);
+                    ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(
+                        newWindowsRenderingScale
+                    );
                 }
-                IsAutomaticScanningForInstalledProgramsEnabled = App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
+                IsAutomaticScanningForInstalledProgramsEnabled =
+                    App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
                 if (CurrentError == Error.None)
                 {
                     if (!App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
@@ -845,68 +1324,148 @@ namespace Scrupdate.UiElements.Windows
         private void StartProgramDatabaseUpdatingTask()
         {
             CurrentOperation = Operation.UpdatingProgramDatabase;
-            programDatabaseUpdatingCancellableThread = new CancellableThread((CancellationToken cancellationToken) =>
-            {
-                Dispatcher.Invoke(() => listView_programs.SelectedItems.Clear());
-                ChangeStatusMessages(STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
-                ChangeProgressBarValue(-1);
-                if (!closeInQueue && !cancellationToken.IsCancellationRequested)
-                    ProgramsScanAndUpdatesCheckUtilities.ScanForInstalledProgramsAndUpdateProgramDatabase(programDatabase, App.SettingsHandler, cancellationToken);
-                RefreshListViewAndAllMessages(true);
-                CurrentOperation = Operation.None;
-                ChangeProgressBarValue(-1);
-                if (closeInQueue)
-                    PrepareWindowForClosing(true);
-                programDatabaseUpdatingCancellableThread = null;
-            });
+            programDatabaseUpdatingCancellableThread = new CancellableThread(
+                cancellationToken =>
+                    {
+                        ThreadsUtilities.RunOnAnotherThread(
+                            Dispatcher,
+                            () => listView_programs.SelectedItems.Clear()
+                        );
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                        ChangeProgressBarValue(-1);
+                        if (!closeInQueue && !cancellationToken.IsCancellationRequested)
+                        {
+                            ProgramsScanAndUpdatesCheckUtilities.ScanForInstalledProgramsAndUpdateProgramDatabase(
+                                programDatabase,
+                                App.SettingsHandler,
+                                cancellationToken
+                            );
+                        }
+                        RefreshListViewAndAllMessages(true);
+                        CurrentOperation = Operation.None;
+                        ChangeProgressBarValue(-1);
+                        if (closeInQueue)
+                            PrepareWindowForClosing(true);
+                        programDatabaseUpdatingCancellableThread = null;
+                    }
+            );
             programDatabaseUpdatingCancellableThread.Start();
         }
         private void StartProgramUpdatesCheckTask()
         {
             CurrentOperation = Operation.CheckingForProgramUpdates;
-            programUpdatesCheckCancellableThread = new CancellableThread((CancellationToken cancellationToken) =>
-            {
-                Dispatcher.Invoke(() => listView_programs.SelectedItems.Clear());
-                Exception programUpdatesCheckException = null;
-                ChangeStatusMessages(STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
-                ChangeProgressBarValue(-1);
-                if (!closeInQueue && !cancellationToken.IsCancellationRequested)
-                {
-                    try
+            programUpdatesCheckCancellableThread = new CancellableThread(
+                cancellationToken =>
                     {
-                        List<Program> programsToCheck = new List<Program>();
-                        foreach (ProgramListViewItem programListViewItem in programListViewItems)
-                            if (programListViewItem.UnderlyingProgram.IsUpdateCheckConfigured)
-                                programsToCheck.Add(programListViewItem.UnderlyingProgram);
-                        ProgramsScanAndUpdatesCheckUtilities.CheckForProgramUpdatesAndUpdateDatabase(programsToCheck, programDatabase, App.SettingsHandler, ChangeProgressBarValue, cancellationToken);
+                        ThreadsUtilities.RunOnAnotherThread(
+                            Dispatcher,
+                            () => listView_programs.SelectedItems.Clear()
+                        );
+                        Exception programUpdatesCheckException = null;
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                        ChangeProgressBarValue(-1);
+                        if (!closeInQueue && !cancellationToken.IsCancellationRequested)
+                        {
+                            try
+                            {
+                                List<Program> programsToCheck = new List<Program>();
+                                foreach (ProgramListViewItem programListViewItem in programListViewItems)
+                                    if (programListViewItem.UnderlyingProgram.IsUpdateCheckConfigured)
+                                        programsToCheck.Add(programListViewItem.UnderlyingProgram);
+                                ProgramsScanAndUpdatesCheckUtilities.CheckForProgramUpdatesAndUpdateDatabase(
+                                    programsToCheck,
+                                    programDatabase,
+                                    App.SettingsHandler,
+                                    ChangeProgressBarValue,
+                                    cancellationToken
+                                );
+                            }
+                            catch (Exception e)
+                            {
+                                programUpdatesCheckException = e;
+                            }
+                        }
+                        RefreshListViewAndAllMessages(true);
+                        CurrentOperation = Operation.None;
+                        ChangeProgressBarValue(-1);
+                        if (closeInQueue)
+                            PrepareWindowForClosing(true);
+                        if (programUpdatesCheckException != null)
+                        {
+                            if (programUpdatesCheckException.GetType().Equals(
+                                    typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
+                                ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED,
+                                    this
+                                );
+                            }
+                            else if (programUpdatesCheckException.GetType().Equals(
+                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
+                                     ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE,
+                                    this
+                                );
+                            }
+                            else if (programUpdatesCheckException.GetType().Equals(
+                                         typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
+                                     ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED,
+                                    this
+                                );
+                            }
+                            else if (programUpdatesCheckException.GetType().Equals(
+                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
+                                     ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE,
+                                    this
+                                );
+                            }
+                            else if (programUpdatesCheckException.GetType().Equals(
+                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)
+                                     ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING,
+                                    this
+                                );
+                            }
+                            else if (programUpdatesCheckException.GetType().Equals(
+                                         typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
+                                     ))
+                            {
+                                DialogsUtilities.ShowErrorDialog(
+                                    ERROR_DIALOG_TITLE__ERROR,
+                                    ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED,
+                                    this
+                                );
+                            }
+                        }
+                        programUpdatesCheckCancellableThread = null;
                     }
-                    catch (Exception e)
-                    {
-                        programUpdatesCheckException = e;
-                    }
-                }
-                RefreshListViewAndAllMessages(true);
-                CurrentOperation = Operation.None;
-                ChangeProgressBarValue(-1);
-                if (closeInQueue)
-                    PrepareWindowForClosing(true);
-                if (programUpdatesCheckException != null)
-                {
-                    if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED, this);
-                    else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE, this);
-                    else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED, this);
-                    else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE, this);
-                    else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING, this);
-                    else if (programUpdatesCheckException.GetType().Equals(typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)))
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED, this);
-                }
-                programUpdatesCheckCancellableThread = null;
-            });
+            );
             programUpdatesCheckCancellableThread.Start();
         }
         private void CancelOperation(bool queueWindowToBeClosedAfterCancelling)
@@ -920,18 +1479,46 @@ namespace Scrupdate.UiElements.Windows
                     programDatabaseUpdatingCancellableThread?.RequestCancellation();
                     programUpdatesCheckCancellableThread?.RequestCancellation();
                     if (queueWindowToBeClosedAfterCancelling)
-                        ChangeStatusMessages(STATUS_MESSAGE__CANCELLING_AND_CLOSING, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
+                    {
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__CANCELLING_AND_CLOSING,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                    }
                     else
-                        ChangeStatusMessages(STATUS_MESSAGE__CANCELLING, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
+                    {
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__CANCELLING,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                    }
                     ChangeProgressBarValue(-1);
                 }
                 else
                 {
                     closeInQueue = queueWindowToBeClosedAfterCancelling;
                     if (queueWindowToBeClosedAfterCancelling)
-                        ChangeStatusMessages(STATUS_MESSAGE__CANCELLING_AND_CLOSING, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
+                    {
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__CANCELLING_AND_CLOSING,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                    }
                     else
-                        ChangeStatusMessages(STATUS_MESSAGE__CANCELLING, (SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH));
+                    {
+                        ChangeStatusMessages(
+                            STATUS_MESSAGE__CANCELLING,
+                            (SolidColorBrush)Application.Current.FindResource(
+                                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                            )
+                        );
+                    }
                 }
             }
         }
@@ -941,48 +1528,66 @@ namespace Scrupdate.UiElements.Windows
         }
         private void PrepareWindowForClosing(bool forceCloseApplication)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-            {
-                ((GridView)listView_programs.View).Columns.CollectionChanged -= OnGridViewColumnsCollectionCollectionChangedEvent;
-                programDatabaseUpdatingCancellableThread?.RequestCancellation();
-                programUpdatesCheckCancellableThread?.RequestCancellation();
-                programDatabase?.Close();
-                if (App.SettingsHandler != null)
-                {
-                    try
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
                     {
-                        App.SettingsHandler.SettingsInMemory.Cached.LastWindowState = WindowState;
-                        App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize = new Size(Width, Height);
-                        App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation = new Point(Left, Top);
-                        if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
+                        ((GridView)listView_programs.View).Columns.CollectionChanged -=
+                            OnGridViewColumnsCollectionCollectionChangedEvent;
+                        programDatabaseUpdatingCancellableThread?.RequestCancellation();
+                        programUpdatesCheckCancellableThread?.RequestCancellation();
+                        programDatabase?.Close();
+                        if (App.SettingsHandler != null)
                         {
-                            App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = (bool)checkBox_filterProgramList.IsChecked;
-                            App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption = (Settings.CachedSettings.ProgramFilteringOption)(Enum.Parse(typeof(Settings.CachedSettings.ProgramFilteringOption), ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")));
-                            App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = (bool)checkBox_showHiddenPrograms.IsChecked;
+                            try
+                            {
+                                App.SettingsHandler.SettingsInMemory.Cached.LastWindowState = WindowState;
+                                App.SettingsHandler.SettingsInMemory.Cached.LastWindowSize = new Size(Width, Height);
+                                App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation = new Point(Left, Top);
+                                if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
+                                {
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState =
+                                        (bool)checkBox_filterProgramList.IsChecked;
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
+                                        (Settings.CachedSettings.ProgramFilteringOption)Enum.Parse(
+                                            typeof(Settings.CachedSettings.ProgramFilteringOption),
+                                            ((string)comboBox_programListFilteringOption.SelectedItem).Replace(" ", "")
+                                        );
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState =
+                                        (bool)checkBox_showHiddenPrograms.IsChecked;
+                                }
+                                else
+                                {
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = false;
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
+                                        Settings.CachedSettings.ProgramFilteringOption.Unknown;
+                                    App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = false;
+                                }
+                                App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
+                            }
+                            catch { }
                         }
-                        else
+                        if (forceCloseApplication)
                         {
-                            App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = false;
-                            App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption = Settings.CachedSettings.ProgramFilteringOption.Unknown;
-                            App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = false;
+                            App.SettingsHandler?.Dispose();
+                            App.SettingsHandler = null;
+                            try
+                            {
+                                foreach (Process chromeDriverProcess in
+                                         Process.GetProcessesByName(
+                                             Path.GetFileNameWithoutExtension(
+                                                 ChromeDriverUtilities.chromeDriverExecutableFilePath
+                                             )
+                                         ))
+                                {
+                                    chromeDriverProcess.Kill(true);
+                                }
+                            }
+                            catch { }
+                            Process.GetCurrentProcess().Kill();
                         }
-                        App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                     }
-                    catch { }
-                }
-                if (forceCloseApplication)
-                {
-                    App.SettingsHandler?.Dispose();
-                    App.SettingsHandler = null;
-                    try
-                    {
-                        foreach (Process chromeDriverProcess in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(ChromeDriverUtilities.chromeDriverExecutableFilePath)))
-                            chromeDriverProcess.Kill(true);
-                    }
-                    catch { }
-                    Process.GetCurrentProcess().Kill();
-                }
-            });
+            );
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

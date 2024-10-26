@@ -30,8 +30,22 @@ namespace Scrupdate.UiElements.Controls
     public partial class CustomComboBox : ComboBox, INotifyPropertyChanged
     {
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register(nameof(HintText), typeof(string), typeof(CustomComboBox), new PropertyMetadata(""));
-        public static readonly DependencyProperty PopupBackgroundProperty = DependencyProperty.Register(nameof(PopupBackground), typeof(Brush), typeof(CustomComboBox), new PropertyMetadata((SolidColorBrush)Application.Current.FindResource(App.RESOURCE_KEY__WHITE_SOLID_COLOR_BRUSH)));
+        public static readonly DependencyProperty HintTextProperty = DependencyProperty.Register(
+            nameof(HintText),
+            typeof(string),
+            typeof(CustomComboBox),
+            new PropertyMetadata("")
+        );
+        public static readonly DependencyProperty PopupBackgroundProperty = DependencyProperty.Register(
+            nameof(PopupBackground),
+            typeof(Brush),
+            typeof(CustomComboBox),
+            new PropertyMetadata(
+                (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__WHITE_SOLID_COLOR_BRUSH
+                )
+            )
+        );
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -41,30 +55,48 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (string)GetValue(HintTextProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (string)GetValue(HintTextProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(HintTextProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HintText)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(HintTextProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(HintText))
+                            );
+                        }
+                );
             }
         }
         public Brush PopupBackground
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => (Brush)GetValue(PopupBackgroundProperty));
+                return ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (Brush)GetValue(PopupBackgroundProperty)
+                );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(Dispatcher, () =>
-                {
-                    SetValue(PopupBackgroundProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PopupBackground)));
-                });
+                ThreadsUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(PopupBackgroundProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(PopupBackground))
+                            );
+                        }
+                );
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

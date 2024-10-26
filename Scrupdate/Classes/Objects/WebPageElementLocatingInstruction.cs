@@ -81,19 +81,21 @@ namespace Scrupdate.Classes.Objects
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            WebPageElementLocatingInstruction otherWebPageElementLocatingInstruction = (WebPageElementLocatingInstruction)obj;
+            WebPageElementLocatingInstruction otherWebPageElementLocatingInstruction =
+                (WebPageElementLocatingInstruction)obj;
             return (LocatingMethod.Equals(otherWebPageElementLocatingInstruction.LocatingMethod) &&
-                MethodArgument.Equals(otherWebPageElementLocatingInstruction.MethodArgument) &&
-                MatchExactText == otherWebPageElementLocatingInstruction.MatchExactText &&
-                LocatingDuration == otherWebPageElementLocatingInstruction.LocatingDuration);
+                    MethodArgument.Equals(otherWebPageElementLocatingInstruction.MethodArgument) &&
+                    MatchExactText == otherWebPageElementLocatingInstruction.MatchExactText &&
+                    LocatingDuration == otherWebPageElementLocatingInstruction.LocatingDuration);
         }
         public override int GetHashCode()
         {
             StringBuilder objectHashingString = new StringBuilder();
-            objectHashingString.Append(LocatingMethod.GetHashCode());
-            objectHashingString.Append(MethodArgument.GetHashCode());
-            objectHashingString.Append(MatchExactText.GetHashCode());
-            objectHashingString.Append(LocatingDuration.GetHashCode());
+            objectHashingString
+                .Append(LocatingMethod.GetHashCode())
+                .Append(MethodArgument.GetHashCode())
+                .Append(MatchExactText.GetHashCode())
+                .Append(LocatingDuration.GetHashCode());
             return objectHashingString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

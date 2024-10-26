@@ -32,15 +32,16 @@ namespace Scrupdate.Classes.Utilities
             if (dialogMessage == null)
                 throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
-            Action showErrorDialogCallback = (() =>
-            {
-                ErrorDialogWindow errorDialogWindow = new ErrorDialogWindow(dialogTitle, dialogMessage);
-                if (ownerWindow == null)
-                    errorDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                else
-                    errorDialogWindow.Owner = ownerWindow;
-                returnValue = errorDialogWindow.ShowDialog();
-            });
+            Action showErrorDialogCallback =
+                () =>
+                    {
+                        ErrorDialogWindow errorDialogWindow = new ErrorDialogWindow(dialogTitle, dialogMessage);
+                        if (ownerWindow == null)
+                            errorDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        else
+                            errorDialogWindow.Owner = ownerWindow;
+                        returnValue = errorDialogWindow.ShowDialog();
+                    };
             if (ownerWindow != null)
                 ThreadsUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showErrorDialogCallback);
             else
@@ -54,15 +55,16 @@ namespace Scrupdate.Classes.Utilities
             if (dialogMessage == null)
                 throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
-            Action showQuestionDialogCallback = (() =>
-            {
-                QuestionDialogWindow questionDialogWindow = new QuestionDialogWindow(dialogTitle, dialogMessage);
-                if (ownerWindow == null)
-                    questionDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                else
-                    questionDialogWindow.Owner = ownerWindow;
-                returnValue = questionDialogWindow.ShowDialog();
-            });
+            Action showQuestionDialogCallback =
+                () =>
+                    {
+                        QuestionDialogWindow questionDialogWindow = new QuestionDialogWindow(dialogTitle, dialogMessage);
+                        if (ownerWindow == null)
+                            questionDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        else
+                            questionDialogWindow.Owner = ownerWindow;
+                        returnValue = questionDialogWindow.ShowDialog();
+                    };
             if (ownerWindow != null)
                 ThreadsUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showQuestionDialogCallback);
             else

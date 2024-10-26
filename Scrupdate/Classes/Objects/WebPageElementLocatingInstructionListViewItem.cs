@@ -37,8 +37,12 @@ namespace Scrupdate.Classes.Objects
             this(
                 webPageElementLocatingInstructionIndex,
                 underlyingWebPageElementLocatingInstruction,
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingMethod.ToString()).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
-                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(underlyingWebPageElementLocatingInstruction.LocatingDuration.ToString().Substring(1)).Replace(" Ms", "ms")
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                    underlyingWebPageElementLocatingInstruction.LocatingMethod.ToString()
+                ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
+                StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+                    underlyingWebPageElementLocatingInstruction.LocatingDuration.ToString().Substring(1)
+                ).Replace(" Ms", "ms")
             )
         { }
         public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex,

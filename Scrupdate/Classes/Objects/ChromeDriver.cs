@@ -72,7 +72,9 @@ namespace Scrupdate.Classes.Objects
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public ChromeDriver() : this(null, null, 0) { }
-        public ChromeDriver(string chromeDriverDirectoryPath, string chromeDriverUserAgent, int chromeDriverPageLoadTimeoutInMilliseconds)
+        public ChromeDriver(string chromeDriverDirectoryPath,
+                            string chromeDriverUserAgent,
+                            int chromeDriverPageLoadTimeoutInMilliseconds)
         {
             disposed = false;
             tempStringBuilder = new StringBuilder();
@@ -102,7 +104,9 @@ namespace Scrupdate.Classes.Objects
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (chromeDriverUserAgent != null && !chromeDriverUserAgent.Equals(""))
                 {
-                    tempStringBuilder.Clear().Append("--user-agent=").Append(chromeDriverUserAgent);
+                    tempStringBuilder.Clear()
+                        .Append("--user-agent=")
+                        .Append(chromeDriverUserAgent);
                     chromeOptions.AddArgument(tempStringBuilder.ToString());
                 }
                 if (openInHeadlessMode)
@@ -120,11 +124,24 @@ namespace Scrupdate.Classes.Objects
                 ChromeDriverService chromeDriverService = null;
                 try
                 {
-                    chromeDriverService = ChromeDriverService.CreateDefaultService(chromeDriverDirectoryPath);
+                    chromeDriverService = ChromeDriverService.CreateDefaultService(
+                        chromeDriverDirectoryPath
+                    );
                     chromeDriverService.HideCommandPromptWindow = true;
-                    chromeDriver = new OpenQA.Selenium.Chrome.ChromeDriver(chromeDriverService, chromeOptions);
+                    chromeDriver = new OpenQA.Selenium.Chrome.ChromeDriver(
+                        chromeDriverService,
+                        chromeOptions
+                    );
                     if (chromeDriverPageLoadTimeoutInMilliseconds > 0)
-                        chromeDriver.Manage().Timeouts().PageLoad = new TimeSpan(0, 0, 0, 0, chromeDriverPageLoadTimeoutInMilliseconds);
+                    {
+                        chromeDriver.Manage().Timeouts().PageLoad = new TimeSpan(
+                            0,
+                            0,
+                            0,
+                            0,
+                            chromeDriverPageLoadTimeoutInMilliseconds
+                        );
+                    }
                 }
                 catch
                 {
@@ -157,9 +174,13 @@ namespace Scrupdate.Classes.Objects
         }
         public void ClickOnAnElementWithinTheWebpage(WebPageElementLocatingInstruction webPageElementLocatingInstruction)
         {
-            ClickOnAnElementWithinTheWebpage(webPageElementLocatingInstruction, null);
+            ClickOnAnElementWithinTheWebpage(
+                webPageElementLocatingInstruction,
+                null
+            );
         }
-        public void ClickOnAnElementWithinTheWebpage(WebPageElementLocatingInstruction webPageElementLocatingInstruction, CancellationToken? cancellationToken)
+        public void ClickOnAnElementWithinTheWebpage(WebPageElementLocatingInstruction webPageElementLocatingInstruction,
+                                                     CancellationToken? cancellationToken)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
@@ -171,16 +192,28 @@ namespace Scrupdate.Classes.Objects
                 switch (webPageElementLocatingInstruction.LocatingMethod)
                 {
                     case WebPageElementLocatingInstruction._LocatingMethod.ByHtmlElementId:
-                        webPageElement = chromeDriver.FindElement(By.Id(webPageElementLocatingInstruction.MethodArgument));
+                        webPageElement = chromeDriver.FindElement(
+                            By.Id(webPageElementLocatingInstruction.MethodArgument)
+                        );
                         break;
                     case WebPageElementLocatingInstruction._LocatingMethod.ByXPath:
-                        webPageElement = chromeDriver.FindElement(By.XPath(webPageElementLocatingInstruction.MethodArgument));
+                        webPageElement = chromeDriver.FindElement(
+                            By.XPath(webPageElementLocatingInstruction.MethodArgument)
+                        );
                         break;
                     case WebPageElementLocatingInstruction._LocatingMethod.ByInnerText:
-                        tempStringBuilder.Clear().Append("//*[contains(text(), '").Append(webPageElementLocatingInstruction.MethodArgument).Append("')]");
+                        tempStringBuilder.Clear()
+                            .Append("//*[contains(text(), '")
+                            .Append(webPageElementLocatingInstruction.MethodArgument)
+                            .Append("')]");
                         webPageElement = chromeDriver.FindElement(By.XPath(tempStringBuilder.ToString()));
-                        if (webPageElementLocatingInstruction.MatchExactText && !webPageElementLocatingInstruction.MethodArgument.Equals(webPageElement.GetAttribute("innerText").Trim()))
+                        if (webPageElementLocatingInstruction.MatchExactText &&
+                            !webPageElementLocatingInstruction.MethodArgument.Equals(
+                                webPageElement.GetAttribute("innerText").Trim()
+                            ))
+                        {
                             webPageElement = null;
+                        }
                         break;
                 }
             }
@@ -220,7 +253,9 @@ namespace Scrupdate.Classes.Objects
                     webPageElementLocatingDuration = 1000;
                     break;
             }
-            cancellationToken.Value.WaitHandle.WaitOne(webPageElementLocatingDuration);
+            cancellationToken.Value.WaitHandle.WaitOne(
+                webPageElementLocatingDuration
+            );
         }
         public string GetAllTextWithinWebPage()
         {

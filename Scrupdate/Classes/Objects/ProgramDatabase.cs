@@ -53,7 +53,10 @@ namespace Scrupdate.Classes.Objects
             public string ToSqlString()
             {
                 StringBuilder sqlString = new StringBuilder();
-                sqlString.Append(Name).Append(' ').Append(Properties);
+                sqlString
+                    .Append(Name)
+                    .Append(' ')
+                    .Append(Properties);
                 return sqlString.ToString();
             }
         }
@@ -113,7 +116,10 @@ namespace Scrupdate.Classes.Objects
             this.programDatabaseFilePath = programDatabaseFilePath;
             this.programDatabaseChecksumFilePath = programDatabaseChecksumFilePath;
             open = false;
-            tempStringBuilder.Clear().Append("Data Source='").Append(programDatabaseFilePath).Append('\'');
+            tempStringBuilder.Clear()
+                .Append("Data Source='")
+                .Append(programDatabaseFilePath)
+                .Append('\'');
             sqLiteConnection = new SQLiteConnection(tempStringBuilder.ToString());
             currentSqLiteTransaction = null;
         }
@@ -144,7 +150,10 @@ namespace Scrupdate.Classes.Objects
         }
         private static List<TableColumn> GetActualTableColumns()
         {
-            return ReflectionUtilities.GetStaticFields(typeof(ProgramDatabase), "TABLE_COLUMN__").ConvertAll(x => (TableColumn)x.Value);
+            return ReflectionUtilities.GetStaticFields(
+                       typeof(ProgramDatabase),
+                       "TABLE_COLUMN__"
+                   ).ConvertAll(x => (TableColumn)x.Value);
         }
         public bool Create()
         {
@@ -162,16 +171,33 @@ namespace Scrupdate.Classes.Objects
                 if (!Directory.Exists(programDatabaseChecksumFileDirectoryPath))
                     Directory.CreateDirectory(programDatabaseChecksumFileDirectoryPath);
                 if (File.Exists(programDatabaseChecksumFilePath))
-                    File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) & (~FileAttributes.Hidden));
-                fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-                File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
+                {
+                    File.SetAttributes(
+                        programDatabaseChecksumFilePath,
+                        File.GetAttributes(programDatabaseChecksumFilePath) & ~FileAttributes.Hidden
+                    );
+                }
+                fileStreamOfProgramDatabaseChecksumFile = new FileStream(
+                    programDatabaseChecksumFilePath,
+                    FileMode.Create,
+                    FileAccess.ReadWrite,
+                    FileShare.Read
+                );
+                File.SetAttributes(
+                    programDatabaseChecksumFilePath,
+                    File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden
+                );
                 sqLiteConnection.Open();
                 open = true;
-                tempStringBuilder.Clear().Append("PRAGMA user_version = ").Append(GetIntegerFromAVersion(DATABASE_VERSION)).Append(';');
+                tempStringBuilder.Clear()
+                    .Append("PRAGMA user_version = ")
+                    .Append(GetIntegerFromAVersion(DATABASE_VERSION))
+                    .Append(';');
                 using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
                     sqLiteCommand.ExecuteNonQuery();
                 List<TableColumn> actualTableColumns = GetActualTableColumns();
-                tempStringBuilder.Clear().Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
+                tempStringBuilder.Clear()
+                    .Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
                 for (int i = 0; i < actualTableColumns.Count; i++)
                 {
                     TableColumn actualTableColumn = actualTableColumns[i];
@@ -216,7 +242,9 @@ namespace Scrupdate.Classes.Objects
         {
             return Open(false, false, out programDatabaseFileError);
         }
-        public bool Open(bool shouldCreateIfNotExist, bool shouldUpgradeOrDowngradeIfCompatible, out ConfigError programDatabaseFileError)
+        public bool Open(bool shouldCreateIfNotExist,
+                         bool shouldUpgradeOrDowngradeIfCompatible,
+                         out ConfigError programDatabaseFileError)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
@@ -238,16 +266,29 @@ namespace Scrupdate.Classes.Objects
             bool programDatabaseOpenWasSucceeded = false;
             try
             {
-                string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
-                fileStreamOfProgramDatabaseChecksumFile = new FileStream(programDatabaseChecksumFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
-                File.SetAttributes(programDatabaseChecksumFilePath, File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden);
+                string programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(
+                    File.ReadAllBytes(programDatabaseFilePath)
+                );
+                fileStreamOfProgramDatabaseChecksumFile = new FileStream(
+                    programDatabaseChecksumFilePath,
+                    FileMode.Open,
+                    FileAccess.ReadWrite,
+                    FileShare.Read
+                );
+                File.SetAttributes(
+                    programDatabaseChecksumFilePath,
+                    File.GetAttributes(programDatabaseChecksumFilePath) | FileAttributes.Hidden
+                );
                 sqLiteConnection.Open();
                 open = true;
                 byte[] buffer = new byte[fileStreamOfProgramDatabaseChecksumFile.Length];
                 fileStreamOfProgramDatabaseChecksumFile.Position = 0;
                 fileStreamOfProgramDatabaseChecksumFile.Read(buffer);
                 string savedChecksumOfProgramDatabaseFile = Encoding.UTF8.GetString(buffer);
-                if (!programDatabaseFileChecksum.Equals(savedChecksumOfProgramDatabaseFile, StringComparison.CurrentCultureIgnoreCase))
+                if (!programDatabaseFileChecksum.Equals(
+                        savedChecksumOfProgramDatabaseFile,
+                        StringComparison.CurrentCultureIgnoreCase
+                    ))
                 {
                     programDatabaseFileError = ConfigError.Corrupted;
                     return false;
@@ -440,7 +481,9 @@ namespace Scrupdate.Classes.Objects
                 sqLiteConnection.Close();
                 try
                 {
-                    programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(File.ReadAllBytes(programDatabaseFilePath));
+                    programDatabaseFileChecksum = HashingUtilities.GetMD5Hash(
+                        File.ReadAllBytes(programDatabaseFilePath)
+                    );
                 }
                 finally
                 {
@@ -465,7 +508,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             Version version = new Version();
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand("PRAGMA user_version;", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       "PRAGMA user_version;",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -489,7 +535,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"PRAGMA user_version = {GetIntegerFromAVersion(version)};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"PRAGMA user_version = {GetIntegerFromAVersion(version)};",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -509,7 +558,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             List<string> tableColumnNames = new List<string>();
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"PRAGMA table_info('{TABLE_NAME__PROGRAMS}');", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"PRAGMA table_info('{TABLE_NAME__PROGRAMS}');",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -533,7 +585,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"ALTER TABLE {TABLE_NAME__PROGRAMS} ADD COLUMN {tableColumn.ToSqlString()};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"ALTER TABLE {TABLE_NAME__PROGRAMS} ADD COLUMN {tableColumn.ToSqlString()};",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -553,7 +608,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"ALTER TABLE {TABLE_NAME__PROGRAMS} DROP COLUMN {tableColumnName};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"ALTER TABLE {TABLE_NAME__PROGRAMS} DROP COLUMN {tableColumnName};",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -572,8 +630,8 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            tempStringBuilder.Clear();
-            tempStringBuilder.Append($"INSERT INTO {TABLE_NAME__PROGRAMS} (")
+            tempStringBuilder.Clear()
+                .Append($"INSERT INTO {TABLE_NAME__PROGRAMS} (")
                 .Append($"{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__LATEST_VERSION.Name}, ")
@@ -590,8 +648,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}");
-            tempStringBuilder.Append(") VALUES (")
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}")
+                .Append(") VALUES (")
                 .Append($"@{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"@{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"@{TABLE_COLUMN__LATEST_VERSION.Name}, ")
@@ -608,8 +666,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
-                .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}");
-            tempStringBuilder.Append(");");
+                .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}")
+                .Append(");");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
             {
@@ -647,7 +705,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool programIsHidden = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT {TABLE_COLUMN__IS_HIDDEN.Name} FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"SELECT {TABLE_COLUMN__IS_HIDDEN.Name} FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
@@ -680,7 +741,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", hidden ? 1L : 0L);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
@@ -694,14 +758,19 @@ namespace Scrupdate.Classes.Objects
                 UpdateProgramDatabaseChecksumFile();
             return succeeded;
         }
-        public bool ChangeProgramConfigurationStatus(string programName, Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus, Program._UpdateCheckConfigurationError updateCheckConfigurationError)
+        public bool ChangeProgramConfigurationStatus(string programName,
+                                                     Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
+                                                     Program._UpdateCheckConfigurationError updateCheckConfigurationError)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)updateCheckConfigurationStatus);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)updateCheckConfigurationError);
@@ -716,14 +785,19 @@ namespace Scrupdate.Classes.Objects
                 UpdateProgramDatabaseChecksumFile();
             return succeeded;
         }
-        public bool UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(string programName, string installedVersion, Program._InstallationScope installationScope)
+        public bool UpdateProgramInstallationInfoToAutomaticallyDetectedProgram(string programName,
+                                                                                string installedVersion,
+                                                                                Program._InstallationScope installationScope)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, {TABLE_COLUMN__INSTALLATION_SCOPE.Name} = @new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name} AND {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, {TABLE_COLUMN__INSTALLATION_SCOPE.Name} = @new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name} AND {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", installedVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}", (long)installationScope);
@@ -746,7 +820,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", latestVersion);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
@@ -767,7 +844,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name} = @{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, {TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} WHERE {TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name} = @{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", "");
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)Program._UpdateCheckConfigurationStatus.Unknown);
@@ -790,7 +870,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", 0);
                 try
@@ -810,7 +893,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"DELETE FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"DELETE FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
@@ -830,7 +916,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             Program program = null;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT * FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"SELECT * FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
             {
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
@@ -841,24 +930,24 @@ namespace Scrupdate.Classes.Objects
                         if (sQLiteDataReader.Read())
                         {
                             program = new Program(
-                                    (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
-                                    (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
-                                    (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
-                                    (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
-                                    (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
-                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
-                                    (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
-                                    (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
-                                ); ;
+                                (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                            );
                         }
                     }
                     catch { }
@@ -875,7 +964,10 @@ namespace Scrupdate.Classes.Objects
             if (!open)
                 throw new DatabaseIsNotOpenException();
             Dictionary<string, Program> programs = new Dictionary<string, Program>();
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand($"SELECT * FROM {TABLE_NAME__PROGRAMS};", sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"SELECT * FROM {TABLE_NAME__PROGRAMS};",
+                       sqLiteConnection
+                   ))
             {
                 try
                 {
@@ -884,25 +976,26 @@ namespace Scrupdate.Classes.Objects
                     {
                         while (sQLiteDataReader.Read())
                         {
-                            programs.Add((string)sQLiteDataReader[TABLE_COLUMN__NAME.Name], new Program(
-                                    (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
-                                    (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
-                                    (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
-                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
-                                    (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
-                                    (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
-                                    (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
-                                    JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
-                                    (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
-                                    (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
-                                    Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
-                                ));
+                            Program program = new Program(
+                                (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                            );
+                            programs.Add((string)sQLiteDataReader[TABLE_COLUMN__NAME.Name], program);
                         }
                     }
                     catch { }
@@ -918,8 +1011,8 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            tempStringBuilder.Clear();
-            tempStringBuilder.Append($"UPDATE {TABLE_NAME__PROGRAMS} SET ")
+            tempStringBuilder.Clear()
+                .Append($"UPDATE {TABLE_NAME__PROGRAMS} SET ")
                 .Append($"{TABLE_COLUMN__NAME.Name} = @new_{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, ")
@@ -936,8 +1029,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ");
-            tempStringBuilder.Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ")
+                .Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
             {

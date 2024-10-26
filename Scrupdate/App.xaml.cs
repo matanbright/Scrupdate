@@ -163,7 +163,10 @@ namespace Scrupdate
                 {
                     try
                     {
-                        using (SettingsHandler settingsHandler = new SettingsHandler(ApplicationUtilities.settingsFilePath, ApplicationUtilities.settingsChecksumFilePath))
+                        using (SettingsHandler settingsHandler = new SettingsHandler(
+                                   ApplicationUtilities.settingsFilePath,
+                                   ApplicationUtilities.settingsChecksumFilePath
+                               ))
                         {
                             if (settingsHandler.LoadSettingsToMemoryFromSettingsFile(out _))
                                 ApplicationUtilities.UpdateScheduledTask(settingsHandler);
@@ -175,39 +178,63 @@ namespace Scrupdate
             }
             else
             {
-                Process[] processesOfAlreadyRunningInstancesOfTheProgram = Array.FindAll(Process.GetProcessesByName(AppDomain.CurrentDomain.FriendlyName), (Process processOfAlreadyRunningInstanceOfTheProgram) => (processOfAlreadyRunningInstanceOfTheProgram.SessionId == Process.GetCurrentProcess().SessionId));
+                Process[] processesOfAlreadyRunningInstancesOfTheProgram = Array.FindAll(
+                    Process.GetProcessesByName(AppDomain.CurrentDomain.FriendlyName),
+                    process => (process.SessionId == Process.GetCurrentProcess().SessionId)
+                );
                 if (processesOfAlreadyRunningInstancesOfTheProgram.Length > 1)
                 {
                     if (startInScheduledMode)
                         SendScheduleInvokationCommand();
                     else
                     {
-                        foreach (Process processOfAlreadyRunningInstanceOfTheProgram in processesOfAlreadyRunningInstancesOfTheProgram)
+                        foreach (Process processOfAlreadyRunningInstanceOfTheProgram in
+                                 processesOfAlreadyRunningInstancesOfTheProgram)
                         {
                             if (processOfAlreadyRunningInstanceOfTheProgram.Id != Environment.ProcessId)
                             {
-                                ShowWindow(processOfAlreadyRunningInstanceOfTheProgram.MainWindowHandle, WINDOW_SHOW_COMMAND_CODE__SW_RESTORE);
-                                SetForegroundWindow(processOfAlreadyRunningInstanceOfTheProgram.MainWindowHandle);
+                                ShowWindow(
+                                    processOfAlreadyRunningInstanceOfTheProgram.MainWindowHandle,
+                                    WINDOW_SHOW_COMMAND_CODE__SW_RESTORE
+                                );
+                                SetForegroundWindow(
+                                    processOfAlreadyRunningInstanceOfTheProgram.MainWindowHandle
+                                );
                             }
                         }
                     }
                     Shutdown();
                     return;
                 }
-                else if ((new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator))
+                else if ((new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(
+                             WindowsBuiltInRole.Administrator
+                         ))
                 {
-                    DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__RUNNING_AS_ADMINISTRATOR, null);
+                    DialogsUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        ERROR_DIALOG_MESSAGE__RUNNING_AS_ADMINISTRATOR,
+                        null
+                    );
                     Shutdown();
                     return;
                 }
                 try
                 {
-                    SettingsHandler = new SettingsHandler(ApplicationUtilities.settingsFilePath, ApplicationUtilities.settingsChecksumFilePath);
+                    SettingsHandler = new SettingsHandler(
+                        ApplicationUtilities.settingsFilePath,
+                        ApplicationUtilities.settingsChecksumFilePath
+                    );
                 }
                 catch
                 {
                     if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE, null);
+                    {
+                        DialogsUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE,
+                            null
+                        );
+                    }
                     Shutdown();
                     return;
                 }
@@ -218,14 +245,24 @@ namespace Scrupdate
                     if (!SettingsHandler.SaveSettingsFromMemoryToSettingsFile())
                     {
                         if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
-                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS, null);
+                        {
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS,
+                                null
+                            );
+                        }
                         SettingsHandler.Dispose();
                         Shutdown();
                         return;
                     }
                 }
                 bool windowsScalingFactorHasBeenChangedDueToBeingInvalid;
-                WindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(SettingsHandler, true, out windowsScalingFactorHasBeenChangedDueToBeingInvalid);
+                WindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(
+                    SettingsHandler,
+                    true,
+                    out windowsScalingFactorHasBeenChangedDueToBeingInvalid
+                );
                 if (!startInScheduledMode)
                 {
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
@@ -233,23 +270,40 @@ namespace Scrupdate
                     switch (settingsFileError)
                     {
                         case ConfigError.Corrupted:
-                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED, null);
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_CORRUPTED,
+                                null
+                            );
                             break;
                         case ConfigError.NotCompatible:
-                            DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE, null);
+                            DialogsUtilities.ShowErrorDialog(
+                                ERROR_DIALOG_TITLE__ERROR,
+                                ERROR_DIALOG_MESSAGE__THE_SETTINGS_FILE_WAS_NOT_COMPATIBLE,
+                                null
+                            );
                             break;
                     }
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
-                        DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID, null);
+                    {
+                        DialogsUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
+                            null
+                        );
+                    }
                 }
-                else if (ApplicationUtilities.IsItTimeForProgramUpdatesScheduledCheckAttemption(SettingsHandler.SettingsInMemory))
+                else if (ApplicationUtilities.IsItTimeForProgramUpdatesScheduledCheckAttemption(
+                             SettingsHandler.SettingsInMemory
+                         ))
                 {
                     ApplicationUtilities.UpdateScheduledTask(SettingsHandler);
                     StartListeningToScheduleInvokationCommand();
                     SystemEvents.DisplaySettingsChanged += OnSystemDisplaySettingsChangedEvent;
-                    ProgramUpdatesScheduledCheckWindow programUpdatesScheduledCheckWindow = new ProgramUpdatesScheduledCheckWindow(settingsFileError);
+                    ProgramUpdatesScheduledCheckWindow programUpdatesScheduledCheckWindow =
+                        new ProgramUpdatesScheduledCheckWindow(settingsFileError);
                     programUpdatesScheduledCheckWindow.Show();
                 }
                 else
@@ -261,7 +315,10 @@ namespace Scrupdate
         }
         private void OnApplicationExitEvent(object sender, ExitEventArgs e)
         {
-            ThreadsUtilities.RunOnAnotherThread(Dispatcher, () => SystemEvents.DisplaySettingsChanged -= OnSystemDisplaySettingsChangedEvent);
+            ThreadsUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () => SystemEvents.DisplaySettingsChanged -= OnSystemDisplaySettingsChangedEvent
+            );
             StopListeningToScheduleInvokationCommand();
             SettingsHandler?.Dispose();
             SettingsHandler = null;
@@ -269,10 +326,22 @@ namespace Scrupdate
         private void OnSystemDisplaySettingsChangedEvent(object sender, EventArgs e)
         {
             bool windowsScalingFactorHasBeenChangedDueToBeingInvalid;
-            double newWindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(SettingsHandler, true, out windowsScalingFactorHasBeenChangedDueToBeingInvalid);
-            ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(newWindowsRenderingScale);
+            double newWindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(
+                SettingsHandler,
+                true,
+                out windowsScalingFactorHasBeenChangedDueToBeingInvalid
+            );
+            ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(
+                newWindowsRenderingScale
+            );
             if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
-                DialogsUtilities.ShowErrorDialog(ERROR_DIALOG_TITLE__ERROR, ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID, null);
+            {
+                DialogsUtilities.ShowErrorDialog(
+                    ERROR_DIALOG_TITLE__ERROR,
+                    ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
+                    null
+                );
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -285,22 +354,27 @@ namespace Scrupdate
         private static extern bool SetForegroundWindow(IntPtr hWnd);
         private static void StartListeningToScheduleInvokationCommand()
         {
-            scheduleInvokationCommandListeningThread = new Thread(() =>
-            {
-                try
-                {
-                    scheduleInvokationCommandListeningServer = new NamedPipeServerStream(NAMED_PIPE_NAME__SCHEDULE_INVOKATION, PipeDirection.In);
-                    scheduleInvokationCommandListeningServer.WaitForConnection();
-                    byte[] buffer = new byte[1024];
-                    int bufferLength = scheduleInvokationCommandListeningServer.Read(buffer);
-                    string scheduleInvokationCommand = Encoding.UTF8.GetString(buffer, 0, bufferLength);
-                    if (scheduleInvokationCommand.Equals(STARTUP_ARGUMENT__START_IN_SCHEDULED_MODE))
-                        ScheduleInvokationCommandReceived.Invoke();
-                }
-                catch { }
-                StopListeningToScheduleInvokationCommand();
-                StartListeningToScheduleInvokationCommand();
-            });
+            scheduleInvokationCommandListeningThread = new Thread(
+                () =>
+                    {
+                        try
+                        {
+                            scheduleInvokationCommandListeningServer = new NamedPipeServerStream(
+                                NAMED_PIPE_NAME__SCHEDULE_INVOKATION,
+                                PipeDirection.In
+                            );
+                            scheduleInvokationCommandListeningServer.WaitForConnection();
+                            byte[] buffer = new byte[1024];
+                            int bufferLength = scheduleInvokationCommandListeningServer.Read(buffer);
+                            string scheduleInvokationCommand = Encoding.UTF8.GetString(buffer, 0, bufferLength);
+                            if (scheduleInvokationCommand.Equals(STARTUP_ARGUMENT__START_IN_SCHEDULED_MODE))
+                                ScheduleInvokationCommandReceived.Invoke();
+                        }
+                        catch { }
+                        StopListeningToScheduleInvokationCommand();
+                        StartListeningToScheduleInvokationCommand();
+                    }
+            );
             scheduleInvokationCommandListeningThread.IsBackground = true;
             scheduleInvokationCommandListeningThread.Start();
         }
@@ -322,10 +396,18 @@ namespace Scrupdate
         {
             try
             {
-                using (NamedPipeClientStream scheduleInvokationNamedPipeClientStream = new NamedPipeClientStream(".", NAMED_PIPE_NAME__SCHEDULE_INVOKATION, PipeDirection.Out))
+                using (NamedPipeClientStream scheduleInvokationNamedPipeClientStream = new NamedPipeClientStream(
+                           ".",
+                           NAMED_PIPE_NAME__SCHEDULE_INVOKATION,
+                           PipeDirection.Out
+                       ))
                 {
-                    scheduleInvokationNamedPipeClientStream.Connect(NAMED_PIPE_CONNECTION_TIMEOUT_IN_MILLISECONDS__SCHEDULE_INVOKATION);
-                    scheduleInvokationNamedPipeClientStream.Write(Encoding.UTF8.GetBytes(STARTUP_ARGUMENT__START_IN_SCHEDULED_MODE));
+                    scheduleInvokationNamedPipeClientStream.Connect(
+                        NAMED_PIPE_CONNECTION_TIMEOUT_IN_MILLISECONDS__SCHEDULE_INVOKATION
+                    );
+                    scheduleInvokationNamedPipeClientStream.Write(
+                        Encoding.UTF8.GetBytes(STARTUP_ARGUMENT__START_IN_SCHEDULED_MODE)
+                    );
                 }
             }
             catch { }
