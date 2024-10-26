@@ -178,7 +178,7 @@ namespace Scrupdate.Classes.Utilities
                 ChromeOptions tempChromeOptions = new ChromeOptions();
                 tempChromeOptions.AddArgument("--headless");
                 ChromeDriverService tempChromeDriverService = null;
-                OpenQA.Selenium.Chrome.ChromeDriver tempChromeDriver = null;
+                ChromeDriver tempChromeDriver = null;
                 try
                 {
                     tempChromeDriverService = ChromeDriverService.CreateDefaultService(
@@ -186,7 +186,7 @@ namespace Scrupdate.Classes.Utilities
                         Path.GetFileName(chromeDriverExecutableFilePath)
                     );
                     tempChromeDriverService.HideCommandPromptWindow = true;
-                    tempChromeDriver = new OpenQA.Selenium.Chrome.ChromeDriver(tempChromeDriverService, tempChromeOptions);
+                    tempChromeDriver = new ChromeDriver(tempChromeDriverService, tempChromeOptions);
                     string defaultChromeDriverUserAgentString =
                         (string)tempChromeDriver.ExecuteScript("return navigator.userAgent;");
                     tempChromeDriver.Quit();

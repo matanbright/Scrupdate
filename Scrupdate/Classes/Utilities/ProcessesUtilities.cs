@@ -277,11 +277,11 @@ namespace Scrupdate.Classes.Utilities
             try
             {
                 IntPtr hSaferLevel = IntPtr.Zero, hToken = IntPtr.Zero;
-                SECURITY_ATTRIBUTES lpProcessAttributes = default(SECURITY_ATTRIBUTES);
-                SECURITY_ATTRIBUTES lpThreadAttributes = default(SECURITY_ATTRIBUTES);
-                STARTUPINFO lpStartupInfo = default(STARTUPINFO);
+                SECURITY_ATTRIBUTES lpProcessAttributes = default;
+                SECURITY_ATTRIBUTES lpThreadAttributes = default;
+                STARTUPINFO lpStartupInfo = default;
                 lpStartupInfo.cb = (uint)Marshal.SizeOf(lpStartupInfo);
-                PROCESS_INFORMATION lpProcessInformation = default(PROCESS_INFORMATION);
+                PROCESS_INFORMATION lpProcessInformation = default;
                 try
                 {
                     if (!SaferCreateLevel(

@@ -75,7 +75,7 @@ namespace Scrupdate.Classes.Utilities
                        ))
                 {
                     DateTime currentTime = DateTime.Now;
-                    string scheduledTaskXmlRepresention =
+                    string scheduledTaskXmlRepresentation =
                         $@"<?xml version=""1.0"" encoding=""UTF-16""?>
                            <Task version=""1.2"" xmlns=""http://schemas.microsoft.com/windows/2004/02/mit/task"">
                                <Triggers>
@@ -131,7 +131,7 @@ namespace Scrupdate.Classes.Utilities
                                </Actions>
                            </Task>
                         ";
-                    fileStreamOfTemporaryFile.Write(Encoding.UTF8.GetBytes(scheduledTaskXmlRepresention));
+                    fileStreamOfTemporaryFile.Write(Encoding.UTF8.GetBytes(scheduledTaskXmlRepresentation));
                     fileStreamOfTemporaryFile.Flush();
                 }
                 StringBuilder tempStringBuilder = new StringBuilder();
