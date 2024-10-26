@@ -429,7 +429,7 @@ namespace Scrupdate.UiElements.Windows
             CustomButton senderButton = (CustomButton)sender;
             if (senderButton == button_closeWindow)
                 Close();
-            if (senderButton == button_collapseOrExpandWindow)
+            else if (senderButton == button_collapseOrExpandWindow)
                 CollapseOrExpandWindow();
             else if (senderButton == button_show)
             {
