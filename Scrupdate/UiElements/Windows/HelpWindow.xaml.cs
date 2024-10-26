@@ -47,25 +47,6 @@ namespace Scrupdate.UiElements.Windows
 
 
 
-        // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string scrupdateUserManualPdfFilePath = (new StringBuilder())
-            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            .Append('\\')
-            .Append(DIRECTORY_NAME__DOCS)
-            .Append('\\')
-            .Append(FILE_NAME__SCRUPDATE_USER_MANUAL_PDF)
-            .ToString();
-        public static readonly string xmlPathLanguagePdfFilePath = (new StringBuilder())
-            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            .Append('\\')
-            .Append(DIRECTORY_NAME__DOCS)
-            .Append('\\')
-            .Append(FILE_NAME__XML_PATH_LANGUAGE_PDF)
-            .ToString();
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public enum HelpChapterMenuTab
         {
@@ -82,6 +63,20 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static readonly string scrupdateUserManualPdfFilePath = (new StringBuilder())
+            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            .Append('\\')
+            .Append(DIRECTORY_NAME__DOCS)
+            .Append('\\')
+            .Append(FILE_NAME__SCRUPDATE_USER_MANUAL_PDF)
+            .ToString();
+        public static readonly string xmlPathLanguagePdfFilePath = (new StringBuilder())
+            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+            .Append('\\')
+            .Append(DIRECTORY_NAME__DOCS)
+            .Append('\\')
+            .Append(FILE_NAME__XML_PATH_LANGUAGE_PDF)
+            .ToString();
         public static readonly DependencyProperty SelectedHelpChapterMenuTabProperty = DependencyProperty.Register(
             nameof(SelectedHelpChapterMenuTab),
             typeof(HelpChapterMenuTab),
@@ -95,11 +90,6 @@ namespace Scrupdate.UiElements.Windows
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public Size BaseSizeOfWindow { get; private set; }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public HelpChapterMenuTab SelectedHelpChapterMenuTab
         {
             get
