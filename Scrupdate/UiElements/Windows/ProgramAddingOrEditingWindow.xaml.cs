@@ -229,7 +229,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 CurrentWindowVariation = WindowVariation.ProgramEditingWindow;
                 Title = "Scrupdate - Program Editing [N/A]";
-                ApplyProgramToUIControlsValues(programToEdit);
+                ApplyProgramToUiControlsValues(programToEdit);
             }
             button_addOrSave.Focus();
         }
@@ -382,7 +382,7 @@ namespace Scrupdate.UiElements.Windows
                                 return;
                             }
                         }
-                        newOrUpdatedProgram = GetProgramFromUIControlsValues();
+                        newOrUpdatedProgram = GetProgramFromUiControlsValues();
                         DialogResult = true;
                         Close();
                     }
@@ -867,7 +867,7 @@ namespace Scrupdate.UiElements.Windows
             locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Clear();
             RefreshListView();
         }
-        private void ApplyProgramToUIControlsValues(Program program)
+        private void ApplyProgramToUiControlsValues(Program program)
         {
             tempStringBuilder.Clear()
                 .Append(Title.Substring(0, Title.IndexOf('[')))
@@ -983,7 +983,7 @@ namespace Scrupdate.UiElements.Windows
                 );
             }
         }
-        private Program GetProgramFromUIControlsValues()
+        private Program GetProgramFromUiControlsValues()
         {
             string programLatestVersion = "";
             Program._InstallationScope installationScope = GetSelectedInstallationScope();

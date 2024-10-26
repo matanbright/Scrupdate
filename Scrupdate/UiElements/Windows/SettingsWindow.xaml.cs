@@ -156,7 +156,7 @@ namespace Scrupdate.UiElements.Windows
                     )
                 );
             }
-            ApplySettingsToUIControlsValues(currentSettings);
+            ApplySettingsToUiControlsValues(currentSettings);
             SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.General;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +315,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 else
                 {
-                    updatedSettings = GetSettingsFromUIControlsValues();
+                    updatedSettings = GetSettingsFromUiControlsValues();
                     DialogResult = true;
                     Close();
                 }
@@ -445,7 +445,7 @@ namespace Scrupdate.UiElements.Windows
                     }
             );
         }
-        private void ApplySettingsToUIControlsValues(Settings settings)
+        private void ApplySettingsToUiControlsValues(Settings settings)
         {
             checkBox_enableScanningForInstalledPrograms.IsChecked =
                 settings.General.EnableScanningForInstalledPrograms;
@@ -504,7 +504,7 @@ namespace Scrupdate.UiElements.Windows
                 textBox_customChromeDriverUserAgentString.Text = settings.ChromeDriver.CustomUserAgentString;
             }
         }
-        private Settings GetSettingsFromUIControlsValues()
+        private Settings GetSettingsFromUiControlsValues()
         {
             Settings.GeneralSettings.WeekDays scheduleDays = Settings.GeneralSettings.WeekDays.None;
             scheduleDays |=
