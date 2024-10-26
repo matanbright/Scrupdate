@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +38,8 @@ namespace Scrupdate.UiElements.Windows
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const int MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = 5;
+        private const string WINDOW_TITLE__PROGRAM_ADDING = "Scrupdate - Program Adding";
+        private const string WINDOW_TITLE__PROGRAM_EDITING = "Scrupdate - Program Editing [{*}]";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED = "Last Check Was Failed (Reason: {*})";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
@@ -77,7 +78,6 @@ namespace Scrupdate.UiElements.Windows
             typeof(ProgramAddingOrEditingWindow),
             new PropertyMetadata(Program._UpdateCheckConfigurationStatus.Unknown)
         );
-        private StringBuilder tempStringBuilder;
         private Dictionary<string, Program> programsAlreadyInDatabase;
         private Program programToEdit;
         private Program newOrUpdatedProgram;
@@ -146,7 +146,6 @@ namespace Scrupdate.UiElements.Windows
         public ProgramAddingOrEditingWindow(Dictionary<string, Program> programsAlreadyInDatabase,
                                             Program programToEdit)
         {
-            tempStringBuilder = new StringBuilder();
             this.programsAlreadyInDatabase = programsAlreadyInDatabase;
             this.programToEdit = programToEdit;
             newOrUpdatedProgram = null;
@@ -223,12 +222,12 @@ namespace Scrupdate.UiElements.Windows
             if (programToEdit == null)
             {
                 CurrentWindowVariation = WindowVariation.ProgramAddingWindow;
-                Title = "Scrupdate - Program Adding";
+                Title = WINDOW_TITLE__PROGRAM_ADDING;
             }
             else
             {
                 CurrentWindowVariation = WindowVariation.ProgramEditingWindow;
-                Title = "Scrupdate - Program Editing [N/A]";
+                Title = WINDOW_TITLE__PROGRAM_EDITING.Replace("{*}", programToEdit.Name);
                 ApplyProgramToUiControlsValues(programToEdit);
             }
             button_addOrSave.Focus();
@@ -869,12 +868,6 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ApplyProgramToUiControlsValues(Program program)
         {
-            tempStringBuilder.Clear()
-                .Append(Title.Substring(0, Title.IndexOf('[')))
-                .Append('[')
-                .Append(program.Name)
-                .Append(']');
-            Title = tempStringBuilder.ToString();
             checkBox_detectAutomatically.IsEnabled = program.IsAutomaticallyAdded;
             checkBox_detectAutomatically.IsChecked = program.IsAutomaticallyAdded;
             textBox_programName.Text = program.Name;
