@@ -501,10 +501,10 @@ namespace Scrupdate.UiElements.Windows
             MenuItem senderMenuItem = (MenuItem)sender;
             if (senderMenuItem.Header.Equals("Copy Locating Method Argument"))
             {
-                WebPageElementLocatingInstructionListViewItem locatingInstructionListViewItemOfWebPageElementLocatingInstructionToEdit =
+                WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
                     (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
                 Clipboard.SetText(
-                    locatingInstructionListViewItemOfWebPageElementLocatingInstructionToEdit.UnderlyingWebPageElementLocatingInstruction.MethodArgument
+                    selectedWebPageElementLocatingInstructionListViewItem.UnderlyingWebPageElementLocatingInstruction.MethodArgument
                 );
                 Clipboard.Flush();
             }
@@ -685,11 +685,11 @@ namespace Scrupdate.UiElements.Windows
         {
             List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
                 new List<WebPageElementLocatingInstruction>();
-            foreach (WebPageElementLocatingInstructionListViewItem locatingInstructionOfWebPageElementToSimulateAClickOn in
+            foreach (WebPageElementLocatingInstructionListViewItem webPageElementLocatingInstructionListViewItem in
                      listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items)
             {
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn.Add(
-                    locatingInstructionOfWebPageElementToSimulateAClickOn.UnderlyingWebPageElementLocatingInstruction
+                    webPageElementLocatingInstructionListViewItem.UnderlyingWebPageElementLocatingInstruction
                 );
             }
             return locatingInstructionsOfWebPageElementsToSimulateAClickOn;
@@ -756,30 +756,30 @@ namespace Scrupdate.UiElements.Windows
             {
                 WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
                     (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
-                int indexOfWebPageElementListViewItem =
+                int indexOfSelectedWebPageElementLocatingInstructionListViewItem =
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.IndexOf(
                         selectedWebPageElementLocatingInstructionListViewItem
                     );
-                if (indexOfWebPageElementListViewItem < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count - 1)
+                if (indexOfSelectedWebPageElementLocatingInstructionListViewItem < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count - 1)
                 {
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
                     ].WebPageElementLocatingInstructionIndex++;
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem + 1
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
                     ].WebPageElementLocatingInstructionIndex--;
                     WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
                         locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfWebPageElementListViewItem
+                            indexOfSelectedWebPageElementLocatingInstructionListViewItem
                         ];
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
                     ] =
                         locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfWebPageElementListViewItem + 1
+                            indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
                         ];
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem + 1
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
                     ] =
                         tempWebPageElementLocatingInstructionListViewItem;
                 }
@@ -795,30 +795,30 @@ namespace Scrupdate.UiElements.Windows
             {
                 WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
                     (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
-                int indexOfWebPageElementListViewItem =
+                int indexOfSelectedWebPageElementLocatingInstructionListViewItem =
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.IndexOf(
                         selectedWebPageElementLocatingInstructionListViewItem
                     );
-                if (indexOfWebPageElementListViewItem > 0)
+                if (indexOfSelectedWebPageElementLocatingInstructionListViewItem > 0)
                 {
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
                     ].WebPageElementLocatingInstructionIndex--;
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem - 1
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
                     ].WebPageElementLocatingInstructionIndex++;
                     WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
                         locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfWebPageElementListViewItem
+                            indexOfSelectedWebPageElementLocatingInstructionListViewItem
                         ];
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
                     ] =
                         locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfWebPageElementListViewItem - 1
+                            indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
                         ];
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfWebPageElementListViewItem - 1
+                        indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
                     ] =
                         tempWebPageElementLocatingInstructionListViewItem;
                 }
