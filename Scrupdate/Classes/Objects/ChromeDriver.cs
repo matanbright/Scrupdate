@@ -145,9 +145,16 @@ namespace Scrupdate.Classes.Objects
                 }
                 catch
                 {
-                    chromeDriver?.Quit();
-                    chromeDriverService?.Dispose();
-                    chromeDriverService = null;
+                    if (chromeDriver != null)
+                    {
+                        chromeDriver.Quit();
+                        chromeDriver = null;
+                    }
+                    if (chromeDriverService != null)
+                    {
+                        chromeDriverService.Dispose();
+                        chromeDriverService = null;
+                    }
                     throw new UnableToOpenGoogleChromeBrowserException();
                 }
                 googleChromeBrowserIsOpen = true;
@@ -315,11 +322,17 @@ namespace Scrupdate.Classes.Objects
             if (!disposed)
             {
                 disposed = true;
-                chromeDriver?.Quit();
-                chromeDriver = null;
+                if (chromeDriver != null)
+                {
+                    chromeDriver.Quit();
+                    chromeDriver = null;
+                }
                 googleChromeBrowserIsOpen = false;
-                chromeDriverService?.Dispose();
-                chromeDriverService = null;
+                if (chromeDriverService != null)
+                {
+                    chromeDriverService.Dispose();
+                    chromeDriverService = null;
+                }
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

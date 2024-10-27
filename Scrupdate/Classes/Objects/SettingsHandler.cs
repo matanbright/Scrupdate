@@ -236,10 +236,16 @@ namespace Scrupdate.Classes.Objects
             if (!disposed)
             {
                 disposed = true;
-                fileStreamOfSettingsFile?.Dispose();
-                fileStreamOfSettingsFile = null;
-                fileStreamOfSettingsChecksumFile?.Dispose();
-                fileStreamOfSettingsChecksumFile = null;
+                if (fileStreamOfSettingsFile != null)
+                {
+                    fileStreamOfSettingsFile.Dispose();
+                    fileStreamOfSettingsFile = null;
+                }
+                if (fileStreamOfSettingsChecksumFile != null)
+                {
+                    fileStreamOfSettingsChecksumFile.Dispose();
+                    fileStreamOfSettingsChecksumFile = null;
+                }
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -802,8 +802,11 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler?.SaveSettingsFromMemoryToSettingsFile();
                         if (forceCloseApplication)
                         {
-                            App.SettingsHandler?.Dispose();
-                            App.SettingsHandler = null;
+                            if (App.SettingsHandler != null)
+                            {
+                                App.SettingsHandler.Dispose();
+                                App.SettingsHandler = null;
+                            }
                             try
                             {
                                 foreach (Process chromeDriverProcess in

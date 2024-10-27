@@ -190,15 +190,23 @@ namespace Scrupdate.Classes.Utilities
                     string defaultChromeDriverUserAgentString =
                         (string)tempChromeDriver.ExecuteScript("return navigator.userAgent;");
                     tempChromeDriver.Quit();
+                    tempChromeDriver = null;
                     tempChromeDriverService.Dispose();
                     tempChromeDriverService = null;
                     return defaultChromeDriverUserAgentString.Replace("HeadlessChrome", "Chrome");
                 }
                 catch
                 {
-                    tempChromeDriver?.Quit();
-                    tempChromeDriverService?.Dispose();
-                    tempChromeDriverService = null;
+                    if (tempChromeDriver != null)
+                    {
+                        tempChromeDriver.Quit();
+                        tempChromeDriver = null;
+                    }
+                    if (tempChromeDriverService != null)
+                    {
+                        tempChromeDriverService.Dispose();
+                        tempChromeDriverService = null;
+                    }
                     return null;
                 }
             }

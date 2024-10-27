@@ -395,8 +395,11 @@ namespace Scrupdate.UiElements.Windows
                     {
                         resettingAllSettingsAndData = true;
                         programDatabase?.Close();
-                        App.SettingsHandler?.Dispose();
-                        App.SettingsHandler = null;
+                        if (App.SettingsHandler != null)
+                        {
+                            App.SettingsHandler.Dispose();
+                            App.SettingsHandler = null;
+                        }
                         if (!ApplicationUtilities.ResetAll())
                         {
                             DialogsUtilities.ShowErrorDialog(
@@ -1522,8 +1525,11 @@ namespace Scrupdate.UiElements.Windows
                         }
                         if (forceCloseApplication)
                         {
-                            App.SettingsHandler?.Dispose();
-                            App.SettingsHandler = null;
+                            if (App.SettingsHandler != null)
+                            {
+                                App.SettingsHandler.Dispose();
+                                App.SettingsHandler = null;
+                            }
                             try
                             {
                                 foreach (Process chromeDriverProcess in

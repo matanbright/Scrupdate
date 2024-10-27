@@ -321,8 +321,11 @@ namespace Scrupdate
                 () => SystemEvents.DisplaySettingsChanged -= OnSystemDisplaySettingsChangedEvent
             );
             StopListeningToScheduleInvokationCommand();
-            SettingsHandler?.Dispose();
-            SettingsHandler = null;
+            if (SettingsHandler != null)
+            {
+                SettingsHandler.Dispose();
+                SettingsHandler = null;
+            }
         }
         private void OnSystemDisplaySettingsChangedEvent(object sender, EventArgs e)
         {
@@ -388,8 +391,11 @@ namespace Scrupdate
             catch { }
             try
             {
-                scheduleInvokationCommandListeningServer?.Dispose();
-                scheduleInvokationCommandListeningServer = null;
+                if (scheduleInvokationCommandListeningServer != null)
+                {
+                    scheduleInvokationCommandListeningServer.Dispose();
+                    scheduleInvokationCommandListeningServer = null;
+                }
             }
             catch { }
         }

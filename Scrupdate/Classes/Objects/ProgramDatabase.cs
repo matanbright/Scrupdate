@@ -219,8 +219,11 @@ namespace Scrupdate.Classes.Objects
             {
                 if (programDatabaseCreationWasSucceeded)
                     UpdateProgramDatabaseChecksumFile();
-                fileStreamOfProgramDatabaseChecksumFile?.Dispose();
-                fileStreamOfProgramDatabaseChecksumFile = null;
+                if (fileStreamOfProgramDatabaseChecksumFile != null)
+                {
+                    fileStreamOfProgramDatabaseChecksumFile.Dispose();
+                    fileStreamOfProgramDatabaseChecksumFile = null;
+                }
                 sqLiteConnection.Close();
                 open = false;
                 if (!programDatabaseCreationWasSucceeded)
@@ -317,8 +320,11 @@ namespace Scrupdate.Classes.Objects
             {
                 if (!programDatabaseOpenWasSucceeded)
                 {
-                    fileStreamOfProgramDatabaseChecksumFile?.Dispose();
-                    fileStreamOfProgramDatabaseChecksumFile = null;
+                    if (fileStreamOfProgramDatabaseChecksumFile != null)
+                    {
+                        fileStreamOfProgramDatabaseChecksumFile.Dispose();
+                        fileStreamOfProgramDatabaseChecksumFile = null;
+                    }
                     sqLiteConnection?.Close();
                     open = false;
                 }
