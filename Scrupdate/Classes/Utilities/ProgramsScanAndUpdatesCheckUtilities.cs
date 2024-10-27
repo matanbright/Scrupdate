@@ -646,7 +646,7 @@ namespace Scrupdate.Classes.Utilities
                                 VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
                             )
                         );
-                        programDatabase.ChangeProgramConfigurationStatus(
+                        programDatabase.ChangeProgramUpdateCheckConfigurationStatus(
                             programToCheck.Name,
                             Program._UpdateCheckConfigurationStatus.Valid,
                             Program._UpdateCheckConfigurationError.None
@@ -667,7 +667,7 @@ namespace Scrupdate.Classes.Utilities
                         else
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
                         programDatabase.UpdateProgramLatestVersion(programToCheck.Name, "");
-                        programDatabase.ChangeProgramConfigurationStatus(
+                        programDatabase.ChangeProgramUpdateCheckConfigurationStatus(
                             programToCheck.Name,
                             Program._UpdateCheckConfigurationStatus.Invalid,
                             updateCheckConfigurationError

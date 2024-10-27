@@ -774,9 +774,9 @@ namespace Scrupdate.Classes.Objects
                 UpdateProgramDatabaseChecksumFile();
             return succeeded;
         }
-        public bool ChangeProgramConfigurationStatus(string programName,
-                                                     Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
-                                                     Program._UpdateCheckConfigurationError updateCheckConfigurationError)
+        public bool ChangeProgramUpdateCheckConfigurationStatus(string programName,
+                                                                Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
+                                                                Program._UpdateCheckConfigurationError updateCheckConfigurationError)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
