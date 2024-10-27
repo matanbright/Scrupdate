@@ -90,13 +90,13 @@ namespace Scrupdate.Classes.Objects
         }
         public override int GetHashCode()
         {
-            StringBuilder objectHashingString = new StringBuilder();
-            objectHashingString
+            StringBuilder objectHashString = new StringBuilder();
+            objectHashString
                 .Append(LocatingMethod.GetHashCode())
                 .Append(MethodArgument.GetHashCode())
                 .Append(MatchExactText.GetHashCode())
                 .Append(LocatingDuration.GetHashCode());
-            return objectHashingString.ToString().GetHashCode();
+            return objectHashString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

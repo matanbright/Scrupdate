@@ -192,8 +192,8 @@ namespace Scrupdate.Classes.Objects
         }
         public override int GetHashCode()
         {
-            StringBuilder objectHashingString = new StringBuilder();
-            objectHashingString
+            StringBuilder objectHashString = new StringBuilder();
+            objectHashString
                 .Append(Name.GetHashCode())
                 .Append(InstalledVersion.GetHashCode())
                 .Append(LatestVersion.GetHashCode())
@@ -209,16 +209,16 @@ namespace Scrupdate.Classes.Objects
             foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
                      LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
             {
-                objectHashingString.Append(
+                objectHashString.Append(
                     locatingInstructionOfWebPageElementToSimulateAClickOn.GetHashCode()
                 );
             }
-            objectHashingString
+            objectHashString
                 .Append(IsAutomaticallyAdded.GetHashCode())
                 .Append(UpdateCheckConfigurationStatus.GetHashCode())
                 .Append(UpdateCheckConfigurationError.GetHashCode())
                 .Append(IsHidden.GetHashCode());
-            return objectHashingString.ToString().GetHashCode();
+            return objectHashString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
