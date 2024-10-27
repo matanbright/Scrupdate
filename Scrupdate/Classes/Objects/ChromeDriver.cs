@@ -59,7 +59,6 @@ namespace Scrupdate.Classes.Objects
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private volatile bool disposed;
-        private StringBuilder tempStringBuilder;
         private string chromeDriverDirectoryPath;
         private string chromeDriverUserAgent;
         private int chromeDriverPageLoadTimeoutInMilliseconds;
@@ -77,7 +76,6 @@ namespace Scrupdate.Classes.Objects
                             int chromeDriverPageLoadTimeoutInMilliseconds)
         {
             disposed = false;
-            tempStringBuilder = new StringBuilder();
             this.chromeDriverDirectoryPath = chromeDriverDirectoryPath;
             this.chromeDriverUserAgent = chromeDriverUserAgent;
             this.chromeDriverPageLoadTimeoutInMilliseconds = chromeDriverPageLoadTimeoutInMilliseconds;
@@ -104,10 +102,11 @@ namespace Scrupdate.Classes.Objects
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (chromeDriverUserAgent != null && !chromeDriverUserAgent.Equals(""))
                 {
-                    tempStringBuilder.Clear()
+                    StringBuilder chromeUserAgentArgument = new StringBuilder();
+                    chromeUserAgentArgument
                         .Append("--user-agent=")
                         .Append(chromeDriverUserAgent);
-                    chromeOptions.AddArgument(tempStringBuilder.ToString());
+                    chromeOptions.AddArgument(chromeUserAgentArgument.ToString());
                 }
                 if (openInHeadlessMode)
                 {
@@ -209,11 +208,12 @@ namespace Scrupdate.Classes.Objects
                         );
                         break;
                     case WebPageElementLocatingInstruction._LocatingMethod.ByInnerText:
-                        tempStringBuilder.Clear()
+                        StringBuilder xPath = new StringBuilder();
+                        xPath
                             .Append("//*[contains(text(), '")
                             .Append(webPageElementLocatingInstruction.MethodArgument)
                             .Append("')]");
-                        webPageElement = chromeDriver.FindElement(By.XPath(tempStringBuilder.ToString()));
+                        webPageElement = chromeDriver.FindElement(By.XPath(xPath.ToString()));
                         if (webPageElementLocatingInstruction.MatchExactText &&
                             !webPageElementLocatingInstruction.MethodArgument.Equals(
                                 webPageElement.GetAttribute("innerText").Trim()

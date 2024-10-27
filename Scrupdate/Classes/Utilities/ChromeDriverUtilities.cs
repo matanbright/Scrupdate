@@ -159,12 +159,12 @@ namespace Scrupdate.Classes.Utilities
                 }
                 if (!fileIsChromeDriver || chromeDriverVersion == null)
                     return null;
-                StringBuilder tempStringBuilder = new StringBuilder();
-                tempStringBuilder.Clear()
+                StringBuilder chromeDriverInformation = new StringBuilder();
+                chromeDriverInformation
                     .Append(CHROMEDRIVER_NAME)
                     .Append(' ')
                     .Append(chromeDriverVersion);
-                return tempStringBuilder.ToString();
+                return chromeDriverInformation.ToString();
             }
             catch
             {

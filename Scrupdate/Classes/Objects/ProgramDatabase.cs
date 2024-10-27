@@ -97,7 +97,6 @@ namespace Scrupdate.Classes.Objects
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private volatile bool disposed;
-        private StringBuilder tempStringBuilder;
         private string programDatabaseFilePath;
         private string programDatabaseChecksumFilePath;
         private FileStream fileStreamOfProgramDatabaseChecksumFile;
@@ -112,15 +111,15 @@ namespace Scrupdate.Classes.Objects
         public ProgramDatabase(string programDatabaseFilePath, string programDatabaseChecksumFilePath)
         {
             disposed = false;
-            tempStringBuilder = new StringBuilder();
             this.programDatabaseFilePath = programDatabaseFilePath;
             this.programDatabaseChecksumFilePath = programDatabaseChecksumFilePath;
             open = false;
-            tempStringBuilder.Clear()
+            StringBuilder sqlQueryString = new StringBuilder();
+            sqlQueryString
                 .Append("Data Source='")
                 .Append(programDatabaseFilePath)
                 .Append('\'');
-            sqLiteConnection = new SQLiteConnection(tempStringBuilder.ToString());
+            sqLiteConnection = new SQLiteConnection(sqlQueryString.ToString());
             currentSqLiteTransaction = null;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,24 +188,25 @@ namespace Scrupdate.Classes.Objects
                 );
                 sqLiteConnection.Open();
                 open = true;
-                tempStringBuilder.Clear()
+                StringBuilder sqlQueryString = new StringBuilder();
+                sqlQueryString
                     .Append("PRAGMA user_version = ")
                     .Append(GetIntegerFromAVersion(DATABASE_VERSION))
                     .Append(';');
-                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
                     sqLiteCommand.ExecuteNonQuery();
                 List<TableColumn> actualTableColumns = GetActualTableColumns();
-                tempStringBuilder.Clear()
-                    .Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
+                sqlQueryString = new StringBuilder();
+                sqlQueryString.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
                 for (int i = 0; i < actualTableColumns.Count; i++)
                 {
                     TableColumn actualTableColumn = actualTableColumns[i];
-                    tempStringBuilder.Append(actualTableColumn.ToSqlString());
+                    sqlQueryString.Append(actualTableColumn.ToSqlString());
                     if (i < actualTableColumns.Count - 1)
-                        tempStringBuilder.Append(", ");
+                        sqlQueryString.Append(", ");
                 }
-                tempStringBuilder.Append(");");
-                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+                sqlQueryString.Append(");");
+                using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
                     sqLiteCommand.ExecuteNonQuery();
                 programDatabaseCreationWasSucceeded = true;
                 return true;
@@ -636,7 +636,8 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            tempStringBuilder.Clear()
+            StringBuilder sqlQueryString = new StringBuilder();
+            sqlQueryString
                 .Append($"INSERT INTO {TABLE_NAME__PROGRAMS} (")
                 .Append($"{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
@@ -675,7 +676,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}")
                 .Append(");");
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
             {
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, program.Name);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__INSTALLED_VERSION.Name, program.InstalledVersion);
@@ -1017,7 +1018,8 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            tempStringBuilder.Clear()
+            StringBuilder sqlQueryString = new StringBuilder();
+            sqlQueryString
                 .Append($"UPDATE {TABLE_NAME__PROGRAMS} SET ")
                 .Append($"{TABLE_COLUMN__NAME.Name} = @new_{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
@@ -1038,7 +1040,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ")
                 .Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
             bool succeeded = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(tempStringBuilder.ToString(), sqLiteConnection))
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__NAME.Name}", newProgram.Name);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", newProgram.InstalledVersion);

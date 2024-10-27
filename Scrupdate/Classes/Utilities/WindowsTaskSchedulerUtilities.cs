@@ -188,7 +188,8 @@ namespace Scrupdate.Classes.Utilities
                 {
                     return false;
                 }
-                taskSchedulerArguments.Clear()
+                taskSchedulerArguments = new StringBuilder();
+                taskSchedulerArguments
                     .Append("/Delete /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /F");

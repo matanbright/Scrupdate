@@ -69,7 +69,6 @@ namespace Scrupdate.UiElements.Windows
             typeof(SettingsWindow),
             new PropertyMetadata(SettingsCategoryMenuTab.None)
         );
-        private StringBuilder tempStringBuilder;
         private Settings currentSettings;
         private Settings updatedSettings;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,7 +109,6 @@ namespace Scrupdate.UiElements.Windows
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public SettingsWindow(Settings currentSettings, bool programDatabaseIsOpen)
         {
-            tempStringBuilder = new StringBuilder();
             this.currentSettings = currentSettings;
             updatedSettings = null;
             InitializeComponent();
@@ -124,11 +122,16 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_enableScanningForInstalledPrograms.IsEnabled = false;
             for (int i = 0; i < 24; i++)
             {
-                tempStringBuilder.Clear();
+                StringBuilder programUpdatesScheduledCheckHourString = new StringBuilder();
                 if (i < 10)
-                    tempStringBuilder.Append('0');
-                tempStringBuilder.Append(i).Append(':').Append("00");
-                comboBox_programUpdatesScheduledCheckHour.Items.Add(tempStringBuilder.ToString());
+                    programUpdatesScheduledCheckHourString.Append('0');
+                programUpdatesScheduledCheckHourString
+                    .Append(i)
+                    .Append(':')
+                    .Append("00");
+                comboBox_programUpdatesScheduledCheckHour.Items.Add(
+                    programUpdatesScheduledCheckHourString.ToString()
+                );
             }
             comboBox_windowsScalingFactor.Items.Add("No Scaling");
             comboBox_windowsScalingFactor.Items.Add("Auto");
