@@ -919,113 +919,83 @@ namespace Scrupdate.UiElements.Windows
                                             App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2
                                         );
                                     }
+                                    if (program.IsHidden && !isShowingHiddenPrograms)
+                                        return false;
+                                    if (!programSearchPhrase.Equals("") &&
+                                        !program.Name.Contains(
+                                            programSearchPhrase,
+                                            StringComparison.CurrentCultureIgnoreCase
+                                        ))
+                                    {
+                                        return false;
+                                    }
                                     if (isFilteringPrograms)
                                     {
                                         switch (selectedProgramFilteringOption)
                                         {
-                                            default:
-                                            case Settings.CachedSettings.ProgramFilteringOption.All:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )));
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsUpdateCheckConfigured &&
-                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid &&
-                                                        thereIsANewerVersion == true);
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUpToDate:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsUpdateCheckConfigured &&
-                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid &&
-                                                        thereIsANewerVersion == false);
+                                                if (!program.IsUpdateCheckConfigured ||
+                                                    program.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Valid)
+                                                {
+                                                    return false;
+                                                }
+                                                switch (selectedProgramFilteringOption)
+                                                {
+                                                    case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
+                                                        if (thereIsANewerVersion != true)
+                                                            return false;
+                                                        break;
+                                                    default:
+                                                        if (thereIsANewerVersion != false)
+                                                            return false;
+                                                        break;
+                                                }
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyAutomaticallyAdded:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsAutomaticallyAdded);
+                                                if (!program.IsAutomaticallyAdded)
+                                                    return false;
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyManuallyAdded:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        !program.IsAutomaticallyAdded);
+                                                if (program.IsAutomaticallyAdded)
+                                                    return false;
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyInstalled:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.InstallationScope != Program._InstallationScope.None);
+                                                if (program.InstallationScope == Program._InstallationScope.None)
+                                                    return false;
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUninstalled:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.InstallationScope == Program._InstallationScope.None);
+                                                if (program.InstallationScope != Program._InstallationScope.None)
+                                                    return false;
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsUpdateCheckConfigured &&
-                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Valid);
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyInvalid:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsUpdateCheckConfigured &&
-                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Invalid);
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyNotChecked:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        program.IsUpdateCheckConfigured &&
-                                                        program.UpdateCheckConfigurationStatus == Program._UpdateCheckConfigurationStatus.Unknown);
+                                                if (!program.IsUpdateCheckConfigured)
+                                                    return false;
+                                                switch (selectedProgramFilteringOption)
+                                                {
+                                                    case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
+                                                        if (program.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Valid)
+                                                            return false;
+                                                        break;
+                                                    case Settings.CachedSettings.ProgramFilteringOption.OnlyInvalid:
+                                                        if (program.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Invalid)
+                                                            return false;
+                                                        break;
+                                                    default:
+                                                        if (program.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Unknown)
+                                                            return false;
+                                                        break;
+                                                }
+                                                break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyNotConfigured:
-                                                return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                                        (programSearchPhrase.Equals("") ||
-                                                         program.Name.Contains(
-                                                             programSearchPhrase,
-                                                             StringComparison.CurrentCultureIgnoreCase
-                                                         )) &&
-                                                        !program.IsUpdateCheckConfigured);
+                                                if (program.IsUpdateCheckConfigured)
+                                                    return false;
+                                                break;
                                         }
                                     }
-                                    return (!(program.IsHidden && !isShowingHiddenPrograms) &&
-                                            (programSearchPhrase.Equals("") ||
-                                             program.Name.Contains(
-                                                 programSearchPhrase,
-                                                 StringComparison.CurrentCultureIgnoreCase
-                                             )));
+                                    return true;
                                 }
                         );
                         ((CheckBox)gridViewColumnHeader_programSelectionCheckBox.Content).IsChecked =
