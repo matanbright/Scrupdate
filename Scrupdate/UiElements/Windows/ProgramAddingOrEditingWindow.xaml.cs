@@ -47,7 +47,7 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL = "The 'Web Page URL' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
-        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_FOR_SIMULATING_A_CLICK = "No Web Page Elements for Simulating a Click!";
+        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Web Page Elements to Simulate a Click On!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -293,7 +293,7 @@ namespace Scrupdate.UiElements.Windows
                 else if (checkBox_simulateWebPageElementClicks.IsChecked == true &&
                          listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0)
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_FOR_SIMULATING_A_CLICK;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
                 }
                 else if ((programToEdit == null &&
                           programsAlreadyInDatabase.ContainsKey(textBox_programName.Text.Trim())) ||
