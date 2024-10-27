@@ -192,7 +192,9 @@ namespace Scrupdate.Classes.Objects
         }
         public override int GetHashCode()
         {
-            StringBuilder objectHashString = new StringBuilder();
+            StringBuilder objectHashString = new StringBuilder(
+                10 * 12 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 4
+            );
             objectHashString
                 .Append(Name.GetHashCode())
                 .Append(InstalledVersion.GetHashCode())

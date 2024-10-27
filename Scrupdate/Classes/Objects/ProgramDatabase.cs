@@ -52,7 +52,9 @@ namespace Scrupdate.Classes.Objects
             }
             public string ToSqlString()
             {
-                StringBuilder sqlString = new StringBuilder();
+                StringBuilder sqlString = new StringBuilder(
+                    Name.Length + 1 + Properties.Length
+                );
                 sqlString
                     .Append(Name)
                     .Append(' ')
@@ -69,6 +71,7 @@ namespace Scrupdate.Classes.Objects
                                                                                *       or adding new non-null table columns without a default value, the major number should be incremented and the minor number should be zeroed.
                                                                                *       Otherwise, when adding new table columns, the minor number should be incremented.
                                                                                */
+        private const int INITIAL_CAPACITY_OF_SQL_QUERY_STRING_BUILDER = 10000;
         private const string TABLE_NAME__PROGRAMS = "programs";
         /* Note: The 'TABLE_COLUMN' constants may be unused in the code and the IDE may warn you about this, but don't remove them!
          *       They are used in run-time (using reflection) to create the table in the database.
@@ -114,7 +117,9 @@ namespace Scrupdate.Classes.Objects
             this.programDatabaseFilePath = programDatabaseFilePath;
             this.programDatabaseChecksumFilePath = programDatabaseChecksumFilePath;
             open = false;
-            StringBuilder sqlQueryString = new StringBuilder();
+            StringBuilder sqlQueryString = new StringBuilder(
+                13 + programDatabaseFilePath.Length + 1
+            );
             sqlQueryString
                 .Append("Data Source='")
                 .Append(programDatabaseFilePath)
@@ -188,7 +193,7 @@ namespace Scrupdate.Classes.Objects
                 );
                 sqLiteConnection.Open();
                 open = true;
-                StringBuilder sqlQueryString = new StringBuilder();
+                StringBuilder sqlQueryString = new StringBuilder(22 + 10 + 1);
                 sqlQueryString
                     .Append("PRAGMA user_version = ")
                     .Append(GetIntegerFromAVersion(DATABASE_VERSION))
@@ -196,7 +201,9 @@ namespace Scrupdate.Classes.Objects
                 using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
                     sqLiteCommand.ExecuteNonQuery();
                 List<TableColumn> actualTableColumns = GetActualTableColumns();
-                sqlQueryString = new StringBuilder();
+                sqlQueryString = new StringBuilder(
+                    INITIAL_CAPACITY_OF_SQL_QUERY_STRING_BUILDER
+                );
                 sqlQueryString.Append($"CREATE TABLE {TABLE_NAME__PROGRAMS} (");
                 for (int i = 0; i < actualTableColumns.Count; i++)
                 {
@@ -636,7 +643,9 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            StringBuilder sqlQueryString = new StringBuilder();
+            StringBuilder sqlQueryString = new StringBuilder(
+                INITIAL_CAPACITY_OF_SQL_QUERY_STRING_BUILDER
+            );
             sqlQueryString
                 .Append($"INSERT INTO {TABLE_NAME__PROGRAMS} (")
                 .Append($"{TABLE_COLUMN__NAME.Name}, ")
@@ -1018,7 +1027,9 @@ namespace Scrupdate.Classes.Objects
                 throw new ObjectDisposedException(GetType().Name);
             if (!open)
                 throw new DatabaseIsNotOpenException();
-            StringBuilder sqlQueryString = new StringBuilder();
+            StringBuilder sqlQueryString = new StringBuilder(
+                INITIAL_CAPACITY_OF_SQL_QUERY_STRING_BUILDER
+            );
             sqlQueryString
                 .Append($"UPDATE {TABLE_NAME__PROGRAMS} SET ")
                 .Append($"{TABLE_COLUMN__NAME.Name} = @new_{TABLE_COLUMN__NAME.Name}, ")

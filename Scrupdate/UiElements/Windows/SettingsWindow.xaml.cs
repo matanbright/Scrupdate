@@ -122,7 +122,7 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_enableScanningForInstalledPrograms.IsEnabled = false;
             for (int i = 0; i < 24; i++)
             {
-                StringBuilder programUpdatesScheduledCheckHourString = new StringBuilder();
+                StringBuilder programUpdatesScheduledCheckHourString = new StringBuilder(5);
                 if (i < 10)
                     programUpdatesScheduledCheckHourString.Append('0');
                 programUpdatesScheduledCheckHourString

@@ -102,7 +102,9 @@ namespace Scrupdate.Classes.Objects
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (chromeDriverUserAgent != null && !chromeDriverUserAgent.Equals(""))
                 {
-                    StringBuilder chromeUserAgentArgument = new StringBuilder();
+                    StringBuilder chromeUserAgentArgument = new StringBuilder(
+                        13 + chromeDriverUserAgent.Length
+                    );
                     chromeUserAgentArgument
                         .Append("--user-agent=")
                         .Append(chromeDriverUserAgent);
@@ -208,7 +210,9 @@ namespace Scrupdate.Classes.Objects
                         );
                         break;
                     case WebPageElementLocatingInstruction._LocatingMethod.ByInnerText:
-                        StringBuilder xPath = new StringBuilder();
+                        StringBuilder xPath = new StringBuilder(
+                            22 + webPageElementLocatingInstruction.MethodArgument.Length + 3
+                        );
                         xPath
                             .Append("//*[contains(text(), '")
                             .Append(webPageElementLocatingInstruction.MethodArgument)

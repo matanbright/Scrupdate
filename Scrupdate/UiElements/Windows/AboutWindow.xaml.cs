@@ -42,21 +42,30 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string scrupdateLicenseTextFilePath = (new StringBuilder())
-            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            .Append('\\')
-            .Append(FILE_NAME__SCRUPDATE_LICENSE_TXT)
-            .ToString();
-        public static readonly string seleniumWebDriverLicenseTextFilePath = (new StringBuilder())
-            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            .Append('\\')
-            .Append(FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT)
-            .ToString();
-        public static readonly string newtonsoftJsonLicenseTextFilePath = (new StringBuilder())
-            .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-            .Append('\\')
-            .Append(FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT)
-            .ToString();
+        public static readonly string scrupdateLicenseTextFilePath =
+            (new StringBuilder(
+                256 + 1 + FILE_NAME__SCRUPDATE_LICENSE_TXT.Length
+            ))
+                .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+                .Append('\\')
+                .Append(FILE_NAME__SCRUPDATE_LICENSE_TXT)
+                .ToString();
+        public static readonly string seleniumWebDriverLicenseTextFilePath =
+            (new StringBuilder(
+                256 + 1 + FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT.Length
+            ))
+                .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+                .Append('\\')
+                .Append(FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT)
+                .ToString();
+        public static readonly string newtonsoftJsonLicenseTextFilePath =
+            (new StringBuilder(
+                256 + 1 + FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT.Length
+            ))
+                .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+                .Append('\\')
+                .Append(FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT)
+                .ToString();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

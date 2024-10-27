@@ -45,11 +45,12 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private static readonly string taskSchedulerFilePath = (new StringBuilder())
-            .Append(Environment.GetFolderPath(Environment.SpecialFolder.System))
-            .Append('\\')
-            .Append("schtasks.exe")
-            .ToString();
+        private static readonly string taskSchedulerFilePath =
+            (new StringBuilder(256 + 1 + 12))
+                .Append(Environment.GetFolderPath(Environment.SpecialFolder.System))
+                .Append('\\')
+                .Append("schtasks.exe")
+                .ToString();
         private static readonly string scheduledTaskNameForCurrentUser =
             SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK.Replace(
                 "*",
@@ -139,7 +140,9 @@ namespace Scrupdate.Classes.Utilities
                     fileStreamOfTemporaryFile.Write(Encoding.UTF8.GetBytes(scheduledTaskXmlRepresentation));
                     fileStreamOfTemporaryFile.Flush();
                 }
-                StringBuilder taskSchedulerArguments = new StringBuilder();
+                StringBuilder taskSchedulerArguments = new StringBuilder(
+                    13 + scheduledTaskNameForCurrentUser.Length + 8 + temporaryFilePath.Length + 4
+                );
                 taskSchedulerArguments
                     .Append("/Create /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
@@ -172,7 +175,9 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                StringBuilder taskSchedulerArguments = new StringBuilder();
+                StringBuilder taskSchedulerArguments = new StringBuilder(
+                    13 + scheduledTaskNameForCurrentUser.Length + 49
+                );
                 taskSchedulerArguments
                     .Append("/Create /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
@@ -188,7 +193,9 @@ namespace Scrupdate.Classes.Utilities
                 {
                     return false;
                 }
-                taskSchedulerArguments = new StringBuilder();
+                taskSchedulerArguments = new StringBuilder(
+                    13 + scheduledTaskNameForCurrentUser.Length + 4
+                );
                 taskSchedulerArguments
                     .Append("/Delete /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)

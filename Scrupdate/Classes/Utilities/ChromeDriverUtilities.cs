@@ -36,16 +36,22 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string chromeDriverDirectoryPath = (new StringBuilder())
-            .Append(ApplicationUtilities.dataDirectoryPath)
-            .Append('\\')
-            .Append(DIRECTORY_NAME__CHROMEDRIVER)
-            .ToString();
-        public static readonly string chromeDriverExecutableFilePath = (new StringBuilder())
-            .Append(chromeDriverDirectoryPath)
-            .Append('\\')
-            .Append(FILE_NAME__CHROMEDRIVER_EXE)
-            .ToString();
+        public static readonly string chromeDriverDirectoryPath =
+            (new StringBuilder(
+                ApplicationUtilities.dataDirectoryPath.Length + 1 + DIRECTORY_NAME__CHROMEDRIVER.Length
+            ))
+                .Append(ApplicationUtilities.dataDirectoryPath)
+                .Append('\\')
+                .Append(DIRECTORY_NAME__CHROMEDRIVER)
+                .ToString();
+        public static readonly string chromeDriverExecutableFilePath =
+            (new StringBuilder(
+                chromeDriverDirectoryPath.Length + 1 + FILE_NAME__CHROMEDRIVER_EXE.Length
+            ))
+                .Append(chromeDriverDirectoryPath)
+                .Append('\\')
+                .Append(FILE_NAME__CHROMEDRIVER_EXE)
+                .ToString();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -159,7 +165,9 @@ namespace Scrupdate.Classes.Utilities
                 }
                 if (!fileIsChromeDriver || chromeDriverVersion == null)
                     return null;
-                StringBuilder chromeDriverInformation = new StringBuilder();
+                StringBuilder chromeDriverInformation = new StringBuilder(
+                    CHROMEDRIVER_NAME.Length + 1 + chromeDriverVersion.Length
+                );
                 chromeDriverInformation
                     .Append(CHROMEDRIVER_NAME)
                     .Append(' ')

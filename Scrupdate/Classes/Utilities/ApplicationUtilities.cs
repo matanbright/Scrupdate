@@ -45,41 +45,56 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static readonly string dataDirectoryPath = (new StringBuilder())
-            .Append(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
-            .Append('\\')
-            .Append(AppDomain.CurrentDomain.FriendlyName)
-            .Append("\\Data")
-            .ToString();
-        public static readonly string settingsFilePath = (new StringBuilder())
-            .Append(dataDirectoryPath)
-            .Append('\\')
-            .Append(FILE_NAME__SETTINGS)
-            .ToString();
-        public static readonly string settingsChecksumFilePath = (new StringBuilder())
-            .Append(settingsFilePath)
-            .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
-            .ToString();
-        public static readonly string programDatabaseFilePath = (new StringBuilder())
-            .Append(dataDirectoryPath)
-            .Append('\\')
-            .Append(FILE_NAME__PROGRAM_DATABASE)
-            .ToString();
-        public static readonly string programDatabaseChecksumFilePath = (new StringBuilder())
-            .Append(programDatabaseFilePath)
-            .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
-            .ToString();
+        public static readonly string dataDirectoryPath =
+            (new StringBuilder(
+                256 + 1 + AppDomain.CurrentDomain.FriendlyName.Length + 5
+            ))
+                .Append(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))
+                .Append('\\')
+                .Append(AppDomain.CurrentDomain.FriendlyName)
+                .Append("\\Data")
+                .ToString();
+        public static readonly string settingsFilePath =
+            (new StringBuilder(
+                dataDirectoryPath.Length + 1 + FILE_NAME__SETTINGS.Length
+            ))
+                .Append(dataDirectoryPath)
+                .Append('\\')
+                .Append(FILE_NAME__SETTINGS)
+                .ToString();
+        public static readonly string settingsChecksumFilePath =
+            (new StringBuilder(
+                settingsFilePath.Length + HashingUtilities.MD5_HASH_FILE_EXTENSION.Length
+            ))
+                .Append(settingsFilePath)
+                .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
+                .ToString();
+        public static readonly string programDatabaseFilePath =
+            (new StringBuilder(
+                dataDirectoryPath.Length + 1 + FILE_NAME__PROGRAM_DATABASE.Length
+            ))
+                .Append(dataDirectoryPath)
+                .Append('\\')
+                .Append(FILE_NAME__PROGRAM_DATABASE)
+                .ToString();
+        public static readonly string programDatabaseChecksumFilePath =
+            (new StringBuilder(
+                programDatabaseFilePath.Length + HashingUtilities.MD5_HASH_FILE_EXTENSION.Length
+            ))
+                .Append(programDatabaseFilePath)
+                .Append(HashingUtilities.MD5_HASH_FILE_EXTENSION)
+                .ToString();
         public static readonly string[] programDatabaseTemporaryFilesPaths = new string[]
         {
-            (new StringBuilder())
+            (new StringBuilder(programDatabaseFilePath.Length + 8))
                 .Append(programDatabaseFilePath)
                 .Append("-journal")
                 .ToString(),
-            (new StringBuilder())
+            (new StringBuilder(programDatabaseFilePath.Length + 4))
                 .Append(programDatabaseFilePath)
                 .Append("-wal")
                 .ToString(),
-            (new StringBuilder())
+            (new StringBuilder(programDatabaseFilePath.Length + 4))
                 .Append(programDatabaseFilePath)
                 .Append("-shm")
                 .ToString()

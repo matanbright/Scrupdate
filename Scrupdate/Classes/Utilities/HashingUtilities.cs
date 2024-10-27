@@ -57,7 +57,7 @@ namespace Scrupdate.Classes.Utilities
             try
             {
                 byte[] hashedStringBytes = md5HashGenerator.ComputeHash(bytesArrayToHash);
-                StringBuilder hashedString = new StringBuilder();
+                StringBuilder hashedString = new StringBuilder(hashedStringBytes.Length * 2);
                 for (int i = 0; i < hashedStringBytes.Length; i++)
                     hashedString.Append(hashedStringBytes[i].ToString("x2"));
                 return hashedString.ToString();

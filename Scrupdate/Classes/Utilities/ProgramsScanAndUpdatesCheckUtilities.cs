@@ -93,6 +93,12 @@ namespace Scrupdate.Classes.Utilities
 
 
 
+        // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private const int INITIAL_CAPACITY_OF_INSTALLED_PROGRAMS_STRING_BUILDER = 100000;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private enum ProgramType
         {
@@ -143,7 +149,9 @@ namespace Scrupdate.Classes.Utilities
                 installedSystem32BitProgramsRegistryKey?.GetSubKeyNames();
             string[] installedSystem64BitProgramsRegistrySubKeysNames =
                 installedSystem64BitProgramsRegistryKey?.GetSubKeyNames();
-            StringBuilder stringOfAllInstalledPrograms = new StringBuilder();
+            StringBuilder stringOfAllInstalledPrograms = new StringBuilder(
+                INITIAL_CAPACITY_OF_INSTALLED_PROGRAMS_STRING_BUILDER
+            );
             Dictionary<string, Program> installedPrograms = new Dictionary<string, Program>();
             for (ProgramType installedProgramsType = (ProgramType)1;
                  ((int)installedProgramsType) < Enum.GetNames(typeof(ProgramType)).Length;

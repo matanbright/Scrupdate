@@ -29,7 +29,9 @@ namespace Scrupdate.Classes.Utilities
         public static TEnum GetEnumItemFromHumanReadableString<TEnum>(string enumItemHumanReadableString)
         {
             string normalizedEnumItemHumanReadableString = enumItemHumanReadableString.Replace(" ", "");
-            StringBuilder enumItemString = new StringBuilder();
+            StringBuilder enumItemString = new StringBuilder(
+                1 + normalizedEnumItemHumanReadableString.Length
+            );
             if (char.IsDigit(normalizedEnumItemHumanReadableString[0]))
                 enumItemString.Append('_');
             enumItemString.Append(normalizedEnumItemHumanReadableString);

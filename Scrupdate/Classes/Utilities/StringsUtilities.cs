@@ -85,7 +85,9 @@ namespace Scrupdate.Classes.Utilities
                     throw new StringIsNotPascalCasedException();
             try
             {
-                StringBuilder spaceSeparatedWordsString = new StringBuilder();
+                StringBuilder spaceSeparatedWordsString = new StringBuilder(
+                    Math.Max(0, pascalCasedWordsString.Length * 2 - 1)
+                );
                 if (pascalCasedWordsString.Length > 0)
                 {
                     spaceSeparatedWordsString.Append(pascalCasedWordsString[0]);

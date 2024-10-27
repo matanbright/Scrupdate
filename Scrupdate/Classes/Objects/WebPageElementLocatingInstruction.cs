@@ -90,7 +90,7 @@ namespace Scrupdate.Classes.Objects
         }
         public override int GetHashCode()
         {
-            StringBuilder objectHashString = new StringBuilder();
+            StringBuilder objectHashString = new StringBuilder(10 * 4);
             objectHashString
                 .Append(LocatingMethod.GetHashCode())
                 .Append(MethodArgument.GetHashCode())

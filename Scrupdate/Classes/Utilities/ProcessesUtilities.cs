@@ -309,7 +309,7 @@ namespace Scrupdate.Classes.Utilities
                             filePath,
                             ((arguments == null || arguments.Equals("")) ?
                                 null :
-                                (new StringBuilder())
+                                (new StringBuilder(1 + arguments.Length))
                                     .Append(' ')
                                     .Append(arguments)
                                     .ToString()),

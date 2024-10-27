@@ -249,7 +249,7 @@ namespace Scrupdate.Classes.Utilities
                 );
                 if (versionString == null)
                     return new string(originalString);
-                StringBuilder stringWithoutVersion = new StringBuilder();
+                StringBuilder stringWithoutVersion = new StringBuilder(originalString.Length);
                 string[] words = originalString.Split(new char[] { ' ' });
                 bool versionWasFound = false;
                 for (int i = 0; i < words.Length; i++)
@@ -371,7 +371,12 @@ namespace Scrupdate.Classes.Utilities
                 throw new MinimumVersionSegmentsNumberIsBiggerThanMaximumNumberException();
             try
             {
-                StringBuilder normalizedAndTrimmedVersionString = new StringBuilder();
+                StringBuilder normalizedAndTrimmedVersionString = new StringBuilder(
+                    Math.Max(
+                        minimumVersionSegments + 1,
+                        versionStringToNormalizeAndTrim.Length
+                    )
+                );
                 string[] splittedVersionStringToNormalizeAndTrim =
                     versionStringToNormalizeAndTrim.Split(new char[] { '.' });
                 if (splittedVersionStringToNormalizeAndTrim.Length <= minimumVersionSegments)
