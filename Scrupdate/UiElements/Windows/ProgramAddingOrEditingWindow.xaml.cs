@@ -47,7 +47,7 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL = "The 'Web Page URL' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
-        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_WERE_SELECTED_FOR_SIMULATING_A_CLICK = "No Web Page Elements Were Selected for Simulating a Click!";
+        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_FOR_SIMULATING_A_CLICK = "No Web Page Elements for Simulating a Click!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -293,7 +293,7 @@ namespace Scrupdate.UiElements.Windows
                 else if (checkBox_simulateWebPageElementClicks.IsChecked == true &&
                          listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0)
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_WERE_SELECTED_FOR_SIMULATING_A_CLICK;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_FOR_SIMULATING_A_CLICK;
                 }
                 else if ((programToEdit == null &&
                           programsAlreadyInDatabase.ContainsKey(textBox_programName.Text.Trim())) ||
@@ -320,17 +320,17 @@ namespace Scrupdate.UiElements.Windows
                         VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
                     );
                 }
-                Program._InstallationScope installationScope = GetSelectedInstallationScope();
+                Program._InstallationScope installationScope = GetInstallationScope();
                 string versionSearchMethodArgument1;
                 string versionSearchMethodArgument2;
-                Program._VersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(
+                Program._VersionSearchMethod versionSearchMethod = GetVersionSearchMethod(
                     out versionSearchMethodArgument1,
                     out versionSearchMethodArgument2
                 );
-                Program._VersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
-                Program._WebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
+                Program._VersionSearchBehavior versionSearchBehavior = GetVersionSearchBehavior();
+                Program._WebPagePostLoadDelay webPagePostLoadDelay = GetWebPagePostLoadDelay();
                 List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
-                    GetSelectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
+                    GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
                 if (programToEdit != null &&
                     (checkBox_detectAutomatically.IsChecked == programToEdit.IsAutomaticallyAdded &&
                      textBox_programName.Text.Trim().Equals(programToEdit.Name) &&
@@ -568,14 +568,14 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private Program._InstallationScope GetSelectedInstallationScope()
+        private Program._InstallationScope GetInstallationScope()
         {
             return EnumsUtilities.GetEnumItemFromHumanReadableString<Program._InstallationScope>(
                 (string)comboBox_installedFor.SelectedItem
             );
         }
-        private Program._VersionSearchMethod GetSelectedVersionSearchMethod(out string versionSearchMethodArgument1,
-                                                                            out string versionSearchMethodArgument2)
+        private Program._VersionSearchMethod GetVersionSearchMethod(out string versionSearchMethodArgument1,
+                                                                    out string versionSearchMethodArgument2)
         {
             versionSearchMethodArgument1 = null;
             versionSearchMethodArgument2 = null;
@@ -643,7 +643,7 @@ namespace Scrupdate.UiElements.Windows
             }
             return versionSearchMethod;
         }
-        private Program._VersionSearchBehavior GetSelectedVersionSearchBehavior()
+        private Program._VersionSearchBehavior GetVersionSearchBehavior()
         {
             Program._VersionSearchBehavior versionSearchBehavior =
                 Program._VersionSearchBehavior.Unknown;
@@ -667,7 +667,7 @@ namespace Scrupdate.UiElements.Windows
             }
             return versionSearchBehavior;
         }
-        private Program._WebPagePostLoadDelay GetSelectedWebPagePostLoadDelay()
+        private Program._WebPagePostLoadDelay GetWebPagePostLoadDelay()
         {
             Program._WebPagePostLoadDelay webPagePostLoadDelay =
                 Program._WebPagePostLoadDelay.None;
@@ -681,18 +681,18 @@ namespace Scrupdate.UiElements.Windows
             }
             return webPagePostLoadDelay;
         }
-        private List<WebPageElementLocatingInstruction> GetSelectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn()
+        private List<WebPageElementLocatingInstruction> GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn()
         {
-            List<WebPageElementLocatingInstruction> selectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn =
+            List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
                 new List<WebPageElementLocatingInstruction>();
             foreach (WebPageElementLocatingInstructionListViewItem locatingInstructionOfWebPageElementToSimulateAClickOn in
                      listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items)
             {
-                selectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn.Add(
+                locatingInstructionsOfWebPageElementsToSimulateAClickOn.Add(
                     locatingInstructionOfWebPageElementToSimulateAClickOn.UnderlyingWebPageElementLocatingInstruction
                 );
             }
-            return selectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn;
+            return locatingInstructionsOfWebPageElementsToSimulateAClickOn;
         }
         private void RefreshListView()
         {
@@ -962,17 +962,17 @@ namespace Scrupdate.UiElements.Windows
         private Program GetProgramFromUiControlsValues()
         {
             string programLatestVersion = "";
-            Program._InstallationScope installationScope = GetSelectedInstallationScope();
+            Program._InstallationScope installationScope = GetInstallationScope();
             string versionSearchMethodArgument1;
             string versionSearchMethodArgument2;
-            Program._VersionSearchMethod versionSearchMethod = GetSelectedVersionSearchMethod(
+            Program._VersionSearchMethod versionSearchMethod = GetVersionSearchMethod(
                 out versionSearchMethodArgument1,
                 out versionSearchMethodArgument2
             );
-            Program._VersionSearchBehavior versionSearchBehavior = GetSelectedVersionSearchBehavior();
-            Program._WebPagePostLoadDelay webPagePostLoadDelay = GetSelectedWebPagePostLoadDelay();
+            Program._VersionSearchBehavior versionSearchBehavior = GetVersionSearchBehavior();
+            Program._WebPagePostLoadDelay webPagePostLoadDelay = GetWebPagePostLoadDelay();
             List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
-                GetSelectedLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
+                GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
             Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus =
                 Program._UpdateCheckConfigurationStatus.Unknown;
             Program._UpdateCheckConfigurationError updateCheckConfigurationError =
