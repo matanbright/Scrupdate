@@ -214,14 +214,14 @@ namespace Scrupdate.Classes.Utilities
                                 installedProgramInstalledVersion = null;
                             }
                         }
-                        Program._InstallationScope installedInstallationScope = installedProgramsInstallationScope;
+                        Program._InstallationScope installedProgramInstallationScope = installedProgramsInstallationScope;
                         if (installedProgramName != null)
                         {
                             stringOfAllInstalledPrograms
                                 .Append(installedProgramName)
                                 .Append((installedProgramInstalledVersion ?? ""))
-                                .Append(Convert.ToString((long)installedInstallationScope));
-                            if (installedInstallationScope == Program._InstallationScope.Everyone)
+                                .Append(Convert.ToString((long)installedProgramInstallationScope));
+                            if (installedProgramInstallationScope == Program._InstallationScope.Everyone)
                             {
                                 stringOfAllInstalledPrograms.Append(
                                     (installedProgramsType == ProgramType.System32BitProgram ?
@@ -250,7 +250,7 @@ namespace Scrupdate.Classes.Utilities
                                     installedProgramName,
                                     (installedProgramInstalledVersion ?? ""),
                                     "",
-                                    installedInstallationScope,
+                                    installedProgramInstallationScope,
                                     false,
                                     "",
                                     Program._VersionSearchMethod.Unknown,
@@ -276,7 +276,7 @@ namespace Scrupdate.Classes.Utilities
                                     ))
                                 {
                                     programAlreadyFound.InstalledVersion = installedProgramInstalledVersion;
-                                    programAlreadyFound.InstallationScope = installedInstallationScope;
+                                    programAlreadyFound.InstallationScope = installedProgramInstallationScope;
                                 }
                             }
                         }
