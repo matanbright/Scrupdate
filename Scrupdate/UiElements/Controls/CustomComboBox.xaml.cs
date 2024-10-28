@@ -55,14 +55,14 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (string)GetValue(HintTextProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -79,14 +79,14 @@ namespace Scrupdate.UiElements.Controls
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Brush)GetValue(PopupBackgroundProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {

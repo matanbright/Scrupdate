@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class VersionsUtilities
+    public static class VersionUtilities
     {
         // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public class InvalidVersionStringException : Exception
@@ -72,7 +72,7 @@ namespace Scrupdate.Classes.Utilities
                 if (stringToCheck.Equals(""))
                     return false;
                 if (versionValidation == VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion &&
-                    StringsUtilities.IsOnlyDigits(stringToCheck))
+                    StringUtilities.IsOnlyDigits(stringToCheck))
                 {
                     return int.TryParse(stringToCheck, out _);
                 }

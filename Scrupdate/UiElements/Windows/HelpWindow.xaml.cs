@@ -100,14 +100,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (HelpChapterMenuTab)GetValue(SelectedHelpChapterMenuTabProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -130,7 +130,7 @@ namespace Scrupdate.UiElements.Windows
         {
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -333,7 +333,7 @@ namespace Scrupdate.UiElements.Windows
                         scrupdateUserManualPdfFilePath);
                 try
                 {
-                    ProcessesUtilities.RunFile(
+                    ProcessUtilities.RunFile(
                         pdfFilePath,
                         null,
                         true,
@@ -349,7 +349,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 catch
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
                         this
@@ -363,9 +363,9 @@ namespace Scrupdate.UiElements.Windows
             if (senderHyperlink == hyperlink_googleChromeBrowserDownloadPage ||
                 senderHyperlink == hyperlink_chromeDriverDownloadPage)
             {
-                if (!ProcessesUtilities.OpenUrlInDefaultWebBrowser(e.Uri.ToString()))
+                if (!ProcessUtilities.OpenUrlInDefaultWebBrowser(e.Uri.ToString()))
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_HYPER_LINK,
                         this
@@ -395,14 +395,14 @@ namespace Scrupdate.UiElements.Windows
                                 cancellationToken.WaitHandle.WaitOne(
                                     singleFlashHalfDurationInMilliseconds
                                 );
-                                ThreadsUtilities.RunOnAnotherThread(
+                                ThreadingUtilities.RunOnAnotherThread(
                                     Dispatcher,
                                     () => panel.Background = flashColor
                                 );
                                 cancellationToken.WaitHandle.WaitOne(
                                     singleFlashHalfDurationInMilliseconds
                                 );
-                                ThreadsUtilities.RunOnAnotherThread(
+                                ThreadingUtilities.RunOnAnotherThread(
                                     Dispatcher,
                                     () => panel.Background = currentBackgroundColorOfPanel
                                 );

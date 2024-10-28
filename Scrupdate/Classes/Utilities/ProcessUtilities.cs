@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class ProcessesUtilities
+    public static class ProcessUtilities
     {
         // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public class FileDoesNotExistException : Exception

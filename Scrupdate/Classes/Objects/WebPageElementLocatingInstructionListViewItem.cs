@@ -37,10 +37,10 @@ namespace Scrupdate.Classes.Objects
             this(
                 webPageElementLocatingInstructionIndex,
                 underlyingWebPageElementLocatingInstruction,
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     underlyingWebPageElementLocatingInstruction.LocatingMethod
                 ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     underlyingWebPageElementLocatingInstruction.LocatingDuration
                 ).Replace(" Ms", "ms")
             )

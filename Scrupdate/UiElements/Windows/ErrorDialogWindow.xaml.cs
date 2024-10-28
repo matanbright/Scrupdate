@@ -41,7 +41,7 @@ namespace Scrupdate.UiElements.Windows
         {
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale

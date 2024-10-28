@@ -123,14 +123,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Error)GetValue(CurrentErrorProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -147,14 +147,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (bool)GetValue(IsAutomaticScanningForInstalledProgramsEnabledProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -171,14 +171,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Operation)GetValue(CurrentOperationProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -235,7 +235,7 @@ namespace Scrupdate.UiElements.Windows
             programListViewItems = new List<ProgramListViewItem>();
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -254,14 +254,14 @@ namespace Scrupdate.UiElements.Windows
                 if (programFilteringOption != Settings.CachedSettings.ProgramFilteringOption.Unknown)
                 {
                     comboBox_programListFilteringOption.Items.Add(
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             programFilteringOption
                         )
                     );
                 }
             }
             comboBox_programListFilteringOption.SelectedItem =
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     Settings.CachedSettings.ProgramFilteringOption.All
                 );
             if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
@@ -269,7 +269,7 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_filterProgramList.IsChecked =
                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState;
                 comboBox_programListFilteringOption.SelectedItem =
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption
                     );
                 checkBox_showHiddenPrograms.IsChecked =
@@ -279,7 +279,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 checkBox_filterProgramList.IsChecked = true;
                 comboBox_programListFilteringOption.SelectedItem =
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         programFilteringOptionOnStart
                     );
             }
@@ -306,7 +306,7 @@ namespace Scrupdate.UiElements.Windows
                 Left = ((Point)App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation).X;
                 Top = ((Point)App.SettingsHandler.SettingsInMemory.Cached.LastWindowLocation).Y;
             }
-            WindowsUtilities.MoveWindowIntoScreenBoundaries(this, true);
+            WindowUtilities.MoveWindowIntoScreenBoundaries(this, true);
             IsAutomaticScanningForInstalledProgramsEnabled =
                 App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
             ((CustomGridViewColumnHeader)((GridView)listView_programs.View).Columns[2].Header).RaiseEvent(
@@ -334,7 +334,7 @@ namespace Scrupdate.UiElements.Windows
                     e.Cancel = true;
                     if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
                     {
-                        if (DialogsUtilities.ShowQuestionDialog(
+                        if (DialogUtilities.ShowQuestionDialog(
                                 "",
                                 QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY,
                                 this
@@ -359,7 +359,7 @@ namespace Scrupdate.UiElements.Windows
                 UnhideSelectedProgramsInDatabaseAndListView();
             else if (senderButton == button_removeSelectedPrograms)
             {
-                if (DialogsUtilities.ShowQuestionDialog(
+                if (DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
                         this
@@ -402,7 +402,7 @@ namespace Scrupdate.UiElements.Windows
                         }
                         if (!ApplicationUtilities.ResetAll())
                         {
-                            DialogsUtilities.ShowErrorDialog(
+                            DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,
                                 ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS,
                                 this
@@ -436,7 +436,7 @@ namespace Scrupdate.UiElements.Windows
                 if (checkBox_filterProgramList.IsChecked == false)
                 {
                     comboBox_programListFilteringOption.SelectedItem =
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             Settings.CachedSettings.ProgramFilteringOption.All
                         );
                 }
@@ -489,7 +489,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (listView_programs.SelectedItems.Count > 0)
                     {
-                        if (DialogsUtilities.ShowQuestionDialog(
+                        if (DialogUtilities.ShowQuestionDialog(
                                 "",
                                 QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
                                 this
@@ -614,7 +614,7 @@ namespace Scrupdate.UiElements.Windows
             else if (senderMenuItem.Header.Equals("Remove") ||
                      senderMenuItem.Header.Equals("Remove Selected"))
             {
-                if (DialogsUtilities.ShowQuestionDialog(
+                if (DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST,
                         this
@@ -632,7 +632,7 @@ namespace Scrupdate.UiElements.Windows
                 if (CurrentError == Error.ProgramDatabaseIsCorrupted ||
                     CurrentError == Error.ProgramDatabaseIsNotCompatible)
                 {
-                    if (!DialogsUtilities.ShowQuestionDialog(
+                    if (!DialogUtilities.ShowQuestionDialog(
                             "",
                             QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE,
                             this
@@ -644,7 +644,7 @@ namespace Scrupdate.UiElements.Windows
                     {
                         if (!ApplicationUtilities.ResetProgramDatabase(App.SettingsHandler))
                         {
-                            DialogsUtilities.ShowErrorDialog(
+                            DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,
                                 ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED,
                                 this
@@ -716,7 +716,7 @@ namespace Scrupdate.UiElements.Windows
             updatedSettings = null;
             bool? returnValue = null;
             SettingsWindow settingsWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -747,7 +747,7 @@ namespace Scrupdate.UiElements.Windows
             }
             if (!helpWindowIsAlreadyOpen)
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -761,7 +761,7 @@ namespace Scrupdate.UiElements.Windows
         private bool? OpenAboutWindowAsDialog()
         {
             bool? returnValue = null;
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -777,7 +777,7 @@ namespace Scrupdate.UiElements.Windows
             newProgram = null;
             bool? returnValue = null;
             ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -797,7 +797,7 @@ namespace Scrupdate.UiElements.Windows
             updatedProgram = null;
             bool? returnValue = null;
             ProgramAddingOrEditingWindow programAddingOrEditingWindow = null;
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -840,7 +840,7 @@ namespace Scrupdate.UiElements.Windows
             }
             updatesCount = 0;
             errorsCount = 0;
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -849,7 +849,7 @@ namespace Scrupdate.UiElements.Windows
                         Settings.CachedSettings.ProgramFilteringOption selectedProgramFilteringOption =
                             (!isFilteringPrograms ?
                                 Settings.CachedSettings.ProgramFilteringOption.All :
-                                EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
+                                EnumUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
                                     (string)comboBox_programListFilteringOption.SelectedItem
                                 ));
                         bool isShowingHiddenPrograms = (bool)checkBox_showHiddenPrograms.IsChecked;
@@ -861,7 +861,7 @@ namespace Scrupdate.UiElements.Windows
                                     programListViewItem.ProgramInstalledVersionToDisplay =
                                         (program.InstalledVersion.Equals("") ?
                                             "" :
-                                            VersionsUtilities.NormalizeAndTrimVersion(
+                                            VersionUtilities.NormalizeAndTrimVersion(
                                                 program.InstalledVersion,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
@@ -870,7 +870,7 @@ namespace Scrupdate.UiElements.Windows
                                     programListViewItem.ProgramLatestVersionToDisplay =
                                         (program.LatestVersion.Equals("") ?
                                             "" :
-                                            VersionsUtilities.NormalizeAndTrimVersion(
+                                            VersionUtilities.NormalizeAndTrimVersion(
                                                 program.LatestVersion,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MinimumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
@@ -882,7 +882,7 @@ namespace Scrupdate.UiElements.Windows
                                         thereIsANewerVersion =
                                             ((program.InstalledVersion.Equals("") || program.LatestVersion.Equals("")) ?
                                                 false :
-                                                VersionsUtilities.IsVersionNewer(
+                                                VersionUtilities.IsVersionNewer(
                                                     program.LatestVersion,
                                                     program.InstalledVersion
                                                 ));
@@ -1083,7 +1083,7 @@ namespace Scrupdate.UiElements.Windows
                         false :
                         (selectedProgram.InstalledVersion.Equals("") ?
                             true :
-                            VersionsUtilities.IsVersionNewer(
+                            VersionUtilities.IsVersionNewer(
                                 selectedProgram.LatestVersion,
                                 selectedProgram.InstalledVersion
                             )));
@@ -1096,7 +1096,7 @@ namespace Scrupdate.UiElements.Windows
                         false :
                         (updatedProgram.InstalledVersion.Equals("") ?
                             true :
-                            VersionsUtilities.IsVersionNewer(
+                            VersionUtilities.IsVersionNewer(
                                 updatedProgram.LatestVersion,
                                 updatedProgram.InstalledVersion
                             )));
@@ -1167,7 +1167,7 @@ namespace Scrupdate.UiElements.Windows
                                 false :
                                 (selectedProgram.InstalledVersion.Equals("") ?
                                     true :
-                                    VersionsUtilities.IsVersionNewer(
+                                    VersionUtilities.IsVersionNewer(
                                         selectedProgram.LatestVersion,
                                         selectedProgram.InstalledVersion
                                     )));
@@ -1197,7 +1197,7 @@ namespace Scrupdate.UiElements.Windows
                                           string additionalStatusMessage,
                                           Brush additionalStatusMessageForegroundColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -1210,7 +1210,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ChangeTimeToShowInLastProgramUpdatesCheckTimeMessage(DateTime timeToShowInLastProgramUpdatesCheckTimeMessage)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -1228,7 +1228,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ChangeProgressBarValue(double progressBarValue)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -1265,7 +1265,7 @@ namespace Scrupdate.UiElements.Windows
             if (!App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile())
             {
                 App.SettingsHandler.SettingsInMemory = backupOfSettingsInMemory;
-                DialogsUtilities.ShowErrorDialog(
+                DialogUtilities.ShowErrorDialog(
                     ERROR_DIALOG_TITLE__ERROR,
                     ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS,
                     this
@@ -1276,7 +1276,7 @@ namespace Scrupdate.UiElements.Windows
                 if (App.SettingsHandler.SettingsInMemory.Appearance.WindowsScalingFactor != backupOfSettingsInMemory.Appearance.WindowsScalingFactor)
                 {
                     double newWindowsRenderingScale =
-                        WindowsUtilities.GetWindowsRenderingScale(App.SettingsHandler);
+                        WindowUtilities.GetWindowsRenderingScale(App.SettingsHandler);
                     ApplicationUtilities.ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(
                         newWindowsRenderingScale
                     );
@@ -1297,7 +1297,7 @@ namespace Scrupdate.UiElements.Windows
             programDatabaseUpdatingCancellableThread = new CancellableThread(
                 cancellationToken =>
                     {
-                        ThreadsUtilities.RunOnAnotherThread(
+                        ThreadingUtilities.RunOnAnotherThread(
                             Dispatcher,
                             () => listView_programs.SelectedItems.Clear()
                         );
@@ -1332,7 +1332,7 @@ namespace Scrupdate.UiElements.Windows
             programUpdatesCheckCancellableThread = new CancellableThread(
                 cancellationToken =>
                     {
-                        ThreadsUtilities.RunOnAnotherThread(
+                        ThreadingUtilities.RunOnAnotherThread(
                             Dispatcher,
                             () => listView_programs.SelectedItems.Clear()
                         );
@@ -1409,7 +1409,7 @@ namespace Scrupdate.UiElements.Windows
                             {
                                 errorDialogMessage = ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED;
                             }
-                            DialogsUtilities.ShowErrorDialog(
+                            DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,
                                 errorDialogMessage,
                                 this
@@ -1455,7 +1455,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void PrepareWindowForClosing(bool forceCloseApplication)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -1476,7 +1476,7 @@ namespace Scrupdate.UiElements.Windows
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState =
                                         (bool)checkBox_filterProgramList.IsChecked;
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
-                                        EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
+                                        EnumUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
                                             (string)comboBox_programListFilteringOption.SelectedItem
                                         );
                                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState =

@@ -81,14 +81,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (SettingsCategoryMenuTab)GetValue(SelectedSettingsCategoryMenuTabProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -113,7 +113,7 @@ namespace Scrupdate.UiElements.Windows
             updatedSettings = null;
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -138,8 +138,8 @@ namespace Scrupdate.UiElements.Windows
             Rect displayWorkArea = SystemParameters.WorkArea;
             for (double i = 1.25D; true; i += 0.25D)
             {
-                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
-                    WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                if (WindowUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
+                    WindowUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
                 {
                     break;
                 }
@@ -154,7 +154,7 @@ namespace Scrupdate.UiElements.Windows
                      Enum.GetValues(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
             {
                 comboBox_chromeDriverPageLoadTimeout.Items.Add(
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         chromeDriverPageLoadTimeout
                     )
                 );
@@ -226,7 +226,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_resetToDefaultSettings)
             {
-                if (DialogsUtilities.ShowQuestionDialog(
+                if (DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__RESET_SETTINGS_TO_THEIR_DEFAULT_VALUES,
                         this
@@ -244,7 +244,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_resetAll)
             {
-                if (DialogsUtilities.ShowQuestionDialog(
+                if (DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__RESET_ALL_SETTINGS_AND_DATA,
                         this
@@ -264,7 +264,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (!InstallChromeDriver(openFileDialog.FileName))
                     {
-                        DialogsUtilities.ShowErrorDialog(
+                        DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER,
                             this
@@ -274,7 +274,7 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_UninstallChromeDriver)
             {
-                if (DialogsUtilities.ShowQuestionDialog(
+                if (DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__UNINSTALL_CHROMEDRIVER,
                         this
@@ -282,7 +282,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (!UninstallChromeDriver())
                     {
-                        DialogsUtilities.ShowErrorDialog(
+                        DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER,
                             this
@@ -311,7 +311,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 if (errorDialogMessage != null)
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         errorDialogMessage,
                         this
@@ -331,7 +331,7 @@ namespace Scrupdate.UiElements.Windows
             if (senderCheckBox == checkBox_enableScanningForInstalledPrograms)
             {
                 if (!currentSettings.General.EnableScanningForInstalledPrograms ||
-                    DialogsUtilities.ShowQuestionDialog(
+                    DialogUtilities.ShowQuestionDialog(
                         "",
                         QUESTION_DIALOG_MESSAGE__DISABLE_SCANNING_FOR_INSTALLED_PROGRAMS,
                         this
@@ -436,7 +436,7 @@ namespace Scrupdate.UiElements.Windows
         private void ChangeChromeDriverInstallationStatusMessage(string chromeDriverInstallationStatusMessage,
                                                                  Brush chromeDriverInstallationStatusMessageColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -495,7 +495,7 @@ namespace Scrupdate.UiElements.Windows
             checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked =
                 settings.Appearance.RemoveTrailingZeroSegmentsOfVersions;
             comboBox_chromeDriverPageLoadTimeout.SelectedItem =
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     settings.ChromeDriver.PageLoadTimeout
                 );
             if (!settings.ChromeDriver.UseCustomUserAgentString)
@@ -557,7 +557,7 @@ namespace Scrupdate.UiElements.Windows
                 (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
             );
             Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
-                EnumsUtilities.GetEnumItemFromHumanReadableString<Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout>(
+                EnumUtilities.GetEnumItemFromHumanReadableString<Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout>(
                     (string)comboBox_chromeDriverPageLoadTimeout.SelectedItem
                 ),
                 (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
@@ -579,8 +579,8 @@ namespace Scrupdate.UiElements.Windows
             Rect displayWorkArea = SystemParameters.WorkArea;
             for (double i = 1.25D; true; i += 0.25D)
             {
-                if (WindowsUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
-                    WindowsUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowsUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
+                if (WindowUtilities.BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING * i + WindowUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Width ||
+                    WindowUtilities.BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING * i + WindowUtilities.WINDOWS_MARGIN * 2.0D > displayWorkArea.Height)
                 {
                     break;
                 }

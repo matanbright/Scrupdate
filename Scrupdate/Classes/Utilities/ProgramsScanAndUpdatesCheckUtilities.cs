@@ -197,9 +197,9 @@ namespace Scrupdate.Classes.Utilities
                         ).GetValue("DisplayVersion");
                         if (installedProgramInstalledVersion != null)
                         {
-                            if (!VersionsUtilities.IsVersion(
+                            if (!VersionUtilities.IsVersion(
                                     installedProgramInstalledVersion,
-                                    VersionsUtilities.VersionValidation.ValidateVersionSegmentsCount
+                                    VersionUtilities.VersionValidation.ValidateVersionSegmentsCount
                                 ))
                             {
                                 installedProgramInstalledVersion = new string(
@@ -211,10 +211,10 @@ namespace Scrupdate.Classes.Utilities
                             }
                             try
                             {
-                                installedProgramInstalledVersion = VersionsUtilities.NormalizeAndTrimVersion(
+                                installedProgramInstalledVersion = VersionUtilities.NormalizeAndTrimVersion(
                                     installedProgramInstalledVersion,
-                                    VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
-                                    VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
+                                    VersionUtilities.MINIMUM_VERSION_SEGMENTS,
+                                    VersionUtilities.MAXIMUM_VERSION_SEGMENTS
                                 );
                             }
                             catch
@@ -240,7 +240,7 @@ namespace Scrupdate.Classes.Utilities
                                 );
                             }
                             string versionFromProgramName;
-                            installedProgramName = VersionsUtilities.GetStringWithoutTheFirstFoundVersion(
+                            installedProgramName = VersionUtilities.GetStringWithoutTheFirstFoundVersion(
                                 installedProgramName.Trim(),
                                 false,
                                 false,
@@ -278,7 +278,7 @@ namespace Scrupdate.Classes.Utilities
                             else if (installedProgramInstalledVersion != null)
                             {
                                 Program programAlreadyFound = installedPrograms[installedProgramName];
-                                if (VersionsUtilities.IsVersionNewer(
+                                if (VersionUtilities.IsVersionNewer(
                                         installedProgramInstalledVersion,
                                         programAlreadyFound.InstalledVersion
                                     ))
@@ -616,21 +616,21 @@ namespace Scrupdate.Classes.Utilities
                         switch (programToCheck.VersionSearchBehavior)
                         {
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
-                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(
+                                versionString = VersionUtilities.GetTheFirstFoundVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion,
                                     false
                                 );
                                 break;
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
-                                versionString = VersionsUtilities.GetTheFirstFoundVersionFromString(
+                                versionString = VersionUtilities.GetTheFirstFoundVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion,
                                     true
                                 );
                                 break;
                             case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
-                                versionString = VersionsUtilities.GetTheLatestVersionFromString(
+                                versionString = VersionUtilities.GetTheLatestVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion
                                 );
@@ -640,10 +640,10 @@ namespace Scrupdate.Classes.Utilities
                             throw new NoVersionWasFoundException();
                         programDatabase.UpdateProgramLatestVersion(
                             programToCheck.Name,
-                            VersionsUtilities.NormalizeAndTrimVersion(
+                            VersionUtilities.NormalizeAndTrimVersion(
                                 versionString,
-                                VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
-                                VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
+                                VersionUtilities.MINIMUM_VERSION_SEGMENTS,
+                                VersionUtilities.MAXIMUM_VERSION_SEGMENTS
                             )
                         );
                         programDatabase.ChangeProgramUpdateCheckConfigurationStatus(

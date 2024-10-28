@@ -332,7 +332,7 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfOpenWindow = ((ProgramUpdatesScheduledCheckWindow)openWindow).BaseSizeOfWindow;
                     else
                         continue;
-                    WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+                    WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                         openWindow,
                         baseSizeOfOpenWindow,
                         windowsRenderingScale

@@ -149,7 +149,7 @@ namespace Scrupdate.Classes.Utilities
                     .Append("\" /XML \"")
                     .Append(temporaryFilePath)
                     .Append("\" /F");
-                if (ProcessesUtilities.RunFileWithoutElevatedPrivileges(
+                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
                         taskSchedulerFilePath,
                         taskSchedulerArguments.ToString(),
                         true,
@@ -182,7 +182,7 @@ namespace Scrupdate.Classes.Utilities
                     .Append("/Create /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /SC Once /SD 01/01/1970 /ST 00:00 /TR \"NULL\" /F");
-                if (ProcessesUtilities.RunFileWithoutElevatedPrivileges(
+                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
                         taskSchedulerFilePath,
                         taskSchedulerArguments.ToString(),
                         true,
@@ -200,7 +200,7 @@ namespace Scrupdate.Classes.Utilities
                     .Append("/Delete /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /F");
-                ProcessesUtilities.RunFileWithoutElevatedPrivileges(
+                ProcessUtilities.RunFileWithoutElevatedPrivileges(
                     taskSchedulerFilePath,
                     taskSchedulerArguments.ToString(),
                     true,

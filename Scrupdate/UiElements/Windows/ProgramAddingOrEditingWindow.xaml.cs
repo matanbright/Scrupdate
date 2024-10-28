@@ -97,14 +97,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (WindowVariation)GetValue(CurrentWindowVariationProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -121,14 +121,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Program._UpdateCheckConfigurationStatus)GetValue(LastProgramUpdateCheckConfigurationStatusProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -158,7 +158,7 @@ namespace Scrupdate.UiElements.Windows
                 new List<WebPageElementLocatingInstructionListViewItem>();
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -167,26 +167,26 @@ namespace Scrupdate.UiElements.Windows
                      Enum.GetValues(typeof(Program._InstallationScope)))
             {
                 comboBox_installedFor.Items.Add(
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         installationScope
                     )
                 );
             }
             comboBox_installedFor.SelectedItem =
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     Program._InstallationScope.Everyone
                 );
             foreach (Program._WebPagePostLoadDelay webPagePostLoadDelay in
                      Enum.GetValues(typeof(Program._WebPagePostLoadDelay)))
             {
                 comboBox_webPagePostLoadDelay.Items.Add(
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         webPagePostLoadDelay
                     ).Replace(" Ms", "ms")
                 );
             }
             comboBox_webPagePostLoadDelay.SelectedItem =
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     Program._WebPagePostLoadDelay.None
                 ).Replace(" Ms", "ms");
             ((GridView)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged +=
@@ -201,7 +201,7 @@ namespace Scrupdate.UiElements.Windows
                 else
                 {
                     comboBox_webPageElementLocatingMethod.Items.Add(
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             locatingMethod
                         ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath")
                     );
@@ -216,7 +216,7 @@ namespace Scrupdate.UiElements.Windows
                 else
                 {
                     comboBox_webPageElementLocatingDuration.Items.Add(
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             locatingDuration
                         ).Replace(" Ms", "ms")
                     );
@@ -244,7 +244,7 @@ namespace Scrupdate.UiElements.Windows
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnWindowClosingEvent(object sender, CancelEventArgs e)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     ((GridView)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged -=
@@ -271,9 +271,9 @@ namespace Scrupdate.UiElements.Windows
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_PROGRAM_NAME;
                 }
                 else if (!textBox_installedVersion.Text.Trim().Equals("") &&
-                         !VersionsUtilities.IsVersion(
+                         !VersionUtilities.IsVersion(
                              textBox_installedVersion.Text.Trim(),
-                             VersionsUtilities.VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion
+                             VersionUtilities.VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion
                          ))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION;
@@ -310,7 +310,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 if (errorDialogMessage != null)
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         errorDialogMessage,
                         this
@@ -319,10 +319,10 @@ namespace Scrupdate.UiElements.Windows
                 }
                 if (!textBox_installedVersion.Text.Trim().Equals(""))
                 {
-                    textBox_installedVersion.Text = VersionsUtilities.NormalizeAndTrimVersion(
+                    textBox_installedVersion.Text = VersionUtilities.NormalizeAndTrimVersion(
                         textBox_installedVersion.Text.Trim(),
-                        VersionsUtilities.MINIMUM_VERSION_SEGMENTS,
-                        VersionsUtilities.MAXIMUM_VERSION_SEGMENTS
+                        VersionUtilities.MINIMUM_VERSION_SEGMENTS,
+                        VersionUtilities.MAXIMUM_VERSION_SEGMENTS
                     );
                 }
                 Program._InstallationScope installationScope = GetInstallationScope();
@@ -361,7 +361,7 @@ namespace Scrupdate.UiElements.Windows
                         (programToEdit.IsAutomaticallyAdded &&
                          checkBox_detectAutomatically.IsChecked == false))
                     {
-                        if (DialogsUtilities.ShowQuestionDialog(
+                        if (DialogUtilities.ShowQuestionDialog(
                                 "",
                                 QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM,
                                 this
@@ -388,7 +388,7 @@ namespace Scrupdate.UiElements.Windows
                     textBox_programName.Text = programToEdit.Name;
                     textBox_installedVersion.Text = programToEdit.InstalledVersion;
                     comboBox_installedFor.SelectedItem =
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             programToEdit.InstallationScope
                         );
                 }
@@ -409,7 +409,7 @@ namespace Scrupdate.UiElements.Windows
                     radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                     expander_advancedOptions.IsExpanded = false;
                     comboBox_webPagePostLoadDelay.SelectedItem =
-                        EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                        EnumUtilities.GetHumanReadableStringFromEnumItem(
                             Program._WebPagePostLoadDelay.None
                         ).Replace(" Ms", "ms");
                     RemoveAllWebPageElementLocatingInstructionsFromListView();
@@ -575,7 +575,7 @@ namespace Scrupdate.UiElements.Windows
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private Program._InstallationScope GetInstallationScope()
         {
-            return EnumsUtilities.GetEnumItemFromHumanReadableString<Program._InstallationScope>(
+            return EnumUtilities.GetEnumItemFromHumanReadableString<Program._InstallationScope>(
                 (string)comboBox_installedFor.SelectedItem
             );
         }
@@ -679,7 +679,7 @@ namespace Scrupdate.UiElements.Windows
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
                 webPagePostLoadDelay =
-                    EnumsUtilities.GetEnumItemFromHumanReadableString<Program._WebPagePostLoadDelay>(
+                    EnumUtilities.GetEnumItemFromHumanReadableString<Program._WebPagePostLoadDelay>(
                         ((string)comboBox_webPagePostLoadDelay.SelectedItem)
                             .Replace("ms", "Ms")
                     );
@@ -701,7 +701,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void RefreshListView()
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -719,13 +719,13 @@ namespace Scrupdate.UiElements.Windows
                  !comboBox_webPageElementLocatingDuration.SelectedItem.Equals("")))
             {
                 WebPageElementLocatingInstruction._LocatingMethod selectedWebPageElementLocatingMethod =
-                    EnumsUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
+                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
                         ((string)comboBox_webPageElementLocatingMethod.SelectedItem)
                             .Replace("ID", "Id")
                             .Replace("HTML", "Html")
                     );
                 WebPageElementLocatingInstruction._LocatingDuration selectedWebPageElementLocatingDuration =
-                    EnumsUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingDuration>(
+                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingDuration>(
                         ((string)comboBox_webPageElementLocatingDuration.SelectedItem)
                             .Replace("ms", "Ms")
                     );
@@ -859,7 +859,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (!(program.InstalledVersion.Equals("") ||
                       program.LatestVersion.Equals("")) &&
-                    VersionsUtilities.IsVersionNewer(
+                    VersionUtilities.IsVersionNewer(
                         program.LatestVersion,
                         program.InstalledVersion
                     ))
@@ -870,7 +870,7 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
             comboBox_installedFor.SelectedItem =
-                EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                EnumUtilities.GetHumanReadableStringFromEnumItem(
                     program.InstallationScope
                 );
             checkBox_configureProgramUpdateCheck.IsChecked = false;
@@ -931,7 +931,7 @@ namespace Scrupdate.UiElements.Windows
                         break;
                 }
                 comboBox_webPagePostLoadDelay.SelectedItem =
-                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                         program.WebPagePostLoadDelay
                     ).Replace(" Ms", "ms");
                 if (program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
@@ -1012,7 +1012,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError(Program._UpdateCheckConfigurationError? updateCheckConfigurationError)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -1036,7 +1036,7 @@ namespace Scrupdate.UiElements.Windows
                             label_lastProgramUpdateCheckConfigurationStatusMessage.Content =
                                 LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED.Replace(
                                     "{*}",
-                                    EnumsUtilities.GetHumanReadableStringFromEnumItem(
+                                    EnumUtilities.GetHumanReadableStringFromEnumItem(
                                         updateCheckConfigurationError
                                     )
                                 );

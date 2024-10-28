@@ -128,7 +128,7 @@ namespace Scrupdate.Classes.Utilities
                 if (!File.Exists(filePath))
                     return null;
                 string result;
-                if (ProcessesUtilities.RunFile(
+                if (ProcessUtilities.RunFile(
                         filePath,
                         "--version",
                         false,
@@ -159,7 +159,7 @@ namespace Scrupdate.Classes.Utilities
                         ))
                     {
                         fileIsChromeDriver = true;
-                        chromeDriverVersion = VersionsUtilities.GetTheFirstFoundVersionFromString(result);
+                        chromeDriverVersion = VersionUtilities.GetTheFirstFoundVersionFromString(result);
                         break;
                     }
                 }

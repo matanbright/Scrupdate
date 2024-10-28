@@ -138,14 +138,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (ConfigError)GetValue(SettingsFileErrorProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -162,14 +162,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Error)GetValue(CurrentErrorProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -186,14 +186,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (bool)GetValue(IsWindowCollapsedProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -210,14 +210,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (Operation)GetValue(CurrentOperationProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -234,14 +234,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (bool)GetValue(AreThereUpdatesProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -258,14 +258,14 @@ namespace Scrupdate.UiElements.Windows
         {
             get
             {
-                return ThreadsUtilities.RunOnAnotherThread(
+                return ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () => (bool)GetValue(AreThereErrorsProperty)
                 );
             }
             set
             {
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -320,7 +320,7 @@ namespace Scrupdate.UiElements.Windows
             }
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -389,7 +389,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 else if (CurrentOperation == Operation.CancellingOperation && closeInQueue)
                 {
-                    if (DialogsUtilities.ShowQuestionDialog(
+                    if (DialogUtilities.ShowQuestionDialog(
                             "",
                             QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY,
                             this
@@ -411,7 +411,7 @@ namespace Scrupdate.UiElements.Windows
                         App.SettingsHandler.SettingsInMemory
                     ))
                 {
-                    ThreadsUtilities.RunOnAnotherThread(
+                    ThreadingUtilities.RunOnAnotherThread(
                         Dispatcher,
                         () =>
                             {
@@ -470,7 +470,7 @@ namespace Scrupdate.UiElements.Windows
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void CollapseOrExpandWindow()
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -508,7 +508,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 updatesCount = 0;
                 errorsCount = 0;
-                ThreadsUtilities.RunOnAnotherThread(
+                ThreadingUtilities.RunOnAnotherThread(
                     Dispatcher,
                     () =>
                         {
@@ -524,7 +524,7 @@ namespace Scrupdate.UiElements.Windows
                                             false :
                                             (program.InstalledVersion.Equals("") ?
                                                 true :
-                                                VersionsUtilities.IsVersionNewer(
+                                                VersionUtilities.IsVersionNewer(
                                                     program.LatestVersion,
                                                     program.InstalledVersion
                                                 )));
@@ -604,7 +604,7 @@ namespace Scrupdate.UiElements.Windows
                                           string additionalStatusMessage,
                                           Brush additionalStatusMessageForegroundColor)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -619,7 +619,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ChangeProgressBarValue(double progressBarValue)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -792,7 +792,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private void PrepareWindowForClosing(bool forceCloseApplication)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {
@@ -827,7 +827,7 @@ namespace Scrupdate.UiElements.Windows
         }
         public void MoveWindowNearSystemTrayIcons()
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
                     {

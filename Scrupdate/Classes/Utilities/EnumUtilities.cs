@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class EnumsUtilities
+    public static class EnumUtilities
     {
         // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public class UnableToGetEnumItemFromHumanReadableStringException : Exception
@@ -20,7 +20,7 @@ namespace Scrupdate.Classes.Utilities
         public static string GetHumanReadableStringFromEnumItem(Enum enumItem)
         {
             string enumItemString = enumItem.ToString();
-            return StringsUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
+            return StringUtilities.GetSpaceSeparatedWordsStringFromPascalCasedWordsString(
                 (enumItemString[0] == '_' ?
                     enumItemString.Substring(1) :
                     enumItemString)

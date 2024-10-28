@@ -24,7 +24,7 @@ using Scrupdate.Classes.Objects;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class WindowsUtilities
+    public static class WindowUtilities
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public const double BASE_DISPLAY_WIDTH_FOR_WINDOWS_SCALING = 2560.0D;

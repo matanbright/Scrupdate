@@ -81,7 +81,7 @@ namespace Scrupdate.UiElements.Windows
         {
             InitializeComponent();
             BaseSizeOfWindow = new Size(Width, Height);
-            WindowsUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
+            WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
                 BaseSizeOfWindow,
                 App.WindowsRenderingScale
@@ -115,7 +115,7 @@ namespace Scrupdate.UiElements.Windows
                             newtonsoftJsonLicenseTextFilePath));
                 try
                 {
-                    ProcessesUtilities.RunFile(
+                    ProcessUtilities.RunFile(
                         licenseTextFilePath,
                         null,
                         true,
@@ -129,7 +129,7 @@ namespace Scrupdate.UiElements.Windows
                 }
                 catch
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
                         this

@@ -21,7 +21,7 @@ using System.Text;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class StringsUtilities
+    public static class StringUtilities
     {
         // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public class StringDoesNotContainOnlyLettersAndDigitsException : Exception

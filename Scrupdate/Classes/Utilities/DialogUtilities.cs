@@ -22,7 +22,7 @@ using Scrupdate.UiElements.Windows;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class DialogsUtilities
+    public static class DialogUtilities
     {
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static bool? ShowErrorDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
@@ -43,7 +43,7 @@ namespace Scrupdate.Classes.Utilities
                         returnValue = errorDialogWindow.ShowDialog();
                     };
             if (ownerWindow != null)
-                ThreadsUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showErrorDialogCallback);
+                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showErrorDialogCallback);
             else
                 showErrorDialogCallback.Invoke();
             return returnValue;
@@ -66,7 +66,7 @@ namespace Scrupdate.Classes.Utilities
                         returnValue = questionDialogWindow.ShowDialog();
                     };
             if (ownerWindow != null)
-                ThreadsUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showQuestionDialogCallback);
+                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showQuestionDialogCallback);
             else
                 showQuestionDialogCallback.Invoke();
             return returnValue;

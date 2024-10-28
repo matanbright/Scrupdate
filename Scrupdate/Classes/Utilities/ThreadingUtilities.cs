@@ -21,7 +21,7 @@ using System.Windows.Threading;
 
 namespace Scrupdate.Classes.Utilities
 {
-    public static class ThreadsUtilities
+    public static class ThreadingUtilities
     {
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static void RunOnAnotherThread(Dispatcher dispatcherOfThread, Action callback)

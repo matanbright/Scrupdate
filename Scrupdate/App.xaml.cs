@@ -210,7 +210,7 @@ namespace Scrupdate
                              WindowsBuiltInRole.Administrator
                          ))
                 {
-                    DialogsUtilities.ShowErrorDialog(
+                    DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
                         ERROR_DIALOG_MESSAGE__RUNNING_AS_ADMINISTRATOR,
                         null
@@ -229,7 +229,7 @@ namespace Scrupdate
                 {
                     if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
                     {
-                        DialogsUtilities.ShowErrorDialog(
+                        DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE,
                             null
@@ -246,7 +246,7 @@ namespace Scrupdate
                     {
                         if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
                         {
-                            DialogsUtilities.ShowErrorDialog(
+                            DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,
                                 ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS,
                                 null
@@ -258,7 +258,7 @@ namespace Scrupdate
                     }
                 }
                 bool windowsScalingFactorHasBeenChangedDueToBeingInvalid;
-                WindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(
+                WindowsRenderingScale = WindowUtilities.GetWindowsRenderingScale(
                     SettingsHandler,
                     true,
                     out windowsScalingFactorHasBeenChangedDueToBeingInvalid
@@ -279,7 +279,7 @@ namespace Scrupdate
                     }
                     if (errorDialogMessage != null)
                     {
-                        DialogsUtilities.ShowErrorDialog(
+                        DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             errorDialogMessage,
                             null
@@ -289,7 +289,7 @@ namespace Scrupdate
                     mainWindow.Show();
                     if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
                     {
-                        DialogsUtilities.ShowErrorDialog(
+                        DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
                             null
@@ -316,7 +316,7 @@ namespace Scrupdate
         }
         private void OnApplicationExitEvent(object sender, ExitEventArgs e)
         {
-            ThreadsUtilities.RunOnAnotherThread(
+            ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () => SystemEvents.DisplaySettingsChanged -= OnSystemDisplaySettingsChangedEvent
             );
@@ -330,7 +330,7 @@ namespace Scrupdate
         private void OnSystemDisplaySettingsChangedEvent(object sender, EventArgs e)
         {
             bool windowsScalingFactorHasBeenChangedDueToBeingInvalid;
-            double newWindowsRenderingScale = WindowsUtilities.GetWindowsRenderingScale(
+            double newWindowsRenderingScale = WindowUtilities.GetWindowsRenderingScale(
                 SettingsHandler,
                 true,
                 out windowsScalingFactorHasBeenChangedDueToBeingInvalid
@@ -340,7 +340,7 @@ namespace Scrupdate
             );
             if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
             {
-                DialogsUtilities.ShowErrorDialog(
+                DialogUtilities.ShowErrorDialog(
                     ERROR_DIALOG_TITLE__ERROR,
                     ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
                     null
