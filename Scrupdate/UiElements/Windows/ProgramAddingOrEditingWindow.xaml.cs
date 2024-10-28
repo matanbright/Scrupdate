@@ -61,6 +61,11 @@ namespace Scrupdate.UiElements.Windows
             ProgramAddingWindow,
             ProgramEditingWindow
         }
+        public enum ListViewItemMovingDirection
+        {
+            Up,
+            Down
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -255,9 +260,9 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_removeWebPageElement)
                 RemoveSelectedWebPageElementLocatingInstructionsFromListView();
             else if (senderButton == button_moveDownWebPageElement)
-                MoveDownSelectedWebPageElementLocatingInstructionsInListView();
+                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
             else if (senderButton == button_moveUpWebPageElement)
-                MoveUpSelectedWebPageElementLocatingInstructionsInListView();
+                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
             else if (senderButton == button_addOrSave)
             {
                 string errorDialogMessage = null;
@@ -509,9 +514,9 @@ namespace Scrupdate.UiElements.Windows
                 Clipboard.Flush();
             }
             else if (senderMenuItem.Header.Equals("Move Up"))
-                MoveUpSelectedWebPageElementLocatingInstructionsInListView();
+                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
             else if (senderMenuItem.Header.Equals("Move Down"))
-                MoveDownSelectedWebPageElementLocatingInstructionsInListView();
+                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
             else if (senderMenuItem.Header.Equals("Remove") ||
                      senderMenuItem.Header.Equals("Remove Selected"))
             {
@@ -750,7 +755,7 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_webPageElementLocatingDuration.SelectedItem = "";
             }
         }
-        private void MoveDownSelectedWebPageElementLocatingInstructionsInListView()
+        private void MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection movingDirection)
         {
             if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count == 1)
             {
@@ -760,67 +765,58 @@ namespace Scrupdate.UiElements.Windows
                     locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.IndexOf(
                         selectedWebPageElementLocatingInstructionListViewItem
                     );
-                if (indexOfSelectedWebPageElementLocatingInstructionListViewItem < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count - 1)
+                switch (movingDirection)
                 {
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                    ].WebPageElementLocatingInstructionIndex++;
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
-                    ].WebPageElementLocatingInstructionIndex--;
-                    WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
-                        locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                        ];
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                    ] =
-                        locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
-                        ];
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
-                    ] =
-                        tempWebPageElementLocatingInstructionListViewItem;
-                }
-                RefreshListView();
-                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ScrollIntoView(
-                    listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0]
-                );
-            }
-        }
-        private void MoveUpSelectedWebPageElementLocatingInstructionsInListView()
-        {
-            if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count == 1)
-            {
-                WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
-                    (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
-                int indexOfSelectedWebPageElementLocatingInstructionListViewItem =
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.IndexOf(
-                        selectedWebPageElementLocatingInstructionListViewItem
-                    );
-                if (indexOfSelectedWebPageElementLocatingInstructionListViewItem > 0)
-                {
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                    ].WebPageElementLocatingInstructionIndex--;
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
-                    ].WebPageElementLocatingInstructionIndex++;
-                    WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
-                        locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                        ];
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                    ] =
-                        locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                            indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
-                        ];
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                        indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
-                    ] =
-                        tempWebPageElementLocatingInstructionListViewItem;
+                    case ListViewItemMovingDirection.Up:
+                        if (indexOfSelectedWebPageElementLocatingInstructionListViewItem > 0)
+                        {
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            ].WebPageElementLocatingInstructionIndex--;
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
+                            ].WebPageElementLocatingInstructionIndex++;
+                            WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
+                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                                ];
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            ] =
+                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
+                                ];
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
+                            ] =
+                                tempWebPageElementLocatingInstructionListViewItem;
+                        }
+                        break;
+                    case ListViewItemMovingDirection.Down:
+                        if (indexOfSelectedWebPageElementLocatingInstructionListViewItem < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count - 1)
+                        {
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            ].WebPageElementLocatingInstructionIndex++;
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
+                            ].WebPageElementLocatingInstructionIndex--;
+                            WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
+                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                                ];
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            ] =
+                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
+                                ];
+                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
+                                indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
+                            ] =
+                                tempWebPageElementLocatingInstructionListViewItem;
+                        }
+                        break;
                 }
                 RefreshListView();
                 listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ScrollIntoView(
