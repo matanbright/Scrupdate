@@ -193,9 +193,9 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePart1" DockPanel.Dock="Left" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Padding="5 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Scrupdate" />
-                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePartsSeparator" DockPanel.Dock="Left" Foreground="{StaticResource brightGraySolidColorBrush}" FontSize="18" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content=" | " />
-                <StackPanel x:Name="stackPanel_windowTitlePart2" DockPanel.Dock="Left" Orientation="Vertical" VerticalAlignment="Center">
+                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePart1" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Padding="5 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Scrupdate" />
+                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePartsSeparator" Foreground="{StaticResource brightGraySolidColorBrush}" FontSize="18" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content=" | " />
+                <StackPanel x:Name="stackPanel_windowTitlePart2" Orientation="Vertical" VerticalAlignment="Center">
                     <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_titleStatusMessage" FontSize="18" FontFamily="Calibri" Padding="0 0 5 0" Margin="0 0 0 0" Content="N/A" />
                     <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_titleProgress" Height="3" Margin="0 0 0 0" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource lightGraySolidColorBrush2}" Foreground="{StaticResource grayishGreenSolidColorBrush2}" GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
                         <Scrupdate_UiElements_Controls:CustomProgressBar.Style>
@@ -265,7 +265,7 @@
                     </Border>
                 </Viewbox>
             </Scrupdate_UiElements_Controls:CustomButton>
-            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow" DockPanel.Dock="Right" Width="auto" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
+            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow" DockPanel.Dock="Right" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
                 <Viewbox VerticalAlignment="Center">
                     <Border Width="25" Height="25">
                         <Border.Style>
