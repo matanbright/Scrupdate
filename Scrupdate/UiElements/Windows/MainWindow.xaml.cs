@@ -1259,7 +1259,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState = false;
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
-                    Settings.CachedSettings.ProgramFilteringOption.All;
+                    Settings.CachedSettings.ProgramFilteringOption.Unknown;
                 App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = false;
             }
             if (!App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile())
