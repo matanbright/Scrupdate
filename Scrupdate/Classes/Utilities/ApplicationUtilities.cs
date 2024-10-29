@@ -125,7 +125,7 @@ namespace Scrupdate.Classes.Utilities
                 );
                 if (lastProgramUpdatesScheduledCheckAttemptionTime.Hour >= settings.General.ProgramUpdatesScheduledCheckHour)
                     nextProgramUpdatesScheduledCheckAttemptionTime = nextProgramUpdatesScheduledCheckAttemptionTime.AddDays(1);
-                for (int i = 0; i < 7; i++)
+                for (int _ = 0; _ < 7; _++)
                 {
                     if (!settings.General.ProgramUpdatesScheduledCheckDays.HasFlag(
                             (Settings.GeneralSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek)
