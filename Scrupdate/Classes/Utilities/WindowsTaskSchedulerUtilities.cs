@@ -38,7 +38,7 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private const string SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK = "Scrupdate - Program Updates Scheduled Check Task (*)";
+        private const string SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK = "Scrupdate - Program Updates Scheduled Check Task ({*})";
         private const int TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS = 1000;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -53,7 +53,7 @@ namespace Scrupdate.Classes.Utilities
                 .ToString();
         private static readonly string scheduledTaskNameForCurrentUser =
             SCHEDULED_TASK_NAME__PROGRAM_UPDATES_SCHEDULED_CHECK.Replace(
-                "*",
+                "{*}",
                 WindowsIdentity.GetCurrent().User.Value
             );
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
