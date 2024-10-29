@@ -322,8 +322,6 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfOpenWindow = ((MainWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(AboutWindow))
                         baseSizeOfOpenWindow = ((AboutWindow)openWindow).BaseSizeOfWindow;
-                    else if (typeOfOpenWindow == typeof(HelpWindow))
-                        baseSizeOfOpenWindow = ((HelpWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(SettingsWindow))
                         baseSizeOfOpenWindow = ((SettingsWindow)openWindow).BaseSizeOfWindow;
                     else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
