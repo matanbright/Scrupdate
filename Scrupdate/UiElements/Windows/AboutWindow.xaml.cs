@@ -88,7 +88,7 @@ namespace Scrupdate.UiElements.Windows
             );
             label_appVersion.Content = ((string)label_appVersion.Content).Replace(
                 "{*}",
-                Assembly.GetExecutingAssembly().GetName().Version.ToString()
+                Assembly.GetExecutingAssembly().GetName().Version.ToString(3)
             );
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
