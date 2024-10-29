@@ -30,6 +30,7 @@ using System.Windows.Media;
 using Scrupdate.Classes.Objects;
 using Scrupdate.Classes.Utilities;
 using Scrupdate.UiElements.Controls;
+using System.Text;
 
 
 namespace Scrupdate.UiElements.Windows
@@ -40,7 +41,10 @@ namespace Scrupdate.UiElements.Windows
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private const string DIRECTORY_NAME__DOCS = "docs";
+        private const string FILE_NAME__USER_MANUAL = "Scrupdate User Manual.pdf";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
+        private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE = "Unable to Open the User-Manual File!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED = "Program Database Recreation Was Failed!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
         private const string ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED = "No ChromeDriver Is Installed!";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE = "Unable to Access the ChromeDriver Executable File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
@@ -87,6 +91,16 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static readonly string userManualFilePath =
+            (new StringBuilder(
+                256 + 1 + DIRECTORY_NAME__DOCS.Length + 1 + FILE_NAME__USER_MANUAL.Length
+            ))
+                .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+                .Append('\\')
+                .Append(DIRECTORY_NAME__DOCS)
+                .Append('\\')
+                .Append(FILE_NAME__USER_MANUAL)
+                .ToString();
         public static readonly DependencyProperty CurrentErrorProperty = DependencyProperty.Register(
             nameof(CurrentError),
             typeof(Error),
@@ -383,7 +397,7 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_about)
                 OpenAboutWindowAsDialog();
             else if (senderButton == button_help)
-                OpenSingleHelpWindow();
+                OpenUserManualFile();
             else if (senderButton == button_settings)
             {
                 Settings updatedSettings;
@@ -732,29 +746,28 @@ namespace Scrupdate.UiElements.Windows
                 updatedSettings = settingsWindow.GetUpdatedSettings();
             return returnValue;
         }
-        private void OpenSingleHelpWindow()
+        private void OpenUserManualFile()
         {
-            bool helpWindowIsAlreadyOpen = false;
-            foreach (Window window in Application.Current.Windows)
+            try
             {
-                if (window.GetType().Equals(typeof(HelpWindow)))
-                {
-                    window.WindowState = WindowState.Normal;
-                    window.Activate();
-                    helpWindowIsAlreadyOpen = true;
-                    break;
-                }
+                ProcessUtilities.RunFile(
+                    userManualFilePath,
+                    null,
+                    true,
+                    false,
+                    false,
+                    -1,
+                    false,
+                    false,
+                    out _
+                );
             }
-            if (!helpWindowIsAlreadyOpen)
+            catch
             {
-                ThreadingUtilities.RunOnAnotherThread(
-                    Dispatcher,
-                    () =>
-                        {
-                            HelpWindow helpWindow = new HelpWindow();
-                            helpWindow.Owner = this;
-                            helpWindow.Show();
-                        }
+                DialogUtilities.ShowErrorDialog(
+                    ERROR_DIALOG_TITLE__ERROR,
+                    ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE,
+                    this
                 );
             }
         }
