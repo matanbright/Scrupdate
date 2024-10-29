@@ -258,7 +258,7 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_InstallChromeDriver)
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "Executable Files (.exe)| *.exe";
+                openFileDialog.Filter = "Executable Files (.exe)|*.exe";
                 openFileDialog.Multiselect = false;
                 if (openFileDialog.ShowDialog() == true)
                 {
