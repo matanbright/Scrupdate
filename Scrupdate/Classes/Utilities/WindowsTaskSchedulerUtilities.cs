@@ -200,14 +200,17 @@ namespace Scrupdate.Classes.Utilities
                     .Append("/Delete /TN \"")
                     .Append(scheduledTaskNameForCurrentUser)
                     .Append("\" /F");
-                ProcessUtilities.RunFileWithoutElevatedPrivileges(
-                    taskSchedulerFilePath,
-                    taskSchedulerArguments.ToString(),
-                    true,
-                    true,
-                    TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
-                    true
-                );
+                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
+                        taskSchedulerFilePath,
+                        taskSchedulerArguments.ToString(),
+                        true,
+                        true,
+                        TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
+                        true
+                    ) != 0)
+                {
+                    return false;
+                }
                 return true;
             }
             catch
