@@ -15,10 +15,10 @@
 
 
 
-using System.Text;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using Scrupdate.Classes.Utilities;

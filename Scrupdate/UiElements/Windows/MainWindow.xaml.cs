@@ -18,10 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
-using System.Diagnostics;
-using System.Reflection;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -30,7 +31,6 @@ using System.Windows.Media;
 using Scrupdate.Classes.Objects;
 using Scrupdate.Classes.Utilities;
 using Scrupdate.UiElements.Controls;
-using System.Text;
 
 
 namespace Scrupdate.UiElements.Windows

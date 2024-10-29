@@ -16,13 +16,13 @@
 
 
 using System;
-using System.Text;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-using System.Threading;
-using System.Diagnostics;
-using System.Security.Principal;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using Microsoft.Win32;
 using Scrupdate.Classes.Objects;

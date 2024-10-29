@@ -16,8 +16,8 @@
 
 
 using System;
-using System.Media;
 using System.ComponentModel;
+using System.Media;
 using System.Windows;
 using Scrupdate.Classes.Utilities;
 using Scrupdate.UiElements.Controls;
