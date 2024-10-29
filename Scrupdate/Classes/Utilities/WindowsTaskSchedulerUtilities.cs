@@ -61,6 +61,35 @@ namespace Scrupdate.Classes.Utilities
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static bool HasProgramUpdatesCheckBeenScheduled()
+        {
+            try
+            {
+                StringBuilder taskSchedulerArguments = new StringBuilder(
+                    12 + scheduledTaskNameForCurrentUser.Length + 1
+                );
+                taskSchedulerArguments
+                    .Append("/Query /TN \"")
+                    .Append(scheduledTaskNameForCurrentUser)
+                    .Append('\"');
+                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
+                        taskSchedulerFilePath,
+                        taskSchedulerArguments.ToString(),
+                        true,
+                        true,
+                        TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
+                        true
+                    ) != 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public static bool ScheduleProgramUpdatesCheck(Settings.GeneralSettings.WeekDays scheduleDays,
                                                        int scheduleHour)
         {
@@ -175,41 +204,26 @@ namespace Scrupdate.Classes.Utilities
         {
             try
             {
-                StringBuilder taskSchedulerArguments = new StringBuilder(
-                    13 + scheduledTaskNameForCurrentUser.Length + 49
-                );
-                taskSchedulerArguments
-                    .Append("/Create /TN \"")
-                    .Append(scheduledTaskNameForCurrentUser)
-                    .Append("\" /SC Once /SD 01/01/1970 /ST 00:00 /TR \"NULL\" /F");
-                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
-                        taskSchedulerFilePath,
-                        taskSchedulerArguments.ToString(),
-                        true,
-                        true,
-                        TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
-                        true
-                    ) != 0)
+                if (HasProgramUpdatesCheckBeenScheduled())
                 {
-                    return false;
-                }
-                taskSchedulerArguments = new StringBuilder(
-                    13 + scheduledTaskNameForCurrentUser.Length + 4
-                );
-                taskSchedulerArguments
-                    .Append("/Delete /TN \"")
-                    .Append(scheduledTaskNameForCurrentUser)
-                    .Append("\" /F");
-                if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
-                        taskSchedulerFilePath,
-                        taskSchedulerArguments.ToString(),
-                        true,
-                        true,
-                        TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
-                        true
-                    ) != 0)
-                {
-                    return false;
+                    StringBuilder taskSchedulerArguments = new StringBuilder(
+                        13 + scheduledTaskNameForCurrentUser.Length + 4
+                    );
+                    taskSchedulerArguments
+                        .Append("/Delete /TN \"")
+                        .Append(scheduledTaskNameForCurrentUser)
+                        .Append("\" /F");
+                    if (ProcessUtilities.RunFileWithoutElevatedPrivileges(
+                            taskSchedulerFilePath,
+                            taskSchedulerArguments.ToString(),
+                            true,
+                            true,
+                            TASK_SCHEDULER_QUERY_TIMEOUT_IN_MILLISECONDS,
+                            true
+                        ) != 0)
+                    {
+                        return false;
+                    }
                 }
                 return true;
             }
