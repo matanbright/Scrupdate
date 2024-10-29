@@ -53,10 +53,10 @@ namespace Scrupdate.UiElements.Windows
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
         private const string QUESTION_DIALOG_MESSAGE__DO_YOU_WANT_TO_RECREATE_THE_PROGRAM_DATABASE = "Do You Want to Recreate the Program Database?\r\n\r\n•  All the program information and configurations will be lost.";
         private const string QUESTION_DIALOG_MESSAGE__REMOVE_THE_SELECTED_PROGRAMS_FROM_THE_LIST = "Remove the Selected Program(s) from the List?";
-        private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs...";
-        private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates...";
-        private const string STATUS_MESSAGE__CANCELLING = "Cancelling...";
-        private const string STATUS_MESSAGE__CANCELLING_AND_CLOSING = "Cancelling and Closing...";
+        private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs…";
+        private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates…";
+        private const string STATUS_MESSAGE__CANCELLING = "Cancelling…";
+        private const string STATUS_MESSAGE__CANCELLING_AND_CLOSING = "Cancelling and Closing…";
         private const string STATUS_MESSAGE__NO_UPDATES_WERE_FOUND = "No Updates Were Found";
         private const string STATUS_MESSAGE__THERE_IS_AN_UPDATE = "There Is an Update";
         private const string STATUS_MESSAGE__THERE_ARE_N_UPDATES = "There Are {*} Updates";

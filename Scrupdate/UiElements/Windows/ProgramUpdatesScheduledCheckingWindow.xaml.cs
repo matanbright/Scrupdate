@@ -45,9 +45,9 @@ namespace Scrupdate.UiElements.Windows
         private const string STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED = "Google Chrome™ Browser Is Not Installed!";
         private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER = "Unable to Access the Google Chrome™ Browser!";
         private const string STATUS_MESSAGE__CHROMEDRIVER_ERROR = "ChromeDriver Error!";
-        private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs...";
-        private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates...";
-        private const string STATUS_MESSAGE__CANCELLING_AND_CLOSING = "Cancelling and Closing...";
+        private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs…";
+        private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates…";
+        private const string STATUS_MESSAGE__CANCELLING_AND_CLOSING = "Cancelling and Closing…";
         private const string STATUS_MESSAGE__NO_UPDATES_WERE_FOUND = "No Updates Were Found";
         private const string STATUS_MESSAGE__THERE_IS_AN_UPDATE = "There Is an Update";
         private const string STATUS_MESSAGE__THERE_ARE_N_UPDATES = "There Are {*} Updates";

@@ -276,7 +276,7 @@
                                         here
                                     </Hyperlink>.<Hyperlink x:Name="hyperlink_goToNote4" TextDecorations="None" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
                                         <Scrupdate_UiElements_Controls:CustomLabel Foreground="{StaticResource darkSkyBlueSolidColorBrush}" FontSize="13" Padding="0 0 0 0" Margin="0 0 0 3" Content="[4]" />
-                                    </Hyperlink> Next, go to settings, click on the 'ChromeDriver' tab on the left side, click on the 'Install...' button, browse to the location where you've downloaded the ChromeDriver executable file and select it.
+                                    </Hyperlink> Next, go to settings, click on the 'ChromeDriver' tab on the left side, click on the 'Install…' button, browse to the location where you've downloaded the ChromeDriver executable file and select it.
                                     If the text above turns green, ChromeDriver has been installed successfully.
                                 </TextBlock>
                             </StackPanel>
@@ -648,7 +648,7 @@
                                     </Grid>
                                     <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                         Displays the currently installed ChromeDriver along with its version.
-                                        You can install ChromeDriver by clicking on the 'Install...' button and selecting a ChromeDriver executable file, and you can uninstall it by clicking on the 'Uninstall' button.
+                                        You can install ChromeDriver by clicking on the 'Install…' button and selecting a ChromeDriver executable file, and you can uninstall it by clicking on the 'Uninstall' button.
                                     </TextBlock>
                                 </StackPanel>
                                 <StackPanel x:Name="stackPanel_settingsWindowSubSection10" Orientation="Vertical" Margin="0 5 0 0">
@@ -1010,7 +1010,7 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'After the Web Page Is Loaded, Wait For...':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection1Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'After the Web Page Is Loaded, Wait For…':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             This option allows you to change the time Scrupdate will wait after the web page is loaded before it continues to search for a version.
@@ -1028,7 +1028,7 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="◦" />
-                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Before Searching for a Version, Simulate Mouse Clicks on...':" />
+                                            <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_programAddingOrEditingWindowSubSection10SubSection2Title" Grid.Row="0" Grid.Column="1" FontSize="20" FontFamily="Calibri" Padding="0 0 0 0" Margin="10 0 0 0" Content="'Before Searching for a Version, Simulate Mouse Clicks on…':" />
                                         </Grid>
                                         <TextBlock FontSize="20" FontFamily="Calibri" FontStyle="Italic" TextWrapping="Wrap" Padding="0 0 0 0" Margin="45 0 0 0">
                                             Makes Scrupdate simulate mouse clicks on the specified elements within the web page before it continues to search for a version.
