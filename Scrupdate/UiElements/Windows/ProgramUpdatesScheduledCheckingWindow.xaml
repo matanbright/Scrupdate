@@ -181,8 +181,15 @@
                 </DockPanel>
             </Grid>
         </Grid>
-        <DockPanel x:Name="dockPanel_windowToolbar" Grid.Row="0" Grid.Column="0" LastChildFill="False" VerticalAlignment="Top">
-            <StackPanel x:Name="stackPanel_windowTitle" DockPanel.Dock="Left" Orientation="Horizontal">
+        <Grid x:Name="grid_windowToolbar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="stackPanel_windowTitle" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
                         <Setter Property="Visibility" Value="Collapsed" />
@@ -217,95 +224,97 @@
                     </Scrupdate_UiElements_Controls:CustomProgressBar>
                 </StackPanel>
             </StackPanel>
-            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_closeWindow" DockPanel.Dock="Right" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
-                <Viewbox VerticalAlignment="Center">
-                    <Border Width="25" Height="25">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource brightBordoSolidColorBrush}" />
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource lightBordoSolidColorBrush}" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 0,0 L 1,1 M 0,1 L 1,0">
-                            <Path.Style>
-                                <Style TargetType="Path">
-                                    <Setter Property="Stroke" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+            <StackPanel x:Name="stackPanel_windowButtons" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
+                    <Viewbox VerticalAlignment="Center">
+                        <Border Width="25" Height="25">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True">
-                                            <Setter Property="Stroke" Value="{StaticResource lightBlackSolidColorBrush}" />
-                                        </DataTrigger>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
                                                 <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
                                                 <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Stroke" Value="{StaticResource whiteSolidColorBrush}" />
+                                            <Setter Property="Background" Value="{StaticResource paleGraySolidColorBrush}" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
                                         </MultiDataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Path.Style>
-                        </Path>
-                    </Border>
-                </Viewbox>
-            </Scrupdate_UiElements_Controls:CustomButton>
-            <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow" DockPanel.Dock="Right" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
-                <Viewbox VerticalAlignment="Center">
-                    <Border Width="25" Height="25">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
-                                <Style.Triggers>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource paleGraySolidColorBrush}" />
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
-                                    </MultiDataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-                        <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Stroke="{StaticResource lightBlackSolidColorBrush}">
-                            <Path.Style>
-                                <Style TargetType="Path">
-                                    <Setter Property="Data" Value="M 0,0.5 L 1,0.5" />
+                            </Border.Style>
+                            <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Stroke="{StaticResource lightBlackSolidColorBrush}">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Data" Value="M 0,0.5 L 1,0.5" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
+                                                <Setter Property="Data" Value="M 0,0.5 L 1,0.5 M 0.5,0 L 0.5,1" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Border>
+                    </Viewbox>
+                </Scrupdate_UiElements_Controls:CustomButton>
+                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_closeWindow" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
+                    <Viewbox VerticalAlignment="Center">
+                        <Border Width="25" Height="25">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
-                                            <Setter Property="Data" Value="M 0,0.5 L 1,0.5 M 0.5,0 L 0.5,1" />
-                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="{StaticResource brightBordoSolidColorBrush}" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="{StaticResource lightBordoSolidColorBrush}" />
+                                        </MultiDataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Path.Style>
-                        </Path>
-                    </Border>
-                </Viewbox>
-            </Scrupdate_UiElements_Controls:CustomButton>
-        </DockPanel>
+                            </Border.Style>
+                            <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 0,0 L 1,1 M 0,1 L 1,0">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Stroke" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True">
+                                                <Setter Property="Stroke" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                            </DataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Stroke" Value="{StaticResource whiteSolidColorBrush}" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Border>
+                    </Viewbox>
+                </Scrupdate_UiElements_Controls:CustomButton>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
