@@ -44,6 +44,7 @@ namespace Scrupdate.UiElements.Windows
         private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER = "Unable to Access the ChromeDriver!";
         private const string STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED = "Google Chrome™ Browser Is Not Installed!";
         private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER = "Unable to Access the Google Chrome™ Browser!";
+        private const string STATUS_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT = "Unable to Get Default ChromeDriver User-Agent!";
         private const string STATUS_MESSAGE__CHROMEDRIVER_ERROR = "ChromeDriver Error!";
         private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs…";
         private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates…";
@@ -745,6 +746,12 @@ namespace Scrupdate.UiElements.Windows
                                              ))
                                     {
                                         statusMessage = STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER;
+                                    }
+                                    else if (programUpdatesCheckException.GetType().Equals(
+                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)
+                                             ))
+                                    {
+                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT;
                                     }
                                     else if (programUpdatesCheckException.GetType().Equals(
                                                  typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
