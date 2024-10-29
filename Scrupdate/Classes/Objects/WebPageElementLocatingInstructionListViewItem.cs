@@ -26,7 +26,7 @@ namespace Scrupdate.Classes.Objects
         public int WebPageElementLocatingInstructionIndex { get; set; }
         public WebPageElementLocatingInstruction UnderlyingWebPageElementLocatingInstruction { get; set; }
         public string WebPageElementLocatingMethodToDisplay { get; set; }
-        public string WebPageElementLocatingDurationToDisplay { get; set; }
+        public string WebPageElementLocatingIntervalToDisplay { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -41,19 +41,19 @@ namespace Scrupdate.Classes.Objects
                     underlyingWebPageElementLocatingInstruction.LocatingMethod
                 ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath"),
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
-                    underlyingWebPageElementLocatingInstruction.LocatingDuration
+                    underlyingWebPageElementLocatingInstruction.LocatingInterval
                 ).Replace(" Ms", "ms")
             )
         { }
         public WebPageElementLocatingInstructionListViewItem(int webPageElementLocatingInstructionIndex,
                                                              WebPageElementLocatingInstruction underlyingWebPageElementLocatingInstruction,
                                                              string webPageElementLocatingMethodToDisplay,
-                                                             string webPageElementLocatingDurationToDisplay)
+                                                             string webPageElementLocatingIntervalToDisplay)
         {
             WebPageElementLocatingInstructionIndex = webPageElementLocatingInstructionIndex;
             UnderlyingWebPageElementLocatingInstruction = underlyingWebPageElementLocatingInstruction;
             WebPageElementLocatingMethodToDisplay = webPageElementLocatingMethodToDisplay;
-            WebPageElementLocatingDurationToDisplay = webPageElementLocatingDurationToDisplay;
+            WebPageElementLocatingIntervalToDisplay = webPageElementLocatingIntervalToDisplay;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

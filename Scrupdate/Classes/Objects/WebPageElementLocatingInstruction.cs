@@ -30,7 +30,7 @@ namespace Scrupdate.Classes.Objects
             ByXPath,
             ByInnerText
         }
-        public enum _LocatingDuration
+        public enum _LocatingInterval
         {
             Unspecified,
             _1Ms,
@@ -48,7 +48,7 @@ namespace Scrupdate.Classes.Objects
         public _LocatingMethod LocatingMethod { get; set; }
         public string MethodArgument { get; set; }
         public bool MatchExactText { get; set; }
-        public _LocatingDuration LocatingDuration { get; set; }
+        public _LocatingInterval LocatingInterval { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -59,18 +59,18 @@ namespace Scrupdate.Classes.Objects
                 _LocatingMethod.Unspecified,
                 "",
                 false,
-                _LocatingDuration.Unspecified
+                _LocatingInterval.Unspecified
             )
         { }
         public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod,
                                                  string methodArgument,
                                                  bool matchExactText,
-                                                 _LocatingDuration locatingDuration)
+                                                 _LocatingInterval locatingInterval)
         {
             LocatingMethod = locatingMethod;
             MethodArgument = methodArgument;
             MatchExactText = matchExactText;
-            LocatingDuration = locatingDuration;
+            LocatingInterval = locatingInterval;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,7 +86,7 @@ namespace Scrupdate.Classes.Objects
             return (LocatingMethod.Equals(otherWebPageElementLocatingInstruction.LocatingMethod) &&
                     MethodArgument.Equals(otherWebPageElementLocatingInstruction.MethodArgument) &&
                     MatchExactText == otherWebPageElementLocatingInstruction.MatchExactText &&
-                    LocatingDuration == otherWebPageElementLocatingInstruction.LocatingDuration);
+                    LocatingInterval == otherWebPageElementLocatingInstruction.LocatingInterval);
         }
         public override int GetHashCode()
         {
@@ -95,7 +95,7 @@ namespace Scrupdate.Classes.Objects
                 .Append(LocatingMethod.GetHashCode())
                 .Append(MethodArgument.GetHashCode())
                 .Append(MatchExactText.GetHashCode())
-                .Append(LocatingDuration.GetHashCode());
+                .Append(LocatingInterval.GetHashCode());
             return objectHashString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

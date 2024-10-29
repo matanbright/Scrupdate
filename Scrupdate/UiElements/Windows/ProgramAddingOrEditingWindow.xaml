@@ -485,14 +485,14 @@
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingDuration" Width="75">
+                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInterval" Width="75">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingDuration" Text="Duration" Tag="WebPageElementLocatingDurationToDisplay" IsSortable="False" />
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInterval" Text="Interval" Tag="WebPageElementLocatingIntervalToDisplay" IsSortable="False" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingDurationToDisplay}" />
+                                                                                           Text="{Binding WebPageElementLocatingIntervalToDisplay}" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
@@ -547,7 +547,7 @@
                                                                     </Scrupdate_UiElements_Controls:CustomCheckBox.Style>
                                                                 </Scrupdate_UiElements_Controls:CustomCheckBox>
                                                                 <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_webPageElementLocatingMethodArgument" Grid.Row="0" Grid.Column="2" Width="auto" Margin="1 1 0 1" VerticalAlignment="Center" HintText="Locating Method Argument" TextChanged="OnTextBoxTextChangedEvent" KeyDown="OnTextBoxKeyDownEvent" />
-                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPageElementLocatingDuration" Grid.Row="0" Grid.Column="3" Width="auto" Height="20" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" Margin="1 1 0 1" VerticalAlignment="Center" HintText="Duration" KeyDown="OnComboBoxKeyDownEvent" />
+                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPageElementLocatingInterval" Grid.Row="0" Grid.Column="3" Width="auto" Height="20" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" Margin="1 1 0 1" VerticalAlignment="Center" HintText="Interval" KeyDown="OnComboBoxKeyDownEvent" />
                                                                 <Scrupdate_UiElements_Controls:CustomButton x:Name="button_addNewWebPageElement" Grid.Row="0" Grid.Column="4" Width="20" Height="20" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="1 1 1 1" Margin="1 1 1 1" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishGreenSolidColorBrush1}" HoveredBackground="{StaticResource brightGrayishGreenSolidColorBrush}" PressedBackground="{StaticResource lightGrayishGreenSolidColorBrush2}" DisabledBackground="{StaticResource paleGrayishGreenSolidColorBrush1}" ToolTip="Add" Content="+" Click="OnButtonClickEvent">
                                                                     <Scrupdate_UiElements_Controls:CustomButton.Style>
                                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
@@ -559,7 +559,7 @@
                                                                                 <DataTrigger Binding="{Binding ElementName=textBox_webPageElementLocatingMethodArgument, Path=Text.Length}" Value="0">
                                                                                     <Setter Property="IsEnabled" Value="False" />
                                                                                 </DataTrigger>
-                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webPageElementLocatingDuration, Path=SelectedItem}" Value="">
+                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webPageElementLocatingInterval, Path=SelectedItem}" Value="">
                                                                                     <Setter Property="IsEnabled" Value="False" />
                                                                                 </DataTrigger>
                                                                             </Style.Triggers>

@@ -208,21 +208,21 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
             comboBox_webPageElementLocatingMethod.SelectedItem = "";
-            foreach (WebPageElementLocatingInstruction._LocatingDuration locatingDuration in
-                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingDuration)))
+            foreach (WebPageElementLocatingInstruction._LocatingInterval locatingInterval in
+                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingInterval)))
             {
-                if (locatingDuration == WebPageElementLocatingInstruction._LocatingDuration.Unspecified)
-                    comboBox_webPageElementLocatingDuration.Items.Add("");
+                if (locatingInterval == WebPageElementLocatingInstruction._LocatingInterval.Unspecified)
+                    comboBox_webPageElementLocatingInterval.Items.Add("");
                 else
                 {
-                    comboBox_webPageElementLocatingDuration.Items.Add(
+                    comboBox_webPageElementLocatingInterval.Items.Add(
                         EnumUtilities.GetHumanReadableStringFromEnumItem(
-                            locatingDuration
+                            locatingInterval
                         ).Replace(" Ms", "ms")
                     );
                 }
             }
-            comboBox_webPageElementLocatingDuration.SelectedItem = "";
+            comboBox_webPageElementLocatingInterval.SelectedItem = "";
             CalculateWindowDynamicSizeAndResizeWindow();
             if (programToEdit == null)
             {
@@ -416,7 +416,7 @@ namespace Scrupdate.UiElements.Windows
                     comboBox_webPageElementLocatingMethod.SelectedItem = "";
                     checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
                     textBox_webPageElementLocatingMethodArgument.Text = "";
-                    comboBox_webPageElementLocatingDuration.SelectedItem = "";
+                    comboBox_webPageElementLocatingInterval.SelectedItem = "";
                     checkBox_simulateWebPageElementClicks.IsChecked = false;
                 }
             }
@@ -438,7 +438,7 @@ namespace Scrupdate.UiElements.Windows
                     comboBox_webPageElementLocatingMethod.SelectedItem = "";
                     checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
                     textBox_webPageElementLocatingMethodArgument.Text = "";
-                    comboBox_webPageElementLocatingDuration.SelectedItem = "";
+                    comboBox_webPageElementLocatingInterval.SelectedItem = "";
                 }
             }
         }
@@ -527,7 +527,7 @@ namespace Scrupdate.UiElements.Windows
         {
             CustomComboBox senderComboBox = (CustomComboBox)sender;
             if (senderComboBox == comboBox_webPageElementLocatingMethod ||
-                senderComboBox == comboBox_webPageElementLocatingDuration)
+                senderComboBox == comboBox_webPageElementLocatingInterval)
             {
                 if (e.Key == Key.Enter)
                     AddTypedWebPageElementLocatingInstructionToListView();
@@ -716,7 +716,7 @@ namespace Scrupdate.UiElements.Windows
             if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON &&
                 (!comboBox_webPageElementLocatingMethod.SelectedItem.Equals("") &&
                  textBox_webPageElementLocatingMethodArgument.Text.Trim().Length > 0 &&
-                 !comboBox_webPageElementLocatingDuration.SelectedItem.Equals("")))
+                 !comboBox_webPageElementLocatingInterval.SelectedItem.Equals("")))
             {
                 WebPageElementLocatingInstruction._LocatingMethod selectedWebPageElementLocatingMethod =
                     EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
@@ -724,9 +724,9 @@ namespace Scrupdate.UiElements.Windows
                             .Replace("ID", "Id")
                             .Replace("HTML", "Html")
                     );
-                WebPageElementLocatingInstruction._LocatingDuration selectedWebPageElementLocatingDuration =
-                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingDuration>(
-                        ((string)comboBox_webPageElementLocatingDuration.SelectedItem)
+                WebPageElementLocatingInstruction._LocatingInterval selectedWebPageElementLocatingInterval =
+                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingInterval>(
+                        ((string)comboBox_webPageElementLocatingInterval.SelectedItem)
                             .Replace("ms", "Ms")
                     );
                 WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView =
@@ -734,7 +734,7 @@ namespace Scrupdate.UiElements.Windows
                         selectedWebPageElementLocatingMethod,
                         textBox_webPageElementLocatingMethodArgument.Text.Trim(),
                         (bool)checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked,
-                        selectedWebPageElementLocatingDuration
+                        selectedWebPageElementLocatingInterval
                     );
                 locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(
                     new WebPageElementLocatingInstructionListViewItem(
@@ -752,7 +752,7 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_webPageElementLocatingMethod.SelectedItem = "";
                 checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
                 textBox_webPageElementLocatingMethodArgument.Text = "";
-                comboBox_webPageElementLocatingDuration.SelectedItem = "";
+                comboBox_webPageElementLocatingInterval.SelectedItem = "";
             }
         }
         private void MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection movingDirection)

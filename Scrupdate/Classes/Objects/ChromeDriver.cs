@@ -241,30 +241,30 @@ namespace Scrupdate.Classes.Objects
             {
                 throw new FailedToPerformAClickOnTheElementException();
             }
-            int webPageElementLocatingDuration = 0;
-            switch (webPageElementLocatingInstruction.LocatingDuration)
+            int webPageElementLocatingInterval = 0;
+            switch (webPageElementLocatingInstruction.LocatingInterval)
             {
-                case WebPageElementLocatingInstruction._LocatingDuration._1Ms:
-                    webPageElementLocatingDuration = 1;
+                case WebPageElementLocatingInstruction._LocatingInterval._1Ms:
+                    webPageElementLocatingInterval = 1;
                     break;
-                case WebPageElementLocatingInstruction._LocatingDuration._10Ms:
-                    webPageElementLocatingDuration = 10;
+                case WebPageElementLocatingInstruction._LocatingInterval._10Ms:
+                    webPageElementLocatingInterval = 10;
                     break;
-                case WebPageElementLocatingInstruction._LocatingDuration._100Ms:
-                    webPageElementLocatingDuration = 100;
+                case WebPageElementLocatingInstruction._LocatingInterval._100Ms:
+                    webPageElementLocatingInterval = 100;
                     break;
-                case WebPageElementLocatingInstruction._LocatingDuration._250Ms:
-                    webPageElementLocatingDuration = 250;
+                case WebPageElementLocatingInstruction._LocatingInterval._250Ms:
+                    webPageElementLocatingInterval = 250;
                     break;
-                case WebPageElementLocatingInstruction._LocatingDuration._500Ms:
-                    webPageElementLocatingDuration = 500;
+                case WebPageElementLocatingInstruction._LocatingInterval._500Ms:
+                    webPageElementLocatingInterval = 500;
                     break;
-                case WebPageElementLocatingInstruction._LocatingDuration._1000Ms:
-                    webPageElementLocatingDuration = 1000;
+                case WebPageElementLocatingInstruction._LocatingInterval._1000Ms:
+                    webPageElementLocatingInterval = 1000;
                     break;
             }
             cancellationToken.Value.WaitHandle.WaitOne(
-                webPageElementLocatingDuration
+                webPageElementLocatingInterval
             );
         }
         public string GetAllTextWithinWebPage()
