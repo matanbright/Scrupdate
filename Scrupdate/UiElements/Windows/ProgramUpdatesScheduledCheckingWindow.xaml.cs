@@ -26,6 +26,7 @@ using System.Windows.Media;
 using Scrupdate.Classes.Objects;
 using Scrupdate.Classes.Utilities;
 using Scrupdate.UiElements.Controls;
+using System.Text;
 
 
 namespace Scrupdate.UiElements.Windows
@@ -36,6 +37,8 @@ namespace Scrupdate.UiElements.Windows
     public partial class ProgramUpdatesScheduledCheckWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private const int MAX_LENGTH_OF_TEXT_TO_FIT_INTO_STATUS_MESSAGE_WITHOUT_TRIMMING = 36;
+        private const int MAX_LENGTH_OF_TEXT_TO_FIT_INTO_ADDITIONAL_STATUS_MESSAGE_WITHOUT_TRIMMING = 40;
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
         private const string STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE = "Unable to Open the Program Database!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED = "The Program Database Is Corrupted!";
@@ -609,12 +612,61 @@ namespace Scrupdate.UiElements.Windows
                 Dispatcher,
                 () =>
                     {
-                        label_statusMessage.Content = statusMessage;
+                        string statusMessageLabelContentText;
+                        string statusMessageLabelToolTipText;
+                        if (statusMessage.Length > MAX_LENGTH_OF_TEXT_TO_FIT_INTO_STATUS_MESSAGE_WITHOUT_TRIMMING)
+                        {
+                            StringBuilder trimmedStatusMessage = new StringBuilder(
+                                MAX_LENGTH_OF_TEXT_TO_FIT_INTO_STATUS_MESSAGE_WITHOUT_TRIMMING + 1
+                            );
+                            trimmedStatusMessage
+                                .Append(
+                                    statusMessage.Substring(
+                                        0,
+                                        MAX_LENGTH_OF_TEXT_TO_FIT_INTO_STATUS_MESSAGE_WITHOUT_TRIMMING
+                                    )
+                                )
+                                .Append('…');
+                            statusMessageLabelContentText = trimmedStatusMessage.ToString();
+                            statusMessageLabelToolTipText = statusMessage;
+                        }
+                        else
+                        {
+                            statusMessageLabelContentText = statusMessage;
+                            statusMessageLabelToolTipText = null;
+                        }
+                        label_statusMessage.Content = statusMessageLabelContentText;
+                        label_statusMessage.ToolTip = statusMessageLabelToolTipText;
                         label_statusMessage.Foreground = statusMessageForegroundColor;
-                        label_additionalStatusMessage.Content = additionalStatusMessage;
-                        label_additionalStatusMessage.Foreground = additionalStatusMessageForegroundColor;
-                        label_titleStatusMessage.Content = statusMessage;
+                        label_titleStatusMessage.Content = statusMessageLabelContentText;
+                        label_titleStatusMessage.ToolTip = statusMessageLabelToolTipText;
                         label_titleStatusMessage.Foreground = statusMessageForegroundColor;
+                        string additionalStatusMessageLabelContentText;
+                        string additionalStatusMessageLabelToolTipText;
+                        if (additionalStatusMessage.Length > MAX_LENGTH_OF_TEXT_TO_FIT_INTO_ADDITIONAL_STATUS_MESSAGE_WITHOUT_TRIMMING)
+                        {
+                            StringBuilder trimmedAdditionalStatusMessage = new StringBuilder(
+                                MAX_LENGTH_OF_TEXT_TO_FIT_INTO_ADDITIONAL_STATUS_MESSAGE_WITHOUT_TRIMMING + 1
+                            );
+                            trimmedAdditionalStatusMessage
+                                .Append(
+                                    additionalStatusMessage.Substring(
+                                        0,
+                                        MAX_LENGTH_OF_TEXT_TO_FIT_INTO_ADDITIONAL_STATUS_MESSAGE_WITHOUT_TRIMMING
+                                    )
+                                )
+                                .Append('…');
+                            additionalStatusMessageLabelContentText = trimmedAdditionalStatusMessage.ToString();
+                            additionalStatusMessageLabelToolTipText = additionalStatusMessage;
+                        }
+                        else
+                        {
+                            additionalStatusMessageLabelContentText = additionalStatusMessage;
+                            additionalStatusMessageLabelToolTipText = null;
+                        }
+                        label_additionalStatusMessage.Content = additionalStatusMessageLabelContentText;
+                        label_additionalStatusMessage.ToolTip = additionalStatusMessageLabelToolTipText;
+                        label_additionalStatusMessage.Foreground = additionalStatusMessageForegroundColor;
                     }
             );
         }
