@@ -61,7 +61,7 @@ namespace Scrupdate.Classes.Objects
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Start()
         {
-            if ((thread.ThreadState & ThreadState.Unstarted) == 0)
+            if (!thread.ThreadState.HasFlag(ThreadState.Unstarted))
                 throw new ThreadIsAlreadyRunningOrTerminatedException();
             thread.Start();
         }
@@ -83,7 +83,7 @@ namespace Scrupdate.Classes.Objects
         }
         public bool WasAlreadyStarted()
         {
-            return ((thread.ThreadState & ThreadState.Unstarted) == 0);
+            return !thread.ThreadState.HasFlag(ThreadState.Unstarted);
         }
         public bool IsAlive()
         {

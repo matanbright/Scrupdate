@@ -124,13 +124,13 @@ namespace Scrupdate.Classes.Utilities
                                        <Enabled>true</Enabled>
                                        <ScheduleByWeek>
                                            <DaysOfWeek>
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0 ? "<Sunday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0 ? "<Monday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0 ? "<Tuesday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0 ? "<Wednesday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0 ? "<Thursday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0 ? "<Friday />" : "")}
-                                               {((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0 ? "<Saturday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Sunday) ? "<Sunday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Monday) ? "<Monday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Tuesday) ? "<Tuesday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Wednesday) ? "<Wednesday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Thursday) ? "<Thursday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Friday) ? "<Friday />" : "")}
+                                               {(scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Saturday) ? "<Saturday />" : "")}
                                            </DaysOfWeek>
                                            <WeeksInterval>1</WeeksInterval>
                                        </ScheduleByWeek>

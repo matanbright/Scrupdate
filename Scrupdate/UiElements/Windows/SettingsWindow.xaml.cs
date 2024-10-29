@@ -460,19 +460,19 @@ namespace Scrupdate.UiElements.Windows
             Settings.GeneralSettings.WeekDays scheduleDays =
                 settings.General.ProgramUpdatesScheduledCheckDays;
             checkBox_programUpdatesScheduledCheckDaySunday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Sunday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Sunday);
             checkBox_programUpdatesScheduledCheckDayMonday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Monday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Monday);
             checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Tuesday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Tuesday);
             checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Wednesday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Wednesday);
             checkBox_programUpdatesScheduledCheckDayThursday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Thursday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Thursday);
             checkBox_programUpdatesScheduledCheckDayFriday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Friday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Friday);
             checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked =
-                ((scheduleDays & Settings.GeneralSettings.WeekDays.Saturday) != 0);
+                scheduleDays.HasFlag(Settings.GeneralSettings.WeekDays.Saturday);
             comboBox_programUpdatesScheduledCheckHour.SelectedIndex =
                 settings.General.ProgramUpdatesScheduledCheckHour;
             checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked =

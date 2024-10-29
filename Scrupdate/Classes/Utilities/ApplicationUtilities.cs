@@ -127,8 +127,12 @@ namespace Scrupdate.Classes.Utilities
                     nextProgramUpdatesScheduledCheckAttemptionTime = nextProgramUpdatesScheduledCheckAttemptionTime.AddDays(1);
                 for (int i = 0; i < 7; i++)
                 {
-                    if ((settings.General.ProgramUpdatesScheduledCheckDays & ((Settings.GeneralSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek))) == 0)
+                    if (!settings.General.ProgramUpdatesScheduledCheckDays.HasFlag(
+                            (Settings.GeneralSettings.WeekDays)(1 << (int)nextProgramUpdatesScheduledCheckAttemptionTime.DayOfWeek)
+                        ))
+                    {
                         nextProgramUpdatesScheduledCheckAttemptionTime = nextProgramUpdatesScheduledCheckAttemptionTime.AddDays(1);
+                    }
                     else
                         return (DateTime.Now >= nextProgramUpdatesScheduledCheckAttemptionTime);
                 }
