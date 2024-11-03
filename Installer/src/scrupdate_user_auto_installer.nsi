@@ -136,8 +136,8 @@ Function .onInit
 	${If} ${Errors}
 		Quit
 	${EndIf}
-	${If} $0 != ""
-		StrCpy $INSTDIR $0
+	${If} "$0" != ""
+		StrCpy $INSTDIR "$0"
 	${EndIf}
 	ClearErrors
 	${GetOptions} "$CMDLINE" "${INSTALLER_ARGUMENT__CREATE_DESKTOP_SHORTCUT}" $0
@@ -184,7 +184,7 @@ Section
 		MessageBox MB_OK|MB_ICONSTOP "Error: The installation wizard doesn't have a permission to write to the selected location!"
 	${Else}
 		GetTempFileName $0
-		Delete $0
+		Delete "$0"
 		ClearErrors
 		Rename "$INSTDIR" "$0"
 		Rename "$0" "$INSTDIR"
@@ -223,7 +223,7 @@ Section "uninstall"
 		MessageBox MB_OK|MB_ICONSTOP "Error: The installation wizard doesn't have a permission to write to the current location!"
 	${Else}
 		GetTempFileName $0
-		Delete $0
+		Delete "$0"
 		ClearErrors
 		Rename "$INSTDIR" "$0"
 		Rename "$0" "$INSTDIR"

@@ -119,7 +119,7 @@ Var createStartMenuShortcut
 		${If} $installToAllUsers == true
 			UserInfo::GetAccountType
 			Pop $0
-			${If} $0 != "Admin"
+			${If} "$0" != "Admin"
 				GetDlgItem $1 $HWNDPARENT 1
 				SendMessage $1 ${BCM_SETSHIELD} 0 1
 			${EndIf}
