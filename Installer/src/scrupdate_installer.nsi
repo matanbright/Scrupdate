@@ -116,6 +116,8 @@ Var createStartMenuShortcut
 	!define MUI_PAGE_CUSTOMFUNCTION_LEAVE OnDirectoryPageLeave
 	!insertmacro MUI_PAGE_DIRECTORY
 	Function OnDirectoryPageShow
+		GetDlgItem $1 $HWNDPARENT 1
+		SendMessage $1 ${BCM_SETSHIELD} 0 0
 		${If} $installToAllUsers == true
 			UserInfo::GetAccountType
 			Pop $0
@@ -123,9 +125,6 @@ Var createStartMenuShortcut
 				GetDlgItem $1 $HWNDPARENT 1
 				SendMessage $1 ${BCM_SETSHIELD} 0 1
 			${EndIf}
-		${Else}
-			GetDlgItem $1 $HWNDPARENT 1
-			SendMessage $1 ${BCM_SETSHIELD} 0 0
 		${EndIf}
 	FunctionEnd
 	Function OnDirectoryPageLeave
