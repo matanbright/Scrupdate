@@ -47,6 +47,7 @@ Var createStartMenuShortcut
 	Var label_additionalOptions
 	Var checkBox_createDesktopShortcut
 	Var checkBox_createStartMenuShortcut
+	Var programIsAlreadyInstalled
 	Function OnInstallOptionsPageShow
 		!insertmacro MUI_HEADER_TEXT "Choose Install Options" "Choose install scope and additional options."
 		nsDialogs::Create 1018
@@ -106,6 +107,24 @@ Var createStartMenuShortcut
 			StrCpy $createStartMenuShortcut true
 		${Else}
 			StrCpy $createStartMenuShortcut false
+		${EndIf}
+		StrCpy $programIsAlreadyInstalled false
+		${If} $installToAllUsers == true
+			ClearErrors
+			EnumRegKey $0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${PROGRAM_NAME}" 0
+			${IfNot} ${Errors}
+				StrCpy $programIsAlreadyInstalled true
+			${EndIf}
+		${Else}
+			ClearErrors
+			EnumRegKey $0 HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${PROGRAM_NAME}" 0
+			${IfNot} ${Errors}
+				StrCpy $programIsAlreadyInstalled true
+			${EndIf}
+		${EndIf}
+		${If} $programIsAlreadyInstalled == true
+			MessageBox MB_OK|MB_ICONSTOP "${PROGRAM_NAME} is already installed. To upgrade/downgrade, please uninstall the old version first and then retry."
+			Abort
 		${EndIf}
 	FunctionEnd
 !macroend
