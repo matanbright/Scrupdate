@@ -34,7 +34,6 @@ namespace Scrupdate.UiElements.Windows
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const string FILE_NAME__SCRUPDATE_LICENSE_TXT = "LICENSE.txt";
         private const string FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT = "LICENSE.txt";
-        private const string FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT = "LICENSE-MIT.txt";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE = "Unable to Open the File!";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,14 +56,6 @@ namespace Scrupdate.UiElements.Windows
                 .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
                 .Append('\\')
                 .Append(FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT)
-                .ToString();
-        public static readonly string newtonsoftJsonLicenseTextFilePath =
-            (new StringBuilder(
-                256 + 1 + FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT.Length
-            ))
-                .Append(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-                .Append('\\')
-                .Append(FILE_NAME__NEWTONSOFT_JSON_LICENSE_TXT)
                 .ToString();
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,15 +95,12 @@ namespace Scrupdate.UiElements.Windows
         {
             Hyperlink senderHyperlink = (Hyperlink)sender;
             if (senderHyperlink == hyperlink_viewScrupdateLicense ||
-                senderHyperlink == hyperlink_viewSeleniumWebDriverLicense ||
-                senderHyperlink == hyperlink_viewNewtonsoftJsonLicense)
+                senderHyperlink == hyperlink_viewSeleniumWebDriverLicense)
             {
                 string licenseTextFilePath =
                     (senderHyperlink == hyperlink_viewScrupdateLicense ?
                         scrupdateLicenseTextFilePath :
-                        (senderHyperlink == hyperlink_viewSeleniumWebDriverLicense ?
-                            seleniumWebDriverLicenseTextFilePath :
-                            newtonsoftJsonLicenseTextFilePath));
+                        seleniumWebDriverLicenseTextFilePath);
                 try
                 {
                     ProcessUtilities.RunFile(

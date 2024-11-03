@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Selenium.WebDriver" Version="4.8.1" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.26.1" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(TargetDir)LICENSE.txt&quot; del /F &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)LICENSE.txt&quot; &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)LICENSE-MIT.txt&quot; del /F &quot;$(TargetDir)LICENSE-MIT.txt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)LICENSE-MIT.txt&quot; &quot;$(TargetDir)LICENSE-MIT.txt&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)LICENSE-MIT.txt&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)NOTICE.txt&quot; del /F &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)NOTICE.txt&quot; &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)\docs&quot; rmdir /S /Q &quot;$(TargetDir)\docs&quot;&#xD;&#xA;mkdir &quot;$(TargetDir)\docs&quot;&#xD;&#xA;copy &quot;$(SolutionDir)\Documentations\Scrupdate User Manual.pdf&quot; &quot;$(TargetDir)\docs\Scrupdate User Manual.pdf&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)\docs\Scrupdate User Manual.pdf&quot;&#xD;&#xA;copy &quot;$(SolutionDir)\Documentations\The XML Path Language (XPath).pdf&quot; &quot;$(TargetDir)\docs\The XML Path Language (XPath).pdf&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)\docs\The XML Path Language (XPath).pdf&quot;&#xD;&#xA;" />
+    <Exec Command="if exist &quot;$(TargetDir)LICENSE.txt&quot; del /F &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)LICENSE.txt&quot; &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)LICENSE.txt&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)NOTICE.txt&quot; del /F &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;copy &quot;$(SolutionDir)NOTICE.txt&quot; &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)NOTICE.txt&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)\docs&quot; rmdir /S /Q &quot;$(TargetDir)\docs&quot;&#xD;&#xA;mkdir &quot;$(TargetDir)\docs&quot;&#xD;&#xA;copy &quot;$(SolutionDir)\Documentations\Scrupdate User Manual.pdf&quot; &quot;$(TargetDir)\docs\Scrupdate User Manual.pdf&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)\docs\Scrupdate User Manual.pdf&quot;&#xD;&#xA;copy &quot;$(SolutionDir)\Documentations\The XML Path Language (XPath).pdf&quot; &quot;$(TargetDir)\docs\The XML Path Language (XPath).pdf&quot;&#xD;&#xA;attrib +R &quot;$(TargetDir)\docs\The XML Path Language (XPath).pdf&quot;&#xD;&#xA;" />
   </Target>
 
 </Project>
