@@ -66,7 +66,7 @@ Var uninstallationWasFailed
 		Pop $dialog_uninstallOptionsSelection
 		${NSD_CreateLabel} 0 0 100% 6% "Additional options:"
 		Pop $label_additionalOptions
-		${NSD_CreateCheckBox} 0 15% 100% 6% "Remove all user data created by Scrupdate"
+		${NSD_CreateCheckBox} 0 15% 100% 6% "Remove all user data created by ${PROGRAM_NAME}"
 		Pop $checkBox_removeAllUserDataCreatedByTheProgram
 		${If} $removeAllUserDataCreatedByTheProgram == true
 			${NSD_SetState} $checkBox_removeAllUserDataCreatedByTheProgram ${BST_CHECKED}

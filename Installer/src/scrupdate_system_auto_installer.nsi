@@ -68,11 +68,11 @@ Var uninstallationWasFailed
 		Pop $dialog_uninstallOptionsSelection
 		${NSD_CreateLabel} 0 0 100% 6% "Additional options:"
 		Pop $label_additionalOptions
-		${NSD_CreateCheckBox} 0 15% 100% 6% "Remove all user data created by Scrupdate"
+		${NSD_CreateCheckBox} 0 15% 100% 6% "Remove all user data created by ${PROGRAM_NAME}"
 		Pop $checkBox_removeAllUserDataCreatedByTheProgram
-		${NSD_CreateLabel} 4% 25% 96% 18% "Please note: The data will be removed only for the current user.$\r$\nOther users will have to manually remove Scrupdate's data files from the AppData folder if they were created."
+		${NSD_CreateLabel} 4% 25% 96% 18% "Please note: The data will be removed only for the current user.$\r$\nOther users will have to manually remove ${PROGRAM_NAME}'s data files from the AppData folder if they were created."
 		Pop $label_removeAllUserDataCreatedByTheProgramNote
-		${NSD_CreateLabel} 0 75% 100% 18% "Please note: The scheduled task created by Scrupdate will be removed only for the current user. Other users will have to manually remove the scheduled task from Windows Task Scheduler if it was created."
+		${NSD_CreateLabel} 0 75% 100% 18% "Please note: The scheduled task created by ${PROGRAM_NAME} will be removed only for the current user. Other users will have to manually remove the scheduled task from Windows Task Scheduler if it was created."
 		Pop $label_uninstallationNote
 		${If} $removeAllUserDataCreatedByTheProgram == true
 			${NSD_SetState} $checkBox_removeAllUserDataCreatedByTheProgram ${BST_CHECKED}
