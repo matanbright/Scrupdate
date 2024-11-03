@@ -1,4 +1,4 @@
-// Copyright © 2021 Matan Brightbert
+// Copyright © 2021-2024 Matan Brightbert
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.

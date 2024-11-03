@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright © 2021 Matan Brightbert
+    Copyright © 2021-2024 Matan Brightbert
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@
                     <StackPanel x:Name="stackPanel_appInformation" Orientation="Vertical" Margin="20 20 20 30" HorizontalAlignment="Center">
                         <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_appName" FontSize="35" FontFamily="Calibri" FontWeight="Bold" Padding="0 0 0 0" Margin="0 0 0 0" Content="Scrupdate" />
                         <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_appVersion" FontSize="22" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 10 0 0" Content="Version: {*}" />
-                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_appCopyright" FontSize="17" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 10 0 0" Content="Copyright © 2021-2023 Matan Brightbert" />
+                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_appCopyright" FontSize="17" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 10 0 0" Content="Copyright © 2021-2024 Matan Brightbert" />
                     </StackPanel>
                     <StackPanel x:Name="stackPanel_licensingsAndTrademarksInformation" Grid.Row="0" Grid.Column="0" Margin="20 30 20 20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                         <TextBlock x:Name="textBlock_scrupdateLicense" FontSize="12" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0">

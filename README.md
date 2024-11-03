@@ -39,7 +39,7 @@ If the build was successful, the compiled files will be located in the 'Scrupdat
 ## License
 
 Scrupdate is licensed under 'Apache License 2.0' [see '[LICENSE.txt](LICENSE.txt)' file].\
-Copyright © 2021-2023 Matan Brightbert.
+Copyright © 2021-2024 Matan Brightbert.
 
 ## Notices
 
