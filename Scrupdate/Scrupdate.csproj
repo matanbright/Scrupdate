@@ -12,6 +12,7 @@
     <PackageIcon>appIcon.png</PackageIcon>
     <PackageIconUrl />
     <Version>1.0.1.0</Version>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Platforms>x86;x64</Platforms>
   </PropertyGroup>
 
