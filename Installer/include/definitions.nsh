@@ -3,13 +3,13 @@
 	
 	
 	!define PROGRAM_NAME "Scrupdate"
-	!define PROGRAM_VERSION "2.0.0"
+	!define PROGRAM_VERSION "2.0.1"
 	!define PROGRAM_PUBLISHER "Matan Brightbert"
 	!define PROGRAM_COPYRIGHT "Copyright © 2021-2024 ${PROGRAM_PUBLISHER}"
 	
 	!define INSTALLER_NAME "${PROGRAM_NAME}-${PROGRAM_VERSION}-installer.exe"
 	!define UNINSTALLER_NAME "uninstaller.exe"
-	!define INSTALLER_VERSION "2.0.0.0"
+	!define INSTALLER_VERSION "2.0.1.0"
 	!define INSTALLER_CAPTION "${PROGRAM_NAME} - Installer"
 	!define UNINSTALLER_CAPTION "${PROGRAM_NAME} - Uninstaller"
 	
