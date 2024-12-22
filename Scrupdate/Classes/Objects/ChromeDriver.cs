@@ -219,7 +219,7 @@ namespace Scrupdate.Classes.Objects
                         webPageElement = chromeDriver.FindElement(By.XPath(xPath.ToString()));
                         if (webPageElementLocatingInstruction.MatchExactText &&
                             !webPageElementLocatingInstruction.MethodArgument.Equals(
-                                webPageElement.GetAttribute("innerText").Trim()
+                                webPageElement.GetDomProperty("innerText").Trim()
                             ))
                         {
                             webPageElement = null;
@@ -274,7 +274,7 @@ namespace Scrupdate.Classes.Objects
             if (!googleChromeBrowserIsOpen)
                 throw new GoogleChromeBrowserIsNotOpenException();
             IWebElement htmlRootElement = chromeDriver.FindElement(By.XPath("/*"));
-            return htmlRootElement.GetAttribute("innerText");
+            return htmlRootElement.GetDomProperty("innerText");
         }
         public string GetTextInsideHtmlElementById(string htmlElementId)
         {
@@ -293,7 +293,7 @@ namespace Scrupdate.Classes.Objects
             }
             if (htmlElement == null)
                 throw new HtmlElementsWereNotFoundException();
-            return htmlElement.GetAttribute("innerText");
+            return htmlElement.GetDomProperty("innerText");
         }
         public string[] GetTextsInsideHtmlElementsByXPath(string htmlElementsXPath)
         {
@@ -316,7 +316,7 @@ namespace Scrupdate.Classes.Objects
             for (IEnumerator<IWebElement> i = htmlElements.GetEnumerator(); i.MoveNext();)
             {
                 IWebElement htmlElement = i.Current;
-                htmlElementsTexts.Add(htmlElement.GetAttribute("innerText"));
+                htmlElementsTexts.Add(htmlElement.GetDomProperty("innerText"));
             }
             return htmlElementsTexts.ToArray();
         }
