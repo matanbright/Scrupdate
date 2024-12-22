@@ -92,7 +92,7 @@
                                 </Grid.RowDefinitions>
                                 <Scrupdate_UiElements_Controls:CustomLabel Grid.Row="0" Grid.Column="0" FontSize="12" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Top" Content="•" />
                                 <TextBlock Grid.Row="0" Grid.Column="1" FontSize="12" FontFamily="Calibri" TextWrapping="Wrap" Padding="0 0 0 0" Margin="10 0 0 0">
-                                    Selenium.WebDriver (v4.26.1) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
+                                    Selenium.WebDriver (v4.27.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense" Foreground="{StaticResource darkSkyBlueSolidColorBrush}" Click="OnHyperlinkClickEvent">
                                         <Hyperlink.Style>
                                             <Style TargetType="Hyperlink">
                                                 <Setter Property="TextDecorations" Value="None" />

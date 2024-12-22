@@ -27,8 +27,6 @@
 + "Scrupdate.deps.json"
 + "Scrupdate.runtimeconfig.json"
 + "System.Data.SQLite.dll"
-+ "System.Text.Encodings.Web.dll"
-+ "System.Text.Json.dll"
 + "WebDriver.dll"
 + "docs\Scrupdate User Manual.pdf"
 + "docs\The XML Path Language (XPath).pdf"
