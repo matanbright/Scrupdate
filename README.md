@@ -16,13 +16,13 @@ Scrupdate gets the latest versions of the programs by extracting them from web p
 
 ### Prerequisites
 
-* [.NET Runtime](https://dotnet.microsoft.com/download) (version 6.0 or above)
+* [.NET Desktop Runtime](https://dotnet.microsoft.com/download) (version 8.0 or above)
 
 ## Building Scrupdate and the Installer
 
 ### Prerequisites
 
-* [.NET SDK](https://dotnet.microsoft.com/download) (version 6.0 or above)
+* [.NET SDK](https://dotnet.microsoft.com/download) (version 8.0 or above)
 * [Python](https://www.python.org/downloads/) (version 3.0 and above) [for building the installer]
 * [NSIS](https://nsis.sourceforge.io/Download) (version 3.0 and above) [for building the installer]
 
