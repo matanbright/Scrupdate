@@ -43,12 +43,12 @@ namespace Scrupdate.UiElements.Windows
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED = "Last Check Was Failed (Reason: {*})";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
-        private const string ERROR_DIALOG_MESSAGE__NO_PROGRAM_NAME = "The 'Program Name' Field Cannot Be Empty!";
+        private const string ERROR_DIALOG_MESSAGE__NO_NAME = "The 'Name' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL = "The 'Web Page URL' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Web Page Elements to Simulate a Click On!";
-        private const string ERROR_DIALOG_MESSAGE__PROGRAM_NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
+        private const string ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -266,9 +266,9 @@ namespace Scrupdate.UiElements.Windows
             else if (senderButton == button_addOrSave)
             {
                 string errorDialogMessage = null;
-                if (textBox_programName.Text.Trim().Equals(""))
+                if (textBox_name.Text.Trim().Equals(""))
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_PROGRAM_NAME;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_NAME;
                 }
                 else if (!textBox_installedVersion.Text.Trim().Equals("") &&
                          !VersionUtilities.IsVersion(
@@ -278,12 +278,12 @@ namespace Scrupdate.UiElements.Windows
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION;
                 }
-                else if (checkBox_configureProgramUpdateCheck.IsChecked == true &&
+                else if (checkBox_configureUpdateCheck.IsChecked == true &&
                          textBox_webPageUrl.Text.Trim().Equals(""))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL;
                 }
-                else if (checkBox_configureProgramUpdateCheck.IsChecked == true &&
+                else if (checkBox_configureUpdateCheck.IsChecked == true &&
                          ((radioButton_searchWithinTheHtmlElementWithId.IsChecked == true &&
                            textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
                           (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true &&
@@ -301,12 +301,12 @@ namespace Scrupdate.UiElements.Windows
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
                 }
                 else if ((programToEdit == null &&
-                          programsAlreadyInDatabase.ContainsKey(textBox_programName.Text.Trim())) ||
+                          programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())) ||
                          (programToEdit != null &&
-                          !textBox_programName.Text.Trim().Equals(programToEdit.Name) &&
-                          programsAlreadyInDatabase.ContainsKey(textBox_programName.Text.Trim())))
+                          !textBox_name.Text.Trim().Equals(programToEdit.Name) &&
+                          programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())))
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__PROGRAM_NAME_ALREADY_EXISTS;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS;
                 }
                 if (errorDialogMessage != null)
                 {
@@ -338,10 +338,10 @@ namespace Scrupdate.UiElements.Windows
                     GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
                 if (programToEdit != null &&
                     (checkBox_detectAutomatically.IsChecked == programToEdit.IsAutomaticallyAdded &&
-                     textBox_programName.Text.Trim().Equals(programToEdit.Name) &&
+                     textBox_name.Text.Trim().Equals(programToEdit.Name) &&
                      textBox_installedVersion.Text.Trim().Equals(programToEdit.InstalledVersion) &&
                      installationScope == programToEdit.InstallationScope &&
-                     checkBox_configureProgramUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
+                     checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
                      textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
                      versionSearchMethod == programToEdit.VersionSearchMethod &&
                      versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
@@ -385,7 +385,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (checkBox_detectAutomatically.IsChecked == true)
                 {
-                    textBox_programName.Text = programToEdit.Name;
+                    textBox_name.Text = programToEdit.Name;
                     textBox_installedVersion.Text = programToEdit.InstalledVersion;
                     comboBox_installedFor.SelectedItem =
                         EnumUtilities.GetHumanReadableStringFromEnumItem(
@@ -393,9 +393,9 @@ namespace Scrupdate.UiElements.Windows
                         );
                 }
             }
-            else if (senderCheckBox == checkBox_configureProgramUpdateCheck)
+            else if (senderCheckBox == checkBox_configureUpdateCheck)
             {
-                if (checkBox_configureProgramUpdateCheck.IsChecked == false)
+                if (checkBox_configureUpdateCheck.IsChecked == false)
                 {
                     textBox_webPageUrl.Text = "";
                     textBox_searchWithinTheHtmlElementWithIdParameter.Text = "";
@@ -543,7 +543,7 @@ namespace Scrupdate.UiElements.Windows
         private void OnTextBoxTextChangedEvent(object sender, TextChangedEventArgs e)
         {
             CustomTextBox senderTextBox = (CustomTextBox)sender;
-            if (senderTextBox == textBox_programName ||
+            if (senderTextBox == textBox_name ||
                 senderTextBox == textBox_installedVersion ||
                 senderTextBox == textBox_webPageUrl ||
                 senderTextBox == textBox_searchWithinTheHtmlElementWithIdParameter ||
@@ -586,7 +586,7 @@ namespace Scrupdate.UiElements.Windows
             versionSearchMethodArgument2 = null;
             Program._VersionSearchMethod versionSearchMethod =
                 Program._VersionSearchMethod.Unknown;
-            if (checkBox_configureProgramUpdateCheck.IsChecked == true)
+            if (checkBox_configureUpdateCheck.IsChecked == true)
             {
                 if (radioButton_searchWithinTheHtmlElementWithId.IsChecked == true)
                 {
@@ -652,7 +652,7 @@ namespace Scrupdate.UiElements.Windows
         {
             Program._VersionSearchBehavior versionSearchBehavior =
                 Program._VersionSearchBehavior.Unknown;
-            if (checkBox_configureProgramUpdateCheck.IsChecked == true)
+            if (checkBox_configureUpdateCheck.IsChecked == true)
             {
                 if (radioButton_getTheFirstVersionThatIsFound.IsChecked == true)
                 {
@@ -676,7 +676,7 @@ namespace Scrupdate.UiElements.Windows
         {
             Program._WebPagePostLoadDelay webPagePostLoadDelay =
                 Program._WebPagePostLoadDelay.None;
-            if (checkBox_configureProgramUpdateCheck.IsChecked == true)
+            if (checkBox_configureUpdateCheck.IsChecked == true)
             {
                 webPagePostLoadDelay =
                     EnumUtilities.GetEnumItemFromHumanReadableString<Program._WebPagePostLoadDelay>(
@@ -849,7 +849,7 @@ namespace Scrupdate.UiElements.Windows
         {
             checkBox_detectAutomatically.IsEnabled = program.IsAutomaticallyAdded;
             checkBox_detectAutomatically.IsChecked = program.IsAutomaticallyAdded;
-            textBox_programName.Text = program.Name;
+            textBox_name.Text = program.Name;
             textBox_installedVersion.Text = program.InstalledVersion;
             label_latestVersion.Content = program.LatestVersion;
             label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
@@ -873,11 +873,11 @@ namespace Scrupdate.UiElements.Windows
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
                     program.InstallationScope
                 );
-            checkBox_configureProgramUpdateCheck.IsChecked = false;
+            checkBox_configureUpdateCheck.IsChecked = false;
             textBox_webPageUrl.Text = "";
             if (program.IsUpdateCheckConfigured)
             {
-                checkBox_configureProgramUpdateCheck.IsChecked = true;
+                checkBox_configureUpdateCheck.IsChecked = true;
                 textBox_webPageUrl.Text = program.WebPageUrl;
                 switch (program.VersionSearchMethod)
                 {
@@ -974,7 +974,7 @@ namespace Scrupdate.UiElements.Windows
             Program._UpdateCheckConfigurationError updateCheckConfigurationError =
                 Program._UpdateCheckConfigurationError.None;
             if (programToEdit != null &&
-                (checkBox_configureProgramUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
+                (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
                  textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
                  versionSearchMethod == programToEdit.VersionSearchMethod &&
                  versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
@@ -991,11 +991,11 @@ namespace Scrupdate.UiElements.Windows
                 updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
             }
             return new Program(
-                textBox_programName.Text.Trim(),
+                textBox_name.Text.Trim(),
                 textBox_installedVersion.Text.Trim(),
                 latestVersion,
                 installationScope,
-                (bool)checkBox_configureProgramUpdateCheck.IsChecked,
+                (bool)checkBox_configureUpdateCheck.IsChecked,
                 textBox_webPageUrl.Text.Trim(),
                 versionSearchMethod,
                 versionSearchMethodArgument1,
