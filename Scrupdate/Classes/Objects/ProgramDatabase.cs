@@ -528,14 +528,14 @@ namespace Scrupdate.Classes.Objects
             {
                 try
                 {
-                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
-                        if (sQLiteDataReader.Read())
-                            version = GetVersionFromAnInteger(Convert.ToUInt32((long)sQLiteDataReader[0]));
+                        if (sqLiteDataReader.Read())
+                            version = GetVersionFromAnInteger(Convert.ToUInt32((long)sqLiteDataReader[0]));
                     }
                     catch { }
-                    sQLiteDataReader.Close();
+                    sqLiteDataReader.Close();
                 }
                 catch { }
             }
@@ -578,14 +578,14 @@ namespace Scrupdate.Classes.Objects
             {
                 try
                 {
-                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
-                        while (sQLiteDataReader.Read())
-                            tableColumnNames.Add((string)sQLiteDataReader["name"]);
+                        while (sqLiteDataReader.Read())
+                            tableColumnNames.Add((string)sqLiteDataReader["name"]);
                     }
                     catch { }
-                    sQLiteDataReader.Close();
+                    sqLiteDataReader.Close();
                 }
                 catch { }
             }
@@ -729,14 +729,14 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
-                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
-                        if (sQLiteDataReader.Read())
-                            programIsHidden = Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]);
+                        if (sqLiteDataReader.Read())
+                            programIsHidden = Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]);
                     }
                     catch { }
-                    sQLiteDataReader.Close();
+                    sqLiteDataReader.Close();
                 }
                 catch { }
             }
@@ -940,34 +940,34 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
-                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
-                        if (sQLiteDataReader.Read())
+                        if (sqLiteDataReader.Read())
                         {
                             program = new Program(
-                                (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
-                                (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
-                                (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
-                                (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
-                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
-                                (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
-                                (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
-                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
-                                (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
-                                (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                                (string)sqLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                (Program._InstallationScope)((long)sqLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                (Program._VersionSearchMethod)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                (Program._VersionSearchBehavior)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                (Program._WebPagePostLoadDelay)((long)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                             );
                         }
                     }
                     catch { }
-                    sQLiteDataReader.Close();
+                    sqLiteDataReader.Close();
                 }
                 catch { }
             }
@@ -987,35 +987,35 @@ namespace Scrupdate.Classes.Objects
             {
                 try
                 {
-                    SQLiteDataReader sQLiteDataReader = sqLiteCommand.ExecuteReader();
+                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
                     try
                     {
-                        while (sQLiteDataReader.Read())
+                        while (sqLiteDataReader.Read())
                         {
                             Program program = new Program(
-                                (string)sQLiteDataReader[TABLE_COLUMN__NAME.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
-                                (Program._InstallationScope)((long)sQLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
-                                (string)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
-                                (Program._VersionSearchMethod)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
-                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
-                                (string)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
-                                (Program._VersionSearchBehavior)((long)sQLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
-                                (Program._WebPagePostLoadDelay)((long)sQLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
-                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sQLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
-                                (Program._UpdateCheckConfigurationStatus)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
-                                (Program._UpdateCheckConfigurationError)((long)sQLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
-                                Convert.ToBoolean((long)sQLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                                (string)sqLiteDataReader[TABLE_COLUMN__NAME.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
+                                (Program._InstallationScope)((long)sqLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
+                                (Program._VersionSearchMethod)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_1.Name],
+                                (string)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD_ARGUMENT_2.Name],
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__TREAT_A_STANDALONE_NUMBER_AS_A_VERSION.Name]),
+                                (Program._VersionSearchBehavior)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
+                                (Program._WebPagePostLoadDelay)((long)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
+                                JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
+                                (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
+                                (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                             );
-                            programs.Add((string)sQLiteDataReader[TABLE_COLUMN__NAME.Name], program);
+                            programs.Add((string)sqLiteDataReader[TABLE_COLUMN__NAME.Name], program);
                         }
                     }
                     catch { }
-                    sQLiteDataReader.Close();
+                    sqLiteDataReader.Close();
                 }
                 catch { }
             }
