@@ -24,27 +24,27 @@ namespace Scrupdate.Classes.Utilities
     public static class ThreadingUtilities
     {
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static void RunOnAnotherThread(Dispatcher dispatcherOfThread, Action callback)
+        public static void RunOnAnotherThread(Dispatcher dispatcherOfThread, Action function)
         {
             if (dispatcherOfThread == null)
                 throw new ArgumentNullException(nameof(dispatcherOfThread));
-            if (callback == null)
-                throw new ArgumentNullException(nameof(callback));
+            if (function == null)
+                throw new ArgumentNullException(nameof(function));
             try
             {
-                dispatcherOfThread.Invoke(callback);
+                dispatcherOfThread.Invoke(function);
             }
             catch { }
         }
-        public static TReturn RunOnAnotherThread<TReturn>(Dispatcher dispatcherOfThread, Func<TReturn> callback)
+        public static TReturn RunOnAnotherThread<TReturn>(Dispatcher dispatcherOfThread, Func<TReturn> function)
         {
             if (dispatcherOfThread == null)
                 throw new ArgumentNullException(nameof(dispatcherOfThread));
-            if (callback == null)
-                throw new ArgumentNullException(nameof(callback));
+            if (function == null)
+                throw new ArgumentNullException(nameof(function));
             try
             {
-                return dispatcherOfThread.Invoke(callback);
+                return dispatcherOfThread.Invoke(function);
             }
             catch
             {
