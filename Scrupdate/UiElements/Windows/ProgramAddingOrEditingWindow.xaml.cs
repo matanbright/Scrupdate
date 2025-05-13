@@ -718,23 +718,23 @@ namespace Scrupdate.UiElements.Windows
                  textBox_webPageElementLocatingMethodArgument.Text.Trim().Length > 0 &&
                  !comboBox_webPageElementLocatingInterval.SelectedItem.Equals("")))
             {
-                WebPageElementLocatingInstruction._LocatingMethod selectedWebPageElementLocatingMethod =
+                WebPageElementLocatingInstruction._LocatingMethod webPageElementLocatingMethod =
                     EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
                         ((string)comboBox_webPageElementLocatingMethod.SelectedItem)
                             .Replace("ID", "Id")
                             .Replace("HTML", "Html")
                     );
-                WebPageElementLocatingInstruction._LocatingInterval selectedWebPageElementLocatingInterval =
+                WebPageElementLocatingInstruction._LocatingInterval webPageElementLocatingInterval =
                     EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingInterval>(
                         ((string)comboBox_webPageElementLocatingInterval.SelectedItem)
                             .Replace("ms", "Ms")
                     );
                 WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView =
                     new WebPageElementLocatingInstruction(
-                        selectedWebPageElementLocatingMethod,
+                        webPageElementLocatingMethod,
                         textBox_webPageElementLocatingMethodArgument.Text.Trim(),
                         (bool)checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked,
-                        selectedWebPageElementLocatingInterval
+                        webPageElementLocatingInterval
                     );
                 locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(
                     new WebPageElementLocatingInstructionListViewItem(
