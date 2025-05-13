@@ -108,7 +108,20 @@ namespace Scrupdate.Classes.Objects
                 "",
                 "",
                 _InstallationScope.None,
-                false,
+                false
+            )
+        { }
+        public Program(string name,
+                       string installedVersion,
+                       string latestVersion,
+                       _InstallationScope installationScope,
+                       bool isAutomaticallyAdded) :
+            this(
+                name,
+                installedVersion,
+                latestVersion,
+                installationScope,
+                isAutomaticallyAdded,
                 false,
                 "",
                 _VersionSearchMethod.Unknown,

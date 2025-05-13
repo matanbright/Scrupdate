@@ -259,19 +259,7 @@ namespace Scrupdate.Classes.Utilities
                                     (installedProgramInstalledVersion ?? ""),
                                     "",
                                     installedProgramInstallationScope,
-                                    true,
-                                    false,
-                                    "",
-                                    Program._VersionSearchMethod.Unknown,
-                                    "",
-                                    "",
-                                    false,
-                                    Program._VersionSearchBehavior.Unknown,
-                                    Program._WebPagePostLoadDelay.None,
-                                    new List<WebPageElementLocatingInstruction>(),
-                                    Program._UpdateCheckConfigurationStatus.Unknown,
-                                    Program._UpdateCheckConfigurationError.None,
-                                    false
+                                    true
                                 );
                                 installedPrograms.Add(installedProgram.Name, installedProgram);
                             }
