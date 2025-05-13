@@ -312,43 +312,43 @@ namespace Scrupdate.Classes.Utilities
         public static void ChangeRenderingScaleOfAllOpenWindowsAndMoveThemIntoScreenBoundaries(double windowsRenderingScale)
         {
             App.WindowsRenderingScale = windowsRenderingScale;
-            foreach (Window openWindow in Application.Current.Windows)
+            foreach (Window window in Application.Current.Windows)
             {
-                if (openWindow != null && openWindow.IsLoaded)
+                if (window != null && window.IsLoaded)
                 {
-                    Size baseSizeOfOpenWindow;
-                    Type typeOfOpenWindow = openWindow.GetType();
-                    if (typeOfOpenWindow == typeof(MainWindow))
-                        baseSizeOfOpenWindow = ((MainWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(AboutWindow))
-                        baseSizeOfOpenWindow = ((AboutWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(SettingsWindow))
-                        baseSizeOfOpenWindow = ((SettingsWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
-                        baseSizeOfOpenWindow = ((ProgramAddingOrEditingWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(ErrorDialogWindow))
-                        baseSizeOfOpenWindow = ((ErrorDialogWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(QuestionDialogWindow))
-                        baseSizeOfOpenWindow = ((QuestionDialogWindow)openWindow).BaseSize;
-                    else if (typeOfOpenWindow == typeof(ProgramUpdatesScheduledCheckWindow))
-                        baseSizeOfOpenWindow = ((ProgramUpdatesScheduledCheckWindow)openWindow).BaseSize;
+                    Size baseSizeOfWindow;
+                    Type typeOfWindow = window.GetType();
+                    if (typeOfWindow == typeof(MainWindow))
+                        baseSizeOfWindow = ((MainWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(AboutWindow))
+                        baseSizeOfWindow = ((AboutWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(SettingsWindow))
+                        baseSizeOfWindow = ((SettingsWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
+                        baseSizeOfWindow = ((ProgramAddingOrEditingWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(ErrorDialogWindow))
+                        baseSizeOfWindow = ((ErrorDialogWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(QuestionDialogWindow))
+                        baseSizeOfWindow = ((QuestionDialogWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))
+                        baseSizeOfWindow = ((ProgramUpdatesScheduledCheckWindow)window).BaseSize;
                     else
                         continue;
                     WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
-                        openWindow,
-                        baseSizeOfOpenWindow,
+                        window,
+                        baseSizeOfWindow,
                         windowsRenderingScale
                     );
-                    if (typeOfOpenWindow == typeof(SettingsWindow))
-                        ((SettingsWindow)openWindow).RefreshAvailableWindowsScalingFactorSelections();
-                    else if (typeOfOpenWindow == typeof(ErrorDialogWindow))
-                        ((ErrorDialogWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
-                    else if (typeOfOpenWindow == typeof(QuestionDialogWindow))
-                        ((QuestionDialogWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
-                    else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
-                        ((ProgramAddingOrEditingWindow)openWindow).CalculateWindowDynamicSizeAndResizeWindow();
-                    else if (typeOfOpenWindow == typeof(ProgramUpdatesScheduledCheckWindow))
-                        ((ProgramUpdatesScheduledCheckWindow)openWindow).MoveWindowNearSystemTrayIcons();
+                    if (typeOfWindow == typeof(SettingsWindow))
+                        ((SettingsWindow)window).RefreshAvailableWindowsScalingFactorSelections();
+                    else if (typeOfWindow == typeof(ErrorDialogWindow))
+                        ((ErrorDialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfWindow == typeof(QuestionDialogWindow))
+                        ((QuestionDialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
+                        ((ProgramAddingOrEditingWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))
+                        ((ProgramUpdatesScheduledCheckWindow)window).MoveWindowNearSystemTrayIcons();
                 }
             }
         }
