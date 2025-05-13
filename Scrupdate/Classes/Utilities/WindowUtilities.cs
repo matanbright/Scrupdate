@@ -47,7 +47,7 @@ namespace Scrupdate.Classes.Utilities
         {
             windowsScalingFactorHasBeenChangedDueToBeingInvalid = false;
             if (settingsHandler == null)
-                throw new NullReferenceException();
+                throw new ArgumentNullException(nameof(settingsHandler));
             try
             {
                 Rect displayWorkArea = SystemParameters.WorkArea;
@@ -117,7 +117,7 @@ namespace Scrupdate.Classes.Utilities
                                                                                        double windowRenderingScale)
         {
             if (window == null)
-                throw new NullReferenceException();
+                throw new ArgumentNullException(nameof(window));
             try
             {
                 Rect displayWorkArea = SystemParameters.WorkArea;
@@ -145,7 +145,7 @@ namespace Scrupdate.Classes.Utilities
                                                           bool resizeWindowIfItDoesNotFitScreenBoundaries)
         {
             if (window == null)
-                throw new NullReferenceException();
+                throw new ArgumentNullException(nameof(window));
             try
             {
                 Rect displayWorkArea = SystemParameters.WorkArea;
