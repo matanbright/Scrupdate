@@ -20,57 +20,108 @@
 <Application x:Class="Scrupdate.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="OnApplicationStartupEvent" Exit="OnApplicationExitEvent">
+             Startup="OnApplicationStartupEvent"
+             Exit="OnApplicationExitEvent">
     <Application.Resources>
-        <SolidColorBrush x:Key="transparentSolidColorBrush" Color="Transparent" />
-        <SolidColorBrush x:Key="weakTransparentRedSolidColorBrush" Color="#99FF0000" />
-        <SolidColorBrush x:Key="strongTransparentRedSolidColorBrush" Color="#55FF0000" />
-        <SolidColorBrush x:Key="weakTransparentLightRedSolidColorBrush" Color="#99FFBFBF" />
-        <SolidColorBrush x:Key="strongTransparentLightRedSolidColorBrush" Color="#55FFBFBF" />
-        <SolidColorBrush x:Key="whiteSolidColorBrush" Color="#FFFFFFFF" />
-        <SolidColorBrush x:Key="ghostWhiteSolidColorBrush" Color="#FFFAFAFA" />
-        <SolidColorBrush x:Key="smokeWhiteSolidColorBrush" Color="#FFF1F1F1" />
-        <SolidColorBrush x:Key="warmWhiteSolidColorBrush" Color="#FFFDEDE3" />
-        <SolidColorBrush x:Key="blackSolidColorBrush" Color="#FF000000" />
-        <SolidColorBrush x:Key="lightBlackSolidColorBrush" Color="#FF333333" />
-        <SolidColorBrush x:Key="darkGraySolidColorBrush" Color="#FF636363" />
-        <SolidColorBrush x:Key="graySolidColorBrush" Color="#FF8E8E8E" />
-        <SolidColorBrush x:Key="brightGraySolidColorBrush" Color="#FFA3A3A3" />
-        <SolidColorBrush x:Key="lightGraySolidColorBrush2" Color="#FFB9B9B9" />
-        <SolidColorBrush x:Key="lightGraySolidColorBrush1" Color="#FFBFBFBF" />
-        <SolidColorBrush x:Key="paleGraySolidColorBrush" Color="#FFE3E3E3" />
-        <SolidColorBrush x:Key="darkSilverishGraySolidColorBrush" Color="#FFCCCCCC" />
-        <SolidColorBrush x:Key="silverishGraySolidColorBrush" Color="#FFD3D3D3" />
-        <SolidColorBrush x:Key="lightSilverishGraySolidColorBrush" Color="#FFDEDEDE" />
-        <SolidColorBrush x:Key="lightBluishGraySolidColorBrush" Color="#FFE6E8F2" />
-        <SolidColorBrush x:Key="darkRedSolidColorBrush" Color="#FFCA0000" />
-        <SolidColorBrush x:Key="redSolidColorBrush" Color="#FFF00000" />
-        <SolidColorBrush x:Key="lightGrayishRedSolidColorBrush" Color="#FFF2BFBF" />
-        <SolidColorBrush x:Key="bordoSolidColorBrush" Color="#FFF1312C" />
-        <SolidColorBrush x:Key="brightBordoSolidColorBrush" Color="#FFF35854" />
-        <SolidColorBrush x:Key="lightBordoSolidColorBrush" Color="#FFF5807C" />
-        <SolidColorBrush x:Key="paleBordoSolidColorBrush" Color="#FFFBCBCA" />
-        <SolidColorBrush x:Key="paleOrangeSolidColorBrush" Color="#FFFFE6B7" />
-        <SolidColorBrush x:Key="brownishOrangeSolidColorBrush" Color="#FFED7C30" />
-        <SolidColorBrush x:Key="brightBrownishOrangeSolidColorBrush" Color="#FFF09557" />
-        <SolidColorBrush x:Key="lightBrownishOrangeSolidColorBrush" Color="#FFF3AD7E" />
-        <SolidColorBrush x:Key="paleBrownishOrangeSolidColorBrush" Color="#FFFADECB" />
-        <SolidColorBrush x:Key="darkYellowSolidColorBrush" Color="#FFD2D200" />
-        <SolidColorBrush x:Key="lightGrayishYellowSolidColorBrush" Color="#FFF4F4BF" />
-        <SolidColorBrush x:Key="orangishYellowSolidColorBrush" Color="#FFF4D600" />
-        <SolidColorBrush x:Key="darkGreenSolidColorBrush" Color="#FF00A000" />
-        <SolidColorBrush x:Key="greenSolidColorBrush" Color="#FF00B300" />
-        <SolidColorBrush x:Key="grayishGreenSolidColorBrush2" Color="#FF70AD47" />
-        <SolidColorBrush x:Key="grayishGreenSolidColorBrush1" Color="#FF85BE5F" />
-        <SolidColorBrush x:Key="brightGrayishGreenSolidColorBrush" Color="#FF9CCA7D" />
-        <SolidColorBrush x:Key="lightGrayishGreenSolidColorBrush2" Color="#FFB3D79B" />
-        <SolidColorBrush x:Key="lightGrayishGreenSolidColorBrush1" Color="#FFBFE7BF" />
-        <SolidColorBrush x:Key="paleGrayishGreenSolidColorBrush2" Color="#FFCBE3BB" />
-        <SolidColorBrush x:Key="paleGrayishGreenSolidColorBrush1" Color="#FFE0EFD7" />
-        <SolidColorBrush x:Key="darkSkyBlueSolidColorBrush" Color="#FF0070CA" />
-        <SolidColorBrush x:Key="grayishBlueSolidColorBrush" Color="#FF6A74B3" />
-        <SolidColorBrush x:Key="brightGrayishBlueSolidColorBrush" Color="#FF868DC1" />
-        <SolidColorBrush x:Key="lightGrayishBlueSolidColorBrush" Color="#FFA4A9CE" />
-        <SolidColorBrush x:Key="paleGrayishBlueSolidColorBrush" Color="#FFDADCEC" />
+        <SolidColorBrush x:Key="transparentSolidColorBrush"
+                         Color="Transparent" />
+        <SolidColorBrush x:Key="weakTransparentRedSolidColorBrush"
+                         Color="#99FF0000" />
+        <SolidColorBrush x:Key="strongTransparentRedSolidColorBrush"
+                         Color="#55FF0000" />
+        <SolidColorBrush x:Key="weakTransparentLightRedSolidColorBrush"
+                         Color="#99FFBFBF" />
+        <SolidColorBrush x:Key="strongTransparentLightRedSolidColorBrush"
+                         Color="#55FFBFBF" />
+        <SolidColorBrush x:Key="whiteSolidColorBrush"
+                         Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="ghostWhiteSolidColorBrush"
+                         Color="#FFFAFAFA" />
+        <SolidColorBrush x:Key="smokeWhiteSolidColorBrush"
+                         Color="#FFF1F1F1" />
+        <SolidColorBrush x:Key="warmWhiteSolidColorBrush"
+                         Color="#FFFDEDE3" />
+        <SolidColorBrush x:Key="blackSolidColorBrush"
+                         Color="#FF000000" />
+        <SolidColorBrush x:Key="lightBlackSolidColorBrush"
+                         Color="#FF333333" />
+        <SolidColorBrush x:Key="darkGraySolidColorBrush"
+                         Color="#FF636363" />
+        <SolidColorBrush x:Key="graySolidColorBrush"
+                         Color="#FF8E8E8E" />
+        <SolidColorBrush x:Key="brightGraySolidColorBrush"
+                         Color="#FFA3A3A3" />
+        <SolidColorBrush x:Key="lightGraySolidColorBrush2"
+                         Color="#FFB9B9B9" />
+        <SolidColorBrush x:Key="lightGraySolidColorBrush1"
+                         Color="#FFBFBFBF" />
+        <SolidColorBrush x:Key="paleGraySolidColorBrush"
+                         Color="#FFE3E3E3" />
+        <SolidColorBrush x:Key="darkSilverishGraySolidColorBrush"
+                         Color="#FFCCCCCC" />
+        <SolidColorBrush x:Key="silverishGraySolidColorBrush"
+                         Color="#FFD3D3D3" />
+        <SolidColorBrush x:Key="lightSilverishGraySolidColorBrush"
+                         Color="#FFDEDEDE" />
+        <SolidColorBrush x:Key="lightBluishGraySolidColorBrush"
+                         Color="#FFE6E8F2" />
+        <SolidColorBrush x:Key="darkRedSolidColorBrush"
+                         Color="#FFCA0000" />
+        <SolidColorBrush x:Key="redSolidColorBrush"
+                         Color="#FFF00000" />
+        <SolidColorBrush x:Key="lightGrayishRedSolidColorBrush"
+                         Color="#FFF2BFBF" />
+        <SolidColorBrush x:Key="bordoSolidColorBrush"
+                         Color="#FFF1312C" />
+        <SolidColorBrush x:Key="brightBordoSolidColorBrush"
+                         Color="#FFF35854" />
+        <SolidColorBrush x:Key="lightBordoSolidColorBrush"
+                         Color="#FFF5807C" />
+        <SolidColorBrush x:Key="paleBordoSolidColorBrush"
+                         Color="#FFFBCBCA" />
+        <SolidColorBrush x:Key="paleOrangeSolidColorBrush"
+                         Color="#FFFFE6B7" />
+        <SolidColorBrush x:Key="brownishOrangeSolidColorBrush"
+                         Color="#FFED7C30" />
+        <SolidColorBrush x:Key="brightBrownishOrangeSolidColorBrush"
+                         Color="#FFF09557" />
+        <SolidColorBrush x:Key="lightBrownishOrangeSolidColorBrush"
+                         Color="#FFF3AD7E" />
+        <SolidColorBrush x:Key="paleBrownishOrangeSolidColorBrush"
+                         Color="#FFFADECB" />
+        <SolidColorBrush x:Key="darkYellowSolidColorBrush"
+                         Color="#FFD2D200" />
+        <SolidColorBrush x:Key="lightGrayishYellowSolidColorBrush"
+                         Color="#FFF4F4BF" />
+        <SolidColorBrush x:Key="orangishYellowSolidColorBrush"
+                         Color="#FFF4D600" />
+        <SolidColorBrush x:Key="darkGreenSolidColorBrush"
+                         Color="#FF00A000" />
+        <SolidColorBrush x:Key="greenSolidColorBrush"
+                         Color="#FF00B300" />
+        <SolidColorBrush x:Key="grayishGreenSolidColorBrush2"
+                         Color="#FF70AD47" />
+        <SolidColorBrush x:Key="grayishGreenSolidColorBrush1"
+                         Color="#FF85BE5F" />
+        <SolidColorBrush x:Key="brightGrayishGreenSolidColorBrush"
+                         Color="#FF9CCA7D" />
+        <SolidColorBrush x:Key="lightGrayishGreenSolidColorBrush2"
+                         Color="#FFB3D79B" />
+        <SolidColorBrush x:Key="lightGrayishGreenSolidColorBrush1"
+                         Color="#FFBFE7BF" />
+        <SolidColorBrush x:Key="paleGrayishGreenSolidColorBrush2"
+                         Color="#FFCBE3BB" />
+        <SolidColorBrush x:Key="paleGrayishGreenSolidColorBrush1"
+                         Color="#FFE0EFD7" />
+        <SolidColorBrush x:Key="darkSkyBlueSolidColorBrush"
+                         Color="#FF0070CA" />
+        <SolidColorBrush x:Key="grayishBlueSolidColorBrush"
+                         Color="#FF6A74B3" />
+        <SolidColorBrush x:Key="brightGrayishBlueSolidColorBrush"
+                         Color="#FF868DC1" />
+        <SolidColorBrush x:Key="lightGrayishBlueSolidColorBrush"
+                         Color="#FFA4A9CE" />
+        <SolidColorBrush x:Key="paleGrayishBlueSolidColorBrush"
+                         Color="#FFDADCEC" />
     </Application.Resources>
 </Application>

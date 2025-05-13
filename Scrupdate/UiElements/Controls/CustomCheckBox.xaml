@@ -23,7 +23,15 @@
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
           mc:Ignorable="d"
-          d:DesignHeight="450" d:DesignWidth="800" Width="auto" Height="20" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource transparentSolidColorBrush}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+          d:DesignHeight="450"
+          d:DesignWidth="800"
+          Width="auto"
+          Height="20"
+          BorderThickness="0 0 0 0"
+          BorderBrush="{StaticResource transparentSolidColorBrush}"
+          Background="{StaticResource transparentSolidColorBrush}"
+          HorizontalContentAlignment="Left"
+          VerticalContentAlignment="Center">
     <CheckBox.Template>
         <ControlTemplate TargetType="CheckBox">
             <Grid>
@@ -33,97 +41,141 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Grid.Column="0"
+                <Border Grid.Row="0"
+                        Grid.Column="0"
                         BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                         Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}">
                     <Border.Style>
                         <Style TargetType="Border">
-                            <Setter Property="BorderBrush" Value="{StaticResource lightGraySolidColorBrush2}" />
-                            <Setter Property="TextElement.Foreground" Value="{StaticResource lightGraySolidColorBrush2}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource lightGraySolidColorBrush2}" />
+                            <Setter Property="TextElement.Foreground"
+                                    Value="{StaticResource lightGraySolidColorBrush2}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True">
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                             Value="True">
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                     <DockPanel LastChildFill="True">
-                        <Viewbox DockPanel.Dock="Left" VerticalAlignment="Center">
+                        <Viewbox DockPanel.Dock="Left"
+                                 VerticalAlignment="Center">
                             <Viewbox.Style>
                                 <Style TargetType="Viewbox">
-                                    <Setter Property="Margin" Value="0 0 5 0" />
+                                    <Setter Property="Margin"
+                                            Value="0 0 5 0" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}" Value="{x:Null}">
-                                            <Setter Property="Margin" Value="0 0 0 0" />
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}"
+                                                     Value="{x:Null}">
+                                            <Setter Property="Margin"
+                                                    Value="0 0 0 0" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Viewbox.Style>
-                            <Border Width="400" Height="400" BorderThickness="30" CornerRadius="60">
+                            <Border Width="400"
+                                    Height="400"
+                                    BorderThickness="30"
+                                    CornerRadius="60">
                                 <Border.Style>
                                     <Style TargetType="Border">
-                                        <Setter Property="BorderBrush" Value="#FFCCCCCC" />
+                                        <Setter Property="BorderBrush"
+                                                Value="#FFCCCCCC" />
                                         <Style.Triggers>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="False" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                               Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                               Value="False" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#FF333333" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="#FF333333" />
                                             </MultiDataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                               Value="False" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#FF5D5D5D" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="#FF5D5D5D" />
                                             </MultiDataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                               Value="True" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="BorderBrush" Value="#FF888888" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="#FF888888" />
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <Path Stretch="Fill" Margin="35 35 35 35" Data="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z">
+                                <Path Stretch="Fill"
+                                      Margin="35 35 35 35"
+                                      Data="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z">
                                     <Path.Style>
                                         <Style TargetType="Path">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                            <Setter Property="Fill" Value="#FFCCCCCC" />
+                                            <Setter Property="Visibility"
+                                                    Value="Collapsed" />
+                                            <Setter Property="Fill"
+                                                    Value="#FFCCCCCC" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsChecked}" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" />
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsChecked}"
+                                                             Value="True">
+                                                    <Setter Property="Visibility"
+                                                            Value="Visible" />
                                                 </DataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="False" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                                   Value="False" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                                   Value="False" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Fill" Value="#FF333333" />
+                                                    <Setter Property="Fill"
+                                                            Value="#FF333333" />
                                                 </MultiDataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                                   Value="False" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Fill" Value="#FF5D5D5D" />
+                                                    <Setter Property="Fill"
+                                                            Value="#FF5D5D5D" />
                                                 </MultiDataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                                   Value="True" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Fill" Value="#FF888888" />
+                                                    <Setter Property="Fill"
+                                                            Value="#FF888888" />
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>

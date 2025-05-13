@@ -24,7 +24,12 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
                       mc:Ignorable="d"
-                      d:DesignHeight="450" d:DesignWidth="800" Width="auto" Height="auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                      d:DesignHeight="450"
+                      d:DesignWidth="800"
+                      Width="auto"
+                      Height="auto"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -33,7 +38,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5 0 5 0"
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="5 0 5 0"
                    Padding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=Padding}"
                    HorizontalAlignment="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=HorizontalContentAlignment}"
                    VerticalAlignment="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=VerticalContentAlignment}"
@@ -41,39 +48,56 @@
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource lightGraySolidColorBrush2}" />
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}"
+                                     Value="False">
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource lightGraySolidColorBrush2}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}" Value="True">
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=Foreground}" />
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}"
+                                     Value="True">
+                            <Setter Property="Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=Foreground}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Viewbox Grid.Row="0" Grid.Column="1" Width="10" Height="9" Margin="5 0 5 0" VerticalAlignment="Center">
+        <Viewbox Grid.Row="0"
+                 Grid.Column="1"
+                 Width="10"
+                 Height="9"
+                 Margin="5 0 5 0"
+                 VerticalAlignment="Center">
             <Viewbox.Style>
                 <Style TargetType="Viewbox">
-                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsSortable}" Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}" Value="Ascending" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsSortable}"
+                                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}"
+                                           Value="Ascending" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsSortable}" Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}" Value="Descending" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsSortable}"
+                                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}"
+                                           Value="Descending" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
                         </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Viewbox.Style>
-            <Path Stretch="Fill" Data="M 1238,140 1041,480 844,140 Z">
+            <Path Stretch="Fill"
+                  Data="M 1238,140 1041,480 844,140 Z">
                 <Path.Style>
                     <Style TargetType="Path">
                         <Setter Property="LayoutTransform">
@@ -81,9 +105,11 @@
                                 <RotateTransform Angle="0" />
                             </Setter.Value>
                         </Setter>
-                        <Setter Property="Fill" Value="#FFCCCCCC" />
+                        <Setter Property="Fill"
+                                Value="#FFCCCCCC" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}" Value="Ascending">
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=ListViewItemsSortingOrder}"
+                                         Value="Ascending">
                                 <Setter Property="LayoutTransform">
                                     <Setter.Value>
                                         <RotateTransform Angle="180" />
@@ -92,27 +118,39 @@
                             </DataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}" Value="False" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}" Value="False" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}"
+                                               Value="False" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}"
+                                               Value="False" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Fill" Value="#FF333333" />
+                                <Setter Property="Fill"
+                                        Value="#FF333333" />
                             </MultiDataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}" Value="False" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}"
+                                               Value="False" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Fill" Value="#FF5D5D5D" />
+                                <Setter Property="Fill"
+                                        Value="#FF5D5D5D" />
                             </MultiDataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}" Value="True" />
-                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}" Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsEnabled}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsMouseOver}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomGridViewColumnHeader}, Path=IsPressed}"
+                                               Value="True" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Fill" Value="#FF888888" />
+                                <Setter Property="Fill"
+                                        Value="#FF888888" />
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>

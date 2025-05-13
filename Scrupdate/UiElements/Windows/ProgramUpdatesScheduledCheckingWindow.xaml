@@ -25,31 +25,56 @@
         xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
         xmlns:Scrupdate_UiElements_Windows="clr-namespace:Scrupdate.UiElements.Windows"
         mc:Ignorable="d"
-        Width="620" Height="120" MinWidth="620" MinHeight="120" MaxWidth="620" MaxHeight="120" SnapsToDevicePixels="True" WindowStartupLocation="Manual" ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False" Topmost="True" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" Loaded="OnWindowLoadedEvent" Closing="OnWindowClosingEvent">
-    <Grid x:Name="grid_window" SnapsToDevicePixels="False">
+        Width="620"
+        Height="120"
+        MinWidth="620"
+        MinHeight="120"
+        MaxWidth="620"
+        MaxHeight="120"
+        SnapsToDevicePixels="True"
+        WindowStartupLocation="Manual"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Topmost="True"
+        BorderThickness="1 1 1 1"
+        BorderBrush="{StaticResource blackSolidColorBrush}"
+        Loaded="OnWindowLoadedEvent"
+        Closing="OnWindowClosingEvent">
+    <Grid x:Name="grid_window"
+          SnapsToDevicePixels="False">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Setter Property="Background">
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Offset="0" Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
-                            <GradientStop Offset="3" Color="{Binding Source={StaticResource blackSolidColorBrush}, Path=Color}" />
+                        <LinearGradientBrush StartPoint="0,0"
+                                             EndPoint="0,1">
+                            <GradientStop Offset="0"
+                                          Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
+                            <GradientStop Offset="3"
+                                          Color="{Binding Source={StaticResource blackSolidColorBrush}, Path=Color}" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereUpdates}" Value="True">
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereUpdates}"
+                                 Value="True">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0" Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
-                                    <GradientStop Offset="3" Color="{Binding Source={StaticResource darkGreenSolidColorBrush}, Path=Color}" />
+                                <LinearGradientBrush StartPoint="0,0"
+                                                     EndPoint="0,1">
+                                    <GradientStop Offset="0"
+                                                  Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
+                                    <GradientStop Offset="3"
+                                                  Color="{Binding Source={StaticResource darkGreenSolidColorBrush}, Path=Color}" />
                                 </LinearGradientBrush>
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource whiteSolidColorBrush}" />
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}"
+                                 Value="True">
+                        <Setter Property="Background"
+                                Value="{StaticResource whiteSolidColorBrush}" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -60,13 +85,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="grid_windowContent" Grid.Row="0" Grid.Column="0">
+        <Grid x:Name="grid_windowContent"
+              Grid.Row="0"
+              Grid.Column="0">
             <Grid.Style>
                 <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Visibility"
+                            Value="Visible" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -79,100 +109,226 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid x:Name="grid_leftWindowContent" Grid.Row="0" Grid.Column="0">
+            <Grid x:Name="grid_leftWindowContent"
+                  Grid.Row="0"
+                  Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Image x:Name="image_appLogo" Grid.Row="0" Grid.Column="0" Width="auto" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 10 15 19" Source="../../Resources/Images/appSmallLogo.png" />
+                <Image x:Name="image_appLogo"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Width="auto"
+                       Height="80"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="15 10 15 19"
+                       Source="../../Resources/Images/appSmallLogo.png" />
             </Grid>
-            <Border x:Name="border_windowContentsSeparator" Grid.Row="0" Grid.Column="1" BorderThickness="1 0 0 0" BorderBrush="{StaticResource brightGraySolidColorBrush}" Margin="0 20 0 20" />
-            <Grid x:Name="grid_rightWindowContent" Grid.Row="0" Grid.Column="2">
+            <Border x:Name="border_windowContentsSeparator"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BorderThickness="1 0 0 0"
+                    BorderBrush="{StaticResource brightGraySolidColorBrush}"
+                    Margin="0 20 0 20" />
+            <Grid x:Name="grid_rightWindowContent"
+                  Grid.Row="0"
+                  Grid.Column="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel x:Name="stackPanel_statusMessages" Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="20 20 20 20">
-                    <DockPanel x:Name="dockPanel_statusMessageAndWarningIndicator" LastChildFill="True">
-                        <Viewbox x:Name="viewbox_settingsFileWarningIndicatorImage" DockPanel.Dock="Right" ToolTipService.ShowDuration="1000000000" Width="28" Height="25" Margin="10 0 0 0">
+                <StackPanel x:Name="stackPanel_statusMessages"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Orientation="Vertical"
+                            Margin="20 20 20 20">
+                    <DockPanel x:Name="dockPanel_statusMessageAndWarningIndicator"
+                               LastChildFill="True">
+                        <Viewbox x:Name="viewbox_settingsFileWarningIndicatorImage"
+                                 DockPanel.Dock="Right"
+                                 ToolTipService.ShowDuration="1000000000"
+                                 Width="28"
+                                 Height="25"
+                                 Margin="10 0 0 0">
                             <Viewbox.Style>
                                 <Style TargetType="Viewbox">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=SettingsFileError}" Value="Unspecified">
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=SettingsFileError}"
+                                                     Value="Unspecified">
+                                            <Setter Property="Visibility"
+                                                    Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Viewbox.Style>
-                            <Grid Width="28" Height="25">
+                            <Grid Width="28"
+                                  Height="25">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <Path Grid.Row="0" Grid.Column="0" Stretch="Fill" Fill="{StaticResource orangishYellowSolidColorBrush}" Data="m 94.546544,241.03596 c -35.805012,0.0233 -62.888552,-0.06 -63.459842,-0.19522 -0.54815,-0.12975 -1.447539,-0.46595 -1.998639,-0.7471 -0.551101,-0.28115 -1.494633,-1.00381 -2.096738,-1.60592 -0.602106,-0.6021 -1.339676,-1.60071 -1.639045,-2.21913 -0.299369,-0.61841 -0.68087,-1.80438 -0.84778,-2.63548 -0.249285,-1.24129 -0.229094,-1.81251 0.113079,-3.19909 0.344123,-1.39448 5.784415,-10.93162 31.288473,-54.85047 20.74882,-35.73017 31.22414,-53.52465 31.94604,-54.26696 0.59077,-0.60745 1.783582,-1.42285 2.650692,-1.81199 1.19004,-0.53405 2.01371,-0.71026 3.35953,-0.71868 1.03911,-0.007 2.38185,0.18775 3.21845,0.46563 1.08842,0.36151 1.81553,0.86632 3.007276,2.08783 1.38152,1.41602 5.29677,8.03056 32.34446,54.64371 24.92128,42.94857 30.83028,53.31018 31.07564,54.49207 0.17036,0.82062 0.2256,2.07869 0.12619,2.87428 -0.0972,0.77818 -0.53141,2.12456 -0.96484,2.99194 -0.43344,0.86739 -1.22369,1.95955 -1.75613,2.42703 -0.53243,0.46748 -1.62856,1.15977 -2.43584,1.53842 -1.46779,0.68844 -1.46779,0.68844 -63.930976,0.72913 z" />
-                                <Path Grid.Row="0" Grid.Column="0" Stretch="Fill" Margin="12.5 8 12.5 4" Fill="{StaticResource blackSolidColorBrush}" Data="m 112.25962,210.39837 c -1.41864,0.0667 -2.66938,-0.0343 -3.57193,-0.28838 -0.76389,-0.21507 -1.88625,-0.64477 -2.49413,-0.95489 -0.60788,-0.31012 -1.71944,-1.14473 -2.47011,-1.85469 -0.75068,-0.70995 -1.69607,-1.89936 -2.10088,-2.64312 -0.4048,-0.74376 -0.89926,-1.96544 -1.0988,-2.71484 -0.19954,-0.7494 -0.36279,-2.07693 -0.36279,-2.95006 0,-0.87312 0.16325,-2.20065 0.36279,-2.95005 0.19954,-0.74941 0.694,-1.97108 1.0988,-2.71484 0.40481,-0.74376 1.3502,-1.93317 2.10088,-2.64313 0.75067,-0.70996 1.85851,-1.54267 2.46186,-1.85048 0.60335,-0.3078 1.78049,-0.73767 2.61586,-0.95526 0.83538,-0.21758 2.11893,-0.3927 2.85234,-0.38914 0.73341,0.004 1.83571,0.12237 2.44955,0.26402 0.61384,0.14166 1.79626,0.57961 2.62759,0.97324 0.83134,0.39361 2.13262,1.33677 2.89175,2.09589 0.76774,0.76774 1.74055,2.12351 2.19222,3.0552 0.44661,0.92123 0.94384,2.459 1.10498,3.41725 0.21483,1.27763 0.2142,2.19495 -0.002,3.43959 -0.16244,0.93351 -0.65468,2.44088 -1.09386,3.3497 -0.43919,0.90882 -1.3829,2.25237 -2.09714,2.98565 -0.83773,0.86006 -2.00577,1.66907 -3.29109,2.27947 -1.67006,0.7931 -2.34573,0.96283 -4.17552,1.04887 z m 0.0194,-31.7772 c -1.00892,0.10257 -1.80788,0.001 -2.81554,-0.35764 -0.77379,-0.27547 -1.82575,-0.90339 -2.33768,-1.39537 -0.51193,-0.49199 -1.11407,-1.24475 -1.33809,-1.67281 -0.22402,-0.42806 -0.5137,-1.14244 -0.64372,-1.5875 -0.13003,-0.44506 -0.70598,-6.82186 -1.27989,-14.17067 -0.57391,-7.3488 -1.1677,-14.43302 -1.31954,-15.74271 -0.15183,-1.30968 -0.69213,-7.46683 -1.20065,-13.68253 -0.50852,-6.21571 -0.92329,-12.2879 -0.92172,-13.49375 0.002,-1.20586 0.16977,-2.74236 0.37375,-3.41445 0.20399,-0.67209 0.60747,-1.68412 0.89662,-2.24896 0.28914,-0.56484 1.13169,-1.6577 1.87232,-2.42859 0.8406,-0.87494 1.97883,-1.69747 3.02912,-2.18896 0.92539,-0.43304 2.40469,-0.91455 3.28734,-1.07003 1.12293,-0.1978 2.13521,-0.20011 3.37117,-0.008 0.9715,0.15125 2.50595,0.6211 3.40989,1.0441 0.9886,0.46262 2.20235,1.3368 3.04585,2.19372 0.77128,0.78353 1.63876,1.88807 1.92774,2.45452 0.28898,0.56645 0.69232,1.5798 0.89631,2.25189 0.20399,0.67209 0.37217,2.21326 0.37375,3.42483 0.002,1.21157 -0.41339,7.40282 -0.92215,13.75833 -0.50876,6.35552 -0.9843,11.91268 -1.05675,12.34924 -0.0724,0.43656 -0.36667,3.59172 -0.65382,7.01146 -0.28716,3.41974 -0.82874,10.1411 -1.20352,14.93635 -0.5576,7.13438 -0.77798,8.93728 -1.21283,9.92187 -0.29228,0.66179 -0.91228,1.60063 -1.37777,2.08632 -0.46548,0.48569 -1.28401,1.1087 -1.81894,1.38445 -0.53494,0.27575 -1.6065,0.56581 -2.38125,0.64458 z" />
+                                <Path Grid.Row="0"
+                                      Grid.Column="0"
+                                      Stretch="Fill"
+                                      Fill="{StaticResource orangishYellowSolidColorBrush}"
+                                      Data="m 94.546544,241.03596 c -35.805012,0.0233 -62.888552,-0.06 -63.459842,-0.19522 -0.54815,-0.12975 -1.447539,-0.46595 -1.998639,-0.7471 -0.551101,-0.28115 -1.494633,-1.00381 -2.096738,-1.60592 -0.602106,-0.6021 -1.339676,-1.60071 -1.639045,-2.21913 -0.299369,-0.61841 -0.68087,-1.80438 -0.84778,-2.63548 -0.249285,-1.24129 -0.229094,-1.81251 0.113079,-3.19909 0.344123,-1.39448 5.784415,-10.93162 31.288473,-54.85047 20.74882,-35.73017 31.22414,-53.52465 31.94604,-54.26696 0.59077,-0.60745 1.783582,-1.42285 2.650692,-1.81199 1.19004,-0.53405 2.01371,-0.71026 3.35953,-0.71868 1.03911,-0.007 2.38185,0.18775 3.21845,0.46563 1.08842,0.36151 1.81553,0.86632 3.007276,2.08783 1.38152,1.41602 5.29677,8.03056 32.34446,54.64371 24.92128,42.94857 30.83028,53.31018 31.07564,54.49207 0.17036,0.82062 0.2256,2.07869 0.12619,2.87428 -0.0972,0.77818 -0.53141,2.12456 -0.96484,2.99194 -0.43344,0.86739 -1.22369,1.95955 -1.75613,2.42703 -0.53243,0.46748 -1.62856,1.15977 -2.43584,1.53842 -1.46779,0.68844 -1.46779,0.68844 -63.930976,0.72913 z" />
+                                <Path Grid.Row="0"
+                                      Grid.Column="0"
+                                      Stretch="Fill"
+                                      Margin="12.5 8 12.5 4"
+                                      Fill="{StaticResource blackSolidColorBrush}"
+                                      Data="m 112.25962,210.39837 c -1.41864,0.0667 -2.66938,-0.0343 -3.57193,-0.28838 -0.76389,-0.21507 -1.88625,-0.64477 -2.49413,-0.95489 -0.60788,-0.31012 -1.71944,-1.14473 -2.47011,-1.85469 -0.75068,-0.70995 -1.69607,-1.89936 -2.10088,-2.64312 -0.4048,-0.74376 -0.89926,-1.96544 -1.0988,-2.71484 -0.19954,-0.7494 -0.36279,-2.07693 -0.36279,-2.95006 0,-0.87312 0.16325,-2.20065 0.36279,-2.95005 0.19954,-0.74941 0.694,-1.97108 1.0988,-2.71484 0.40481,-0.74376 1.3502,-1.93317 2.10088,-2.64313 0.75067,-0.70996 1.85851,-1.54267 2.46186,-1.85048 0.60335,-0.3078 1.78049,-0.73767 2.61586,-0.95526 0.83538,-0.21758 2.11893,-0.3927 2.85234,-0.38914 0.73341,0.004 1.83571,0.12237 2.44955,0.26402 0.61384,0.14166 1.79626,0.57961 2.62759,0.97324 0.83134,0.39361 2.13262,1.33677 2.89175,2.09589 0.76774,0.76774 1.74055,2.12351 2.19222,3.0552 0.44661,0.92123 0.94384,2.459 1.10498,3.41725 0.21483,1.27763 0.2142,2.19495 -0.002,3.43959 -0.16244,0.93351 -0.65468,2.44088 -1.09386,3.3497 -0.43919,0.90882 -1.3829,2.25237 -2.09714,2.98565 -0.83773,0.86006 -2.00577,1.66907 -3.29109,2.27947 -1.67006,0.7931 -2.34573,0.96283 -4.17552,1.04887 z m 0.0194,-31.7772 c -1.00892,0.10257 -1.80788,0.001 -2.81554,-0.35764 -0.77379,-0.27547 -1.82575,-0.90339 -2.33768,-1.39537 -0.51193,-0.49199 -1.11407,-1.24475 -1.33809,-1.67281 -0.22402,-0.42806 -0.5137,-1.14244 -0.64372,-1.5875 -0.13003,-0.44506 -0.70598,-6.82186 -1.27989,-14.17067 -0.57391,-7.3488 -1.1677,-14.43302 -1.31954,-15.74271 -0.15183,-1.30968 -0.69213,-7.46683 -1.20065,-13.68253 -0.50852,-6.21571 -0.92329,-12.2879 -0.92172,-13.49375 0.002,-1.20586 0.16977,-2.74236 0.37375,-3.41445 0.20399,-0.67209 0.60747,-1.68412 0.89662,-2.24896 0.28914,-0.56484 1.13169,-1.6577 1.87232,-2.42859 0.8406,-0.87494 1.97883,-1.69747 3.02912,-2.18896 0.92539,-0.43304 2.40469,-0.91455 3.28734,-1.07003 1.12293,-0.1978 2.13521,-0.20011 3.37117,-0.008 0.9715,0.15125 2.50595,0.6211 3.40989,1.0441 0.9886,0.46262 2.20235,1.3368 3.04585,2.19372 0.77128,0.78353 1.63876,1.88807 1.92774,2.45452 0.28898,0.56645 0.69232,1.5798 0.89631,2.25189 0.20399,0.67209 0.37217,2.21326 0.37375,3.42483 0.002,1.21157 -0.41339,7.40282 -0.92215,13.75833 -0.50876,6.35552 -0.9843,11.91268 -1.05675,12.34924 -0.0724,0.43656 -0.36667,3.59172 -0.65382,7.01146 -0.28716,3.41974 -0.82874,10.1411 -1.20352,14.93635 -0.5576,7.13438 -0.77798,8.93728 -1.21283,9.92187 -0.29228,0.66179 -0.91228,1.60063 -1.37777,2.08632 -0.46548,0.48569 -1.28401,1.1087 -1.81894,1.38445 -0.53494,0.27575 -1.6065,0.56581 -2.38125,0.64458 z" />
                             </Grid>
                         </Viewbox>
-                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_statusMessage" DockPanel.Dock="Left" FontSize="25" FontFamily="Calibri" Padding="0 5 0 5" Margin="0 0 0 0" Content="N/A" />
+                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_statusMessage"
+                                                                   DockPanel.Dock="Left"
+                                                                   FontSize="25"
+                                                                   FontFamily="Calibri"
+                                                                   Padding="0 5 0 5"
+                                                                   Margin="0 0 0 0"
+                                                                   Content="N/A" />
                     </DockPanel>
-                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_additionalStatusMessage" FontSize="20" FontFamily="Calibri" Padding="0 5 0 5" Margin="0 0 0 0" VerticalAlignment="Bottom" Content="N/A" />
+                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_additionalStatusMessage"
+                                                               FontSize="20"
+                                                               FontFamily="Calibri"
+                                                               Padding="0 5 0 5"
+                                                               Margin="0 0 0 0"
+                                                               VerticalAlignment="Bottom"
+                                                               Content="N/A" />
                 </StackPanel>
-                <DockPanel x:Name="dockPanel_progressBarAndButtons" Grid.Row="0" Grid.Column="0" LastChildFill="True" Margin="20 20 20 20" VerticalAlignment="Bottom">
-                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_cancelOrDismiss" DockPanel.Dock="Right" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="0 0 0 0" VerticalAlignment="Bottom" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource graySolidColorBrush}" HoveredBackground="{StaticResource brightGraySolidColorBrush}" PressedBackground="{StaticResource lightGraySolidColorBrush2}" DisabledBackground="{StaticResource paleGraySolidColorBrush}" Click="OnButtonClickEvent">
+                <DockPanel x:Name="dockPanel_progressBarAndButtons"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           LastChildFill="True"
+                           Margin="20 20 20 20"
+                           VerticalAlignment="Bottom">
+                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_cancelOrDismiss"
+                                                                DockPanel.Dock="Right"
+                                                                Width="auto"
+                                                                Height="32"
+                                                                SnapsToDevicePixels="True"
+                                                                FontSize="15"
+                                                                FontFamily="Calibri"
+                                                                BorderThickness="1 1 1 1"
+                                                                BorderBrush="{StaticResource blackSolidColorBrush}"
+                                                                DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}"
+                                                                CornerRadius="3 3 3 3"
+                                                                Padding="10 0 10 0"
+                                                                Margin="0 0 0 0"
+                                                                VerticalAlignment="Bottom"
+                                                                Foreground="{StaticResource whiteSolidColorBrush}"
+                                                                DisabledForeground="{StaticResource whiteSolidColorBrush}"
+                                                                Background="{StaticResource graySolidColorBrush}"
+                                                                HoveredBackground="{StaticResource brightGraySolidColorBrush}"
+                                                                PressedBackground="{StaticResource lightGraySolidColorBrush2}"
+                                                                DisabledBackground="{StaticResource paleGraySolidColorBrush}"
+                                                                Click="OnButtonClickEvent">
                         <Scrupdate_UiElements_Controls:CustomButton.Style>
                             <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
-                                <Setter Property="IsEnabled" Value="True" />
-                                <Setter Property="Content" Value="Dismiss" />
+                                <Setter Property="IsEnabled"
+                                        Value="True" />
+                                <Setter Property="Content"
+                                        Value="Dismiss" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CancellingOperation">
-                                        <Setter Property="IsEnabled" Value="False" />
-                                        <Setter Property="Content" Value="Cancel" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CancellingOperation">
+                                        <Setter Property="IsEnabled"
+                                                Value="False" />
+                                        <Setter Property="Content"
+                                                Value="Cancel" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="UpdatingProgramDatabase">
-                                        <Setter Property="Content" Value="Cancel" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="UpdatingProgramDatabase">
+                                        <Setter Property="Content"
+                                                Value="Cancel" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CheckingForProgramUpdates">
-                                        <Setter Property="Content" Value="Cancel" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CheckingForProgramUpdates">
+                                        <Setter Property="Content"
+                                                Value="Cancel" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Scrupdate_UiElements_Controls:CustomButton.Style>
                     </Scrupdate_UiElements_Controls:CustomButton>
-                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_show" DockPanel.Dock="Right" Width="auto" Height="32" SnapsToDevicePixels="True" FontSize="15" FontFamily="Calibri" BorderThickness="1 1 1 1" BorderBrush="{StaticResource blackSolidColorBrush}" DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}" CornerRadius="3 3 3 3" Padding="10 0 10 0" Margin="0 0 10 0" VerticalAlignment="Bottom" Foreground="{StaticResource whiteSolidColorBrush}" DisabledForeground="{StaticResource whiteSolidColorBrush}" Background="{StaticResource grayishBlueSolidColorBrush}" HoveredBackground="{StaticResource brightGrayishBlueSolidColorBrush}" PressedBackground="{StaticResource lightGrayishBlueSolidColorBrush}" DisabledBackground="{StaticResource paleGrayishBlueSolidColorBrush}" Content="Show" Click="OnButtonClickEvent">
+                    <Scrupdate_UiElements_Controls:CustomButton x:Name="button_show"
+                                                                DockPanel.Dock="Right"
+                                                                Width="auto"
+                                                                Height="32"
+                                                                SnapsToDevicePixels="True"
+                                                                FontSize="15"
+                                                                FontFamily="Calibri"
+                                                                BorderThickness="1 1 1 1"
+                                                                BorderBrush="{StaticResource blackSolidColorBrush}"
+                                                                DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}"
+                                                                CornerRadius="3 3 3 3"
+                                                                Padding="10 0 10 0"
+                                                                Margin="0 0 10 0"
+                                                                VerticalAlignment="Bottom"
+                                                                Foreground="{StaticResource whiteSolidColorBrush}"
+                                                                DisabledForeground="{StaticResource whiteSolidColorBrush}"
+                                                                Background="{StaticResource grayishBlueSolidColorBrush}"
+                                                                HoveredBackground="{StaticResource brightGrayishBlueSolidColorBrush}"
+                                                                PressedBackground="{StaticResource lightGrayishBlueSolidColorBrush}"
+                                                                DisabledBackground="{StaticResource paleGrayishBlueSolidColorBrush}"
+                                                                Content="Show"
+                                                                Click="OnButtonClickEvent">
                         <Scrupdate_UiElements_Controls:CustomButton.Style>
                             <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
-                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereUpdates}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereUpdates}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereErrors}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=AreThereErrors}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Scrupdate_UiElements_Controls:CustomButton.Style>
                     </Scrupdate_UiElements_Controls:CustomButton>
-                    <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_progress" Height="20" Margin="0 0 10 0" BorderThickness="1 1 1 1" BorderBrush="{StaticResource lightBlackSolidColorBrush}" Background="{StaticResource lightGraySolidColorBrush2}" Foreground="{StaticResource grayishGreenSolidColorBrush2}" GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
+                    <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_progress"
+                                                                     Height="20"
+                                                                     Margin="0 0 10 0"
+                                                                     BorderThickness="1 1 1 1"
+                                                                     BorderBrush="{StaticResource lightBlackSolidColorBrush}"
+                                                                     Background="{StaticResource lightGraySolidColorBrush2}"
+                                                                     Foreground="{StaticResource grayishGreenSolidColorBrush2}"
+                                                                     GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
                         <Scrupdate_UiElements_Controls:CustomProgressBar.Style>
                             <Style TargetType="Scrupdate_UiElements_Controls:CustomProgressBar">
-                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CancellingOperation">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CancellingOperation">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="UpdatingProgramDatabase">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="UpdatingProgramDatabase">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CheckingForProgramUpdates">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CheckingForProgramUpdates">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -181,7 +337,10 @@
                 </DockPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="grid_windowToolbar" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+        <Grid x:Name="grid_windowToolbar"
+              Grid.Row="0"
+              Grid.Column="0"
+              VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
@@ -189,34 +348,75 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel x:Name="stackPanel_windowTitle" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <StackPanel x:Name="stackPanel_windowTitle"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Orientation="Horizontal">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
-                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}"
+                                         Value="True">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePart1" FontSize="18" FontFamily="Calibri" FontWeight="Bold" Padding="5 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content="Scrupdate" />
-                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePartsSeparator" Foreground="{StaticResource brightGraySolidColorBrush}" FontSize="18" FontFamily="Calibri" Padding="0 0 0 0" Margin="0 0 0 0" VerticalAlignment="Center" Content=" | " />
-                <StackPanel x:Name="stackPanel_windowTitlePart2" Orientation="Vertical" VerticalAlignment="Center">
-                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_titleStatusMessage" FontSize="18" FontFamily="Calibri" Padding="0 0 5 0" Margin="0 0 0 0" Content="N/A" />
-                    <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_titleProgress" Height="3" Margin="0 0 0 0" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource lightGraySolidColorBrush2}" Foreground="{StaticResource grayishGreenSolidColorBrush2}" GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
+                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePart1"
+                                                           FontSize="18"
+                                                           FontFamily="Calibri"
+                                                           FontWeight="Bold"
+                                                           Padding="5 0 0 0"
+                                                           Margin="0 0 0 0"
+                                                           VerticalAlignment="Center"
+                                                           Content="Scrupdate" />
+                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_windowTitlePartsSeparator"
+                                                           Foreground="{StaticResource brightGraySolidColorBrush}"
+                                                           FontSize="18"
+                                                           FontFamily="Calibri"
+                                                           Padding="0 0 0 0"
+                                                           Margin="0 0 0 0"
+                                                           VerticalAlignment="Center"
+                                                           Content=" | " />
+                <StackPanel x:Name="stackPanel_windowTitlePart2"
+                            Orientation="Vertical"
+                            VerticalAlignment="Center">
+                    <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_titleStatusMessage"
+                                                               FontSize="18"
+                                                               FontFamily="Calibri"
+                                                               Padding="0 0 5 0"
+                                                               Margin="0 0 0 0"
+                                                               Content="N/A" />
+                    <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_titleProgress"
+                                                                     Height="3"
+                                                                     Margin="0 0 0 0"
+                                                                     BorderThickness="0 0 0 0"
+                                                                     BorderBrush="{StaticResource transparentSolidColorBrush}"
+                                                                     Background="{StaticResource lightGraySolidColorBrush2}"
+                                                                     Foreground="{StaticResource grayishGreenSolidColorBrush2}"
+                                                                     GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
                         <Scrupdate_UiElements_Controls:CustomProgressBar.Style>
                             <Style TargetType="Scrupdate_UiElements_Controls:CustomProgressBar">
-                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CancellingOperation">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CancellingOperation">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="UpdatingProgramDatabase">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="UpdatingProgramDatabase">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}" Value="CheckingForProgramUpdates">
-                                        <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=CurrentOperation}"
+                                                 Value="CheckingForProgramUpdates">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -224,40 +424,67 @@
                     </Scrupdate_UiElements_Controls:CustomProgressBar>
                 </StackPanel>
             </StackPanel>
-            <StackPanel x:Name="stackPanel_windowButtons" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
+            <StackPanel x:Name="stackPanel_windowButtons"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_collapseOrExpandWindow"
+                                                            Width="25"
+                                                            Height="25"
+                                                            SnapsToDevicePixels="True"
+                                                            Padding="0 0 0 0"
+                                                            Margin="0 0 0 0"
+                                                            Click="OnButtonClickEvent">
                     <Viewbox VerticalAlignment="Center">
-                        <Border Width="25" Height="25">
+                        <Border Width="25"
+                                Height="25">
                             <Border.Style>
                                 <Style TargetType="Border">
-                                    <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
+                                    <Setter Property="Background"
+                                            Value="{StaticResource transparentSolidColorBrush}" />
                                     <Style.Triggers>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}"
+                                                           Value="False" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" Value="{StaticResource paleGraySolidColorBrush}" />
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource paleGraySolidColorBrush}" />
                                         </MultiDataTrigger>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}"
+                                                           Value="True" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource darkSilverishGraySolidColorBrush}" />
                                         </MultiDataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-                            <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Stroke="{StaticResource lightBlackSolidColorBrush}">
+                            <Path Stretch="Fill"
+                                  Margin="8 8 8 8"
+                                  StrokeThickness="1"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Stroke="{StaticResource lightBlackSolidColorBrush}">
                                 <Path.Style>
                                     <Style TargetType="Path">
-                                        <Setter Property="Data" Value="M 0,0.5 L 1,0.5" />
+                                        <Setter Property="Data"
+                                                Value="M 0,0.5 L 1,0.5" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}" Value="True">
-                                                <Setter Property="Data" Value="M 0,0.5 L 1,0.5 M 0.5,0 L 0.5,1" />
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdatesScheduledCheckWindow}, Path=IsWindowCollapsed}"
+                                                         Value="True">
+                                                <Setter Property="Data"
+                                                        Value="M 0,0.5 L 1,0.5 M 0.5,0 L 0.5,1" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -266,46 +493,73 @@
                         </Border>
                     </Viewbox>
                 </Scrupdate_UiElements_Controls:CustomButton>
-                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_closeWindow" Width="25" Height="25" SnapsToDevicePixels="True" Padding="0 0 0 0" Margin="0 0 0 0" Click="OnButtonClickEvent">
+                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_closeWindow"
+                                                            Width="25"
+                                                            Height="25"
+                                                            SnapsToDevicePixels="True"
+                                                            Padding="0 0 0 0"
+                                                            Margin="0 0 0 0"
+                                                            Click="OnButtonClickEvent">
                     <Viewbox VerticalAlignment="Center">
-                        <Border Width="25" Height="25">
+                        <Border Width="25"
+                                Height="25">
                             <Border.Style>
                                 <Style TargetType="Border">
-                                    <Setter Property="Background" Value="{StaticResource transparentSolidColorBrush}" />
+                                    <Setter Property="Background"
+                                            Value="{StaticResource transparentSolidColorBrush}" />
                                     <Style.Triggers>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="False" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}"
+                                                           Value="False" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" Value="{StaticResource brightBordoSolidColorBrush}" />
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource brightBordoSolidColorBrush}" />
                                         </MultiDataTrigger>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}" Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsPressed}"
+                                                           Value="True" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Background" Value="{StaticResource lightBordoSolidColorBrush}" />
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource lightBordoSolidColorBrush}" />
                                         </MultiDataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Border.Style>
-                            <Path Stretch="Fill" Margin="8 8 8 8" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 0,0 L 1,1 M 0,1 L 1,0">
+                            <Path Stretch="Fill"
+                                  Margin="8 8 8 8"
+                                  StrokeThickness="1"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Data="M 0,0 L 1,1 M 0,1 L 1,0">
                                 <Path.Style>
                                     <Style TargetType="Path">
-                                        <Setter Property="Stroke" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+                                        <Setter Property="Stroke"
+                                                Value="{StaticResource darkSilverishGraySolidColorBrush}" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True">
-                                                <Setter Property="Stroke" Value="{StaticResource lightBlackSolidColorBrush}" />
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                         Value="True">
+                                                <Setter Property="Stroke"
+                                                        Value="{StaticResource lightBlackSolidColorBrush}" />
                                             </DataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}" Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomButton}, Path=IsMouseOver}"
+                                                               Value="True" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Stroke" Value="{StaticResource whiteSolidColorBrush}" />
+                                                <Setter Property="Stroke"
+                                                        Value="{StaticResource whiteSolidColorBrush}" />
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>

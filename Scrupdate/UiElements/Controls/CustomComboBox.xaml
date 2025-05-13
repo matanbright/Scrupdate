@@ -23,7 +23,15 @@
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
           mc:Ignorable="d"
-          d:DesignHeight="450" d:DesignWidth="800" Width="auto" Height="auto" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource transparentSolidColorBrush}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+          d:DesignHeight="450"
+          d:DesignWidth="800"
+          Width="auto"
+          Height="auto"
+          BorderThickness="0 0 0 0"
+          BorderBrush="{StaticResource transparentSolidColorBrush}"
+          Background="{StaticResource transparentSolidColorBrush}"
+          HorizontalContentAlignment="Left"
+          VerticalContentAlignment="Center">
     <ComboBox.Template>
         <ControlTemplate TargetType="ComboBox">
             <Grid>
@@ -33,39 +41,55 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ToggleButton Grid.Row="0" Grid.Column="0"
+                <ToggleButton Grid.Row="0"
+                              Grid.Column="0"
                               BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                               IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
                     <ToggleButton.Style>
                         <Style TargetType="ToggleButton">
-                            <Setter Property="BorderBrush" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
-                            <Setter Property="Background" Value="{StaticResource smokeWhiteSolidColorBrush}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource smokeWhiteSolidColorBrush}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True">
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                             Value="True">
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
                                 </DataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                   Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{StaticResource darkSilverishGraySolidColorBrush}" />
+                                    <Setter Property="Background"
+                                            Value="{StaticResource darkSilverishGraySolidColorBrush}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                   Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{StaticResource silverishGraySolidColorBrush}" />
+                                    <Setter Property="Background"
+                                            Value="{StaticResource silverishGraySolidColorBrush}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                   Value="True" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{StaticResource lightSilverishGraySolidColorBrush}" />
+                                    <Setter Property="Background"
+                                            Value="{StaticResource lightSilverishGraySolidColorBrush}" />
                                 </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -79,11 +103,14 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <Border Grid.Row="0" Grid.Column="0" CornerRadius="3 3 3 3"
+                                <Border Grid.Row="0"
+                                        Grid.Column="0"
+                                        CornerRadius="3 3 3 3"
                                         BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                                         BorderBrush="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}"
                                         Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
-                                <ContentPresenter Grid.Row="0" Grid.Column="0" />
+                                <ContentPresenter Grid.Row="0"
+                                                  Grid.Column="0" />
                             </Grid>
                         </ControlTemplate>
                     </ToggleButton.Template>
@@ -95,7 +122,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Foreground="{StaticResource graySolidColorBrush}" Margin="5 0 5 0"
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Foreground="{StaticResource graySolidColorBrush}"
+                                   Margin="5 0 5 0"
                                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"
                                    Padding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Padding}"
                                    HorizontalAlignment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HorizontalContentAlignment}"
@@ -103,20 +133,26 @@
                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HintText}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
                                     <Style.Triggers>
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedItem}" Value="" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedItem}"
+                                                           Value="" />
                                             </MultiDataTrigger.Conditions>
-                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
                                         </MultiDataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5 0 5 0"
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Margin="5 0 5 0"
                                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"
                                    Padding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Padding}"
                                    HorizontalAlignment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HorizontalContentAlignment}"
@@ -124,17 +160,26 @@
                                    Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Text}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="{StaticResource lightGraySolidColorBrush2}" />
+                                    <Setter Property="Foreground"
+                                            Value="{StaticResource lightGraySolidColorBrush2}" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True">
-                                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                     Value="True">
+                                            <Setter Property="Foreground"
+                                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <Viewbox Grid.Row="0" Grid.Column="1" Width="10" Height="9" Margin="5 0 5 0" VerticalAlignment="Center">
-                            <Path Stretch="Fill" Data="M 1238,140 1041,480 844,140 Z">
+                        <Viewbox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Width="10"
+                                 Height="9"
+                                 Margin="5 0 5 0"
+                                 VerticalAlignment="Center">
+                            <Path Stretch="Fill"
+                                  Data="M 1238,140 1041,480 844,140 Z">
                                 <Path.Style>
                                     <Style TargetType="Path">
                                         <Setter Property="LayoutTransform">
@@ -142,35 +187,47 @@
                                                 <RotateTransform Angle="0" />
                                             </Setter.Value>
                                         </Setter>
-                                        <Setter Property="Fill" Value="#FFCCCCCC" />
+                                        <Setter Property="Fill"
+                                                Value="#FFCCCCCC" />
                                         <Style.Triggers>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="False" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                               Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                               Value="False" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="#FF333333" />
+                                                <Setter Property="Fill"
+                                                        Value="#FF333333" />
                                             </MultiDataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="False" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                               Value="False" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Fill" Value="#FF5D5D5D" />
+                                                <Setter Property="Fill"
+                                                        Value="#FF5D5D5D" />
                                             </MultiDataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}" Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                               Value="True" />
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}"
+                                                               Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="LayoutTransform">
                                                     <Setter.Value>
                                                         <RotateTransform Angle="180" />
                                                     </Setter.Value>
                                                 </Setter>
-                                                <Setter Property="Fill" Value="#FF888888" />
+                                                <Setter Property="Fill"
+                                                        Value="#FF888888" />
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -179,7 +236,12 @@
                         </Viewbox>
                     </Grid>
                 </ToggleButton>
-                <Popup x:Name="PART_Popup" Grid.Row="0" Grid.Column="0" Placement="Bottom" AllowsTransparency="True" PopupAnimation="Slide"
+                <Popup x:Name="PART_Popup"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Placement="Bottom"
+                       AllowsTransparency="True"
+                       PopupAnimation="Slide"
                        Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ActualWidth}"
                        IsOpen="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen}">
                     <Border CornerRadius="3 3 3 3"

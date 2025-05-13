@@ -23,7 +23,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        d:DesignHeight="450" d:DesignWidth="800" Width="auto" Height="auto" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource transparentSolidColorBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        d:DesignHeight="450"
+        d:DesignWidth="800"
+        Width="auto"
+        Height="auto"
+        BorderThickness="0 0 0 0"
+        BorderBrush="{StaticResource transparentSolidColorBrush}"
+        Background="{StaticResource transparentSolidColorBrush}"
+        HorizontalContentAlignment="Center"
+        VerticalContentAlignment="Center">
     <Button.Template>
         <ControlTemplate TargetType="Button">
             <Grid>
@@ -33,114 +41,173 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Grid.Column="0"
+                <Border Grid.Row="0"
+                        Grid.Column="0"
                         BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                         CornerRadius="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=CornerRadius}">
                     <Border.Style>
                         <Style TargetType="Border">
-                            <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
-                            <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
-                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                            <Setter Property="TextElement.Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
+                            <Setter Property="Background"
+                                    Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="False">
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBorderBrush}" />
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}" />
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBackground}" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                             Value="False">
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBorderBrush}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBackground}" />
                                 </DataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBorderBrush}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBorderBrush}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderBrush" Value="{StaticResource lightGraySolidColorBrush2}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{StaticResource lightGraySolidColorBrush2}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="TextElement.Foreground" Value="{StaticResource lightGraySolidColorBrush2}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{StaticResource lightGraySolidColorBrush2}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBackground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledBackground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBorderBrush}" />
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredForeground}" />
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBackground}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBorderBrush}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredForeground}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBackground}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBorderBrush}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBorderBrush}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredForeground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredForeground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="False" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBackground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HoveredBackground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="True" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBorderBrush}" />
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedForeground}" />
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBackground}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBorderBrush}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedForeground}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBackground}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBorderBrush}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBorderBrush}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedForeground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedForeground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="TextElement.Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
+                                    <Setter Property="TextElement.Foreground"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}" Value="True" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBackground}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsMouseOver}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsPressed}"
+                                                   Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=PressedBackground}"
+                                                   Value="{x:Null}" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}" />
                                 </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -152,7 +219,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <ContentPresenter Grid.Row="0" Grid.Column="0"
+                        <ContentPresenter Grid.Row="0"
+                                          Grid.Column="0"
                                           Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Padding}"
                                           HorizontalAlignment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HorizontalContentAlignment}"
                                           VerticalAlignment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=VerticalContentAlignment}" />

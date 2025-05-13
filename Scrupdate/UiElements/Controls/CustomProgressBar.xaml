@@ -24,7 +24,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Width="auto" Height="auto" BorderThickness="0 0 0 0" BorderBrush="{StaticResource transparentSolidColorBrush}" Background="{StaticResource transparentSolidColorBrush}">
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Width="auto"
+             Height="auto"
+             BorderThickness="0 0 0 0"
+             BorderBrush="{StaticResource transparentSolidColorBrush}"
+             Background="{StaticResource transparentSolidColorBrush}">
     <ProgressBar.Template>
         <ControlTemplate TargetType="ProgressBar">
             <Grid>
@@ -34,39 +40,59 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border x:Name="PART_Track" Grid.Row="0" Grid.Column="0" CornerRadius="3 3 3 3"
+                <Border x:Name="PART_Track"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        CornerRadius="3 3 3 3"
                         BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                         Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}">
                     <Border.Style>
                         <Style TargetType="Border">
-                            <Setter Property="BorderBrush" Value="{StaticResource lightGraySolidColorBrush2}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource lightGraySolidColorBrush2}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True">
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                             Value="True">
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
-                <Border x:Name="PART_Indicator" Grid.Row="0" Grid.Column="0" CornerRadius="3 3 3 3" HorizontalAlignment="Left"
+                <Border x:Name="PART_Indicator"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        CornerRadius="3 3 3 3"
+                        HorizontalAlignment="Left"
                         BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}">
                     <Border.Style>
                         <Style TargetType="Border">
-                            <Setter Property="BorderBrush" Value="{StaticResource lightGraySolidColorBrush2}" />
-                            <Setter Property="Background" Value="{x:Null}" />
+                            <Setter Property="BorderBrush"
+                                    Value="{StaticResource lightGraySolidColorBrush2}" />
+                            <Setter Property="Background"
+                                    Value="{x:Null}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}" Value="True">
-                                    <Setter Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsEnabled}"
+                                             Value="True">
+                                    <Setter Property="BorderBrush"
+                                            Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderBrush}" />
                                 </DataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=Visibility}" Value="Visible" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=IsIndeterminate}" Value="False" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=Visibility}"
+                                                   Value="Visible" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=IsIndeterminate}"
+                                                   Value="False" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.EnterActions>
                                         <BeginStoryboard x:Name="beginStoryboard_progressBarGlowAnimationWhenProgressBarIsNotIndeterminate">
                                             <Storyboard Timeline.DesiredFrameRate="30">
-                                                <DoubleAnimation Storyboard.TargetProperty="Background.GradientStops[1].Offset" From="0.0" To="1.0" Duration="0:0:1" RepeatBehavior="Forever" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Background.GradientStops[1].Offset"
+                                                                 From="0.0"
+                                                                 To="1.0"
+                                                                 Duration="0:0:1"
+                                                                 RepeatBehavior="Forever" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.EnterActions>
@@ -76,23 +102,33 @@
                                     </MultiDataTrigger.ExitActions>
                                     <Setter Property="Background">
                                         <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                <GradientStop Offset="0" Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
-                                                <GradientStop Offset="0.5" Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=GlowColor}" />
-                                                <GradientStop Offset="1" Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
+                                            <LinearGradientBrush StartPoint="0,0"
+                                                                 EndPoint="1,0">
+                                                <GradientStop Offset="0"
+                                                              Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
+                                                <GradientStop Offset="0.5"
+                                                              Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=GlowColor}" />
+                                                <GradientStop Offset="1"
+                                                              Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
                                             </LinearGradientBrush>
                                         </Setter.Value>
                                     </Setter>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=Visibility}" Value="Visible" />
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=IsIndeterminate}" Value="True" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=Visibility}"
+                                                   Value="Visible" />
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Controls:CustomProgressBar}, Path=IsIndeterminate}"
+                                                   Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <MultiDataTrigger.EnterActions>
                                         <BeginStoryboard x:Name="beginStoryboard_progressBarGlowAnimationWhenProgressBarIsIndeterminate">
                                             <Storyboard Timeline.DesiredFrameRate="30">
-                                                <DoubleAnimation Storyboard.TargetProperty="Background.GradientStops[1].Offset" From="0.0" To="1.0" Duration="0:0:0.5" RepeatBehavior="Forever" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Background.GradientStops[1].Offset"
+                                                                 From="0.0"
+                                                                 To="1.0"
+                                                                 Duration="0:0:0.5"
+                                                                 RepeatBehavior="Forever" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </MultiDataTrigger.EnterActions>
@@ -102,10 +138,14 @@
                                     </MultiDataTrigger.ExitActions>
                                     <Setter Property="Background">
                                         <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                <GradientStop Offset="0" Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
-                                                <GradientStop Offset="0.5" Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
-                                                <GradientStop Offset="1" Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
+                                            <LinearGradientBrush StartPoint="0,0"
+                                                                 EndPoint="1,0">
+                                                <GradientStop Offset="0"
+                                                              Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
+                                                <GradientStop Offset="0.5"
+                                                              Color="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Foreground.(SolidColorBrush.Color)}" />
+                                                <GradientStop Offset="1"
+                                                              Color="{Binding Source={StaticResource transparentSolidColorBrush}, Path=Color}" />
                                             </LinearGradientBrush>
                                         </Setter.Value>
                                     </Setter>
