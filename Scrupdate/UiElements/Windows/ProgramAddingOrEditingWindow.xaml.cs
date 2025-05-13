@@ -957,7 +957,7 @@ namespace Scrupdate.UiElements.Windows
         }
         private Program GetProgramFromUiControlsValues()
         {
-            string programLatestVersion = "";
+            string latestVersion = "";
             Program._InstallationScope installationScope = GetInstallationScope();
             string versionSearchMethodArgument1;
             string versionSearchMethodArgument2;
@@ -986,14 +986,14 @@ namespace Scrupdate.UiElements.Windows
                      programToEdit.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
                  )))
             {
-                programLatestVersion = programToEdit.LatestVersion;
+                latestVersion = programToEdit.LatestVersion;
                 updateCheckConfigurationStatus = programToEdit.UpdateCheckConfigurationStatus;
                 updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
             }
             return new Program(
                 textBox_programName.Text.Trim(),
                 textBox_installedVersion.Text.Trim(),
-                programLatestVersion,
+                latestVersion,
                 installationScope,
                 (bool)checkBox_configureProgramUpdateCheck.IsChecked,
                 textBox_webPageUrl.Text.Trim(),
