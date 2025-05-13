@@ -572,11 +572,11 @@ namespace Scrupdate.Classes.Utilities
                                 }
                                 break;
                             case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
-                                textToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
+                                textToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
                                 break;
                             case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
                             case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
-                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
+                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
                                 int foundTextIndex = tempTextToSerachVersion.IndexOf(
                                     programToCheck.VersionSearchMethodArgument1
                                 );
@@ -592,7 +592,7 @@ namespace Scrupdate.Classes.Utilities
                                     textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
                                 break;
                             case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
-                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
+                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
                                 int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
                                     programToCheck.VersionSearchMethodArgument1
                                 );

@@ -267,7 +267,7 @@ namespace Scrupdate.Classes.Objects
                 webPageElementLocatingInterval
             );
         }
-        public string GetAllTextWithinWebPage()
+        public string GetAllTextWithinTheWebPage()
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
