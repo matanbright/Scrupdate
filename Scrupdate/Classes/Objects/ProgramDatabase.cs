@@ -81,6 +81,7 @@ namespace Scrupdate.Classes.Objects
         private static readonly TableColumn TABLE_COLUMN__INSTALLED_VERSION = new TableColumn("installed_version", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__LATEST_VERSION = new TableColumn("latest_version", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__INSTALLATION_SCOPE = new TableColumn("installation_scope", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__IS_AUTOMATICALLY_ADDED = new TableColumn("is_automatically_added", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED = new TableColumn("is_update_check_configured", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_URL = new TableColumn("web_page_url", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_METHOD = new TableColumn("version_search_method", "INTEGER NOT NULL DEFAULT 0");
@@ -90,7 +91,6 @@ namespace Scrupdate.Classes.Objects
         private static readonly TableColumn TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR = new TableColumn("version_search_behavior", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY = new TableColumn("web_page_post_load_delay", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = new TableColumn("locating_instructions_of_web_page_elements_to_simulate_a_click_on", "TEXT NOT NULL DEFAULT \"\"");
-        private static readonly TableColumn TABLE_COLUMN__IS_AUTOMATICALLY_ADDED = new TableColumn("is_automatically_added", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS = new TableColumn("update_check_configuration_status", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL DEFAULT 0");
@@ -652,6 +652,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__LATEST_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
                 .Append($"{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
                 .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
@@ -661,7 +662,6 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
                 .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
                 .Append($"{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}")
@@ -670,6 +670,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"@{TABLE_COLUMN__LATEST_VERSION.Name}, ")
                 .Append($"@{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"@{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"@{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
                 .Append($"@{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
                 .Append($"@{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
@@ -679,7 +680,6 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
                 .Append($"@{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
                 .Append($"@{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
-                .Append($"@{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}")
@@ -691,6 +691,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__INSTALLED_VERSION.Name, program.InstalledVersion);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__LATEST_VERSION.Name, program.LatestVersion);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__INSTALLATION_SCOPE.Name, (long)program.InstallationScope);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, Convert.ToInt64(program.IsAutomaticallyAdded));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name, Convert.ToInt64(program.IsUpdateCheckConfigured));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__WEB_PAGE_URL.Name, program.WebPageUrl);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_METHOD.Name, (long)program.VersionSearchMethod);
@@ -700,7 +701,6 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name, (long)program.VersionSearchBehavior);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name, (long)program.WebPagePostLoadDelay);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name, JsonSerializer.Serialize(program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn));
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, Convert.ToInt64(program.IsAutomaticallyAdded));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name, (long)program.UpdateCheckConfigurationStatus);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name, (long)program.UpdateCheckConfigurationError);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_HIDDEN.Name, Convert.ToInt64(program.IsHidden));
@@ -922,6 +922,7 @@ namespace Scrupdate.Classes.Objects
                                 (string)sqLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
                                 (string)sqLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
                                 (Program._InstallationScope)((long)sqLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
                                 (string)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
                                 (Program._VersionSearchMethod)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
@@ -931,7 +932,6 @@ namespace Scrupdate.Classes.Objects
                                 (Program._VersionSearchBehavior)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
                                 (Program._WebPagePostLoadDelay)((long)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
                                 JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
@@ -969,6 +969,7 @@ namespace Scrupdate.Classes.Objects
                                 (string)sqLiteDataReader[TABLE_COLUMN__INSTALLED_VERSION.Name],
                                 (string)sqLiteDataReader[TABLE_COLUMN__LATEST_VERSION.Name],
                                 (Program._InstallationScope)((long)sqLiteDataReader[TABLE_COLUMN__INSTALLATION_SCOPE.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name]),
                                 (string)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_URL.Name],
                                 (Program._VersionSearchMethod)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_METHOD.Name]),
@@ -978,7 +979,6 @@ namespace Scrupdate.Classes.Objects
                                 (Program._VersionSearchBehavior)((long)sqLiteDataReader[TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name]),
                                 (Program._WebPagePostLoadDelay)((long)sqLiteDataReader[TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name]),
                                 JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
-                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name]),
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
@@ -1008,6 +1008,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__INSTALLED_VERSION.Name} = @new_{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__LATEST_VERSION.Name} = @new_{TABLE_COLUMN__LATEST_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__INSTALLATION_SCOPE.Name} = @new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name} = @new_{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}, ")
                 .Append($"{TABLE_COLUMN__WEB_PAGE_URL.Name} = @new_{TABLE_COLUMN__WEB_PAGE_URL.Name}, ")
                 .Append($"{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}, ")
@@ -1017,7 +1018,6 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name} = @new_{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}, ")
                 .Append($"{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name} = @new_{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}, ")
                 .Append($"{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name} = @new_{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name} = @new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ")
@@ -1029,6 +1029,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", newProgram.InstalledVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", newProgram.LatestVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}", (long)newProgram.InstallationScope);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", Convert.ToInt64(newProgram.IsAutomaticallyAdded));
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name}", Convert.ToInt64(newProgram.IsUpdateCheckConfigured));
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__WEB_PAGE_URL.Name}", newProgram.WebPageUrl);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_METHOD.Name}", (long)newProgram.VersionSearchMethod);
@@ -1038,7 +1039,6 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__VERSION_SEARCH_BEHAVIOR.Name}", (long)newProgram.VersionSearchBehavior);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__WEB_PAGE_POST_LOAD_DELAY.Name}", (long)newProgram.WebPagePostLoadDelay);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}", JsonSerializer.Serialize(newProgram.LocatingInstructionsOfWebPageElementsToSimulateAClickOn));
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", Convert.ToInt64(newProgram.IsAutomaticallyAdded));
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)newProgram.UpdateCheckConfigurationStatus);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)newProgram.UpdateCheckConfigurationError);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", Convert.ToInt64(newProgram.IsHidden));

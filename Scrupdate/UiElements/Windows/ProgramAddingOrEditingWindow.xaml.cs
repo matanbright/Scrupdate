@@ -995,6 +995,7 @@ namespace Scrupdate.UiElements.Windows
                 textBox_installedVersion.Text.Trim(),
                 latestVersion,
                 installationScope,
+                (bool)checkBox_detectAutomatically.IsChecked,
                 (bool)checkBox_configureUpdateCheck.IsChecked,
                 textBox_webPageUrl.Text.Trim(),
                 versionSearchMethod,
@@ -1004,7 +1005,6 @@ namespace Scrupdate.UiElements.Windows
                 versionSearchBehavior,
                 webPagePostLoadDelay,
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn,
-                (bool)checkBox_detectAutomatically.IsChecked,
                 updateCheckConfigurationStatus,
                 updateCheckConfigurationError,
                 (programToEdit != null ? programToEdit.IsHidden : false)

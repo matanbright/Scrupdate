@@ -84,6 +84,7 @@ namespace Scrupdate.Classes.Objects
         public string InstalledVersion { get; set; }
         public string LatestVersion { get; set; }
         public _InstallationScope InstallationScope { get; set; }
+        public bool IsAutomaticallyAdded { get; set; }
         public bool IsUpdateCheckConfigured { get; set; }
         public string WebPageUrl { get; set; }
         public _VersionSearchMethod VersionSearchMethod { get; set; }
@@ -93,7 +94,6 @@ namespace Scrupdate.Classes.Objects
         public _VersionSearchBehavior VersionSearchBehavior { get; set; }
         public _WebPagePostLoadDelay WebPagePostLoadDelay { get; set; }
         public List<WebPageElementLocatingInstruction> LocatingInstructionsOfWebPageElementsToSimulateAClickOn { get; set; }
-        public bool IsAutomaticallyAdded { get; set; }
         public _UpdateCheckConfigurationStatus UpdateCheckConfigurationStatus { get; set; }
         public _UpdateCheckConfigurationError UpdateCheckConfigurationError { get; set; }
         public bool IsHidden { get; set; }
@@ -109,6 +109,7 @@ namespace Scrupdate.Classes.Objects
                 "",
                 _InstallationScope.None,
                 false,
+                false,
                 "",
                 _VersionSearchMethod.Unknown,
                 "",
@@ -117,7 +118,6 @@ namespace Scrupdate.Classes.Objects
                 _VersionSearchBehavior.Unknown,
                 _WebPagePostLoadDelay.None,
                 new List<WebPageElementLocatingInstruction>(),
-                false,
                 _UpdateCheckConfigurationStatus.Unknown,
                 _UpdateCheckConfigurationError.None,
                 false
@@ -127,6 +127,7 @@ namespace Scrupdate.Classes.Objects
                        string installedVersion,
                        string latestVersion,
                        _InstallationScope installationScope,
+                       bool isAutomaticallyAdded,
                        bool isUpdateCheckConfigured,
                        string webPageUrl,
                        _VersionSearchMethod versionSearchMethod,
@@ -136,7 +137,6 @@ namespace Scrupdate.Classes.Objects
                        _VersionSearchBehavior versionSearchBehavior,
                        _WebPagePostLoadDelay webPagePostLoadDelay,
                        List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn,
-                       bool isAutomaticallyAdded,
                        _UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
                        _UpdateCheckConfigurationError updateCheckConfigurationError,
                        bool isHidden)
@@ -145,6 +145,7 @@ namespace Scrupdate.Classes.Objects
             InstalledVersion = installedVersion;
             LatestVersion = latestVersion;
             InstallationScope = installationScope;
+            IsAutomaticallyAdded = isAutomaticallyAdded;
             IsUpdateCheckConfigured = isUpdateCheckConfigured;
             WebPageUrl = webPageUrl;
             VersionSearchMethod = versionSearchMethod;
@@ -155,7 +156,6 @@ namespace Scrupdate.Classes.Objects
             WebPagePostLoadDelay = webPagePostLoadDelay;
             LocatingInstructionsOfWebPageElementsToSimulateAClickOn =
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn;
-            IsAutomaticallyAdded = isAutomaticallyAdded;
             UpdateCheckConfigurationStatus = updateCheckConfigurationStatus;
             UpdateCheckConfigurationError = updateCheckConfigurationError;
             IsHidden = isHidden;
@@ -174,6 +174,7 @@ namespace Scrupdate.Classes.Objects
                     InstalledVersion.Equals(otherProgram.InstalledVersion) &&
                     LatestVersion.Equals(otherProgram.LatestVersion) &&
                     InstallationScope == otherProgram.InstallationScope &&
+                    IsAutomaticallyAdded == otherProgram.IsAutomaticallyAdded &&
                     IsUpdateCheckConfigured == otherProgram.IsUpdateCheckConfigured &&
                     WebPageUrl.Equals(otherProgram.WebPageUrl) &&
                     VersionSearchMethod == otherProgram.VersionSearchMethod &&
@@ -185,7 +186,6 @@ namespace Scrupdate.Classes.Objects
                     LocatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
                         otherProgram.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
                     ) &&
-                    IsAutomaticallyAdded == otherProgram.IsAutomaticallyAdded &&
                     UpdateCheckConfigurationStatus == otherProgram.UpdateCheckConfigurationStatus &&
                     UpdateCheckConfigurationError == otherProgram.UpdateCheckConfigurationError &&
                     IsHidden == otherProgram.IsHidden);
@@ -193,13 +193,14 @@ namespace Scrupdate.Classes.Objects
         public override int GetHashCode()
         {
             StringBuilder objectHashString = new StringBuilder(
-                10 * 12 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 4
+                10 * 13 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 3
             );
             objectHashString
                 .Append(Name.GetHashCode())
                 .Append(InstalledVersion.GetHashCode())
                 .Append(LatestVersion.GetHashCode())
                 .Append(InstallationScope.GetHashCode())
+                .Append(IsAutomaticallyAdded.GetHashCode())
                 .Append(IsUpdateCheckConfigured.GetHashCode())
                 .Append(WebPageUrl.GetHashCode())
                 .Append(VersionSearchMethod.GetHashCode())
@@ -216,7 +217,6 @@ namespace Scrupdate.Classes.Objects
                 );
             }
             objectHashString
-                .Append(IsAutomaticallyAdded.GetHashCode())
                 .Append(UpdateCheckConfigurationStatus.GetHashCode())
                 .Append(UpdateCheckConfigurationError.GetHashCode())
                 .Append(IsHidden.GetHashCode());

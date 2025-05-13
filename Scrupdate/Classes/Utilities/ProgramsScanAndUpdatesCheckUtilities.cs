@@ -259,6 +259,7 @@ namespace Scrupdate.Classes.Utilities
                                     (installedProgramInstalledVersion ?? ""),
                                     "",
                                     installedProgramInstallationScope,
+                                    true,
                                     false,
                                     "",
                                     Program._VersionSearchMethod.Unknown,
@@ -268,7 +269,6 @@ namespace Scrupdate.Classes.Utilities
                                     Program._VersionSearchBehavior.Unknown,
                                     Program._WebPagePostLoadDelay.None,
                                     new List<WebPageElementLocatingInstruction>(),
-                                    true,
                                     Program._UpdateCheckConfigurationStatus.Unknown,
                                     Program._UpdateCheckConfigurationError.None,
                                     false
