@@ -124,8 +124,8 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0"
                                    Grid.Column="0"
-                                   Foreground="{StaticResource graySolidColorBrush}"
                                    Margin="5 0 5 0"
+                                   Foreground="{StaticResource graySolidColorBrush}"
                                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background}"
                                    Padding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Padding}"
                                    HorizontalAlignment="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=HorizontalContentAlignment}"
