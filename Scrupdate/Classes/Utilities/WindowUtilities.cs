@@ -65,8 +65,7 @@ namespace Scrupdate.Classes.Utilities
                     }
                     if (BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING - displayWorkArea.Width >= BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING - displayWorkArea.Height)
                         return (displayWorkArea.Width / (BASE_WINDOW_WIDTH_FOR_WINDOWS_SCALING + WINDOWS_MARGIN * 2.0D));
-                    else
-                        return (displayWorkArea.Height / (BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING + WINDOWS_MARGIN * 2.0D));
+                    return (displayWorkArea.Height / (BASE_WINDOW_HEIGHT_FOR_WINDOWS_SCALING + WINDOWS_MARGIN * 2.0D));
                 }
                 else
                 {
@@ -79,6 +78,7 @@ namespace Scrupdate.Classes.Utilities
                             ratioBetweenCurrentDisplayResolutionAndBaseDisplayResolution = displayWorkArea.Width / BASE_DISPLAY_WIDTH_FOR_WINDOWS_SCALING;
                         if (ratioBetweenCurrentDisplayResolutionAndBaseDisplayResolution > 1.0D)
                             return (Math.Round(ratioBetweenCurrentDisplayResolutionAndBaseDisplayResolution * 4.0D, MidpointRounding.AwayFromZero) / 4.0D);
+                        return 1.0D;
                     }
                     else
                     {
@@ -106,7 +106,6 @@ namespace Scrupdate.Classes.Utilities
                         return settingsHandler.SettingsInMemory.Appearance.WindowsScalingFactor;
                     }
                 }
-                return 1.0D;
             }
             catch
             {
