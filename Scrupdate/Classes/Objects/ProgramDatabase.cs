@@ -714,34 +714,6 @@ namespace Scrupdate.Classes.Objects
                 UpdateProgramDatabaseChecksumFile();
             return succeeded;
         }
-        public bool IsProgramHidden(string programName)
-        {
-            if (disposed)
-                throw new ObjectDisposedException(GetType().Name);
-            if (!open)
-                throw new DatabaseIsNotOpenException();
-            bool programIsHidden = false;
-            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
-                       $"SELECT {TABLE_COLUMN__IS_HIDDEN.Name} FROM {TABLE_NAME__PROGRAMS} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
-                       sqLiteConnection
-                   ))
-            {
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
-                try
-                {
-                    SQLiteDataReader sqLiteDataReader = sqLiteCommand.ExecuteReader();
-                    try
-                    {
-                        if (sqLiteDataReader.Read())
-                            programIsHidden = Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]);
-                    }
-                    catch { }
-                    sqLiteDataReader.Close();
-                }
-                catch { }
-            }
-            return programIsHidden;
-        }
         public bool HideProgram(string programName)
         {
             return HideOrUnhideProgram(programName, true);
