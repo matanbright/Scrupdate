@@ -555,10 +555,10 @@
                                                                        VerticalAlignment="Center"
                                                                        Content="Search: " />
                             <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_programListSearchingPhrase"
-                                                                         IsShowingClearButton="True"
                                                                          Width="180"
                                                                          Margin="10 0 0 0"
                                                                          VerticalAlignment="Center"
+                                                                         IsShowingClearButton="True"
                                                                          TextChanged="OnTextBoxTextChangedEvent" />
                         </StackPanel>
                         <StackPanel x:Name="stackPanel_programListFilteringField"
