@@ -79,6 +79,7 @@ namespace Scrupdate.Classes.Objects
             this.chromeDriverDirectoryPath = chromeDriverDirectoryPath;
             this.chromeDriverUserAgent = chromeDriverUserAgent;
             this.chromeDriverPageLoadTimeoutInMilliseconds = chromeDriverPageLoadTimeoutInMilliseconds;
+            chromeDriverService = null;
             chromeDriver = null;
             googleChromeBrowserIsOpen = false;
         }
