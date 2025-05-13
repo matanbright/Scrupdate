@@ -20,8 +20,8 @@
 <Application x:Class="Scrupdate.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="OnApplicationStartupEvent"
-             Exit="OnApplicationExitEvent">
+             Startup="OnStartupEvent"
+             Exit="OnExitEvent">
     <Application.Resources>
         <SolidColorBrush x:Key="transparentSolidColorBrush"
                          Color="Transparent" />

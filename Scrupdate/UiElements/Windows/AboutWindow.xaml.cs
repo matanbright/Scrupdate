@@ -87,7 +87,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnWindowClosingEvent(object sender, CancelEventArgs e)
+        private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             Owner?.Activate();
         }

@@ -348,7 +348,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnWindowLoadedEvent(object sender, RoutedEventArgs e)
+        private void OnLoadedEvent(object sender, RoutedEventArgs e)
         {
             MoveWindowNearSystemTrayIcons();
             App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesScheduledCheckAttemptionTime =
@@ -379,7 +379,7 @@ namespace Scrupdate.UiElements.Windows
                 );
             }
         }
-        private void OnWindowClosingEvent(object sender, CancelEventArgs e)
+        private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             if (CurrentOperation == Operation.CancellingOperation ||
                 CurrentOperation == Operation.UpdatingProgramDatabase ||

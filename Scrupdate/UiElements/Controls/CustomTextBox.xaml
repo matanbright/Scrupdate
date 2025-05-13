@@ -28,8 +28,8 @@
          Background="{StaticResource transparentSolidColorBrush}"
          HorizontalContentAlignment="Left"
          VerticalContentAlignment="Center"
-         Loaded="OnTextBoxLoadedEvent"
-         IsEnabledChanged="OnTextBoxIsEnabledChangedEvent">
+         Loaded="OnLoadedEvent"
+         IsEnabledChanged="OnIsEnabledChangedEvent">
     <TextBox.Triggers>
         <EventTrigger RoutedEvent="Scrupdate_UiElements_Controls:CustomTextBox.Enabled">
             <BeginStoryboard>

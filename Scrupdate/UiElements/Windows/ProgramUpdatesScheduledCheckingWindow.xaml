@@ -36,8 +36,8 @@
         Topmost="True"
         BorderThickness="1 1 1 1"
         BorderBrush="{StaticResource blackSolidColorBrush}"
-        Loaded="OnWindowLoadedEvent"
-        Closing="OnWindowClosingEvent">
+        Loaded="OnLoadedEvent"
+        Closing="OnClosingEvent">
     <Grid x:Name="grid_window"
           SnapsToDevicePixels="False">
         <Grid.Style>

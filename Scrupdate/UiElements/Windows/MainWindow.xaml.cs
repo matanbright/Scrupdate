@@ -306,7 +306,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnWindowLoadedEvent(object sender, RoutedEventArgs e)
+        private void OnLoadedEvent(object sender, RoutedEventArgs e)
         {
             if (App.SettingsHandler.SettingsInMemory.Cached.LastWindowState != null)
                 WindowState = (WindowState)App.SettingsHandler.SettingsInMemory.Cached.LastWindowState;
@@ -337,7 +337,7 @@ namespace Scrupdate.UiElements.Windows
                     RefreshListViewAndAllMessages(true);
             }
         }
-        private void OnWindowClosingEvent(object sender, CancelEventArgs e)
+        private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             if (!resettingAllSettingsAndData)
             {

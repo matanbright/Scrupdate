@@ -30,8 +30,8 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
-        Loaded="OnWindowLoadedEvent"
-        Closing="OnWindowClosingEvent">
+        Loaded="OnLoadedEvent"
+        Closing="OnClosingEvent">
     <Grid x:Name="grid_window"
           SnapsToDevicePixels="False">
         <Grid.Background>

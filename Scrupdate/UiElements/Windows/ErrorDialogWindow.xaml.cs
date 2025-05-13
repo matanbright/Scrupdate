@@ -56,11 +56,11 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnWindowLoadedEvent(object sender, RoutedEventArgs e)
+        private void OnLoadedEvent(object sender, RoutedEventArgs e)
         {
             SystemSounds.Hand.Play();
         }
-        private void OnWindowClosingEvent(object sender, CancelEventArgs e)
+        private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             Owner?.Activate();
         }

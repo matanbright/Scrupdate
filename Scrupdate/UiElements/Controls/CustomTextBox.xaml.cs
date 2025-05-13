@@ -164,7 +164,7 @@ namespace Scrupdate.UiElements.Controls
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnTextBoxLoadedEvent(object sender, RoutedEventArgs e)
+        private void OnLoadedEvent(object sender, RoutedEventArgs e)
         {
             RaiseEvent(
                 (IsEnabled ?
@@ -172,7 +172,7 @@ namespace Scrupdate.UiElements.Controls
                     new DisabledRoutedEventArgs(DisabledEvent))
             );
         }
-        private void OnTextBoxIsEnabledChangedEvent(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnIsEnabledChangedEvent(object sender, DependencyPropertyChangedEventArgs e)
         {
             RaiseEvent(
                 (IsEnabled ?

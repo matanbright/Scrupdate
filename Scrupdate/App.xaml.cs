@@ -128,7 +128,7 @@ namespace Scrupdate
 
 
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void OnApplicationStartupEvent(object sender, StartupEventArgs e)
+        private void OnStartupEvent(object sender, StartupEventArgs e)
         {
             SettingsHandler = null;
             WindowsRenderingScale = 1.0D;
@@ -314,7 +314,7 @@ namespace Scrupdate
                 }
             }
         }
-        private void OnApplicationExitEvent(object sender, ExitEventArgs e)
+        private void OnExitEvent(object sender, ExitEventArgs e)
         {
             ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
