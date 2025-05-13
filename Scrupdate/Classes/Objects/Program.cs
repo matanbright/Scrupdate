@@ -72,7 +72,7 @@ namespace Scrupdate.Classes.Objects
             GeneralFailure,
             WebPageDidNotRespond,
             HtmlElementWasNotFound,
-            TextWasNotFoundWithinWebPage,
+            TextWasNotFoundWithinTheWebPage,
             NoVersionWasFound
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

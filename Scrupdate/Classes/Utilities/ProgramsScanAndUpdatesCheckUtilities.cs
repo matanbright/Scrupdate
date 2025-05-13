@@ -73,10 +73,10 @@ namespace Scrupdate.Classes.Utilities
             private const string EXCEPTION_MESSAGE = "HTML element was not found!";
             public HtmlElementWasNotFoundException() : base(EXCEPTION_MESSAGE) { }
         }
-        public class TextWasNotFoundWithinWebPageException : Exception
+        public class TextWasNotFoundWithinTheWebPageException : Exception
         {
-            private const string EXCEPTION_MESSAGE = "Text was not found within web page!";
-            public TextWasNotFoundWithinWebPageException() : base(EXCEPTION_MESSAGE) { }
+            private const string EXCEPTION_MESSAGE = "Text was not found within the web page!";
+            public TextWasNotFoundWithinTheWebPageException() : base(EXCEPTION_MESSAGE) { }
         }
         public class NoVersionWasFoundException : Exception
         {
@@ -581,7 +581,7 @@ namespace Scrupdate.Classes.Utilities
                                     programToCheck.VersionSearchMethodArgument1
                                 );
                                 if (foundTextIndex < 0)
-                                    throw new TextWasNotFoundWithinWebPageException();
+                                    throw new TextWasNotFoundWithinTheWebPageException();
                                 if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
                                 {
                                     textToSerachVersion = tempTextToSerachVersion.Substring(
@@ -600,7 +600,7 @@ namespace Scrupdate.Classes.Utilities
                                     programToCheck.VersionSearchMethodArgument2
                                 );
                                 if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
-                                    throw new TextWasNotFoundWithinWebPageException();
+                                    throw new TextWasNotFoundWithinTheWebPageException();
                                 if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
                                 {
                                     textToSerachVersion = tempTextToSerachVersion.Substring(
@@ -660,8 +660,8 @@ namespace Scrupdate.Classes.Utilities
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
                         else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
-                        else if (e.GetType().Equals(typeof(TextWasNotFoundWithinWebPageException)))
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinWebPage;
+                        else if (e.GetType().Equals(typeof(TextWasNotFoundWithinTheWebPageException)))
+                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
                         else if (e.GetType().Equals(typeof(NoVersionWasFoundException)))
                             updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
                         else
