@@ -132,7 +132,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         public Error CurrentError
         {
             get
@@ -248,10 +248,10 @@ namespace Scrupdate.UiElements.Windows
             }
             programListViewItems = new List<ProgramListViewItem>();
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             ((GridView)listView_programs.View).Columns.CollectionChanged +=

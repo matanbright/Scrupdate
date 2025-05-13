@@ -92,7 +92,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         public WindowVariation CurrentWindowVariation
         {
             get
@@ -157,10 +157,10 @@ namespace Scrupdate.UiElements.Windows
             locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn =
                 new List<WebPageElementLocatingInstructionListViewItem>();
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             foreach (Program._InstallationScope installationScope in

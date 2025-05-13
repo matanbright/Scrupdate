@@ -62,7 +62,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -71,10 +71,10 @@ namespace Scrupdate.UiElements.Windows
         public AboutWindow()
         {
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             label_appVersion.Content = ((string)label_appVersion.Content).Replace(

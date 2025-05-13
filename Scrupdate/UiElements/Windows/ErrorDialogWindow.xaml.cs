@@ -31,7 +31,7 @@ namespace Scrupdate.UiElements.Windows
     public partial class ErrorDialogWindow : Window
     {
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -40,10 +40,10 @@ namespace Scrupdate.UiElements.Windows
         public ErrorDialogWindow(string dialogTitle, string dialogMessage)
         {
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             Title = dialogTitle;

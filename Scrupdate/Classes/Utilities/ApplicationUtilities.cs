@@ -319,19 +319,19 @@ namespace Scrupdate.Classes.Utilities
                     Size baseSizeOfOpenWindow;
                     Type typeOfOpenWindow = openWindow.GetType();
                     if (typeOfOpenWindow == typeof(MainWindow))
-                        baseSizeOfOpenWindow = ((MainWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((MainWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(AboutWindow))
-                        baseSizeOfOpenWindow = ((AboutWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((AboutWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(SettingsWindow))
-                        baseSizeOfOpenWindow = ((SettingsWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((SettingsWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(ProgramAddingOrEditingWindow))
-                        baseSizeOfOpenWindow = ((ProgramAddingOrEditingWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((ProgramAddingOrEditingWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(ErrorDialogWindow))
-                        baseSizeOfOpenWindow = ((ErrorDialogWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((ErrorDialogWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(QuestionDialogWindow))
-                        baseSizeOfOpenWindow = ((QuestionDialogWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((QuestionDialogWindow)openWindow).BaseSize;
                     else if (typeOfOpenWindow == typeof(ProgramUpdatesScheduledCheckWindow))
-                        baseSizeOfOpenWindow = ((ProgramUpdatesScheduledCheckWindow)openWindow).BaseSizeOfWindow;
+                        baseSizeOfOpenWindow = ((ProgramUpdatesScheduledCheckWindow)openWindow).BaseSize;
                     else
                         continue;
                     WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(

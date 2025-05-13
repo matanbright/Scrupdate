@@ -137,7 +137,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         public ConfigError SettingsFileError
         {
             get
@@ -323,10 +323,10 @@ namespace Scrupdate.UiElements.Windows
                 CurrentError = Error.CanNotOpenProgramDatabase;
             }
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             switch (settingsFileError)
@@ -501,7 +501,7 @@ namespace Scrupdate.UiElements.Windows
                         MinHeight = calculatedWindowSize.Height;
                         Height = calculatedWindowSize.Height;
                         MaxHeight = calculatedWindowSize.Height;
-                        BaseSizeOfWindow = new Size(Width, Height);
+                        BaseSize = new Size(Width, Height);
                         MoveWindowNearSystemTrayIcons();
                     }
             );

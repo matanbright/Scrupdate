@@ -76,7 +76,7 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public Size BaseSizeOfWindow { get; private set; }
+        public Size BaseSize { get; private set; }
         public SettingsCategoryMenuTab SelectedSettingsCategoryMenuTab
         {
             get
@@ -112,10 +112,10 @@ namespace Scrupdate.UiElements.Windows
             this.currentSettings = currentSettings;
             updatedSettings = null;
             InitializeComponent();
-            BaseSizeOfWindow = new Size(Width, Height);
+            BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
                 this,
-                BaseSizeOfWindow,
+                BaseSize,
                 App.WindowsRenderingScale
             );
             if (currentSettings.General.EnableScanningForInstalledPrograms && !programDatabaseIsOpen)
