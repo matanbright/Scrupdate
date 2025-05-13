@@ -544,7 +544,7 @@ namespace Scrupdate.Classes.Utilities
                         string tempTextToSerachVersion = null;
                         switch (programToCheck.VersionSearchMethod)
                         {
-                            case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
+                            case Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId:
                                 try
                                 {
                                     textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(
@@ -556,7 +556,7 @@ namespace Scrupdate.Classes.Utilities
                                     throw new HtmlElementWasNotFoundException();
                                 }
                                 break;
-                            case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
+                            case Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath:
                                 try
                                 {
                                     textToSerachVersion = string.Join(
@@ -571,18 +571,18 @@ namespace Scrupdate.Classes.Utilities
                                     throw new HtmlElementWasNotFoundException();
                                 }
                                 break;
-                            case Program._VersionSearchMethod.SearchGloballyInTheWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
                                 textToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 break;
-                            case Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage:
-                            case Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 int foundTextIndex = tempTextToSerachVersion.IndexOf(
                                     programToCheck.VersionSearchMethodArgument1
                                 );
                                 if (foundTextIndex < 0)
                                     throw new TextWasNotFoundWithinWebPageException();
-                                if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage)
+                                if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
                                 {
                                     textToSerachVersion = tempTextToSerachVersion.Substring(
                                         foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length
@@ -591,7 +591,7 @@ namespace Scrupdate.Classes.Utilities
                                 else
                                     textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
                                 break;
-                            case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
+                            case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
                                 tempTextToSerachVersion = chromeDriver.GetAllTextWithinWebPage();
                                 int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
                                     programToCheck.VersionSearchMethodArgument1

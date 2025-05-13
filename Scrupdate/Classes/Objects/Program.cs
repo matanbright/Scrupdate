@@ -34,12 +34,12 @@ namespace Scrupdate.Classes.Objects
         public enum _VersionSearchMethod
         {
             Unknown,
-            SearchInTheContentOfHtmlElementWithId,
-            SearchInTheContentOfHtmlElementsMatchingXPath,
-            SearchGloballyInTheWebPage,
-            SearchGloballyFromTextWithinWebPage,
-            SearchGloballyUntilTextWithinWebPage,
-            SearchGloballyFromTextUntilTextWithinWebPage
+            SearchWithinTheHtmlElementWithId,
+            SearchWithinTheHtmlElementsThatMatchXPath,
+            SearchGloballyWithinTheWebPage,
+            SearchGloballyFromTextWithinTheWebPage,
+            SearchGloballyUntilTextWithinTheWebPage,
+            SearchGloballyFromTextUntilTextWithinTheWebPage
         }
         public enum _VersionSearchBehavior
         {

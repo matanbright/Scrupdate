@@ -303,18 +303,18 @@
                                                 Orientation="Vertical"
                                                 Margin="10 0 0 0"
                                                 HorizontalAlignment="Left">
-                                        <StackPanel x:Name="stackPanel_searchInTheContentOfHtmlElementWithIdField"
+                                        <StackPanel x:Name="stackPanel_searchWithinTheHtmlElementWithIdField"
                                                     Orientation="Horizontal"
                                                     Margin="0 0 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchInTheContentOfHtmlElementWithId"
+                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchWithinTheHtmlElementWithId"
                                                                                              GroupName="versionSearchMethodSelection"
                                                                                              IsChecked="True"
                                                                                              Margin="0 0 0 0"
                                                                                              VerticalAlignment="Center"
                                                                                              Content="Search within the HTML Element with the Following ID: "
                                                                                              Click="OnRadioButtonClickEvent" />
-                                            <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchInTheContentOfHtmlElementWithIdParameter"
+                                            <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchWithinTheHtmlElementWithIdParameter"
                                                                                          Width="200"
                                                                                          Margin="10 0 0 0"
                                                                                          VerticalAlignment="Center"
@@ -326,9 +326,9 @@
                                                         <Style.Triggers>
                                                             <MultiDataTrigger>
                                                                 <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding ElementName=radioButton_searchInTheContentOfHtmlElementWithId, Path=IsEnabled}"
+                                                                    <Condition Binding="{Binding ElementName=radioButton_searchWithinTheHtmlElementWithId, Path=IsEnabled}"
                                                                                Value="True" />
-                                                                    <Condition Binding="{Binding ElementName=radioButton_searchInTheContentOfHtmlElementWithId, Path=IsChecked}"
+                                                                    <Condition Binding="{Binding ElementName=radioButton_searchWithinTheHtmlElementWithId, Path=IsChecked}"
                                                                                Value="True" />
                                                                 </MultiDataTrigger.Conditions>
                                                                 <Setter Property="IsEnabled"
@@ -339,17 +339,17 @@
                                                 </Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                             </Scrupdate_UiElements_Controls:CustomTextBox>
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_searchInTheContentOfHtmlElementsMatchingXPathField"
+                                        <StackPanel x:Name="stackPanel_searchWithinTheHtmlElementsThatMatchXPathField"
                                                     Orientation="Horizontal"
                                                     Margin="0 5 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchInTheContentOfHtmlElementsMatchingXPath"
+                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchWithinTheHtmlElementsThatMatchXPath"
                                                                                              GroupName="versionSearchMethodSelection"
                                                                                              Margin="0 0 0 0"
                                                                                              VerticalAlignment="Center"
                                                                                              Content="Search within the HTML Element(s) That Match the Following XPath: "
                                                                                              Click="OnRadioButtonClickEvent" />
-                                            <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter"
+                                            <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchWithinTheHtmlElementsThatMatchXPathParameter"
                                                                                          Width="200"
                                                                                          Margin="10 0 0 0"
                                                                                          VerticalAlignment="Center"
@@ -361,9 +361,9 @@
                                                         <Style.Triggers>
                                                             <MultiDataTrigger>
                                                                 <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding ElementName=radioButton_searchInTheContentOfHtmlElementsMatchingXPath, Path=IsEnabled}"
+                                                                    <Condition Binding="{Binding ElementName=radioButton_searchWithinTheHtmlElementsThatMatchXPath, Path=IsEnabled}"
                                                                                Value="True" />
-                                                                    <Condition Binding="{Binding ElementName=radioButton_searchInTheContentOfHtmlElementsMatchingXPath, Path=IsChecked}"
+                                                                    <Condition Binding="{Binding ElementName=radioButton_searchWithinTheHtmlElementsThatMatchXPath, Path=IsChecked}"
                                                                                Value="True" />
                                                                 </MultiDataTrigger.Conditions>
                                                                 <Setter Property="IsEnabled"
@@ -374,18 +374,18 @@
                                                 </Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                             </Scrupdate_UiElements_Controls:CustomTextBox>
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_searchGloballyInTheWebPageField"
+                                        <StackPanel x:Name="stackPanel_searchGloballyWithinTheWebPageField"
                                                     Orientation="Vertical"
                                                     Margin="0 5 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchGloballyInTheWebPage"
+                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchGloballyWithinTheWebPage"
                                                                                              GroupName="versionSearchMethodSelection"
                                                                                              Margin="0 0 0 0"
                                                                                              HorizontalAlignment="Left"
                                                                                              VerticalAlignment="Center"
                                                                                              Content="Search Globally within the Web Page"
                                                                                              Click="OnRadioButtonClickEvent" />
-                                            <StackPanel x:Name="stackPanel_searchFromTextWithinWebPageField"
+                                            <StackPanel x:Name="stackPanel_searchFromTextWithinTheWebPageField"
                                                         Orientation="Horizontal"
                                                         Margin="25 5 0 0"
                                                         HorizontalAlignment="Left">
@@ -394,7 +394,7 @@
                                                         <Setter Property="IsEnabled"
                                                                 Value="False" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyInTheWebPage, Path=IsChecked}"
+                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebPage, Path=IsChecked}"
                                                                          Value="True">
                                                                 <Setter Property="IsEnabled"
                                                                         Value="True" />
@@ -402,12 +402,12 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </StackPanel.Style>
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchFromTextWithinWebPage"
+                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchFromTextWithinTheWebPage"
                                                                                               Margin="0 0 0 0"
                                                                                               VerticalAlignment="Center"
                                                                                               Content="Search from the Following Text within the Web Page: "
                                                                                               Click="OnCheckBoxClickEvent" />
-                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchFromTextWithinWebPageParameter"
+                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchFromTextWithinTheWebPageParameter"
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
@@ -419,9 +419,9 @@
                                                             <Style.Triggers>
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinWebPage, Path=IsEnabled}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebPage, Path=IsEnabled}"
                                                                                    Value="True" />
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinWebPage, Path=IsChecked}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebPage, Path=IsChecked}"
                                                                                    Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <Setter Property="IsEnabled"
@@ -432,7 +432,7 @@
                                                     </Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                 </Scrupdate_UiElements_Controls:CustomTextBox>
                                             </StackPanel>
-                                            <StackPanel x:Name="stackPanel_searchUntilTextWithinWebPageField"
+                                            <StackPanel x:Name="stackPanel_searchUntilTextWithinTheWebPageField"
                                                         Orientation="Horizontal"
                                                         Margin="25 5 0 0"
                                                         HorizontalAlignment="Left">
@@ -441,7 +441,7 @@
                                                         <Setter Property="IsEnabled"
                                                                 Value="False" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyInTheWebPage, Path=IsChecked}"
+                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebPage, Path=IsChecked}"
                                                                          Value="True">
                                                                 <Setter Property="IsEnabled"
                                                                         Value="True" />
@@ -449,12 +449,12 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </StackPanel.Style>
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchUntilTextWithinWebPage"
+                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchUntilTextWithinTheWebPage"
                                                                                               Margin="0 0 0 0"
                                                                                               VerticalAlignment="Center"
                                                                                               Content="Search until the Following Text within the Web Page: "
                                                                                               Click="OnCheckBoxClickEvent" />
-                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchUntilTextWithinWebPageParameter"
+                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchUntilTextWithinTheWebPageParameter"
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
@@ -466,9 +466,9 @@
                                                             <Style.Triggers>
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinWebPage, Path=IsEnabled}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebPage, Path=IsEnabled}"
                                                                                    Value="True" />
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinWebPage, Path=IsChecked}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebPage, Path=IsChecked}"
                                                                                    Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <Setter Property="IsEnabled"

@@ -284,14 +284,14 @@ namespace Scrupdate.UiElements.Windows
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL;
                 }
                 else if (checkBox_configureProgramUpdateCheck.IsChecked == true &&
-                         ((radioButton_searchInTheContentOfHtmlElementWithId.IsChecked == true &&
-                           textBox_searchInTheContentOfHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
-                          (radioButton_searchInTheContentOfHtmlElementsMatchingXPath.IsChecked == true &&
-                           textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text.Trim().Equals("")) ||
-                          (checkBox_searchFromTextWithinWebPage.IsChecked == true &&
-                           textBox_searchFromTextWithinWebPageParameter.Text.Trim().Equals("")) ||
-                          (checkBox_searchUntilTextWithinWebPage.IsChecked == true &&
-                           textBox_searchUntilTextWithinWebPageParameter.Text.Trim().Equals(""))))
+                         ((radioButton_searchWithinTheHtmlElementWithId.IsChecked == true &&
+                           textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
+                          (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true &&
+                           textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim().Equals("")) ||
+                          (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
+                           textBox_searchFromTextWithinTheWebPageParameter.Text.Trim().Equals("")) ||
+                          (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true &&
+                           textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim().Equals(""))))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH;
                 }
@@ -398,13 +398,13 @@ namespace Scrupdate.UiElements.Windows
                 if (checkBox_configureProgramUpdateCheck.IsChecked == false)
                 {
                     textBox_webPageUrl.Text = "";
-                    textBox_searchInTheContentOfHtmlElementWithIdParameter.Text = "";
-                    textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text = "";
-                    textBox_searchFromTextWithinWebPageParameter.Text = "";
-                    textBox_searchUntilTextWithinWebPageParameter.Text = "";
-                    checkBox_searchFromTextWithinWebPage.IsChecked = false;
-                    checkBox_searchUntilTextWithinWebPage.IsChecked = false;
-                    radioButton_searchInTheContentOfHtmlElementWithId.IsChecked = true;
+                    textBox_searchWithinTheHtmlElementWithIdParameter.Text = "";
+                    textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text = "";
+                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
+                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
+                    checkBox_searchFromTextWithinTheWebPage.IsChecked = false;
+                    checkBox_searchUntilTextWithinTheWebPage.IsChecked = false;
+                    radioButton_searchWithinTheHtmlElementWithId.IsChecked = true;
                     checkBox_treatAStandaloneNumberAsAVersion.IsChecked = false;
                     radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                     expander_advancedOptions.IsExpanded = false;
@@ -420,15 +420,15 @@ namespace Scrupdate.UiElements.Windows
                     checkBox_simulateWebPageElementClicks.IsChecked = false;
                 }
             }
-            else if (senderCheckBox == checkBox_searchFromTextWithinWebPage)
+            else if (senderCheckBox == checkBox_searchFromTextWithinTheWebPage)
             {
-                if (checkBox_searchFromTextWithinWebPage.IsChecked == false)
-                    textBox_searchFromTextWithinWebPageParameter.Text = "";
+                if (checkBox_searchFromTextWithinTheWebPage.IsChecked == false)
+                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
             }
-            else if (senderCheckBox == checkBox_searchUntilTextWithinWebPage)
+            else if (senderCheckBox == checkBox_searchUntilTextWithinTheWebPage)
             {
-                if (checkBox_searchUntilTextWithinWebPage.IsChecked == false)
-                    textBox_searchUntilTextWithinWebPageParameter.Text = "";
+                if (checkBox_searchUntilTextWithinTheWebPage.IsChecked == false)
+                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
             }
             else if (senderCheckBox == checkBox_simulateWebPageElementClicks)
             {
@@ -456,20 +456,20 @@ namespace Scrupdate.UiElements.Windows
         private void OnRadioButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomRadioButton senderRadioButton = (CustomRadioButton)sender;
-            if (senderRadioButton == radioButton_searchInTheContentOfHtmlElementWithId ||
-                senderRadioButton == radioButton_searchInTheContentOfHtmlElementsMatchingXPath ||
-                senderRadioButton == radioButton_searchGloballyInTheWebPage)
+            if (senderRadioButton == radioButton_searchWithinTheHtmlElementWithId ||
+                senderRadioButton == radioButton_searchWithinTheHtmlElementsThatMatchXPath ||
+                senderRadioButton == radioButton_searchGloballyWithinTheWebPage)
             {
-                if (senderRadioButton != radioButton_searchInTheContentOfHtmlElementWithId)
-                    textBox_searchInTheContentOfHtmlElementWithIdParameter.Text = "";
-                if (senderRadioButton != radioButton_searchInTheContentOfHtmlElementsMatchingXPath)
-                    textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text = "";
-                if (senderRadioButton != radioButton_searchGloballyInTheWebPage)
+                if (senderRadioButton != radioButton_searchWithinTheHtmlElementWithId)
+                    textBox_searchWithinTheHtmlElementWithIdParameter.Text = "";
+                if (senderRadioButton != radioButton_searchWithinTheHtmlElementsThatMatchXPath)
+                    textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text = "";
+                if (senderRadioButton != radioButton_searchGloballyWithinTheWebPage)
                 {
-                    textBox_searchFromTextWithinWebPageParameter.Text = "";
-                    textBox_searchUntilTextWithinWebPageParameter.Text = "";
-                    checkBox_searchFromTextWithinWebPage.IsChecked = false;
-                    checkBox_searchUntilTextWithinWebPage.IsChecked = false;
+                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
+                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
+                    checkBox_searchFromTextWithinTheWebPage.IsChecked = false;
+                    checkBox_searchUntilTextWithinTheWebPage.IsChecked = false;
                 }
             }
         }
@@ -546,10 +546,10 @@ namespace Scrupdate.UiElements.Windows
             if (senderTextBox == textBox_programName ||
                 senderTextBox == textBox_installedVersion ||
                 senderTextBox == textBox_webPageUrl ||
-                senderTextBox == textBox_searchInTheContentOfHtmlElementWithIdParameter ||
-                senderTextBox == textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter ||
-                senderTextBox == textBox_searchFromTextWithinWebPageParameter ||
-                senderTextBox == textBox_searchUntilTextWithinWebPageParameter ||
+                senderTextBox == textBox_searchWithinTheHtmlElementWithIdParameter ||
+                senderTextBox == textBox_searchWithinTheHtmlElementsThatMatchXPathParameter ||
+                senderTextBox == textBox_searchFromTextWithinTheWebPageParameter ||
+                senderTextBox == textBox_searchUntilTextWithinTheWebPageParameter ||
                 senderTextBox == textBox_webPageElementLocatingMethodArgument)
             {
                 if (Array.TrueForAll(
@@ -588,54 +588,54 @@ namespace Scrupdate.UiElements.Windows
                 Program._VersionSearchMethod.Unknown;
             if (checkBox_configureProgramUpdateCheck.IsChecked == true)
             {
-                if (radioButton_searchInTheContentOfHtmlElementWithId.IsChecked == true)
+                if (radioButton_searchWithinTheHtmlElementWithId.IsChecked == true)
                 {
                     versionSearchMethod =
-                        Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId;
+                        Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId;
                     versionSearchMethodArgument1 =
-                        textBox_searchInTheContentOfHtmlElementWithIdParameter.Text.Trim();
+                        textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim();
                     versionSearchMethodArgument2 = "";
                 }
-                else if (radioButton_searchInTheContentOfHtmlElementsMatchingXPath.IsChecked == true)
+                else if (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true)
                 {
                     versionSearchMethod =
-                        Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath;
+                        Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath;
                     versionSearchMethodArgument1 =
-                        textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text.Trim();
+                        textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim();
                     versionSearchMethodArgument2 = "";
                 }
-                else if (radioButton_searchGloballyInTheWebPage.IsChecked == true)
+                else if (radioButton_searchGloballyWithinTheWebPage.IsChecked == true)
                 {
-                    if (checkBox_searchFromTextWithinWebPage.IsChecked == true &&
-                        checkBox_searchUntilTextWithinWebPage.IsChecked == true)
+                    if (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
+                        checkBox_searchUntilTextWithinTheWebPage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage;
+                            Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage;
                         versionSearchMethodArgument1 =
-                            textBox_searchFromTextWithinWebPageParameter.Text.Trim();
+                            textBox_searchFromTextWithinTheWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 =
-                            textBox_searchUntilTextWithinWebPageParameter.Text.Trim();
+                            textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim();
                     }
-                    else if (checkBox_searchFromTextWithinWebPage.IsChecked == true)
+                    else if (checkBox_searchFromTextWithinTheWebPage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage;
+                            Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage;
                         versionSearchMethodArgument1 =
-                            textBox_searchFromTextWithinWebPageParameter.Text.Trim();
+                            textBox_searchFromTextWithinTheWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
-                    else if (checkBox_searchUntilTextWithinWebPage.IsChecked == true)
+                    else if (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage;
+                            Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage;
                         versionSearchMethodArgument1 =
-                            textBox_searchUntilTextWithinWebPageParameter.Text.Trim();
+                            textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
                     else
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyInTheWebPage;
+                            Program._VersionSearchMethod.SearchGloballyWithinTheWebPage;
                         versionSearchMethodArgument1 = "";
                         versionSearchMethodArgument2 = "";
                     }
@@ -881,38 +881,38 @@ namespace Scrupdate.UiElements.Windows
                 textBox_webPageUrl.Text = program.WebPageUrl;
                 switch (program.VersionSearchMethod)
                 {
-                    case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementWithId:
-                        radioButton_searchInTheContentOfHtmlElementWithId.IsChecked = true;
-                        textBox_searchInTheContentOfHtmlElementWithIdParameter.Text =
+                    case Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId:
+                        radioButton_searchWithinTheHtmlElementWithId.IsChecked = true;
+                        textBox_searchWithinTheHtmlElementWithIdParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchInTheContentOfHtmlElementsMatchingXPath:
-                        radioButton_searchInTheContentOfHtmlElementsMatchingXPath.IsChecked = true;
-                        textBox_searchInTheContentOfHtmlElementsMatchingXPathParameter.Text =
+                    case Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath:
+                        radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked = true;
+                        textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyInTheWebPage:
-                        radioButton_searchGloballyInTheWebPage.IsChecked = true;
+                    case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
+                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyFromTextWithinWebPage:
-                        radioButton_searchGloballyInTheWebPage.IsChecked = true;
-                        checkBox_searchFromTextWithinWebPage.IsChecked = true;
-                        textBox_searchFromTextWithinWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
+                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
+                        checkBox_searchFromTextWithinTheWebPage.IsChecked = true;
+                        textBox_searchFromTextWithinTheWebPageParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyUntilTextWithinWebPage:
-                        radioButton_searchGloballyInTheWebPage.IsChecked = true;
-                        checkBox_searchUntilTextWithinWebPage.IsChecked = true;
-                        textBox_searchUntilTextWithinWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
+                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
+                        checkBox_searchUntilTextWithinTheWebPage.IsChecked = true;
+                        textBox_searchUntilTextWithinTheWebPageParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinWebPage:
-                        radioButton_searchGloballyInTheWebPage.IsChecked = true;
-                        checkBox_searchFromTextWithinWebPage.IsChecked = true;
-                        checkBox_searchUntilTextWithinWebPage.IsChecked = true;
-                        textBox_searchFromTextWithinWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
+                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
+                        checkBox_searchFromTextWithinTheWebPage.IsChecked = true;
+                        checkBox_searchUntilTextWithinTheWebPage.IsChecked = true;
+                        textBox_searchFromTextWithinTheWebPageParameter.Text =
                             program.VersionSearchMethodArgument1;
-                        textBox_searchUntilTextWithinWebPageParameter.Text =
+                        textBox_searchUntilTextWithinTheWebPageParameter.Text =
                             program.VersionSearchMethodArgument2;
                         break;
                 }
