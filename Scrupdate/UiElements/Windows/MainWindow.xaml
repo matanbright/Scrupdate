@@ -99,44 +99,6 @@
                               Margin="10 10 10 0"
                               SelectionChanged="OnListViewSelectionChangedEvent"
                               KeyDown="OnListViewKeyDownEvent">
-                        <ListView.Resources>
-                            <ContextMenu x:Key="contextMenuOfSingleSelectionWithoutUnhideOption">
-                                <MenuItem Header="Edit"
-                                          FontWeight="Bold"
-                                          Click="OnMenuItemClickEvent" />
-                                <Separator />
-                                <MenuItem Header="Hide"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Remove"
-                                          Click="OnMenuItemClickEvent" />
-                            </ContextMenu>
-                            <ContextMenu x:Key="contextMenuOfSingleSelectionWithUnhideOption">
-                                <MenuItem Header="Edit"
-                                          FontWeight="Bold"
-                                          Click="OnMenuItemClickEvent" />
-                                <Separator />
-                                <MenuItem Header="Hide"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Unhide"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Remove"
-                                          Click="OnMenuItemClickEvent" />
-                            </ContextMenu>
-                            <ContextMenu x:Key="contextMenuOfMultiSelectionWithoutUnhideOption">
-                                <MenuItem Header="Hide Selected"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Remove Selected"
-                                          Click="OnMenuItemClickEvent" />
-                            </ContextMenu>
-                            <ContextMenu x:Key="contextMenuOfMultiSelectionWithUnhideOption">
-                                <MenuItem Header="Hide Selected"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Unhide Selected"
-                                          Click="OnMenuItemClickEvent" />
-                                <MenuItem Header="Remove Selected"
-                                          Click="OnMenuItemClickEvent" />
-                            </ContextMenu>
-                        </ListView.Resources>
                         <ListView.Style>
                             <Style TargetType="ListView">
                                 <Setter Property="IsEnabled"
@@ -156,42 +118,15 @@
                                         Value="25" />
                                 <Setter Property="Foreground"
                                         Value="{Binding Foreground}" />
-                                <Setter Property="ContextMenu"
-                                        Value="{StaticResource contextMenuOfMultiSelectionWithoutUnhideOption}" />
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu />
+                                    </Setter.Value>
+                                </Setter>
                                 <EventSetter Event="MouseDoubleClick"
                                              Handler="OnListViewItemMouseDoubleClickEvent" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=checkBox_showHiddenPrograms, Path=IsChecked}"
-                                                 Value="True">
-                                        <Setter Property="ContextMenu"
-                                                Value="{StaticResource contextMenuOfMultiSelectionWithUnhideOption}" />
-                                    </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=listView_programs, Path=SelectedItems.Count}"
-                                                       Value="1" />
-                                            <Condition Binding="{Binding ElementName=checkBox_showHiddenPrograms, Path=IsChecked}"
-                                                       Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="ContextMenu"
-                                                Value="{StaticResource contextMenuOfSingleSelectionWithoutUnhideOption}" />
-                                    </MultiDataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=listView_programs, Path=SelectedItems.Count}"
-                                                       Value="1" />
-                                            <Condition Binding="{Binding ElementName=checkBox_showHiddenPrograms, Path=IsChecked}"
-                                                       Value="True" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="ContextMenu"
-                                                Value="{StaticResource contextMenuOfSingleSelectionWithUnhideOption}" />
-                                    </MultiDataTrigger>
-                                    <DataTrigger Binding="{Binding ElementName=listView_programs, Path=SelectedItems.Count}"
-                                                 Value="0">
-                                        <Setter Property="ContextMenu"
-                                                Value="{x:Null}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
+                                <EventSetter Event="ContextMenuOpening"
+                                             Handler="OnListViewItemContextMenuOpeningEvent" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.View>

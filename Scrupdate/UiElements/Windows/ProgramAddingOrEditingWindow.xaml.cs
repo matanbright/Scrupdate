@@ -501,6 +501,27 @@ namespace Scrupdate.UiElements.Windows
             senderGridViewColumnCollection.Insert(0, gridViewColumn_webPageElementLocatingInstructionIndex);
             senderGridViewColumnCollection.CollectionChanged += OnGridViewColumnsCollectionCollectionChangedEvent;
         }
+        private void OnListViewItemContextMenuOpeningEvent(object sender, ContextMenuEventArgs e)
+        {
+            ListViewItem senderListViewItem = (ListViewItem)sender;
+            List<object> menuItems = new List<object>();
+            int selectedListViewItemsCount =
+                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count;
+            if (selectedListViewItemsCount == 1)
+            {
+                menuItems.Add(new MenuItem() { Header = "Copy Locating Method Argument" });
+                menuItems.Add(new MenuItem() { Header = "Move Up" });
+                menuItems.Add(new MenuItem() { Header = "Move Down" });
+            }
+            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Remove Selected" : "Remove") });
+            senderListViewItem.ContextMenu.Items.Clear();
+            foreach (object menuItem in menuItems)
+            {
+                if (menuItem.GetType() == typeof(MenuItem))
+                    ((MenuItem)menuItem).Click += OnMenuItemClickEvent;
+                senderListViewItem.ContextMenu.Items.Add(menuItem);
+            }
+        }
         private void OnMenuItemClickEvent(object sender, RoutedEventArgs e)
         {
             MenuItem senderMenuItem = (MenuItem)sender;

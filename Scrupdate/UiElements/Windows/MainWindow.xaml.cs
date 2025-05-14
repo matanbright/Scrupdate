@@ -596,6 +596,34 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
         }
+        private void OnListViewItemContextMenuOpeningEvent(object sender, ContextMenuEventArgs e)
+        {
+            ListViewItem senderListViewItem = (ListViewItem)sender;
+            List<object> menuItems = new List<object>();
+            int selectedListViewItemsCount = listView_programs.SelectedItems.Count;
+            if (selectedListViewItemsCount == 1)
+            {
+                menuItems.Add(
+                    new MenuItem()
+                    {
+                        FontWeight = FontWeights.Bold,
+                        Header = "Edit"
+                    }
+                );
+                menuItems.Add(new Separator());
+            }
+            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Hide Selected" : "Hide") });
+            if (checkBox_showHiddenPrograms.IsChecked == true)
+                menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Unhide Selected" : "Unhide") });
+            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Remove Selected" : "Remove") });
+            senderListViewItem.ContextMenu.Items.Clear();
+            foreach (object menuItem in menuItems)
+            {
+                if (menuItem.GetType() == typeof(MenuItem))
+                    ((MenuItem)menuItem).Click += OnMenuItemClickEvent;
+                senderListViewItem.ContextMenu.Items.Add(menuItem);
+            }
+        }
         private void OnMenuItemClickEvent(object sender, RoutedEventArgs e)
         {
             MenuItem senderMenuItem = (MenuItem)sender;

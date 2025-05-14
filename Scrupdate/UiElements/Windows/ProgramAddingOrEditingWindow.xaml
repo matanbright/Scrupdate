@@ -715,42 +715,19 @@
                                                               Grid.Row="0"
                                                               Grid.Column="0"
                                                               KeyDown="OnListViewKeyDownEvent">
-                                                        <ListView.Resources>
-                                                            <ContextMenu x:Key="contextMenuOfSingleSelection">
-                                                                <MenuItem Header="Copy Locating Method Argument"
-                                                                          Click="OnMenuItemClickEvent" />
-                                                                <MenuItem Header="Move Up"
-                                                                          Click="OnMenuItemClickEvent" />
-                                                                <MenuItem Header="Move Down"
-                                                                          Click="OnMenuItemClickEvent" />
-                                                                <MenuItem Header="Remove"
-                                                                          Click="OnMenuItemClickEvent" />
-                                                            </ContextMenu>
-                                                            <ContextMenu x:Key="contextMenuOfMultiSelection">
-                                                                <MenuItem Header="Remove Selected"
-                                                                          Click="OnMenuItemClickEvent" />
-                                                            </ContextMenu>
-                                                        </ListView.Resources>
                                                         <ListView.ItemContainerStyle>
                                                             <Style TargetType="ListViewItem">
                                                                 <Setter Property="Height"
                                                                         Value="25" />
                                                                 <Setter Property="Foreground"
                                                                         Value="{StaticResource blackSolidColorBrush}" />
-                                                                <Setter Property="ContextMenu"
-                                                                        Value="{StaticResource contextMenuOfMultiSelection}" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
-                                                                                 Value="1">
-                                                                        <Setter Property="ContextMenu"
-                                                                                Value="{StaticResource contextMenuOfSingleSelection}" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
-                                                                                 Value="0">
-                                                                        <Setter Property="ContextMenu"
-                                                                                Value="{x:Null}" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
+                                                                <Setter Property="ContextMenu">
+                                                                    <Setter.Value>
+                                                                        <ContextMenu />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                                <EventSetter Event="ContextMenuOpening"
+                                                                             Handler="OnListViewItemContextMenuOpeningEvent" />
                                                             </Style>
                                                         </ListView.ItemContainerStyle>
                                                         <ListView.View>
