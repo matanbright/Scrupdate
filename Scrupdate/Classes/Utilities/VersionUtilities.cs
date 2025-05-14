@@ -117,54 +117,66 @@ namespace Scrupdate.Classes.Utilities
                                           string oldVersionString,
                                           bool treatAStandaloneNumberAsAVersion)
         {
-            if (newVersionString == null)
-                throw new ArgumentNullException(nameof(newVersionString));
-            if (oldVersionString == null)
-                throw new ArgumentNullException(nameof(oldVersionString));
-            VersionValidation versionValidation =
-                (treatAStandaloneNumberAsAVersion ?
-                    VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion :
-                    VersionValidation.ValidateVersionSegmentsCount);
-            if (!IsVersion(newVersionString, versionValidation) ||
-                !IsVersion(oldVersionString, versionValidation))
-            {
-                throw new InvalidVersionStringException();
-            }
             try
             {
-                int newVersionDotsCount = 0, oldVersionDotsCount = 0;
-                for (int i = 0; i < newVersionString.Length; i++)
-                    if (newVersionString[i] == '.')
-                        newVersionDotsCount++;
-                for (int i = 0; i < oldVersionString.Length; i++)
-                    if (oldVersionString[i] == '.')
-                        oldVersionDotsCount++;
-                StringBuilder normalizedNewVersionString = new StringBuilder(newVersionString);
-                StringBuilder normalizedOldVersionString = new StringBuilder(oldVersionString);
-                if (newVersionDotsCount == 0)
-                {
-                    newVersionDotsCount++;
-                    normalizedNewVersionString.Append(".0");
-                }
-                if (oldVersionDotsCount == 0)
-                {
-                    oldVersionDotsCount++;
-                    normalizedOldVersionString.Append(".0");
-                }
-                if (newVersionDotsCount > oldVersionDotsCount)
-                    for (int i = 0; i < newVersionDotsCount - oldVersionDotsCount; i++)
-                        normalizedOldVersionString.Append(".0");
-                else if (oldVersionDotsCount > newVersionDotsCount)
-                    for (int i = 0; i < oldVersionDotsCount - newVersionDotsCount; i++)
-                        normalizedNewVersionString.Append(".0");
-                Version normalizedNewVersion = Version.Parse(normalizedNewVersionString.ToString());
-                Version normalizedOldVersion = Version.Parse(normalizedOldVersionString.ToString());
-                return (normalizedNewVersion.CompareTo(normalizedOldVersion) > 0);
+                return (
+                    CompareVersions(
+                        newVersionString,
+                        oldVersionString,
+                        treatAStandaloneNumberAsAVersion
+                    ) > 0
+                );
             }
             catch
             {
                 return false;
             }
+        }
+        private static int CompareVersions(string firstVersionString,
+                                           string secondVersionString,
+                                           bool treatAStandaloneNumberAsAVersion)
+        {
+            if (firstVersionString == null)
+                throw new ArgumentNullException(nameof(firstVersionString));
+            if (secondVersionString == null)
+                throw new ArgumentNullException(nameof(secondVersionString));
+            VersionValidation versionValidation =
+                (treatAStandaloneNumberAsAVersion ?
+                    VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion :
+                    VersionValidation.ValidateVersionSegmentsCount);
+            if (!IsVersion(firstVersionString, versionValidation) ||
+                !IsVersion(secondVersionString, versionValidation))
+            {
+                throw new InvalidVersionStringException();
+            }
+            int firstVersionDotsCount = 0, secondVersionDotsCount = 0;
+            for (int i = 0; i < firstVersionString.Length; i++)
+                if (firstVersionString[i] == '.')
+                    firstVersionDotsCount++;
+            for (int i = 0; i < secondVersionString.Length; i++)
+                if (secondVersionString[i] == '.')
+                    secondVersionDotsCount++;
+            StringBuilder normalizedFirstVersionString = new StringBuilder(firstVersionString);
+            StringBuilder normalizedSecondVersionString = new StringBuilder(secondVersionString);
+            if (firstVersionDotsCount == 0)
+            {
+                firstVersionDotsCount++;
+                normalizedFirstVersionString.Append(".0");
+            }
+            if (secondVersionDotsCount == 0)
+            {
+                secondVersionDotsCount++;
+                normalizedSecondVersionString.Append(".0");
+            }
+            if (firstVersionDotsCount > secondVersionDotsCount)
+                for (int i = 0; i < firstVersionDotsCount - secondVersionDotsCount; i++)
+                    normalizedSecondVersionString.Append(".0");
+            else if (secondVersionDotsCount > firstVersionDotsCount)
+                for (int i = 0; i < secondVersionDotsCount - firstVersionDotsCount; i++)
+                    normalizedFirstVersionString.Append(".0");
+            Version normalizedFirstVersion = Version.Parse(normalizedFirstVersionString.ToString());
+            Version normalizedSecondVersion = Version.Parse(normalizedSecondVersionString.ToString());
+            return normalizedFirstVersion.CompareTo(normalizedSecondVersion);
         }
         public static string GetTheFirstFoundVersionFromString(string stringContainingTheVersion)
         {
