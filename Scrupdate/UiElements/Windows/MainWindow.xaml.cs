@@ -67,6 +67,13 @@ namespace Scrupdate.UiElements.Windows
         private const string ADDITIONAL_STATUS_MESSAGE__THERE_IS_AN_ERROR = "There Is an Error";
         private const string ADDITIONAL_STATUS_MESSAGE__THERE_ARE_N_ERRORS = "There Are {*} Errors";
         private const string LAST_CHECK_TIME_MESSAGE__LAST_CHECK = "Last Check: {*}";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__EDIT = "Edit";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE = "Hide";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE_SELECTED = "Hide Selected";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE = "Unhide";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE_SELECTED = "Unhide Selected";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE = "Remove";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED = "Remove Selected";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -607,15 +614,41 @@ namespace Scrupdate.UiElements.Windows
                     new MenuItem()
                     {
                         FontWeight = FontWeights.Bold,
-                        Header = "Edit"
+                        Header = PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__EDIT
                     }
                 );
                 menuItems.Add(new Separator());
             }
-            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Hide Selected" : "Hide") });
+            menuItems.Add(
+                new MenuItem()
+                {
+                    Header =
+                        (selectedListViewItemsCount > 1 ?
+                            PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE_SELECTED :
+                            PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE)
+                }
+            );
             if (checkBox_showHiddenPrograms.IsChecked == true)
-                menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Unhide Selected" : "Unhide") });
-            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Remove Selected" : "Remove") });
+            {
+                menuItems.Add(
+                    new MenuItem()
+                    {
+                        Header =
+                            (selectedListViewItemsCount > 1 ?
+                                PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE_SELECTED :
+                                PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE)
+                    }
+                );
+            }
+            menuItems.Add(
+                new MenuItem()
+                {
+                    Header =
+                        (selectedListViewItemsCount > 1 ?
+                            PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED :
+                            PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE)
+                }
+            );
             senderListViewItem.ContextMenu.Items.Clear();
             foreach (object menuItem in menuItems)
             {
@@ -627,7 +660,7 @@ namespace Scrupdate.UiElements.Windows
         private void OnMenuItemClickEvent(object sender, RoutedEventArgs e)
         {
             MenuItem senderMenuItem = (MenuItem)sender;
-            if (senderMenuItem.Header.Equals("Edit"))
+            if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__EDIT))
             {
                 ProgramListViewItem programListViewItemOfProgramToEdit =
                     (ProgramListViewItem)listView_programs.SelectedItems[0];
@@ -643,18 +676,18 @@ namespace Scrupdate.UiElements.Windows
                     );
                 }
             }
-            else if (senderMenuItem.Header.Equals("Hide") ||
-                     senderMenuItem.Header.Equals("Hide Selected"))
+            else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE) ||
+                     senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE_SELECTED))
             {
                 HideSelectedProgramsInDatabaseAndListView();
             }
-            else if (senderMenuItem.Header.Equals("Unhide") ||
-                     senderMenuItem.Header.Equals("Unhide Selected"))
+            else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE) ||
+                     senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE_SELECTED))
             {
                 UnhideSelectedProgramsInDatabaseAndListView();
             }
-            else if (senderMenuItem.Header.Equals("Remove") ||
-                     senderMenuItem.Header.Equals("Remove Selected"))
+            else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE) ||
+                     senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED))
             {
                 if (DialogUtilities.ShowQuestionDialog(
                         "",

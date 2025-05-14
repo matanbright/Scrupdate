@@ -50,6 +50,11 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Web Page Elements to Simulate a Click On!";
         private const string ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
+        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT = "Copy Locating Method Argument";
+        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP = "Move Up";
+        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN = "Move Down";
+        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE = "Remove";
+        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED = "Remove Selected";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -509,11 +514,19 @@ namespace Scrupdate.UiElements.Windows
                 listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count;
             if (selectedListViewItemsCount == 1)
             {
-                menuItems.Add(new MenuItem() { Header = "Copy Locating Method Argument" });
-                menuItems.Add(new MenuItem() { Header = "Move Up" });
-                menuItems.Add(new MenuItem() { Header = "Move Down" });
+                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT });
+                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP });
+                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN });
             }
-            menuItems.Add(new MenuItem() { Header = (selectedListViewItemsCount > 1 ? "Remove Selected" : "Remove") });
+            menuItems.Add(
+                new MenuItem()
+                {
+                    Header =
+                        (selectedListViewItemsCount > 1 ?
+                            WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED :
+                            WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE)
+                }
+            );
             senderListViewItem.ContextMenu.Items.Clear();
             foreach (object menuItem in menuItems)
             {
@@ -525,7 +538,7 @@ namespace Scrupdate.UiElements.Windows
         private void OnMenuItemClickEvent(object sender, RoutedEventArgs e)
         {
             MenuItem senderMenuItem = (MenuItem)sender;
-            if (senderMenuItem.Header.Equals("Copy Locating Method Argument"))
+            if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT))
             {
                 WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
                     (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
@@ -534,12 +547,12 @@ namespace Scrupdate.UiElements.Windows
                 );
                 Clipboard.Flush();
             }
-            else if (senderMenuItem.Header.Equals("Move Up"))
+            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP))
                 MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
-            else if (senderMenuItem.Header.Equals("Move Down"))
+            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN))
                 MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
-            else if (senderMenuItem.Header.Equals("Remove") ||
-                     senderMenuItem.Header.Equals("Remove Selected"))
+            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE) ||
+                     senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED))
             {
                 RemoveSelectedWebPageElementLocatingInstructionsFromListView();
             }
