@@ -716,13 +716,13 @@ namespace Scrupdate.Classes.Objects
         }
         public bool HideProgram(string programName)
         {
-            return HideOrUnhideProgram(programName, true);
+            return SetHidingStateOfProgram(programName, true);
         }
         public bool UnhideProgram(string programName)
         {
-            return HideOrUnhideProgram(programName, false);
+            return SetHidingStateOfProgram(programName, false);
         }
-        private bool HideOrUnhideProgram(string programName, bool hidden)
+        private bool SetHidingStateOfProgram(string programName, bool hidden)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
