@@ -987,12 +987,12 @@ namespace Scrupdate.UiElements.Windows
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions
                                             ));
-                                    programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                    Brush programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                                     );
                                     if (!program.IsAutomaticallyAdded)
                                     {
-                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                        programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__GRAY_SOLID_COLOR_BRUSH
                                         );
                                     }
@@ -1000,7 +1000,7 @@ namespace Scrupdate.UiElements.Windows
                                     {
                                         if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
                                             updatesCount++;
-                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                        programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
                                         );
                                     }
@@ -1009,16 +1009,17 @@ namespace Scrupdate.UiElements.Windows
                                             errorsCount++;
                                     if (program.InstallationScope == Program._InstallationScope.None)
                                     {
-                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                        programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
                                         );
                                     }
                                     if (program.IsHidden)
                                     {
-                                        programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                                        programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2
                                         );
                                     }
+                                    programListViewItem.Foreground = programListViewItemForeground;
                                     if (program.IsHidden && !isShowingHiddenPrograms)
                                         return false;
                                     if (!programSearchPhrase.Equals("") &&

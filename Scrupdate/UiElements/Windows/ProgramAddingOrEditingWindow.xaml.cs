@@ -922,15 +922,14 @@ namespace Scrupdate.UiElements.Windows
             textBox_name.Text = program.Name;
             textBox_installedVersion.Text = program.InstalledVersion;
             label_latestVersion.Content = program.LatestVersion;
-            label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
-                App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-            );
-            if (thereIsANewerVersion == true)
-            {
-                label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
-                    App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
-                );
-            }
+            label_latestVersion.Foreground =
+                (thereIsANewerVersion == true ?
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
+                    ) :
+                    (SolidColorBrush)Application.Current.FindResource(
+                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                    ));
             comboBox_installedFor.SelectedItem =
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
                     program.InstallationScope
