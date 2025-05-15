@@ -514,6 +514,15 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
         }
+        private void OnGridViewColumnCellTextBlockSizeChangedEvent(object sender, SizeChangedEventArgs e)
+        {
+            TextBlock senderTextBlock = (TextBlock)sender;
+            senderTextBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            if (senderTextBlock.ActualWidth < senderTextBlock.DesiredSize.Width)
+                senderTextBlock.ToolTip = senderTextBlock.Text;
+            else
+                senderTextBlock.ToolTip = null;
+        }
         private void OnGridViewColumnsCollectionCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs e)
         {
             GridViewColumnCollection senderGridViewColumnCollection = (GridViewColumnCollection)sender;

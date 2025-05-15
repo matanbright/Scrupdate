@@ -762,7 +762,8 @@
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingMethodToDisplay}" />
+                                                                                           Text="{Binding WebPageElementLocatingMethodToDisplay}"
+                                                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
@@ -812,7 +813,8 @@
                                                                                     </TextBlock>
                                                                                     <TextBlock DockPanel.Dock="Left"
                                                                                                TextTrimming="CharacterEllipsis"
-                                                                                               Text="{Binding UnderlyingWebPageElementLocatingInstruction.MethodArgument}" />
+                                                                                               Text="{Binding UnderlyingWebPageElementLocatingInstruction.MethodArgument}"
+                                                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                                 </DockPanel>
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
@@ -829,7 +831,8 @@
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingIntervalToDisplay}" />
+                                                                                           Text="{Binding WebPageElementLocatingIntervalToDisplay}"
+                                                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>

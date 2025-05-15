@@ -594,6 +594,15 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
         }
+        private void OnGridViewColumnCellTextBlockSizeChangedEvent(object sender, SizeChangedEventArgs e)
+        {
+            TextBlock senderTextBlock = (TextBlock)sender;
+            senderTextBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            if (senderTextBlock.ActualWidth < senderTextBlock.DesiredSize.Width)
+                senderTextBlock.ToolTip = senderTextBlock.Text;
+            else
+                senderTextBlock.ToolTip = null;
+        }
         private void OnListViewItemMouseDoubleClickEvent(object sender, MouseButtonEventArgs e)
         {
             ListViewItem senderListViewItem = (ListViewItem)sender;
