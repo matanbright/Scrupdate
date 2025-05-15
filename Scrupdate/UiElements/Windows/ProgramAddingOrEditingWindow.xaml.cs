@@ -1034,22 +1034,24 @@ namespace Scrupdate.UiElements.Windows
                 Program._UpdateCheckConfigurationStatus.Unknown;
             Program._UpdateCheckConfigurationError updateCheckConfigurationError =
                 Program._UpdateCheckConfigurationError.None;
-            if (programToEdit != null &&
-                (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
-                 textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
-                 versionSearchMethod == programToEdit.VersionSearchMethod &&
-                 versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
-                 versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) &&
-                 checkBox_treatAStandaloneNumberAsAVersion.IsChecked == programToEdit.TreatAStandaloneNumberAsAVersion &&
-                 versionSearchBehavior == programToEdit.VersionSearchBehavior &&
-                 webPagePostLoadDelay == programToEdit.WebPagePostLoadDelay &&
-                 locatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
-                     programToEdit.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
-                 )))
+            if (programToEdit != null)
             {
-                latestVersion = programToEdit.LatestVersion;
-                updateCheckConfigurationStatus = programToEdit.UpdateCheckConfigurationStatus;
-                updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
+                if (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
+                    textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
+                    versionSearchMethod == programToEdit.VersionSearchMethod &&
+                    versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
+                    versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) &&
+                    checkBox_treatAStandaloneNumberAsAVersion.IsChecked == programToEdit.TreatAStandaloneNumberAsAVersion &&
+                    versionSearchBehavior == programToEdit.VersionSearchBehavior &&
+                    webPagePostLoadDelay == programToEdit.WebPagePostLoadDelay &&
+                    locatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
+                        programToEdit.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
+                    ))
+                {
+                    latestVersion = programToEdit.LatestVersion;
+                    updateCheckConfigurationStatus = programToEdit.UpdateCheckConfigurationStatus;
+                    updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
+                }
             }
             return new Program(
                 textBox_name.Text.Trim(),
