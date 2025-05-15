@@ -376,9 +376,9 @@ namespace Scrupdate.UiElements.Windows
         {
             CustomButton senderButton = (CustomButton)sender;
             if (senderButton == button_hideSelectedPrograms)
-                HideSelectedProgramsInDatabaseAndListView();
+                HideOrUnhideSelectedProgramsInDatabaseAndListView(true);
             else if (senderButton == button_unhideSelectedPrograms)
-                UnhideSelectedProgramsInDatabaseAndListView();
+                HideOrUnhideSelectedProgramsInDatabaseAndListView(false);
             else if (senderButton == button_removeSelectedPrograms)
             {
                 if (DialogUtilities.ShowQuestionDialog(
@@ -705,12 +705,12 @@ namespace Scrupdate.UiElements.Windows
             else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE) ||
                      senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__HIDE_SELECTED))
             {
-                HideSelectedProgramsInDatabaseAndListView();
+                HideOrUnhideSelectedProgramsInDatabaseAndListView(true);
             }
             else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE) ||
                      senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE_SELECTED))
             {
-                UnhideSelectedProgramsInDatabaseAndListView();
+                HideOrUnhideSelectedProgramsInDatabaseAndListView(false);
             }
             else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE) ||
                      senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED))
@@ -1218,7 +1218,7 @@ namespace Scrupdate.UiElements.Windows
             }
             RefreshListViewAndAllMessages();
         }
-        private void HideSelectedProgramsInDatabaseAndListView()
+        private void HideOrUnhideSelectedProgramsInDatabaseAndListView(bool hide)
         {
             if (listView_programs.SelectedItems.Count > 0)
             {
@@ -1226,23 +1226,11 @@ namespace Scrupdate.UiElements.Windows
                 foreach (ProgramListViewItem selectedProgramListViewItem in listView_programs.SelectedItems)
                 {
                     Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
-                    programDatabase.HideProgram(selectedProgram.Name);
-                    selectedProgram.IsHidden = true;
-                }
-                programDatabase.EndTransaction();
-                RefreshListViewAndAllMessages();
-            }
-        }
-        private void UnhideSelectedProgramsInDatabaseAndListView()
-        {
-            if (listView_programs.SelectedItems.Count > 0)
-            {
-                programDatabase.BeginTransaction();
-                foreach (ProgramListViewItem selectedProgramListViewItem in listView_programs.SelectedItems)
-                {
-                    Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
-                    programDatabase.UnhideProgram(selectedProgram.Name);
-                    selectedProgram.IsHidden = false;
+                    if (hide)
+                        programDatabase.HideProgram(selectedProgram.Name);
+                    else
+                        programDatabase.UnhideProgram(selectedProgram.Name);
+                    selectedProgram.IsHidden = hide;
                 }
                 programDatabase.EndTransaction();
                 RefreshListViewAndAllMessages();
