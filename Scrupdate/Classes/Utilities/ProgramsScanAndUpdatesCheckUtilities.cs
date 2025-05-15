@@ -620,13 +620,14 @@ namespace Scrupdate.Classes.Utilities
                         }
                         if (versionString == null || versionString.Equals(""))
                             throw new NoVersionWasFoundException();
+                        versionString = VersionUtilities.NormalizeAndTrimVersion(
+                            versionString,
+                            VersionUtilities.MINIMUM_VERSION_SEGMENTS,
+                            VersionUtilities.MAXIMUM_VERSION_SEGMENTS
+                        );
                         programDatabase.UpdateProgramLatestVersion(
                             programToCheck.Name,
-                            VersionUtilities.NormalizeAndTrimVersion(
-                                versionString,
-                                VersionUtilities.MINIMUM_VERSION_SEGMENTS,
-                                VersionUtilities.MAXIMUM_VERSION_SEGMENTS
-                            )
+                            versionString
                         );
                         programDatabase.ChangeProgramUpdateCheckConfigurationStatus(
                             programToCheck.Name,
