@@ -604,17 +604,11 @@ namespace Scrupdate.Classes.Utilities
                         switch (programToCheck.VersionSearchBehavior)
                         {
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
-                                versionString = VersionUtilities.GetTheFirstFoundVersionFromString(
-                                    textToSerachVersion,
-                                    programToCheck.TreatAStandaloneNumberAsAVersion,
-                                    false
-                                );
-                                break;
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
                                 versionString = VersionUtilities.GetTheFirstFoundVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion,
-                                    true
+                                    (programToCheck.VersionSearchBehavior == Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd)
                                 );
                                 break;
                             case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
