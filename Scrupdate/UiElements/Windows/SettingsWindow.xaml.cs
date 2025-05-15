@@ -195,31 +195,31 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (unableToAccessInstalledChromeDriverExecutableFile)
                     {
-                        label_chromeDriverInstallationStatusMessage.Content =
-                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__UNKNOWN;
-                        label_chromeDriverInstallationStatusMessage.Foreground =
+                        ChangeChromeDriverInstallationStatusMessage(
+                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__UNKNOWN,
                             (SolidColorBrush)Application.Current.FindResource(
                                 App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                            );
+                            )
+                        );
                     }
                     else
                     {
-                        label_chromeDriverInstallationStatusMessage.Content =
-                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE;
-                        label_chromeDriverInstallationStatusMessage.Foreground =
+                        ChangeChromeDriverInstallationStatusMessage(
+                            CHROMEDRIVER_INSTALLATION_STATUS_MESSAGE__NONE,
                             (SolidColorBrush)Application.Current.FindResource(
                                 App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
-                            );
+                            )
+                        );
                     }
                 }
                 else
                 {
-                    label_chromeDriverInstallationStatusMessage.Content =
-                        installedChromeDriverInformation;
-                    label_chromeDriverInstallationStatusMessage.Foreground =
+                    ChangeChromeDriverInstallationStatusMessage(
+                        installedChromeDriverInformation,
                         (SolidColorBrush)Application.Current.FindResource(
                             App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
-                        );
+                        )
+                    );
                 }
                 SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.ChromeDriver;
                 scrollViewer_settingsControls.ScrollToTop();
