@@ -958,6 +958,17 @@ namespace Scrupdate.UiElements.Windows
                                 {
                                     ProgramListViewItem programListViewItem = (ProgramListViewItem)o;
                                     Program program = programListViewItem.UnderlyingProgram;
+                                    bool? thereIsANewerVersion = null;
+                                    if (program.InstallationScope != Program._InstallationScope.None)
+                                    {
+                                        thereIsANewerVersion =
+                                            ((program.InstalledVersion.Equals("") || program.LatestVersion.Equals("")) ?
+                                                false :
+                                                VersionUtilities.IsVersionNewer(
+                                                    program.LatestVersion,
+                                                    program.InstalledVersion
+                                                ));
+                                    }
                                     programListViewItem.ProgramInstalledVersionToDisplay =
                                         (program.InstalledVersion.Equals("") ?
                                             "" :
@@ -976,17 +987,6 @@ namespace Scrupdate.UiElements.Windows
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions
                                             ));
-                                    bool? thereIsANewerVersion = null;
-                                    if (program.InstallationScope != Program._InstallationScope.None)
-                                    {
-                                        thereIsANewerVersion =
-                                            ((program.InstalledVersion.Equals("") || program.LatestVersion.Equals("")) ?
-                                                false :
-                                                VersionUtilities.IsVersionNewer(
-                                                    program.LatestVersion,
-                                                    program.InstalledVersion
-                                                ));
-                                    }
                                     programListViewItem.Foreground = (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                                     );

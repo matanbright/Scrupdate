@@ -906,6 +906,17 @@ namespace Scrupdate.UiElements.Windows
         }
         private void ApplyProgramToUiControlsValues(Program program)
         {
+            bool? thereIsANewerVersion = null;
+            if (program.InstallationScope != Program._InstallationScope.None)
+            {
+                thereIsANewerVersion =
+                    ((program.InstalledVersion.Equals("") || program.LatestVersion.Equals("")) ?
+                        false :
+                        VersionUtilities.IsVersionNewer(
+                            program.LatestVersion,
+                            program.InstalledVersion
+                        ));
+            }
             checkBox_detectAutomatically.IsEnabled = program.IsAutomaticallyAdded;
             checkBox_detectAutomatically.IsChecked = program.IsAutomaticallyAdded;
             textBox_name.Text = program.Name;
@@ -914,19 +925,11 @@ namespace Scrupdate.UiElements.Windows
             label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
                 App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
             );
-            if (program.InstallationScope != Program._InstallationScope.None)
+            if (thereIsANewerVersion == true)
             {
-                if (!(program.InstalledVersion.Equals("") ||
-                      program.LatestVersion.Equals("")) &&
-                    VersionUtilities.IsVersionNewer(
-                        program.LatestVersion,
-                        program.InstalledVersion
-                    ))
-                {
-                    label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
-                    );
-                }
+                label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
+                );
             }
             comboBox_installedFor.SelectedItem =
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
