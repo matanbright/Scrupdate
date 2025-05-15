@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -921,9 +922,24 @@ namespace Scrupdate.UiElements.Windows
             checkBox_detectAutomatically.IsChecked = program.IsAutomaticallyAdded;
             textBox_name.Text = program.Name;
             textBox_installedVersion.Text = program.InstalledVersion;
-            label_latestVersion.Content = program.LatestVersion;
+            label_latestVersion.Content =
+                ((!program.SkippedVersion.Equals("") &&
+                  !VersionUtilities.IsVersionNewer(
+                      program.LatestVersion,
+                      program.SkippedVersion
+                  )) ?
+                    (new StringBuilder(program.LatestVersion.Length + 10))
+                        .Append(program.LatestVersion)
+                        .Append(" [Skipped]")
+                        .ToString() :
+                    program.LatestVersion);
             label_latestVersion.Foreground =
-                (thereIsANewerVersion == true ?
+                ((thereIsANewerVersion == true &&
+                  (program.SkippedVersion.Equals("") ||
+                   VersionUtilities.IsVersionNewer(
+                       program.LatestVersion,
+                       program.SkippedVersion
+                   ))) ?
                     (SolidColorBrush)Application.Current.FindResource(
                         App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
                     ) :
@@ -1034,6 +1050,7 @@ namespace Scrupdate.UiElements.Windows
                 Program._UpdateCheckConfigurationStatus.Unknown;
             Program._UpdateCheckConfigurationError updateCheckConfigurationError =
                 Program._UpdateCheckConfigurationError.None;
+            string skippedVersion = "";
             if (programToEdit != null)
             {
                 if (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
@@ -1051,6 +1068,15 @@ namespace Scrupdate.UiElements.Windows
                     latestVersion = programToEdit.LatestVersion;
                     updateCheckConfigurationStatus = programToEdit.UpdateCheckConfigurationStatus;
                     updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
+                }
+                if (!programToEdit.SkippedVersion.Equals("") &&
+                    (textBox_installedVersion.Text.Trim().Equals("") ||
+                     VersionUtilities.IsVersionNewer(
+                         programToEdit.SkippedVersion,
+                         textBox_installedVersion.Text.Trim()
+                     )))
+                {
+                    skippedVersion = programToEdit.SkippedVersion;
                 }
             }
             return new Program(
@@ -1070,6 +1096,7 @@ namespace Scrupdate.UiElements.Windows
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn,
                 updateCheckConfigurationStatus,
                 updateCheckConfigurationError,
+                skippedVersion,
                 (programToEdit != null ? programToEdit.IsHidden : false)
             );
         }

@@ -75,6 +75,8 @@ namespace Scrupdate.UiElements.Windows
         private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNHIDE_SELECTED = "Unhide Selected";
         private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE = "Remove";
         private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED = "Remove Selected";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__SKIP_VERSION = "Skip Version";
+        private const string PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNSKIP_VERSION = "Unskip Version";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -632,6 +634,8 @@ namespace Scrupdate.UiElements.Windows
         private void OnListViewItemContextMenuOpeningEvent(object sender, ContextMenuEventArgs e)
         {
             ListViewItem senderListViewItem = (ListViewItem)sender;
+            Program senderListViewItemUnderlyingProgram =
+                ((ProgramListViewItem)senderListViewItem.Content).UnderlyingProgram;
             List<object> menuItems = new List<object>();
             int selectedListViewItemsCount = listView_programs.SelectedItems.Count;
             if (selectedListViewItemsCount == 1)
@@ -675,6 +679,22 @@ namespace Scrupdate.UiElements.Windows
                             PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE)
                 }
             );
+            if (selectedListViewItemsCount == 1)
+            {
+                if (!senderListViewItemUnderlyingProgram.SkippedVersion.Equals(""))
+                {
+                    menuItems.Add(new Separator());
+                    menuItems.Add(new MenuItem() { Header = PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNSKIP_VERSION });
+                }
+                else if (VersionUtilities.IsVersionNewer(
+                             senderListViewItemUnderlyingProgram.LatestVersion,
+                             senderListViewItemUnderlyingProgram.InstalledVersion
+                         ))
+                {
+                    menuItems.Add(new Separator());
+                    menuItems.Add(new MenuItem() { Header = PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__SKIP_VERSION });
+                }
+            }
             senderListViewItem.ContextMenu.Items.Clear();
             foreach (object menuItem in menuItems)
             {
@@ -724,6 +744,10 @@ namespace Scrupdate.UiElements.Windows
                     RemoveSelectedProgramsFromDatabaseAndListView();
                 }
             }
+            else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__SKIP_VERSION))
+                SkipOrUnskipVersionOfSelectedProgram(true);
+            else if (senderMenuItem.Header.Equals(PROGRAM_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__UNSKIP_VERSION))
+                SkipOrUnskipVersionOfSelectedProgram(false);
         }
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
         {
@@ -987,6 +1011,15 @@ namespace Scrupdate.UiElements.Windows
                                                 App.SettingsHandler.SettingsInMemory.Appearance.MaximumVersionSegments,
                                                 App.SettingsHandler.SettingsInMemory.Appearance.RemoveTrailingZeroSegmentsOfVersions
                                             ));
+                                    programListViewItem.Notes =
+                                        (program.SkippedVersion.Equals("") ?
+                                            "" :
+                                            (new StringBuilder(
+                                                10 + programListViewItem.UnderlyingProgram.SkippedVersion.Length
+                                            ))
+                                                .Append("Skipping: ")
+                                                .Append(programListViewItem.UnderlyingProgram.SkippedVersion)
+                                                .ToString());
                                     Brush programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                                     );
@@ -996,7 +1029,12 @@ namespace Scrupdate.UiElements.Windows
                                             App.RESOURCE_KEY__GRAY_SOLID_COLOR_BRUSH
                                         );
                                     }
-                                    if (thereIsANewerVersion == true)
+                                    if (thereIsANewerVersion == true &&
+                                        (program.SkippedVersion.Equals("") ||
+                                         VersionUtilities.IsVersionNewer(
+                                             program.LatestVersion,
+                                             program.SkippedVersion
+                                         )))
                                     {
                                         if (!program.IsHidden || (program.IsHidden && isShowingHiddenPrograms))
                                             updatesCount++;
@@ -1044,8 +1082,16 @@ namespace Scrupdate.UiElements.Windows
                                                 switch (selectedProgramFilteringOption)
                                                 {
                                                     case Settings.CachedSettings.ProgramFilteringOption.OnlyUpdates:
-                                                        if (thereIsANewerVersion != true)
+                                                        if (thereIsANewerVersion != true ||
+                                                            (thereIsANewerVersion == true &&
+                                                             !(program.SkippedVersion.Equals("") ||
+                                                               VersionUtilities.IsVersionNewer(
+                                                                   program.LatestVersion,
+                                                                   program.SkippedVersion
+                                                               ))))
+                                                        {
                                                             return false;
+                                                        }
                                                         break;
                                                     default:
                                                         if (thereIsANewerVersion != false)
@@ -1067,6 +1113,10 @@ namespace Scrupdate.UiElements.Windows
                                                 break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyUninstalled:
                                                 if (program.InstallationScope != Program._InstallationScope.None)
+                                                    return false;
+                                                break;
+                                            case Settings.CachedSettings.ProgramFilteringOption.OnlySkipped:
+                                                if (program.SkippedVersion.Equals(""))
                                                     return false;
                                                 break;
                                             case Settings.CachedSettings.ProgramFilteringOption.OnlyValid:
@@ -1217,6 +1267,26 @@ namespace Scrupdate.UiElements.Windows
                 errorsCount--;
             }
             RefreshListViewAndAllMessages();
+        }
+        private void SkipOrUnskipVersionOfSelectedProgram(bool skip)
+        {
+            if (listView_programs.SelectedItem != null)
+            {
+                ProgramListViewItem selectedProgramListViewItem = (ProgramListViewItem)listView_programs.SelectedItem;
+                Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
+                if (skip)
+                {
+                    string skippedVersion = selectedProgram.LatestVersion;
+                    programDatabase.SkipVersionOfProgram(selectedProgram.Name, skippedVersion);
+                    selectedProgram.SkippedVersion = skippedVersion;
+                }
+                else
+                {
+                    programDatabase.UnskipVersionOfProgram(selectedProgram.Name);
+                    selectedProgram.SkippedVersion = "";
+                }
+                RefreshListViewAndAllMessages();
+            }
         }
         private void HideOrUnhideSelectedProgramsInDatabaseAndListView(bool hide)
         {

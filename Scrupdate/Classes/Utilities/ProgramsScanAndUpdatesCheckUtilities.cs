@@ -298,6 +298,8 @@ namespace Scrupdate.Classes.Utilities
                             "",
                             Program._InstallationScope.None
                         );
+                        programAlreadyInDatabase.InstalledVersion = "";
+                        programAlreadyInDatabase.InstallationScope = Program._InstallationScope.None;
                     }
                     else
                     {
@@ -308,6 +310,17 @@ namespace Scrupdate.Classes.Utilities
                             installedProgram.InstalledVersion,
                             installedProgram.InstallationScope
                         );
+                        programAlreadyInDatabase.InstalledVersion = installedProgram.InstalledVersion;
+                        programAlreadyInDatabase.InstallationScope = installedProgram.InstallationScope;
+                    }
+                    if (!programAlreadyInDatabase.SkippedVersion.Equals("") &&
+                        (!programAlreadyInDatabase.InstalledVersion.Equals("") &&
+                         !VersionUtilities.IsVersionNewer(
+                             programAlreadyInDatabase.SkippedVersion,
+                             programAlreadyInDatabase.InstalledVersion
+                         )))
+                    {
+                        programDatabase.UnskipVersionOfProgram(programAlreadyInDatabase.Name);
                     }
                 }
                 programDatabase.EndTransaction();
@@ -629,6 +642,14 @@ namespace Scrupdate.Classes.Utilities
                             programToCheck.Name,
                             versionString
                         );
+                        if (!programToCheck.SkippedVersion.Equals("") &&
+                            VersionUtilities.IsVersionNewer(
+                                versionString,
+                                programToCheck.SkippedVersion
+                            ))
+                        {
+                            programDatabase.UnskipVersionOfProgram(programToCheck.Name);
+                        }
                         programDatabase.ChangeProgramUpdateCheckConfigurationStatus(
                             programToCheck.Name,
                             Program._UpdateCheckConfigurationStatus.Valid,

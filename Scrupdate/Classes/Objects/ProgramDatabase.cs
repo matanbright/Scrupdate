@@ -93,6 +93,7 @@ namespace Scrupdate.Classes.Objects
         private static readonly TableColumn TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = new TableColumn("locating_instructions_of_web_page_elements_to_simulate_a_click_on", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS = new TableColumn("update_check_configuration_status", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__SKIPPED_VERSION = new TableColumn("skipped_version", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL DEFAULT 0");
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -664,6 +665,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}")
                 .Append(") VALUES (")
                 .Append($"@{TABLE_COLUMN__NAME.Name}, ")
@@ -682,6 +684,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"@{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
                 .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}")
                 .Append(");");
             bool succeeded = false;
@@ -703,7 +706,40 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name, JsonSerializer.Serialize(program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name, (long)program.UpdateCheckConfigurationStatus);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name, (long)program.UpdateCheckConfigurationError);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__SKIPPED_VERSION.Name, program.SkippedVersion);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_HIDDEN.Name, Convert.ToInt64(program.IsHidden));
+                try
+                {
+                    succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
+        }
+        public bool SkipVersionOfProgram(string programName, string skippedVersion)
+        {
+            return SetSkippedVersionOfProgram(programName, skippedVersion);
+        }
+        public bool UnskipVersionOfProgram(string programName)
+        {
+            return SetSkippedVersionOfProgram(programName, "");
+        }
+        private bool SetSkippedVersionOfProgram(string programName, string skippedVersion)
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__SKIPPED_VERSION.Name} = @new_{TABLE_COLUMN__SKIPPED_VERSION.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
+            {
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__SKIPPED_VERSION.Name}", skippedVersion);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -934,6 +970,7 @@ namespace Scrupdate.Classes.Objects
                                 JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__SKIPPED_VERSION.Name],
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                             );
                         }
@@ -981,6 +1018,7 @@ namespace Scrupdate.Classes.Objects
                                 JsonSerializer.Deserialize<List<WebPageElementLocatingInstruction>>((string)sqLiteDataReader[TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name]),
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
+                                (string)sqLiteDataReader[TABLE_COLUMN__SKIPPED_VERSION.Name],
                                 Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
                             );
                             programs.Add((string)sqLiteDataReader[TABLE_COLUMN__NAME.Name], program);
@@ -1020,6 +1058,7 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name} = @new_{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
+                .Append($"{TABLE_COLUMN__SKIPPED_VERSION.Name} = @new_{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
                 .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ")
                 .Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
             bool succeeded = false;
@@ -1041,6 +1080,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON.Name}", JsonSerializer.Serialize(newProgram.LocatingInstructionsOfWebPageElementsToSimulateAClickOn));
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)newProgram.UpdateCheckConfigurationStatus);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)newProgram.UpdateCheckConfigurationError);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__SKIPPED_VERSION.Name}", newProgram.SkippedVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", Convert.ToInt64(newProgram.IsHidden));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try

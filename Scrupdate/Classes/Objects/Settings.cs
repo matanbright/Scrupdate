@@ -42,6 +42,7 @@ namespace Scrupdate.Classes.Objects
                 OnlyManuallyAdded,
                 OnlyInstalled,
                 OnlyUninstalled,
+                OnlySkipped,
                 OnlyValid,
                 OnlyInvalid,
                 OnlyNotChecked,

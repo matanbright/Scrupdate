@@ -96,6 +96,7 @@ namespace Scrupdate.Classes.Objects
         public List<WebPageElementLocatingInstruction> LocatingInstructionsOfWebPageElementsToSimulateAClickOn { get; set; }
         public _UpdateCheckConfigurationStatus UpdateCheckConfigurationStatus { get; set; }
         public _UpdateCheckConfigurationError UpdateCheckConfigurationError { get; set; }
+        public string SkippedVersion { get; set; }
         public bool IsHidden { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -133,6 +134,7 @@ namespace Scrupdate.Classes.Objects
                 new List<WebPageElementLocatingInstruction>(),
                 _UpdateCheckConfigurationStatus.Unknown,
                 _UpdateCheckConfigurationError.None,
+                "",
                 false
             )
         { }
@@ -152,6 +154,7 @@ namespace Scrupdate.Classes.Objects
                        List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn,
                        _UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
                        _UpdateCheckConfigurationError updateCheckConfigurationError,
+                       string skippedVersion,
                        bool isHidden)
         {
             Name = name;
@@ -171,6 +174,7 @@ namespace Scrupdate.Classes.Objects
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn;
             UpdateCheckConfigurationStatus = updateCheckConfigurationStatus;
             UpdateCheckConfigurationError = updateCheckConfigurationError;
+            SkippedVersion = skippedVersion;
             IsHidden = isHidden;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,12 +205,13 @@ namespace Scrupdate.Classes.Objects
                     ) &&
                     UpdateCheckConfigurationStatus == otherProgram.UpdateCheckConfigurationStatus &&
                     UpdateCheckConfigurationError == otherProgram.UpdateCheckConfigurationError &&
+                    SkippedVersion.Equals(otherProgram.SkippedVersion) &&
                     IsHidden == otherProgram.IsHidden);
         }
         public override int GetHashCode()
         {
             StringBuilder objectHashString = new StringBuilder(
-                10 * 13 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 3
+                10 * 13 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 4
             );
             objectHashString
                 .Append(Name.GetHashCode())
@@ -232,6 +237,7 @@ namespace Scrupdate.Classes.Objects
             objectHashString
                 .Append(UpdateCheckConfigurationStatus.GetHashCode())
                 .Append(UpdateCheckConfigurationError.GetHashCode())
+                .Append(SkippedVersion.GetHashCode())
                 .Append(IsHidden.GetHashCode());
             return objectHashString.ToString().GetHashCode();
         }

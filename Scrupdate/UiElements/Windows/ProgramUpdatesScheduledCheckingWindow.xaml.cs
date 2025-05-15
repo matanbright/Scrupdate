@@ -533,7 +533,12 @@ namespace Scrupdate.UiElements.Windows
                                                     program.InstalledVersion
                                                 )));
                                 }
-                                if (thereIsANewerVersion == true)
+                                if (thereIsANewerVersion == true &&
+                                    (program.SkippedVersion.Equals("") ||
+                                     VersionUtilities.IsVersionNewer(
+                                         program.LatestVersion,
+                                         program.SkippedVersion
+                                     )))
                                 {
                                     if (!program.IsHidden ||
                                         (program.IsHidden &&
