@@ -777,8 +777,9 @@
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
-                                                                                <StackPanel Orientation="Horizontal">
-                                                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                                                <DockPanel>
+                                                                                    <TextBlock DockPanel.Dock="Left"
+                                                                                               TextTrimming="CharacterEllipsis"
                                                                                                Foreground="{StaticResource graySolidColorBrush}">
                                                                                         <TextBlock.Style>
                                                                                             <Style TargetType="TextBlock">
@@ -809,9 +810,10 @@
                                                                                             </Style>
                                                                                         </TextBlock.Style>
                                                                                     </TextBlock>
-                                                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                                                    <TextBlock DockPanel.Dock="Left"
+                                                                                               TextTrimming="CharacterEllipsis"
                                                                                                Text="{Binding UnderlyingWebPageElementLocatingInstruction.MethodArgument}" />
-                                                                                </StackPanel>
+                                                                                </DockPanel>
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
