@@ -218,7 +218,7 @@ namespace Scrupdate.UiElements.Windows
                         installedChromeDriverInformation;
                     label_chromeDriverInstallationStatusMessage.Foreground =
                         (SolidColorBrush)Application.Current.FindResource(
-                            App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH
+                            App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
                         );
                 }
                 SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.ChromeDriver;
@@ -412,7 +412,7 @@ namespace Scrupdate.UiElements.Windows
                 ChangeChromeDriverInstallationStatusMessage(
                     chromeDriverInformation,
                     (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH
+                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
                     )
                 );
                 return true;

@@ -899,7 +899,7 @@ namespace Scrupdate.UiElements.Windows
                     ))
                 {
                     label_latestVersion.Foreground = (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__DARK_GREEN_SOLID_COLOR_BRUSH
+                        App.RESOURCE_KEY__GREEN_SOLID_COLOR_BRUSH
                     );
                 }
             }

@@ -1222,7 +1222,7 @@
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramAddingOrEditingWindow}, Path=LastProgramUpdateCheckConfigurationStatus}"
                                                      Value="Valid">
                                             <Setter Property="Foreground"
-                                                    Value="{StaticResource darkGreenSolidColorBrush}" />
+                                                    Value="{StaticResource greenSolidColorBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
