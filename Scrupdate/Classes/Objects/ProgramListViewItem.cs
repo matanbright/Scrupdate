@@ -27,6 +27,7 @@ namespace Scrupdate.Classes.Objects
         public Program UnderlyingProgram { get; set; }
         public string ProgramInstalledVersionToDisplay { get; set; }
         public string ProgramLatestVersionToDisplay { get; set; }
+        public string Notes { get; set; }
         public Brush Foreground { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -37,16 +38,19 @@ namespace Scrupdate.Classes.Objects
             this(
                 underlyingProgram,
                 underlyingProgram.InstalledVersion,
-                underlyingProgram.LatestVersion
+                underlyingProgram.LatestVersion,
+                ""
             )
         { }
         public ProgramListViewItem(Program underlyingProgram,
                                    string programInstalledVersionToDisplay,
-                                   string programLatestVersionToDisplay) :
+                                   string programLatestVersionToDisplay,
+                                   string notes) :
             this(
                 underlyingProgram,
                 programInstalledVersionToDisplay,
                 programLatestVersionToDisplay,
+                notes,
                 (SolidColorBrush)Application.Current.FindResource(
                     App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                 )
@@ -55,11 +59,13 @@ namespace Scrupdate.Classes.Objects
         public ProgramListViewItem(Program underlyingProgram,
                                    string programInstalledVersionToDisplay,
                                    string programLatestVersionToDisplay,
+                                   string notes,
                                    Brush foreground)
         {
             UnderlyingProgram = underlyingProgram;
             ProgramInstalledVersionToDisplay = programInstalledVersionToDisplay;
             ProgramLatestVersionToDisplay = programLatestVersionToDisplay;
+            Notes = notes;
             Foreground = foreground;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

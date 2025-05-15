@@ -456,6 +456,23 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
+                                    <GridViewColumn x:Name="gridViewColumn_notes"
+                                                    Width="150">
+                                        <GridViewColumn.Header>
+                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_notes"
+                                                                                                      Text="Notes"
+                                                                                                      Tag="Notes"
+                                                                                                      IsSortable="True"
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock TextTrimming="CharacterEllipsis"
+                                                           FontStyle="Italic"
+                                                           Text="{Binding Notes}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
