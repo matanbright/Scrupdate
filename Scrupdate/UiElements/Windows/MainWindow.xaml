@@ -399,7 +399,8 @@
                                                                                                       Text="Program Name"
                                                                                                       Tag="UnderlyingProgram.Name"
                                                                                                       IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -415,7 +416,8 @@
                                                                                                       Text="Installed Version"
                                                                                                       Tag="ProgramInstalledVersionToDisplay"
                                                                                                       IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -431,7 +433,8 @@
                                                                                                       Text="Latest Version"
                                                                                                       Tag="ProgramLatestVersionToDisplay"
                                                                                                       IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -447,7 +450,8 @@
                                                                                                       Text="Installed For"
                                                                                                       Tag="UnderlyingProgram.InstallationScope"
                                                                                                       IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -463,7 +467,8 @@
                                                                                                       Text="Notes"
                                                                                                       Tag="Notes"
                                                                                                       IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent" />
+                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                         </GridViewColumn.Header>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

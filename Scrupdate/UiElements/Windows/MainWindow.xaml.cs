@@ -41,6 +41,7 @@ namespace Scrupdate.UiElements.Windows
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private const int MINIMUM_PROGRAM_LIST_COLUMN_WIDTH = 30;
         private const string DIRECTORY_NAME__DOCS = "docs";
         private const string FILE_NAME__USER_MANUAL = "Scrupdate User Manual.pdf";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
@@ -575,6 +576,22 @@ namespace Scrupdate.UiElements.Windows
                     )
                 );
                 RefreshListViewAndAllMessages();
+            }
+        }
+        private void OnGridViewColumnHeaderSizeChangedEvent(object sender, SizeChangedEventArgs e)
+        {
+            CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
+            if (senderGridViewColumnHeader == gridViewColumnHeader_programName ||
+                senderGridViewColumnHeader == gridViewColumnHeader_programInstalledVersion ||
+                senderGridViewColumnHeader == gridViewColumnHeader_programLatestVersion ||
+                senderGridViewColumnHeader == gridViewColumnHeader_installationScope ||
+                senderGridViewColumnHeader == gridViewColumnHeader_notes)
+            {
+                if (senderGridViewColumnHeader.Column.Width < MINIMUM_PROGRAM_LIST_COLUMN_WIDTH)
+                {
+                    senderGridViewColumnHeader.Column.Width = MINIMUM_PROGRAM_LIST_COLUMN_WIDTH;
+                    e.Handled = true;
+                }
             }
         }
         private void OnListViewItemMouseDoubleClickEvent(object sender, MouseButtonEventArgs e)

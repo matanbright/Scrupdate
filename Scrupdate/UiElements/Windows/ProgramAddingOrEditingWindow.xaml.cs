@@ -38,6 +38,7 @@ namespace Scrupdate.UiElements.Windows
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const int MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = 5;
+        private const int MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH = 30;
         private const string WINDOW_TITLE__PROGRAM_ADDING = "Scrupdate - Program Adding";
         private const string WINDOW_TITLE__PROGRAM_EDITING = "Scrupdate - Program Editing [{*}]";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
@@ -497,6 +498,21 @@ namespace Scrupdate.UiElements.Windows
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
             if (senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingInstructionIndex)
                 e.Handled = true;
+        }
+        private void OnGridViewColumnHeaderSizeChangedEvent(object sender, SizeChangedEventArgs e)
+        {
+            CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
+            if (senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingMethod ||
+                senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingMethodArgument ||
+                senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingInterval)
+            {
+                if (senderGridViewColumnHeader.Column.Width < MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH)
+                {
+                    senderGridViewColumnHeader.Column.Width =
+                        MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH;
+                    e.Handled = true;
+                }
+            }
         }
         private void OnGridViewColumnsCollectionCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs e)
         {

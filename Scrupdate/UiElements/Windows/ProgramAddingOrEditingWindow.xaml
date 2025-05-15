@@ -756,7 +756,8 @@
                                                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethod"
                                                                                                                                       Text="Locating Method"
                                                                                                                                       Tag="WebPageElementLocatingMethodToDisplay"
-                                                                                                                                      IsSortable="False" />
+                                                                                                                                      IsSortable="False"
+                                                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
@@ -771,7 +772,8 @@
                                                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethodArgument"
                                                                                                                                       Text="Locating Method Argument"
                                                                                                                                       Tag="UnderlyingWebPageElementLocatingInstruction.MethodArgument"
-                                                                                                                                      IsSortable="False" />
+                                                                                                                                      IsSortable="False"
+                                                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
@@ -819,7 +821,8 @@
                                                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInterval"
                                                                                                                                       Text="Interval"
                                                                                                                                       Tag="WebPageElementLocatingIntervalToDisplay"
-                                                                                                                                      IsSortable="False" />
+                                                                                                                                      IsSortable="False"
+                                                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
