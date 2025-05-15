@@ -393,7 +393,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn x:Name="gridViewColumn_programName"
-                                                    Width="405">
+                                                    Width="400">
                                         <GridViewColumn.Header>
                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programName"
                                                                                                       Text="Program Name"
@@ -409,7 +409,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn x:Name="gridViewColumn_programInstalledVersion"
-                                                    Width="150">
+                                                    Width="120">
                                         <GridViewColumn.Header>
                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programInstalledVersion"
                                                                                                       Text="Installed Version"
@@ -425,7 +425,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn x:Name="gridViewColumn_programLatestVersion"
-                                                    Width="150">
+                                                    Width="120">
                                         <GridViewColumn.Header>
                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programLatestVersion"
                                                                                                       Text="Latest Version"
@@ -441,7 +441,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn x:Name="gridViewColumn_installationScope"
-                                                    Width="150">
+                                                    Width="100">
                                         <GridViewColumn.Header>
                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_installationScope"
                                                                                                       Text="Installed For"
@@ -457,7 +457,7 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn x:Name="gridViewColumn_notes"
-                                                    Width="150">
+                                                    Width="120">
                                         <GridViewColumn.Header>
                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_notes"
                                                                                                       Text="Notes"

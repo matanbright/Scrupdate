@@ -734,7 +734,7 @@
                                                             <GridView>
                                                                 <GridView.Columns>
                                                                     <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInstructionIndex"
-                                                                                    Width="30">
+                                                                                    Width="26">
                                                                         <GridViewColumn.Header>
                                                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInstructionIndex"
                                                                                                                                       Text="#"
@@ -766,7 +766,7 @@
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
                                                                     <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingMethodArgument"
-                                                                                    Width="308">
+                                                                                    Width="317">
                                                                         <GridViewColumn.Header>
                                                                             <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethodArgument"
                                                                                                                                       Text="Locating Method Argument"
