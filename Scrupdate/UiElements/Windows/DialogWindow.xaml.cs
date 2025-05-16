@@ -1,21 +1,4 @@
-﻿// Copyright © 2021-2024 Matan Brightbert
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-
-
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Media;
 using System.Windows;
@@ -26,18 +9,65 @@ using Scrupdate.UiElements.Controls;
 namespace Scrupdate.UiElements.Windows
 {
     /// <summary>
-    /// Interaction logic for ErrorDialogWindow.xaml
+    /// Interaction logic for DialogWindow.xaml
     /// </summary>
-    public partial class ErrorDialogWindow : Window
+    public partial class DialogWindow : Window, INotifyPropertyChanged
     {
+        // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public enum DialogType
+        {
+            Unknown,
+            Error,
+            Question
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static readonly DependencyProperty CurrentDialogTypeProperty = DependencyProperty.Register(
+            nameof(CurrentDialogType),
+            typeof(DialogType),
+            typeof(MainWindow),
+            new PropertyMetadata(DialogType.Unknown)
+        );
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public Size BaseSize { get; private set; }
+        public DialogType CurrentDialogType
+        {
+            get
+            {
+                return ThreadingUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (DialogType)GetValue(CurrentDialogTypeProperty)
+                );
+            }
+            set
+            {
+                ThreadingUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(CurrentDialogTypeProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(CurrentDialogType))
+                            );
+                        }
+                );
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public ErrorDialogWindow(string dialogTitle, string dialogMessage)
+        public DialogWindow(DialogType dialogType, string dialogTitle, string dialogMessage)
         {
             InitializeComponent();
             BaseSize = new Size(Width, Height);
@@ -49,7 +79,16 @@ namespace Scrupdate.UiElements.Windows
             Title = dialogTitle;
             label_dialogMessage.Content = dialogMessage;
             CalculateWindowDynamicSizeAndResizeWindow();
-            button_ok.Focus();
+            CurrentDialogType = dialogType;
+            switch (CurrentDialogType)
+            {
+                case DialogType.Error:
+                    button_ok.Focus();
+                    break;
+                case DialogType.Question:
+                    button_yes.Focus();
+                    break;
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,7 +97,15 @@ namespace Scrupdate.UiElements.Windows
         // Events //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void OnLoadedEvent(object sender, RoutedEventArgs e)
         {
-            SystemSounds.Hand.Play();
+            switch (CurrentDialogType)
+            {
+                case DialogType.Error:
+                    SystemSounds.Hand.Play();
+                    break;
+                case DialogType.Question:
+                    SystemSounds.Question.Play();
+                    break;
+            }
         }
         private void OnClosingEvent(object sender, CancelEventArgs e)
         {
@@ -67,8 +114,16 @@ namespace Scrupdate.UiElements.Windows
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomButton senderButton = (CustomButton)sender;
-            if (senderButton == button_ok)
+            if (senderButton == button_ok ||
+                senderButton == button_no)
+            {
                 Close();
+            }
+            else if (senderButton == button_yes)
+            {
+                DialogResult = true;
+                Close();
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

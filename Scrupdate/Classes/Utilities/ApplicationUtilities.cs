@@ -326,10 +326,8 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfWindow = ((SettingsWindow)window).BaseSize;
                     else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
                         baseSizeOfWindow = ((ProgramAddingOrEditingWindow)window).BaseSize;
-                    else if (typeOfWindow == typeof(ErrorDialogWindow))
-                        baseSizeOfWindow = ((ErrorDialogWindow)window).BaseSize;
-                    else if (typeOfWindow == typeof(QuestionDialogWindow))
-                        baseSizeOfWindow = ((QuestionDialogWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(DialogWindow))
+                        baseSizeOfWindow = ((DialogWindow)window).BaseSize;
                     else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))
                         baseSizeOfWindow = ((ProgramUpdatesScheduledCheckWindow)window).BaseSize;
                     else
@@ -341,10 +339,8 @@ namespace Scrupdate.Classes.Utilities
                     );
                     if (typeOfWindow == typeof(SettingsWindow))
                         ((SettingsWindow)window).RefreshAvailableWindowsScalingFactorSelections();
-                    else if (typeOfWindow == typeof(ErrorDialogWindow))
-                        ((ErrorDialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
-                    else if (typeOfWindow == typeof(QuestionDialogWindow))
-                        ((QuestionDialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfWindow == typeof(DialogWindow))
+                        ((DialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
                         ((ProgramAddingOrEditingWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))

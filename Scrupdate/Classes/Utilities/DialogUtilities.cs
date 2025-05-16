@@ -27,48 +27,33 @@ namespace Scrupdate.Classes.Utilities
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public static bool? ShowErrorDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
         {
-            if (dialogTitle == null)
-                throw new ArgumentNullException(nameof(dialogTitle));
-            if (dialogMessage == null)
-                throw new ArgumentNullException(nameof(dialogMessage));
-            bool? returnValue = null;
-            Action showErrorDialogCallback =
-                () =>
-                    {
-                        ErrorDialogWindow errorDialogWindow = new ErrorDialogWindow(dialogTitle, dialogMessage);
-                        if (ownerWindow == null)
-                            errorDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        else
-                            errorDialogWindow.Owner = ownerWindow;
-                        returnValue = errorDialogWindow.ShowDialog();
-                    };
-            if (ownerWindow != null)
-                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showErrorDialogCallback);
-            else
-                showErrorDialogCallback.Invoke();
-            return returnValue;
+            return ShowDialog(DialogWindow.DialogType.Error, dialogTitle, dialogMessage, ownerWindow);
         }
         public static bool? ShowQuestionDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
+        {
+            return ShowDialog(DialogWindow.DialogType.Question, dialogTitle, dialogMessage, ownerWindow);
+        }
+        private static bool? ShowDialog(DialogWindow.DialogType dialogType, string dialogTitle, string dialogMessage, Window ownerWindow)
         {
             if (dialogTitle == null)
                 throw new ArgumentNullException(nameof(dialogTitle));
             if (dialogMessage == null)
                 throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
-            Action showQuestionDialogCallback =
+            Action showDialogCallback =
                 () =>
                     {
-                        QuestionDialogWindow questionDialogWindow = new QuestionDialogWindow(dialogTitle, dialogMessage);
+                        DialogWindow dialogWindow = new DialogWindow(dialogType, dialogTitle, dialogMessage);
                         if (ownerWindow == null)
-                            questionDialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            dialogWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                         else
-                            questionDialogWindow.Owner = ownerWindow;
-                        returnValue = questionDialogWindow.ShowDialog();
+                            dialogWindow.Owner = ownerWindow;
+                        returnValue = dialogWindow.ShowDialog();
                     };
             if (ownerWindow != null)
-                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showQuestionDialogCallback);
+                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showDialogCallback);
             else
-                showQuestionDialogCallback.Invoke();
+                showDialogCallback.Invoke();
             return returnValue;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
