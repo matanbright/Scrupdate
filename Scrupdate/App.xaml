@@ -79,6 +79,8 @@
                          Color="#FFF5807C" />
         <SolidColorBrush x:Key="paleBordoSolidColorBrush"
                          Color="#FFFBCBCA" />
+        <SolidColorBrush x:Key="lightOrangeSolidColorBrush"
+                         Color="#FFFFC90E" />
         <SolidColorBrush x:Key="paleOrangeSolidColorBrush"
                          Color="#FFFFE6B7" />
         <SolidColorBrush x:Key="brownishOrangeSolidColorBrush"

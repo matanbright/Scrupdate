@@ -67,6 +67,33 @@
                                         Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:DialogWindow}, Path=CurrentDialogType}"
+                                                 Value="Warning">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Viewbox.Style>
+                        <Border Width="45"
+                                Height="45"
+                                CornerRadius="22.5"
+                                Background="{StaticResource lightOrangeSolidColorBrush}">
+                            <Path Stretch="Fill"
+                                  Margin="11 11 11 11"
+                                  StrokeThickness="4.5"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  Stroke="{StaticResource whiteSolidColorBrush}"
+                                  Data="M 0,0 L 0,0.5 M 0,1 L 0,1" />
+                        </Border>
+                    </Viewbox>
+                    <Viewbox>
+                        <Viewbox.Style>
+                            <Style TargetType="Viewbox">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:DialogWindow}, Path=CurrentDialogType}"
                                                  Value="Error">
                                         <Setter Property="Visibility"
                                                 Value="Visible" />
@@ -154,6 +181,11 @@
                             <Setter Property="Visibility"
                                     Value="Collapsed" />
                             <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:DialogWindow}, Path=CurrentDialogType}"
+                                             Value="Warning">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:DialogWindow}, Path=CurrentDialogType}"
                                              Value="Error">
                                     <Setter Property="Visibility"

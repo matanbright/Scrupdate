@@ -17,6 +17,7 @@ namespace Scrupdate.UiElements.Windows
         public enum DialogType
         {
             Unknown,
+            Warning,
             Error,
             Question
         }
@@ -82,6 +83,7 @@ namespace Scrupdate.UiElements.Windows
             CurrentDialogType = dialogType;
             switch (CurrentDialogType)
             {
+                case DialogType.Warning:
                 case DialogType.Error:
                     button_ok.Focus();
                     break;
@@ -99,6 +101,9 @@ namespace Scrupdate.UiElements.Windows
         {
             switch (CurrentDialogType)
             {
+                case DialogType.Warning:
+                    SystemSounds.Exclamation.Play();
+                    break;
                 case DialogType.Error:
                     SystemSounds.Hand.Play();
                     break;

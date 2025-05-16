@@ -86,6 +86,7 @@ namespace Scrupdate
         public const string RESOURCE_KEY__BRIGHT_BORDO_SOLID_COLOR_BRUSH = "brightBordoSolidColorBrush";
         public const string RESOURCE_KEY__LIGHT_BORDO_SOLID_COLOR_BRUSH = "lightBordoSolidColorBrush";
         public const string RESOURCE_KEY__PALE_BORDO_SOLID_COLOR_BRUSH = "paleBordoSolidColorBrush";
+        public const string RESOURCE_KEY__LIGHT_ORANGE_SOLID_COLOR_BRUSH = "lightOrangeSolidColorBrush";
         public const string RESOURCE_KEY__PALE_ORANGE_SOLID_COLOR_BRUSH = "paleOrangeSolidColorBrush";
         public const string RESOURCE_KEY__BROWNISH_ORANGE_SOLID_COLOR_BRUSH = "brownishOrangeSolidColorBrush";
         public const string RESOURCE_KEY__BRIGHT_BROWNISH_ORANGE_SOLID_COLOR_BRUSH = "brightBrownishOrangeSolidColorBrush";

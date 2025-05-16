@@ -25,6 +25,10 @@ namespace Scrupdate.Classes.Utilities
     public static class DialogUtilities
     {
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static bool? ShowWarningDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
+        {
+            return ShowDialog(DialogWindow.DialogType.Warning, dialogTitle, dialogMessage, ownerWindow);
+        }
         public static bool? ShowErrorDialog(string dialogTitle, string dialogMessage, Window ownerWindow)
         {
             return ShowDialog(DialogWindow.DialogType.Error, dialogTitle, dialogMessage, ownerWindow);
