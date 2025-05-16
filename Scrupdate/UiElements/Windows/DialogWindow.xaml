@@ -104,7 +104,7 @@
                         <Border Width="45"
                                 Height="45"
                                 CornerRadius="22.5"
-                                Background="{StaticResource darkSkyBlueSolidColorBrush}">
+                                Background="{StaticResource brightGreenSolidColorBrush}">
                             <Path Stretch="Fill"
                                   Margin="15 11 15 11"
                                   Fill="{StaticResource whiteSolidColorBrush}"

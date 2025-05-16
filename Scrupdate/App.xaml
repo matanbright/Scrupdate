@@ -99,6 +99,8 @@
                          Color="#FF00A000" />
         <SolidColorBrush x:Key="greenSolidColorBrush"
                          Color="#FF00B300" />
+        <SolidColorBrush x:Key="brightGreenSolidColorBrush"
+                         Color="#FF5DB317" />
         <SolidColorBrush x:Key="grayishGreenSolidColorBrush2"
                          Color="#FF70AD47" />
         <SolidColorBrush x:Key="grayishGreenSolidColorBrush1"
