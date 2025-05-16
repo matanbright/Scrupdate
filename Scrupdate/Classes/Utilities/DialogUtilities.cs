@@ -48,7 +48,7 @@ namespace Scrupdate.Classes.Utilities
             if (dialogMessage == null)
                 throw new ArgumentNullException(nameof(dialogMessage));
             bool? returnValue = null;
-            Action showDialogCallback =
+            Action showDialogFunction =
                 () =>
                     {
                         DialogWindow dialogWindow = new DialogWindow(dialogType, dialogTitle, dialogMessage);
@@ -59,9 +59,9 @@ namespace Scrupdate.Classes.Utilities
                         returnValue = dialogWindow.ShowDialog();
                     };
             if (ownerWindow != null)
-                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showDialogCallback);
+                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, showDialogFunction);
             else
-                showDialogCallback.Invoke();
+                showDialogFunction.Invoke();
             return returnValue;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
