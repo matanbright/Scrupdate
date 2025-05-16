@@ -41,6 +41,25 @@ namespace Scrupdate.Classes.Utilities
         {
             return ShowDialog(DialogWindow.DialogType.Question, dialogTitle, dialogMessage, ownerWindow);
         }
+        public static void CloseDialogs(Window ownerWindow)
+        {
+            Action closeDialogsFunction =
+                () =>
+                    {
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if (window.GetType() == typeof(DialogWindow))
+                            {
+                                if (ownerWindow == null || window.Owner == ownerWindow)
+                                    window.Close();
+                            }
+                        }
+                    };
+            if (ownerWindow != null)
+                ThreadingUtilities.RunOnAnotherThread(ownerWindow.Dispatcher, closeDialogsFunction);
+            else
+                closeDialogsFunction.Invoke();
+        }
         private static bool? ShowDialog(DialogWindow.DialogType dialogType, string dialogTitle, string dialogMessage, Window ownerWindow)
         {
             if (dialogTitle == null)
