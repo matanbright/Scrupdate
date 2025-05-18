@@ -339,10 +339,10 @@ namespace Scrupdate.Classes.Utilities
                     );
                     if (typeOfWindow == typeof(SettingsWindow))
                         ((SettingsWindow)window).RefreshAvailableWindowsScalingFactorSelections();
-                    else if (typeOfWindow == typeof(DialogWindow))
-                        ((DialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
                         ((ProgramAddingOrEditingWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
+                    else if (typeOfWindow == typeof(DialogWindow))
+                        ((DialogWindow)window).CalculateWindowDynamicSizeAndResizeWindow();
                     else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))
                         ((ProgramUpdatesScheduledCheckWindow)window).MoveWindowNearSystemTrayIcons();
                 }
