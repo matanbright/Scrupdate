@@ -836,18 +836,21 @@ namespace Scrupdate.UiElements.Windows
         }
         private void CancelOperationAndQueueWindowToBeClosedAfterCancelling()
         {
-            if (CurrentOperation != Operation.CancellingOperation)
+            if (CurrentOperation != Operation.None)
             {
-                CurrentOperation = Operation.CancellingOperation;
-                closeInQueue = true;
-                programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
-                ChangeStatusMessage(
-                    STATUS_MESSAGE__CANCELLING_AND_CLOSING,
-                    (SolidColorBrush)Application.Current.FindResource(
-                        App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
-                    )
-                );
-                ChangeProgressBarValue(-1);
+                if (CurrentOperation != Operation.CancellingOperation)
+                {
+                    CurrentOperation = Operation.CancellingOperation;
+                    closeInQueue = true;
+                    programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
+                    ChangeStatusMessage(
+                        STATUS_MESSAGE__CANCELLING_AND_CLOSING,
+                        (SolidColorBrush)Application.Current.FindResource(
+                            App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                        )
+                    );
+                    ChangeProgressBarValue(-1);
+                }
             }
         }
         private void PrepareWindowForClosing()
