@@ -371,7 +371,7 @@ namespace Scrupdate.UiElements.Windows
                         statusMessage = STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE;
                         break;
                 }
-                ChangeStatusMessages(
+                ChangeStatusMessage(
                     statusMessage,
                     (SolidColorBrush)Application.Current.FindResource(
                         App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
@@ -597,7 +597,7 @@ namespace Scrupdate.UiElements.Windows
                 );
             }
         }
-        private void ChangeStatusMessages(string statusMessage, Brush statusMessageForegroundColor)
+        private void ChangeStatusMessage(string statusMessage, Brush statusMessageForegroundColor)
         {
             ChangeStatusMessages(
                 statusMessage,
@@ -720,7 +720,7 @@ namespace Scrupdate.UiElements.Windows
                         {
                             if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
                             {
-                                ChangeStatusMessages(
+                                ChangeStatusMessage(
                                     STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS,
                                     (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
@@ -740,7 +740,7 @@ namespace Scrupdate.UiElements.Windows
                             {
                                 CurrentOperation = Operation.CheckingForProgramUpdates;
                                 Exception programUpdatesCheckException = null;
-                                ChangeStatusMessages(
+                                ChangeStatusMessage(
                                     STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES,
                                     (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
@@ -816,7 +816,7 @@ namespace Scrupdate.UiElements.Windows
                                     {
                                         statusMessage = STATUS_MESSAGE__CHROMEDRIVER_ERROR;
                                     }
-                                    ChangeStatusMessages(
+                                    ChangeStatusMessage(
                                         statusMessage,
                                         (SolidColorBrush)Application.Current.FindResource(
                                             App.RESOURCE_KEY__RED_SOLID_COLOR_BRUSH
@@ -841,7 +841,7 @@ namespace Scrupdate.UiElements.Windows
                 CurrentOperation = Operation.CancellingOperation;
                 closeInQueue = true;
                 programDatabaseUpdatingAndProgramUpdatesCheckCancellableThread?.RequestCancellation();
-                ChangeStatusMessages(
+                ChangeStatusMessage(
                     STATUS_MESSAGE__CANCELLING_AND_CLOSING,
                     (SolidColorBrush)Application.Current.FindResource(
                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH

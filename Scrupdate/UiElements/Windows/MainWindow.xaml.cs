@@ -1340,7 +1340,7 @@ namespace Scrupdate.UiElements.Windows
                 RefreshListViewAndAllMessages();
             }
         }
-        private void ChangeStatusMessages(string statusMessage, Brush statusMessageForegroundColor)
+        private void ChangeStatusMessage(string statusMessage, Brush statusMessageForegroundColor)
         {
             ChangeStatusMessages(
                 statusMessage,
@@ -1460,7 +1460,7 @@ namespace Scrupdate.UiElements.Windows
                             Dispatcher,
                             () => listView_programs.SelectedItems.Clear()
                         );
-                        ChangeStatusMessages(
+                        ChangeStatusMessage(
                             STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS,
                             (SolidColorBrush)Application.Current.FindResource(
                                 App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
@@ -1496,7 +1496,7 @@ namespace Scrupdate.UiElements.Windows
                             () => listView_programs.SelectedItems.Clear()
                         );
                         Exception programUpdatesCheckException = null;
-                        ChangeStatusMessages(
+                        ChangeStatusMessage(
                             STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES,
                             (SolidColorBrush)Application.Current.FindResource(
                                 App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
@@ -1598,7 +1598,7 @@ namespace Scrupdate.UiElements.Windows
                     (queueWindowToBeClosedAfterCancelling ?
                         STATUS_MESSAGE__CANCELLING_AND_CLOSING :
                         STATUS_MESSAGE__CANCELLING);
-                ChangeStatusMessages(
+                ChangeStatusMessage(
                     statusMessage,
                     (SolidColorBrush)Application.Current.FindResource(
                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
