@@ -1583,17 +1583,10 @@ namespace Scrupdate.UiElements.Windows
         {
             if (CurrentOperation != Operation.None)
             {
-                double? newProgressBarValue = null;
-                if (CurrentOperation != Operation.CancellingOperation)
-                {
-                    CurrentOperation = Operation.CancellingOperation;
-                    closeInQueue = queueWindowToBeClosedAfterCancelling;
-                    programDatabaseUpdatingCancellableThread?.RequestCancellation();
-                    programUpdatesCheckCancellableThread?.RequestCancellation();
-                    newProgressBarValue = -1;
-                }
-                else
-                    closeInQueue = queueWindowToBeClosedAfterCancelling;
+                CurrentOperation = Operation.CancellingOperation;
+                closeInQueue = queueWindowToBeClosedAfterCancelling;
+                programDatabaseUpdatingCancellableThread?.RequestCancellation();
+                programUpdatesCheckCancellableThread?.RequestCancellation();
                 string statusMessage =
                     (queueWindowToBeClosedAfterCancelling ?
                         STATUS_MESSAGE__CANCELLING_AND_CLOSING :
@@ -1604,8 +1597,7 @@ namespace Scrupdate.UiElements.Windows
                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                     )
                 );
-                if (newProgressBarValue != null)
-                    ChangeProgressBarValue((double)newProgressBarValue);
+                ChangeProgressBarValue(-1);
             }
         }
         private void PrepareWindowForClosing()
