@@ -302,8 +302,9 @@ namespace Scrupdate.UiElements.Windows
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH;
                 }
-                else if (checkBox_simulateWebPageElementClicks.IsChecked == true &&
-                         listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0)
+                else if (checkBox_configureUpdateCheck.IsChecked == true &&
+                         (checkBox_simulateWebPageElementClicks.IsChecked == true &&
+                          listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
                 }
