@@ -118,6 +118,7 @@
                                                                              Width="350"
                                                                              Margin="10 0 0 0"
                                                                              VerticalAlignment="Center"
+                                                                             MaxLength="1000"
                                                                              TextChanged="OnTextBoxTextChangedEvent" />
                             </StackPanel>
                             <StackPanel x:Name="stackPanel_installedForField"
@@ -187,6 +188,7 @@
                                                                              Width="150"
                                                                              Margin="10 0 0 0"
                                                                              VerticalAlignment="Center"
+                                                                             MaxLength="100"
                                                                              TextChanged="OnTextBoxTextChangedEvent" />
                             </StackPanel>
                             <StackPanel x:Name="stackPanel_latestVersionField"
@@ -260,6 +262,7 @@
                                                                              Width="400"
                                                                              Margin="10 0 0 0"
                                                                              VerticalAlignment="Center"
+                                                                             MaxLength="50000"
                                                                              TextChanged="OnTextBoxTextChangedEvent" />
                             </StackPanel>
                             <StackPanel x:Name="stackPanel_versionSearchMethodField"
@@ -318,6 +321,7 @@
                                                                                          Width="200"
                                                                                          Margin="10 0 0 0"
                                                                                          VerticalAlignment="Center"
+                                                                                         MaxLength="1000"
                                                                                          TextChanged="OnTextBoxTextChangedEvent">
                                                 <Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                     <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
@@ -353,6 +357,7 @@
                                                                                          Width="200"
                                                                                          Margin="10 0 0 0"
                                                                                          VerticalAlignment="Center"
+                                                                                         MaxLength="1000"
                                                                                          TextChanged="OnTextBoxTextChangedEvent">
                                                 <Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                     <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
@@ -411,6 +416,7 @@
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
+                                                                                             MaxLength="1000"
                                                                                              TextChanged="OnTextBoxTextChangedEvent">
                                                     <Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
@@ -458,6 +464,7 @@
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
+                                                                                             MaxLength="1000"
                                                                                              TextChanged="OnTextBoxTextChangedEvent">
                                                     <Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
@@ -927,6 +934,7 @@
                                                                                                              Margin="1 1 0 1"
                                                                                                              VerticalAlignment="Center"
                                                                                                              HintText="Locating Method Argument"
+                                                                                                             MaxLength="1000"
                                                                                                              TextChanged="OnTextBoxTextChangedEvent"
                                                                                                              KeyDown="OnTextBoxKeyDownEvent" />
                                                                 <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPageElementLocatingInterval"

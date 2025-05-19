@@ -518,6 +518,7 @@
                                                                          Margin="10 0 0 0"
                                                                          VerticalAlignment="Center"
                                                                          IsShowingClearButton="True"
+                                                                         MaxLength="1000"
                                                                          TextChanged="OnTextBoxTextChangedEvent" />
                         </StackPanel>
                         <StackPanel x:Name="stackPanel_programListFilteringField"

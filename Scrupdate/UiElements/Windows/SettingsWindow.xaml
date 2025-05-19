@@ -721,6 +721,7 @@
                                                                                              Width="330"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
+                                                                                             MaxLength="1000"
                                                                                              TextChanged="OnTextBoxTextChangedEvent">
                                                     <Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                         <Style TargetType="Scrupdate_UiElements_Controls:CustomTextBox">
