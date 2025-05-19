@@ -613,38 +613,38 @@ namespace Scrupdate.Classes.Utilities
                         }
                         if (textToSerachVersion == null || textToSerachVersion.Equals(""))
                             throw new NoVersionWasFoundException();
-                        string versionString = null;
+                        string programLatestVersionString = null;
                         switch (programToCheck.VersionSearchBehavior)
                         {
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
                             case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
-                                versionString = VersionUtilities.GetTheFirstFoundVersionFromString(
+                                programLatestVersionString = VersionUtilities.GetTheFirstFoundVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion,
                                     (programToCheck.VersionSearchBehavior == Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd)
                                 );
                                 break;
                             case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
-                                versionString = VersionUtilities.GetTheLatestVersionFromString(
+                                programLatestVersionString = VersionUtilities.GetTheLatestVersionFromString(
                                     textToSerachVersion,
                                     programToCheck.TreatAStandaloneNumberAsAVersion
                                 );
                                 break;
                         }
-                        if (versionString == null || versionString.Equals(""))
+                        if (programLatestVersionString == null || programLatestVersionString.Equals(""))
                             throw new NoVersionWasFoundException();
-                        versionString = VersionUtilities.NormalizeAndTrimVersion(
-                            versionString,
+                        programLatestVersionString = VersionUtilities.NormalizeAndTrimVersion(
+                            programLatestVersionString,
                             VersionUtilities.MINIMUM_VERSION_SEGMENTS,
                             VersionUtilities.MAXIMUM_VERSION_SEGMENTS
                         );
                         programDatabase.UpdateProgramLatestVersion(
                             programToCheck.Name,
-                            versionString
+                            programLatestVersionString
                         );
                         if (!programToCheck.SkippedVersion.Equals("") &&
                             VersionUtilities.IsVersionNewer(
-                                versionString,
+                                programLatestVersionString,
                                 programToCheck.SkippedVersion
                             ))
                         {
