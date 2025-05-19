@@ -282,13 +282,15 @@ namespace Scrupdate.UiElements.Windows
                     );
                     return;
                 }
-                if (!textBox_installedVersion.Text.Trim().Equals(""))
+                string installedVersion = textBox_installedVersion.Text.Trim();
+                if (!installedVersion.Equals(""))
                 {
-                    textBox_installedVersion.Text = VersionUtilities.NormalizeAndTrimVersion(
-                        textBox_installedVersion.Text.Trim(),
+                    installedVersion = VersionUtilities.NormalizeAndTrimVersion(
+                        installedVersion,
                         VersionUtilities.MINIMUM_VERSION_SEGMENTS,
                         VersionUtilities.MAXIMUM_VERSION_SEGMENTS
                     );
+                    textBox_installedVersion.Text = installedVersion;
                 }
                 Program._InstallationScope installationScope = GetInstallationScope();
                 string versionSearchMethodArgument1;
@@ -304,7 +306,7 @@ namespace Scrupdate.UiElements.Windows
                 if (programToEdit != null &&
                     (checkBox_detectAutomatically.IsChecked == programToEdit.IsAutomaticallyAdded &&
                      textBox_name.Text.Trim().Equals(programToEdit.Name) &&
-                     textBox_installedVersion.Text.Trim().Equals(programToEdit.InstalledVersion) &&
+                     installedVersion.Equals(programToEdit.InstalledVersion) &&
                      installationScope == programToEdit.InstallationScope &&
                      checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
                      textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
@@ -731,9 +733,11 @@ namespace Scrupdate.UiElements.Windows
         }
         private void AddTypedWebPageElementLocatingInstructionToListView()
         {
+            string webPageElementLocatingMethodArgument =
+                textBox_webPageElementLocatingMethodArgument.Text.Trim();
             if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON &&
                 (!comboBox_webPageElementLocatingMethod.SelectedItem.Equals("") &&
-                 textBox_webPageElementLocatingMethodArgument.Text.Trim().Length > 0 &&
+                 webPageElementLocatingMethodArgument.Length > 0 &&
                  !comboBox_webPageElementLocatingInterval.SelectedItem.Equals("")))
             {
                 WebPageElementLocatingInstruction._LocatingMethod webPageElementLocatingMethod =
@@ -750,7 +754,7 @@ namespace Scrupdate.UiElements.Windows
                 WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView =
                     new WebPageElementLocatingInstruction(
                         webPageElementLocatingMethod,
-                        textBox_webPageElementLocatingMethodArgument.Text.Trim(),
+                        webPageElementLocatingMethodArgument,
                         (bool)checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked,
                         webPageElementLocatingInterval
                     );
@@ -992,8 +996,11 @@ namespace Scrupdate.UiElements.Windows
         }
         private Program GetProgramFromUiControlsValues()
         {
+            string name = textBox_name.Text.Trim();
+            string installedVersion = textBox_installedVersion.Text.Trim();
             string latestVersion = "";
             Program._InstallationScope installationScope = GetInstallationScope();
+            string webPageUrl = textBox_webPageUrl.Text.Trim();
             string versionSearchMethodArgument1;
             string versionSearchMethodArgument2;
             Program._VersionSearchMethod versionSearchMethod = GetVersionSearchMethod(
@@ -1012,7 +1019,7 @@ namespace Scrupdate.UiElements.Windows
             if (programToEdit != null)
             {
                 if (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
-                    textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
+                    webPageUrl.Equals(programToEdit.WebPageUrl) &&
                     versionSearchMethod == programToEdit.VersionSearchMethod &&
                     versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
                     versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) &&
@@ -1028,23 +1035,23 @@ namespace Scrupdate.UiElements.Windows
                     updateCheckConfigurationError = programToEdit.UpdateCheckConfigurationError;
                 }
                 if (!programToEdit.SkippedVersion.Equals("") &&
-                    (textBox_installedVersion.Text.Trim().Equals("") ||
+                    (installedVersion.Equals("") ||
                      VersionUtilities.IsVersionNewer(
                          programToEdit.SkippedVersion,
-                         textBox_installedVersion.Text.Trim()
+                         installedVersion
                      )))
                 {
                     skippedVersion = programToEdit.SkippedVersion;
                 }
             }
             return new Program(
-                textBox_name.Text.Trim(),
-                textBox_installedVersion.Text.Trim(),
+                name,
+                installedVersion,
                 latestVersion,
                 installationScope,
                 (bool)checkBox_detectAutomatically.IsChecked,
                 (bool)checkBox_configureUpdateCheck.IsChecked,
-                textBox_webPageUrl.Text.Trim(),
+                webPageUrl,
                 versionSearchMethod,
                 versionSearchMethodArgument1,
                 versionSearchMethodArgument2,
@@ -1115,16 +1122,19 @@ namespace Scrupdate.UiElements.Windows
                                  out string errorDialogMessage)
         {
             errorDialogMessage = null;
+            string name = null;
             if (checkProgramProperties)
             {
-                if (textBox_name.Text.Trim().Equals(""))
+                name = textBox_name.Text.Trim();
+                if (name.Equals(""))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_NAME;
                     return false;
                 }
-                if (!textBox_installedVersion.Text.Trim().Equals("") &&
+                string installedVersion = textBox_installedVersion.Text.Trim();
+                if (!installedVersion.Equals("") &&
                     !VersionUtilities.IsVersion(
-                        textBox_installedVersion.Text.Trim(),
+                        installedVersion,
                         VersionUtilities.VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion
                     ))
                 {
@@ -1164,10 +1174,10 @@ namespace Scrupdate.UiElements.Windows
             if (checkProgramProperties)
             {
                 if ((programToEdit == null &&
-                     programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())) ||
+                     programsAlreadyInDatabase.ContainsKey(name)) ||
                     (programToEdit != null &&
-                     !textBox_name.Text.Trim().Equals(programToEdit.Name) &&
-                     programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())))
+                     !name.Equals(programToEdit.Name) &&
+                     programsAlreadyInDatabase.ContainsKey(name)))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS;
                     return false;
