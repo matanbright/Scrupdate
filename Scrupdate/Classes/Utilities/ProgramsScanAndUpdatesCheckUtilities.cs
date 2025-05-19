@@ -185,7 +185,7 @@ namespace Scrupdate.Classes.Utilities
                     foreach (string installedProgramRegistrySubKeyName in installedProgramsRegistrySubKeysNames)
                     {
                         if (cancellationToken != null &&
-                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                            cancellationToken.Value.IsCancellationRequested)
                         {
                             return;
                         }
@@ -400,7 +400,7 @@ namespace Scrupdate.Classes.Utilities
                 }
             }
             if (cancellationToken != null &&
-                ((CancellationToken)cancellationToken).IsCancellationRequested)
+                cancellationToken.Value.IsCancellationRequested)
             {
                 return;
             }
@@ -445,7 +445,7 @@ namespace Scrupdate.Classes.Utilities
                     throw new ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException();
                 }
                 if (cancellationToken != null &&
-                    ((CancellationToken)cancellationToken).IsCancellationRequested)
+                    cancellationToken.Value.IsCancellationRequested)
                 {
                     return;
                 }
@@ -457,7 +457,7 @@ namespace Scrupdate.Classes.Utilities
                     Program programToCheck = programsToCheck[i];
                     updatesCheckProgressChangedEventHandler?.Invoke(((double)i / programsToCheck.Count) * 100.0D);
                     if (cancellationToken != null &&
-                        ((CancellationToken)cancellationToken).IsCancellationRequested)
+                        cancellationToken.Value.IsCancellationRequested)
                     {
                         return;
                     }
@@ -472,7 +472,7 @@ namespace Scrupdate.Classes.Utilities
                             throw new WebPageDidNotRespondException();
                         }
                         if (cancellationToken != null &&
-                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                            cancellationToken.Value.IsCancellationRequested)
                         {
                             return;
                         }
@@ -512,7 +512,7 @@ namespace Scrupdate.Classes.Utilities
                                 Thread.Sleep(webPagePostLoadDelayInMilliseconds);
                         }
                         if (cancellationToken != null &&
-                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                            cancellationToken.Value.IsCancellationRequested)
                         {
                             return;
                         }
@@ -522,7 +522,7 @@ namespace Scrupdate.Classes.Utilities
                                      programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
                             {
                                 if (cancellationToken != null &&
-                                    ((CancellationToken)cancellationToken).IsCancellationRequested)
+                                    cancellationToken.Value.IsCancellationRequested)
                                 {
                                     return;
                                 }
@@ -537,7 +537,7 @@ namespace Scrupdate.Classes.Utilities
                             }
                         }
                         if (cancellationToken != null &&
-                            ((CancellationToken)cancellationToken).IsCancellationRequested)
+                            cancellationToken.Value.IsCancellationRequested)
                         {
                             return;
                         }

@@ -494,41 +494,41 @@ namespace Scrupdate.UiElements.Windows
         {
             Settings.GeneralSettings.WeekDays scheduleDays = Settings.GeneralSettings.WeekDays.None;
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDaySunday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDaySunday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)1 :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDayMonday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDayMonday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 1) :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 2) :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 3) :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDayThursday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDayThursday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 4) :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDayFriday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDayFriday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 5) :
                     0);
             scheduleDays |=
-                ((bool)checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked ?
+                (checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked.Value ?
                     (Settings.GeneralSettings.WeekDays)(1 << 6) :
                     0);
             Settings.GeneralSettings generalSettings = new Settings.GeneralSettings(
-                (bool)checkBox_enableScanningForInstalledPrograms.IsChecked,
-                (bool)checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked,
-                (bool)checkBox_rememberLastProgramListOptions.IsChecked,
-                (bool)checkBox_enableScheduledCheckForProgramUpdates.IsChecked,
+                checkBox_enableScanningForInstalledPrograms.IsChecked.Value,
+                checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked.Value,
+                checkBox_rememberLastProgramListOptions.IsChecked.Value,
+                checkBox_enableScheduledCheckForProgramUpdates.IsChecked.Value,
                 scheduleDays,
                 comboBox_programUpdatesScheduledCheckHour.SelectedIndex,
-                (bool)checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked
+                checkBox_includeHiddenProgramsInProgramUpdatesScheduledCheckResults.IsChecked.Value
             );
             Settings.AppearanceSettings appearanceSettings = new Settings.AppearanceSettings(
                 (comboBox_windowsScalingFactor.SelectedIndex == 0 ?
@@ -538,7 +538,7 @@ namespace Scrupdate.UiElements.Windows
                         1.25D + ((comboBox_windowsScalingFactor.SelectedIndex - 2) * 0.25D))),
                 Convert.ToInt32((string)comboBox_minimumVersionSegments.SelectedItem),
                 Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem),
-                (bool)checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked
+                checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked.Value
             );
             Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
                 EnumUtilities.GetEnumItemFromHumanReadableString<Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout>(

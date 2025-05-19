@@ -755,7 +755,7 @@ namespace Scrupdate.UiElements.Windows
                     new WebPageElementLocatingInstruction(
                         webPageElementLocatingMethod,
                         webPageElementLocatingMethodArgument,
-                        (bool)checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked,
+                        checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked.Value,
                         webPageElementLocatingInterval
                     );
                 locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(
@@ -1049,13 +1049,13 @@ namespace Scrupdate.UiElements.Windows
                 installedVersion,
                 latestVersion,
                 installationScope,
-                (bool)checkBox_detectAutomatically.IsChecked,
-                (bool)checkBox_configureUpdateCheck.IsChecked,
+                checkBox_detectAutomatically.IsChecked.Value,
+                checkBox_configureUpdateCheck.IsChecked.Value,
                 webPageUrl,
                 versionSearchMethod,
                 versionSearchMethodArgument1,
                 versionSearchMethodArgument2,
-                (bool)checkBox_treatAStandaloneNumberAsAVersion.IsChecked,
+                checkBox_treatAStandaloneNumberAsAVersion.IsChecked.Value,
                 versionSearchBehavior,
                 webPagePostLoadDelay,
                 locatingInstructionsOfWebPageElementsToSimulateAClickOn,

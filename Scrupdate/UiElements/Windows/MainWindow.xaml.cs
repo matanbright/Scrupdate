@@ -969,14 +969,14 @@ namespace Scrupdate.UiElements.Windows
                 () =>
                     {
                         string programSearchPhrase = textBox_programListSearchingPhrase.Text.Trim();
-                        bool isFilteringPrograms = (bool)checkBox_filterProgramList.IsChecked;
+                        bool isFilteringPrograms = checkBox_filterProgramList.IsChecked.Value;
                         Settings.CachedSettings.ProgramFilteringOption selectedProgramFilteringOption =
                             (!isFilteringPrograms ?
                                 Settings.CachedSettings.ProgramFilteringOption.All :
                                 EnumUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
                                     (string)comboBox_programListFilteringOption.SelectedItem
                                 ));
-                        bool isShowingHiddenPrograms = (bool)checkBox_showHiddenPrograms.IsChecked;
+                        bool isShowingHiddenPrograms = checkBox_showHiddenPrograms.IsChecked.Value;
                         listView_programs.Items.Filter = new Predicate<object>(
                             o =>
                                 {
@@ -1625,13 +1625,13 @@ namespace Scrupdate.UiElements.Windows
                                 if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListOptions)
                                 {
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringState =
-                                        (bool)checkBox_filterProgramList.IsChecked;
+                                        checkBox_filterProgramList.IsChecked.Value;
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
                                         EnumUtilities.GetEnumItemFromHumanReadableString<Settings.CachedSettings.ProgramFilteringOption>(
                                             (string)comboBox_programListFilteringOption.SelectedItem
                                         );
                                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState =
-                                        (bool)checkBox_showHiddenPrograms.IsChecked;
+                                        checkBox_showHiddenPrograms.IsChecked.Value;
                                 }
                                 else
                                 {
