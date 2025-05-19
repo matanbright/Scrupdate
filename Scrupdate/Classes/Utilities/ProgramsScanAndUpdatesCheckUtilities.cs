@@ -358,47 +358,11 @@ namespace Scrupdate.Classes.Utilities
                 throw new ArgumentNullException(nameof(settingsHandler));
             if (settingsHandler.SettingsInMemory == null)
                 throw new SettingsHandler.NoSettingsInMemoryException();
-            bool unableToAccessInstalledChromeDriverExecutableFile;
-            if (ChromeDriverUtilities.GetInstalledChromeDriverInformation(
-                    out unableToAccessInstalledChromeDriverExecutableFile
-                ) == null)
-            {
-                if (unableToAccessInstalledChromeDriverExecutableFile)
-                    throw new UnableToAccessChromeDriverExecutableFileException();
-                throw new NoChromeDriverIsInstalledException();
-            }
-            if (!GoogleChromeBrowserUtilities.IsGoogleChromeBrowserInstalled())
-                throw new GoogleChromeBrowserIsNotInstalledException();
-            string checksumOfInstalledGoogleChromeBrowserExecutableFile =
-                GoogleChromeBrowserUtilities.GetChecksumOfInstalledGoogleChromeBrowserExecutableFile();
-            if (checksumOfInstalledGoogleChromeBrowserExecutableFile == null)
-                throw new UnableToAccessGoogleChromeBrowserExecutableFileException();
-            string defaultChromeDriverUserAgentString =
-                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
-            if (settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString.Equals("") ||
-                !checksumOfInstalledGoogleChromeBrowserExecutableFile.Equals(
-                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile
-                ))
-            {
-                defaultChromeDriverUserAgentString = ChromeDriverUtilities.GetDefaultChromeDriverUserAgentString();
-                if (defaultChromeDriverUserAgentString == null)
-                    throw new UnableToGetDefaultChromeDriverUserAgentStringException();
-                string backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
-                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
-                string backupOfLastDefaultChromeDriverUserAgentString =
-                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
-                settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
-                    checksumOfInstalledGoogleChromeBrowserExecutableFile;
-                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
-                    defaultChromeDriverUserAgentString;
-                if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())
-                {
-                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
-                        backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
-                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
-                        backupOfLastDefaultChromeDriverUserAgentString;
-                }
-            }
+            string defaultChromeDriverUserAgentString;
+            CheckChromeDriverAndBrowserAndUpdateCachedInformation(
+                settingsHandler,
+                out defaultChromeDriverUserAgentString
+            );
             if (cancellationToken != null &&
                 cancellationToken.Value.IsCancellationRequested)
             {
@@ -463,176 +427,13 @@ namespace Scrupdate.Classes.Utilities
                     }
                     try
                     {
-                        try
-                        {
-                            chromeDriver.NavigateToAWebPage(programToCheck.WebPageUrl);
-                        }
-                        catch
-                        {
-                            throw new WebPageDidNotRespondException();
-                        }
-                        if (cancellationToken != null &&
-                            cancellationToken.Value.IsCancellationRequested)
-                        {
+                        string programLatestVersionString = GetLatestVersionOfAProgramFromWebPage(
+                            chromeDriver,
+                            programToCheck,
+                            cancellationToken
+                        );
+                        if (programLatestVersionString == null)
                             return;
-                        }
-                        int webPagePostLoadDelayInMilliseconds = 0;
-                        switch (programToCheck.WebPagePostLoadDelay)
-                        {
-                            case Program._WebPagePostLoadDelay._100Ms:
-                                webPagePostLoadDelayInMilliseconds = 100;
-                                break;
-                            case Program._WebPagePostLoadDelay._250Ms:
-                                webPagePostLoadDelayInMilliseconds = 250;
-                                break;
-                            case Program._WebPagePostLoadDelay._500Ms:
-                                webPagePostLoadDelayInMilliseconds = 500;
-                                break;
-                            case Program._WebPagePostLoadDelay._1000Ms:
-                                webPagePostLoadDelayInMilliseconds = 1000;
-                                break;
-                            case Program._WebPagePostLoadDelay._2000Ms:
-                                webPagePostLoadDelayInMilliseconds = 2000;
-                                break;
-                            case Program._WebPagePostLoadDelay._3000Ms:
-                                webPagePostLoadDelayInMilliseconds = 3000;
-                                break;
-                            case Program._WebPagePostLoadDelay._4000Ms:
-                                webPagePostLoadDelayInMilliseconds = 4000;
-                                break;
-                            case Program._WebPagePostLoadDelay._5000Ms:
-                                webPagePostLoadDelayInMilliseconds = 5000;
-                                break;
-                        }
-                        if (webPagePostLoadDelayInMilliseconds > 0)
-                        {
-                            if (cancellationToken != null)
-                                cancellationToken.Value.WaitHandle.WaitOne(webPagePostLoadDelayInMilliseconds);
-                            else
-                                Thread.Sleep(webPagePostLoadDelayInMilliseconds);
-                        }
-                        if (cancellationToken != null &&
-                            cancellationToken.Value.IsCancellationRequested)
-                        {
-                            return;
-                        }
-                        if (programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
-                        {
-                            foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
-                                     programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
-                            {
-                                if (cancellationToken != null &&
-                                    cancellationToken.Value.IsCancellationRequested)
-                                {
-                                    return;
-                                }
-                                try
-                                {
-                                    chromeDriver.ClickOnAnElementWithinTheWebpage(
-                                        locatingInstructionOfWebPageElementToSimulateAClickOn,
-                                        cancellationToken
-                                    );
-                                }
-                                catch { }
-                            }
-                        }
-                        if (cancellationToken != null &&
-                            cancellationToken.Value.IsCancellationRequested)
-                        {
-                            return;
-                        }
-                        string textToSerachVersion = null;
-                        string tempTextToSerachVersion = null;
-                        switch (programToCheck.VersionSearchMethod)
-                        {
-                            case Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId:
-                                try
-                                {
-                                    textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(
-                                        programToCheck.VersionSearchMethodArgument1
-                                    );
-                                }
-                                catch
-                                {
-                                    throw new HtmlElementWasNotFoundException();
-                                }
-                                break;
-                            case Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath:
-                                try
-                                {
-                                    textToSerachVersion = string.Join(
-                                        " ",
-                                        chromeDriver.GetTextsInsideHtmlElementsByXPath(
-                                            programToCheck.VersionSearchMethodArgument1
-                                        )
-                                    );
-                                }
-                                catch
-                                {
-                                    throw new HtmlElementWasNotFoundException();
-                                }
-                                break;
-                            case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
-                                textToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
-                                break;
-                            case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
-                            case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
-                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
-                                int foundTextIndex = tempTextToSerachVersion.IndexOf(
-                                    programToCheck.VersionSearchMethodArgument1
-                                );
-                                if (foundTextIndex < 0)
-                                    throw new TextWasNotFoundWithinTheWebPageException();
-                                if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
-                                {
-                                    textToSerachVersion = tempTextToSerachVersion.Substring(
-                                        foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length
-                                    );
-                                }
-                                else
-                                    textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
-                                break;
-                            case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
-                                tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
-                                int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
-                                    programToCheck.VersionSearchMethodArgument1
-                                );
-                                int foundEndingTextIndex = tempTextToSerachVersion.IndexOf(
-                                    programToCheck.VersionSearchMethodArgument2
-                                );
-                                if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
-                                    throw new TextWasNotFoundWithinTheWebPageException();
-                                if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
-                                {
-                                    textToSerachVersion = tempTextToSerachVersion.Substring(
-                                        foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length,
-                                        foundEndingTextIndex - (foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length)
-                                    );
-                                }
-                                break;
-                        }
-                        if (textToSerachVersion == null || textToSerachVersion.Equals(""))
-                            throw new NoVersionWasFoundException();
-                        string programLatestVersionString = null;
-                        switch (programToCheck.VersionSearchBehavior)
-                        {
-                            case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
-                            case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
-                                programLatestVersionString = VersionUtilities.GetTheFirstFoundVersionFromString(
-                                    textToSerachVersion,
-                                    programToCheck.TreatAStandaloneNumberAsAVersion,
-                                    (programToCheck.VersionSearchBehavior == Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd)
-                                );
-                                break;
-                            case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
-                                programLatestVersionString = VersionUtilities.GetTheLatestVersionFromString(
-                                    textToSerachVersion,
-                                    programToCheck.TreatAStandaloneNumberAsAVersion
-                                );
-                                break;
-                        }
-                        if (programLatestVersionString == null || programLatestVersionString.Equals(""))
-                            throw new NoVersionWasFoundException();
                         programLatestVersionString = VersionUtilities.NormalizeAndTrimVersion(
                             programLatestVersionString,
                             VersionUtilities.MINIMUM_VERSION_SEGMENTS,
@@ -682,6 +483,233 @@ namespace Scrupdate.Classes.Utilities
                 settingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 updatesCheckProgressChangedEventHandler?.Invoke(100.0D);
             }
+        }
+        private static void CheckChromeDriverAndBrowserAndUpdateCachedInformation(SettingsHandler settingsHandler,
+                                                                                  out string defaultChromeDriverUserAgentString)
+        {
+            if (settingsHandler == null)
+                throw new ArgumentNullException(nameof(settingsHandler));
+            bool unableToAccessInstalledChromeDriverExecutableFile;
+            if (ChromeDriverUtilities.GetInstalledChromeDriverInformation(
+                    out unableToAccessInstalledChromeDriverExecutableFile
+                ) == null)
+            {
+                if (unableToAccessInstalledChromeDriverExecutableFile)
+                    throw new UnableToAccessChromeDriverExecutableFileException();
+                throw new NoChromeDriverIsInstalledException();
+            }
+            if (!GoogleChromeBrowserUtilities.IsGoogleChromeBrowserInstalled())
+                throw new GoogleChromeBrowserIsNotInstalledException();
+            string checksumOfInstalledGoogleChromeBrowserExecutableFile =
+                GoogleChromeBrowserUtilities.GetChecksumOfInstalledGoogleChromeBrowserExecutableFile();
+            if (checksumOfInstalledGoogleChromeBrowserExecutableFile == null)
+                throw new UnableToAccessGoogleChromeBrowserExecutableFileException();
+            defaultChromeDriverUserAgentString =
+                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
+            if (settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString.Equals("") ||
+                !checksumOfInstalledGoogleChromeBrowserExecutableFile.Equals(
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile
+                ))
+            {
+                defaultChromeDriverUserAgentString = ChromeDriverUtilities.GetDefaultChromeDriverUserAgentString();
+                if (defaultChromeDriverUserAgentString == null)
+                    throw new UnableToGetDefaultChromeDriverUserAgentStringException();
+                string backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
+                string backupOfLastDefaultChromeDriverUserAgentString =
+                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
+                settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                    checksumOfInstalledGoogleChromeBrowserExecutableFile;
+                settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
+                    defaultChromeDriverUserAgentString;
+                if (!settingsHandler.SaveSettingsFromMemoryToSettingsFile())
+                {
+                    settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
+                        backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
+                    settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString =
+                        backupOfLastDefaultChromeDriverUserAgentString;
+                }
+            }
+        }
+        private static string GetLatestVersionOfAProgramFromWebPage(ChromeDriver chromeDriver,
+                                                                    Program programToCheck,
+                                                                    CancellationToken? cancellationToken)
+        {
+            if (chromeDriver == null)
+                throw new ArgumentNullException(nameof(chromeDriver));
+            if (programToCheck == null)
+                throw new ArgumentNullException(nameof(programToCheck));
+            try
+            {
+                chromeDriver.NavigateToAWebPage(programToCheck.WebPageUrl);
+            }
+            catch
+            {
+                throw new WebPageDidNotRespondException();
+            }
+            if (cancellationToken != null &&
+                cancellationToken.Value.IsCancellationRequested)
+            {
+                return null;
+            }
+            int webPagePostLoadDelayInMilliseconds = 0;
+            switch (programToCheck.WebPagePostLoadDelay)
+            {
+                case Program._WebPagePostLoadDelay._100Ms:
+                    webPagePostLoadDelayInMilliseconds = 100;
+                    break;
+                case Program._WebPagePostLoadDelay._250Ms:
+                    webPagePostLoadDelayInMilliseconds = 250;
+                    break;
+                case Program._WebPagePostLoadDelay._500Ms:
+                    webPagePostLoadDelayInMilliseconds = 500;
+                    break;
+                case Program._WebPagePostLoadDelay._1000Ms:
+                    webPagePostLoadDelayInMilliseconds = 1000;
+                    break;
+                case Program._WebPagePostLoadDelay._2000Ms:
+                    webPagePostLoadDelayInMilliseconds = 2000;
+                    break;
+                case Program._WebPagePostLoadDelay._3000Ms:
+                    webPagePostLoadDelayInMilliseconds = 3000;
+                    break;
+                case Program._WebPagePostLoadDelay._4000Ms:
+                    webPagePostLoadDelayInMilliseconds = 4000;
+                    break;
+                case Program._WebPagePostLoadDelay._5000Ms:
+                    webPagePostLoadDelayInMilliseconds = 5000;
+                    break;
+            }
+            if (webPagePostLoadDelayInMilliseconds > 0)
+            {
+                if (cancellationToken != null)
+                    cancellationToken.Value.WaitHandle.WaitOne(webPagePostLoadDelayInMilliseconds);
+                else
+                    Thread.Sleep(webPagePostLoadDelayInMilliseconds);
+            }
+            if (cancellationToken != null &&
+                cancellationToken.Value.IsCancellationRequested)
+            {
+                return null;
+            }
+            if (programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
+            {
+                foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
+                         programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
+                {
+                    if (cancellationToken != null &&
+                        cancellationToken.Value.IsCancellationRequested)
+                    {
+                        return null;
+                    }
+                    try
+                    {
+                        chromeDriver.ClickOnAnElementWithinTheWebpage(
+                            locatingInstructionOfWebPageElementToSimulateAClickOn,
+                            cancellationToken
+                        );
+                    }
+                    catch { }
+                }
+            }
+            if (cancellationToken != null &&
+                cancellationToken.Value.IsCancellationRequested)
+            {
+                return null;
+            }
+            string textToSerachVersion = null;
+            string tempTextToSerachVersion = null;
+            switch (programToCheck.VersionSearchMethod)
+            {
+                case Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId:
+                    try
+                    {
+                        textToSerachVersion = chromeDriver.GetTextInsideHtmlElementById(
+                            programToCheck.VersionSearchMethodArgument1
+                        );
+                    }
+                    catch
+                    {
+                        throw new HtmlElementWasNotFoundException();
+                    }
+                    break;
+                case Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath:
+                    try
+                    {
+                        textToSerachVersion = string.Join(
+                            " ",
+                            chromeDriver.GetTextsInsideHtmlElementsByXPath(
+                                programToCheck.VersionSearchMethodArgument1
+                            )
+                        );
+                    }
+                    catch
+                    {
+                        throw new HtmlElementWasNotFoundException();
+                    }
+                    break;
+                case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
+                    textToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                    break;
+                case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
+                case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
+                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                    int foundTextIndex = tempTextToSerachVersion.IndexOf(
+                        programToCheck.VersionSearchMethodArgument1
+                    );
+                    if (foundTextIndex < 0)
+                        throw new TextWasNotFoundWithinTheWebPageException();
+                    if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
+                    {
+                        textToSerachVersion = tempTextToSerachVersion.Substring(
+                            foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length
+                        );
+                    }
+                    else
+                        textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
+                    break;
+                case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
+                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                    int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
+                        programToCheck.VersionSearchMethodArgument1
+                    );
+                    int foundEndingTextIndex = tempTextToSerachVersion.IndexOf(
+                        programToCheck.VersionSearchMethodArgument2
+                    );
+                    if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
+                        throw new TextWasNotFoundWithinTheWebPageException();
+                    if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
+                    {
+                        textToSerachVersion = tempTextToSerachVersion.Substring(
+                            foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length,
+                            foundEndingTextIndex - (foundStartingTextIndex + programToCheck.VersionSearchMethodArgument1.Length)
+                        );
+                    }
+                    break;
+            }
+            if (textToSerachVersion == null || textToSerachVersion.Equals(""))
+                throw new NoVersionWasFoundException();
+            string programLatestVersionString = null;
+            switch (programToCheck.VersionSearchBehavior)
+            {
+                case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFound:
+                case Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd:
+                    programLatestVersionString = VersionUtilities.GetTheFirstFoundVersionFromString(
+                        textToSerachVersion,
+                        programToCheck.TreatAStandaloneNumberAsAVersion,
+                        (programToCheck.VersionSearchBehavior == Program._VersionSearchBehavior.GetTheFirstVersionThatIsFoundFromTheEnd)
+                    );
+                    break;
+                case Program._VersionSearchBehavior.GetTheLatestVersionFromAllTheVersionsThatAreFound:
+                    programLatestVersionString = VersionUtilities.GetTheLatestVersionFromString(
+                        textToSerachVersion,
+                        programToCheck.TreatAStandaloneNumberAsAVersion
+                    );
+                    break;
+            }
+            if (programLatestVersionString == null || programLatestVersionString.Equals(""))
+                throw new NoVersionWasFoundException();
+            return programLatestVersionString;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
