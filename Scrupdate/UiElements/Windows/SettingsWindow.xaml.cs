@@ -292,24 +292,8 @@ namespace Scrupdate.UiElements.Windows
             }
             else if (senderButton == button_save)
             {
-                string errorDialogMessage = null;
-                if (checkBox_enableScheduledCheckForProgramUpdates.IsChecked == true &&
-                    !(checkBox_programUpdatesScheduledCheckDaySunday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDayMonday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDayThursday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDayFriday.IsChecked == true ||
-                      checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked == true))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED;
-                }
-                else if (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true &&
-                         textBox_customChromeDriverUserAgentString.Text.Trim().Equals(""))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED;
-                }
-                if (errorDialogMessage != null)
+                string errorDialogMessage;
+                if (!CheckFields(out errorDialogMessage))
                 {
                     DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
@@ -592,6 +576,29 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_windowsScalingFactor.SelectedIndex = 0;
             else
                 comboBox_windowsScalingFactor.SelectedIndex = comboBox_windowsScalingFactor.Items.Count - 1;
+        }
+        private bool CheckFields(out string errorDialogMessage)
+        {
+            errorDialogMessage = null;
+            if (checkBox_enableScheduledCheckForProgramUpdates.IsChecked == true &&
+                !(checkBox_programUpdatesScheduledCheckDaySunday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDayMonday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDayTuesday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDayWednesday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDayThursday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDayFriday.IsChecked == true ||
+                  checkBox_programUpdatesScheduledCheckDaySaturday.IsChecked == true))
+            {
+                errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED;
+                return false;
+            }
+            if (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true &&
+                textBox_customChromeDriverUserAgentString.Text.Trim().Equals(""))
+            {
+                errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_USER_AGENT_STRING_WAS_SPECIFIED;
+                return false;
+            }
+            return true;
         }
         public Settings GetUpdatedSettings()
         {

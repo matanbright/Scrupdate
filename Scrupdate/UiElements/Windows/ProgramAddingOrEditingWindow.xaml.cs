@@ -272,51 +272,8 @@ namespace Scrupdate.UiElements.Windows
                 MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
             else if (senderButton == button_addOrSave)
             {
-                string errorDialogMessage = null;
-                if (textBox_name.Text.Trim().Equals(""))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_NAME;
-                }
-                else if (!textBox_installedVersion.Text.Trim().Equals("") &&
-                         !VersionUtilities.IsVersion(
-                             textBox_installedVersion.Text.Trim(),
-                             VersionUtilities.VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion
-                         ))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION;
-                }
-                else if (checkBox_configureUpdateCheck.IsChecked == true &&
-                         textBox_webPageUrl.Text.Trim().Equals(""))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL;
-                }
-                else if (checkBox_configureUpdateCheck.IsChecked == true &&
-                         ((radioButton_searchWithinTheHtmlElementWithId.IsChecked == true &&
-                           textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
-                          (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true &&
-                           textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim().Equals("")) ||
-                          (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
-                           textBox_searchFromTextWithinTheWebPageParameter.Text.Trim().Equals("")) ||
-                          (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true &&
-                           textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim().Equals(""))))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH;
-                }
-                else if (checkBox_configureUpdateCheck.IsChecked == true &&
-                         (checkBox_simulateWebPageElementClicks.IsChecked == true &&
-                          listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
-                }
-                else if ((programToEdit == null &&
-                          programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())) ||
-                         (programToEdit != null &&
-                          !textBox_name.Text.Trim().Equals(programToEdit.Name) &&
-                          programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())))
-                {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS;
-                }
-                if (errorDialogMessage != null)
+                string errorDialogMessage;
+                if (!CheckFields(true, true, out errorDialogMessage))
                 {
                     DialogUtilities.ShowErrorDialog(
                         ERROR_DIALOG_TITLE__ERROR,
@@ -1152,6 +1109,71 @@ namespace Scrupdate.UiElements.Windows
             MinHeight = calculatedWindowHeight;
             Height = calculatedWindowHeight;
             MaxHeight = calculatedWindowHeight;
+        }
+        private bool CheckFields(bool checkProgramProperties,
+                                 bool checkProgramUpdateCheckConfiguration,
+                                 out string errorDialogMessage)
+        {
+            errorDialogMessage = null;
+            if (checkProgramProperties)
+            {
+                if (textBox_name.Text.Trim().Equals(""))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_NAME;
+                    return false;
+                }
+                if (!textBox_installedVersion.Text.Trim().Equals("") &&
+                    !VersionUtilities.IsVersion(
+                        textBox_installedVersion.Text.Trim(),
+                        VersionUtilities.VersionValidation.ValidateVersionSegmentsCountButTreatAStandaloneNumberAsAVersion
+                    ))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION;
+                    return false;
+                }
+            }
+            if (checkProgramUpdateCheckConfiguration)
+            {
+                if (checkBox_configureUpdateCheck.IsChecked == true &&
+                    textBox_webPageUrl.Text.Trim().Equals(""))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL;
+                    return false;
+                }
+                if (checkBox_configureUpdateCheck.IsChecked == true &&
+                    ((radioButton_searchWithinTheHtmlElementWithId.IsChecked == true &&
+                      textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
+                     (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true &&
+                      textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim().Equals("")) ||
+                     (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
+                      textBox_searchFromTextWithinTheWebPageParameter.Text.Trim().Equals("")) ||
+                     (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true &&
+                      textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim().Equals(""))))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH;
+                    return false;
+                }
+                if (checkBox_configureUpdateCheck.IsChecked == true &&
+                    (checkBox_simulateWebPageElementClicks.IsChecked == true &&
+                     listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
+                    return false;
+                }
+            }
+            if (checkProgramProperties)
+            {
+                if ((programToEdit == null &&
+                     programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())) ||
+                    (programToEdit != null &&
+                     !textBox_name.Text.Trim().Equals(programToEdit.Name) &&
+                     programsAlreadyInDatabase.ContainsKey(textBox_name.Text.Trim())))
+                {
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS;
+                    return false;
+                }
+            }
+            return true;
         }
         public Program GetNewOrUpdatedProgram()
         {
