@@ -47,12 +47,6 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE = "Unable to Open the User-Manual File!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED = "Program Database Recreation Was Failed!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
-        private const string ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED = "No ChromeDriver Is Installed!";
-        private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE = "Unable to Access the ChromeDriver Executable File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
-        private const string ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED = "Google Chrome™ Browser Is Not Installed!";
-        private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE = "Unable to Access the Google Chrome™ Browser Executable File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
-        private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING = "Unable to Get Default ChromeDriver User-Agent String!\r\n\r\n•  If this error persists, set a custom ChromeDriver user-agent string in the settings\r\n    (In the 'ChromeDriver' tab under the 'ChromeDriver User-Agent String' Field).";
-        private const string ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED = "The ChromeDriver's Version Is Not Compatible with the Version of the Installed Google Chrome™ Browser\r\nor the Browser Cannot Be Opened!";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS = "Failed to Reset One or More Components!";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS = "Failed to Save Settings!";
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
@@ -1533,40 +1527,12 @@ namespace Scrupdate.UiElements.Windows
                         {
                             string errorDialogMessage = "";
                             if (programUpdatesCheckException.GetType().Equals(
-                                    typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
+                                    typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
                                 ))
                             {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED;
-                            }
-                            else if (programUpdatesCheckException.GetType().Equals(
-                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
-                                     ))
-                            {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER_EXECUTABLE_FILE;
-                            }
-                            else if (programUpdatesCheckException.GetType().Equals(
-                                         typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
-                                     ))
-                            {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED;
-                            }
-                            else if (programUpdatesCheckException.GetType().Equals(
-                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
-                                     ))
-                            {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER_EXECUTABLE_FILE;
-                            }
-                            else if (programUpdatesCheckException.GetType().Equals(
-                                         typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)
-                                     ))
-                            {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT_STRING;
-                            }
-                            else if (programUpdatesCheckException.GetType().Equals(
-                                         typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
-                                     ))
-                            {
-                                errorDialogMessage = ERROR_DIALOG_MESSAGE__THE_CHROMEDRIVER_VERSION_IS_NOT_COMPATIBLE_OR_THE_GOOGLE_CHROME_BROWSER_CANNOT_BE_OPENED;
+                                errorDialogMessage =
+                                    ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdatesCheckException)
+                                        .GetLongReasonString();
                             }
                             DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,

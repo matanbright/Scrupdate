@@ -43,12 +43,6 @@ namespace Scrupdate.UiElements.Windows
         private const string STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE = "Unable to Open the Program Database!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED = "The Program Database Is Corrupted!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE = "The Program Database Is Not Compatible!";
-        private const string STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED = "No ChromeDriver Is Installed!";
-        private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER = "Unable to Access the ChromeDriver!";
-        private const string STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED = "Google Chrome™ Browser Is Not Installed!";
-        private const string STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER = "Unable to Access the Google Chrome™ Browser!";
-        private const string STATUS_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT = "Unable to Get Default ChromeDriver User-Agent!";
-        private const string STATUS_MESSAGE__CHROMEDRIVER_ERROR = "ChromeDriver Error!";
         private const string STATUS_MESSAGE__SCANNING_INSTALLED_PROGRAMS = "Scanning Installed Programs…";
         private const string STATUS_MESSAGE__CHECKING_FOR_PROGRAM_UPDATES = "Checking for Program Updates…";
         private const string STATUS_MESSAGE__CANCELLING_AND_CLOSING = "Cancelling and Closing…";
@@ -781,40 +775,12 @@ namespace Scrupdate.UiElements.Windows
                                 {
                                     string statusMessage = "";
                                     if (programUpdatesCheckException.GetType().Equals(
-                                            typeof(ProgramsScanAndUpdatesCheckUtilities.NoChromeDriverIsInstalledException)
+                                            typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
                                         ))
                                     {
-                                        statusMessage = STATUS_MESSAGE__NO_CHROMEDRIVER_IS_INSTALLED;
-                                    }
-                                    else if (programUpdatesCheckException.GetType().Equals(
-                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessChromeDriverExecutableFileException)
-                                             ))
-                                    {
-                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_CHROMEDRIVER;
-                                    }
-                                    else if (programUpdatesCheckException.GetType().Equals(
-                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.GoogleChromeBrowserIsNotInstalledException)
-                                             ))
-                                    {
-                                        statusMessage = STATUS_MESSAGE__GOOGLE_CHROME_BROWSER_IS_NOT_INSTALLED;
-                                    }
-                                    else if (programUpdatesCheckException.GetType().Equals(
-                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToAccessGoogleChromeBrowserExecutableFileException)
-                                             ))
-                                    {
-                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_ACCESS_THE_GOOGLE_CHROME_BROWSER;
-                                    }
-                                    else if (programUpdatesCheckException.GetType().Equals(
-                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.UnableToGetDefaultChromeDriverUserAgentStringException)
-                                             ))
-                                    {
-                                        statusMessage = STATUS_MESSAGE__UNABLE_TO_GET_DEFAULT_CHROMEDRIVER_USER_AGENT;
-                                    }
-                                    else if (programUpdatesCheckException.GetType().Equals(
-                                                 typeof(ProgramsScanAndUpdatesCheckUtilities.ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException)
-                                             ))
-                                    {
-                                        statusMessage = STATUS_MESSAGE__CHROMEDRIVER_ERROR;
+                                        statusMessage =
+                                            ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdatesCheckException)
+                                                .GetReasonString();
                                     }
                                     ChangeStatusMessage(
                                         statusMessage,

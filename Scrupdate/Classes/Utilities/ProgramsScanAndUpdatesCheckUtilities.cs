@@ -33,55 +33,91 @@ namespace Scrupdate.Classes.Utilities
             private const string EXCEPTION_MESSAGE = "Program database is not open!";
             public ProgramDatabaseIsNotOpenException() : base(EXCEPTION_MESSAGE) { }
         }
-        public class NoChromeDriverIsInstalledException : Exception
+        public class ProgramUpdatesCheckWasFailedException : Exception
         {
-            private const string EXCEPTION_MESSAGE = "No ChromeDriver is installed!";
-            public NoChromeDriverIsInstalledException() : base(EXCEPTION_MESSAGE) { }
+            public enum Reason
+            {
+                Unknown,
+                NoChromeDriverIsInstalled,
+                UnableToAccessTheChromeDriver,
+                GoogleChromeBrowserIsNotInstalled,
+                UnableToAccessTheGoogleChromeBrowser,
+                UnableToGetDefaultChromeDriverUserAgent,
+                ChromeDriverError
+            }
+            private const string EXCEPTION_MESSAGE = "Program Updates Check Was Failed (Reason: {*})!";
+            private static readonly Dictionary<Reason, string> REASONS = new Dictionary<Reason, string>()
+            {
+                { Reason.Unknown, "Unknown!" },
+                { Reason.NoChromeDriverIsInstalled, "No ChromeDriver Is Installed!" },
+                { Reason.UnableToAccessTheChromeDriver, "Unable to Access the ChromeDriver!" },
+                { Reason.GoogleChromeBrowserIsNotInstalled, "Google Chrome™ Browser Is Not Installed!" },
+                { Reason.UnableToAccessTheGoogleChromeBrowser, "Unable to Access the Google Chrome™ Browser!" },
+                { Reason.UnableToGetDefaultChromeDriverUserAgent, "Unable to Get Default ChromeDriver User-Agent!" },
+                { Reason.ChromeDriverError, "ChromeDriver Error!" }
+            };
+            private static readonly Dictionary<Reason, string> LONG_REASONS = new Dictionary<Reason, string>()
+            {
+                { Reason.Unknown, "Unknown!" },
+                { Reason.NoChromeDriverIsInstalled, "No ChromeDriver Is Installed!" },
+                { Reason.UnableToAccessTheChromeDriver, "Unable to Access the ChromeDriver Executable File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate." },
+                { Reason.GoogleChromeBrowserIsNotInstalled, "Google Chrome™ Browser Is Not Installed!" },
+                { Reason.UnableToAccessTheGoogleChromeBrowser, "Unable to Access the Google Chrome™ Browser Executable File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate." },
+                { Reason.UnableToGetDefaultChromeDriverUserAgent, "Unable to Get Default ChromeDriver User-Agent String!\r\n\r\n•  If this error persists, set a custom ChromeDriver user-agent string in the settings\r\n    (In the 'ChromeDriver' tab under the 'ChromeDriver User-Agent String' Field)." },
+                { Reason.ChromeDriverError, "The ChromeDriver's Version Is Not Compatible with the Version of the Installed Google Chrome™ Browser\r\nor the Browser Cannot Be Opened!" }
+            };
+            private Reason reason;
+            public ProgramUpdatesCheckWasFailedException(Reason reason) :
+                base(EXCEPTION_MESSAGE.Replace("{*}", REASONS[reason]))
+            {
+                this.reason = reason;
+            }
+            public Reason GetReason()
+            {
+                return reason;
+            }
+            public string GetReasonString()
+            {
+                return REASONS[reason];
+            }
+            public string GetLongReasonString()
+            {
+                return LONG_REASONS[reason];
+            }
         }
-        public class UnableToAccessChromeDriverExecutableFileException : Exception
+        public class ProgramVersionSearchingWasFailedException : Exception
         {
-            private const string EXCEPTION_MESSAGE = "Unable to access ChromeDriver executable file!";
-            public UnableToAccessChromeDriverExecutableFileException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class GoogleChromeBrowserIsNotInstalledException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "Google Chrome™ browser is not installed!";
-            public GoogleChromeBrowserIsNotInstalledException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class UnableToAccessGoogleChromeBrowserExecutableFileException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "Unable to access Google Chrome™ browser executable file!";
-            public UnableToAccessGoogleChromeBrowserExecutableFileException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class UnableToGetDefaultChromeDriverUserAgentStringException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "Unable to get default ChromeDriver user-agent string!";
-            public UnableToGetDefaultChromeDriverUserAgentStringException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "The ChromeDriver's version is not compatible with the version of the installed Google Chrome™ browser or the browser cannot be opened!";
-            public ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class WebPageDidNotRespondException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "Web page did not respond!";
-            public WebPageDidNotRespondException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class HtmlElementWasNotFoundException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "HTML element was not found!";
-            public HtmlElementWasNotFoundException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class TextWasNotFoundWithinTheWebPageException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "Text was not found within the web page!";
-            public TextWasNotFoundWithinTheWebPageException() : base(EXCEPTION_MESSAGE) { }
-        }
-        public class NoVersionWasFoundException : Exception
-        {
-            private const string EXCEPTION_MESSAGE = "No version was found!";
-            public NoVersionWasFoundException() : base(EXCEPTION_MESSAGE) { }
+            public enum Reason
+            {
+                Unknown,
+                WebPageDidNotRespond,
+                HtmlElementWasNotFound,
+                TextWasNotFoundWithinTheWebPage,
+                NoVersionWasFound
+            }
+            private const string EXCEPTION_MESSAGE = "Program Version Searching Was Failed (Reason: {*})!";
+            private static readonly Dictionary<Reason, string> REASONS = new Dictionary<Reason, string>()
+            {
+                { Reason.Unknown, "Unknown!" },
+                { Reason.WebPageDidNotRespond, "Web page did not respond!" },
+                { Reason.HtmlElementWasNotFound, "HTML element was not found!" },
+                { Reason.TextWasNotFoundWithinTheWebPage, "Text was not found within the web page!" },
+                { Reason.NoVersionWasFound, "No version was found!" }
+            };
+            private Reason reason;
+            public ProgramVersionSearchingWasFailedException(Reason reason) :
+                base(EXCEPTION_MESSAGE.Replace("{*}", REASONS[reason]))
+            {
+                this.reason = reason;
+            }
+            public Reason GetReason()
+            {
+                return reason;
+            }
+            public string GetReasonString()
+            {
+                return REASONS[reason];
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -407,7 +443,9 @@ namespace Scrupdate.Classes.Utilities
                 }
                 catch
                 {
-                    throw new ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException();
+                    throw new ProgramUpdatesCheckWasFailedException(
+                        ProgramUpdatesCheckWasFailedException.Reason.ChromeDriverError
+                    );
                 }
                 if (cancellationToken != null &&
                     cancellationToken.Value.IsCancellationRequested)
@@ -461,17 +499,27 @@ namespace Scrupdate.Classes.Utilities
                     catch (Exception e)
                     {
                         Program._UpdateCheckConfigurationError updateCheckConfigurationError =
-                            Program._UpdateCheckConfigurationError.None;
-                        if (e.GetType().Equals(typeof(WebPageDidNotRespondException)))
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
-                        else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
-                        else if (e.GetType().Equals(typeof(TextWasNotFoundWithinTheWebPageException)))
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
-                        else if (e.GetType().Equals(typeof(NoVersionWasFoundException)))
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
-                        else
-                            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
+                            Program._UpdateCheckConfigurationError.GeneralFailure;
+                        if (e.GetType().Equals(typeof(ProgramVersionSearchingWasFailedException)))
+                        {
+                            ProgramVersionSearchingWasFailedException.Reason reason =
+                                ((ProgramVersionSearchingWasFailedException)e).GetReason();
+                            switch (reason)
+                            {
+                                case ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
+                                    break;
+                                case ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
+                                    break;
+                                case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
+                                    break;
+                                case ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
+                                    break;
+                            }
+                        }
                         programDatabase.UpdateProgramLatestVersion(programToCheck.Name, "");
                         programDatabase.ChangeProgramUpdateCheckConfigurationStatus(
                             programToCheck.Name,
@@ -546,7 +594,9 @@ namespace Scrupdate.Classes.Utilities
                 }
                 catch
                 {
-                    throw new ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException();
+                    throw new ProgramUpdatesCheckWasFailedException(
+                        ProgramUpdatesCheckWasFailedException.Reason.ChromeDriverError
+                    );
                 }
                 if (cancellationToken != null &&
                     cancellationToken.Value.IsCancellationRequested)
@@ -570,16 +620,27 @@ namespace Scrupdate.Classes.Utilities
                 }
                 catch (Exception e)
                 {
-                    if (e.GetType().Equals(typeof(WebPageDidNotRespondException)))
-                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
-                    else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
-                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
-                    else if (e.GetType().Equals(typeof(TextWasNotFoundWithinTheWebPageException)))
-                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
-                    else if (e.GetType().Equals(typeof(NoVersionWasFoundException)))
-                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
-                    else
-                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
+                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
+                    if (e.GetType().Equals(typeof(ProgramVersionSearchingWasFailedException)))
+                    {
+                        ProgramVersionSearchingWasFailedException.Reason reason =
+                            ((ProgramVersionSearchingWasFailedException)e).GetReason();
+                        switch (reason)
+                        {
+                            case ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
+                                break;
+                            case ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
+                                break;
+                            case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
+                                break;
+                            case ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
+                                break;
+                        }
+                    }
                 }
                 finally
                 {
@@ -609,15 +670,29 @@ namespace Scrupdate.Classes.Utilities
                 ) == null)
             {
                 if (unableToAccessInstalledChromeDriverExecutableFile)
-                    throw new UnableToAccessChromeDriverExecutableFileException();
-                throw new NoChromeDriverIsInstalledException();
+                {
+                    throw new ProgramUpdatesCheckWasFailedException(
+                        ProgramUpdatesCheckWasFailedException.Reason.UnableToAccessTheChromeDriver
+                    );
+                }
+                throw new ProgramUpdatesCheckWasFailedException(
+                    ProgramUpdatesCheckWasFailedException.Reason.NoChromeDriverIsInstalled
+                );
             }
             if (!GoogleChromeBrowserUtilities.IsGoogleChromeBrowserInstalled())
-                throw new GoogleChromeBrowserIsNotInstalledException();
+            {
+                throw new ProgramUpdatesCheckWasFailedException(
+                    ProgramUpdatesCheckWasFailedException.Reason.GoogleChromeBrowserIsNotInstalled
+                );
+            }
             string checksumOfInstalledGoogleChromeBrowserExecutableFile =
                 GoogleChromeBrowserUtilities.GetChecksumOfInstalledGoogleChromeBrowserExecutableFile();
             if (checksumOfInstalledGoogleChromeBrowserExecutableFile == null)
-                throw new UnableToAccessGoogleChromeBrowserExecutableFileException();
+            {
+                throw new ProgramUpdatesCheckWasFailedException(
+                    ProgramUpdatesCheckWasFailedException.Reason.UnableToAccessTheGoogleChromeBrowser
+                );
+            }
             defaultChromeDriverUserAgentString =
                 settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString;
             if (settingsHandler.SettingsInMemory.Cached.LastDefaultChromeDriverUserAgentString.Equals("") ||
@@ -627,7 +702,11 @@ namespace Scrupdate.Classes.Utilities
             {
                 defaultChromeDriverUserAgentString = ChromeDriverUtilities.GetDefaultChromeDriverUserAgentString();
                 if (defaultChromeDriverUserAgentString == null)
-                    throw new UnableToGetDefaultChromeDriverUserAgentStringException();
+                {
+                    throw new ProgramUpdatesCheckWasFailedException(
+                        ProgramUpdatesCheckWasFailedException.Reason.UnableToGetDefaultChromeDriverUserAgent
+                    );
+                }
                 string backupOfLastChecksumOfInstalledGoogleChromeBrowserExecutableFile =
                     settingsHandler.SettingsInMemory.Cached.LastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
                 string backupOfLastDefaultChromeDriverUserAgentString =
@@ -659,7 +738,9 @@ namespace Scrupdate.Classes.Utilities
             }
             catch
             {
-                throw new WebPageDidNotRespondException();
+                throw new ProgramVersionSearchingWasFailedException(
+                    ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond
+                );
             }
             if (cancellationToken != null &&
                 cancellationToken.Value.IsCancellationRequested)
@@ -744,7 +825,9 @@ namespace Scrupdate.Classes.Utilities
                     }
                     catch
                     {
-                        throw new HtmlElementWasNotFoundException();
+                        throw new ProgramVersionSearchingWasFailedException(
+                            ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound
+                        );
                     }
                     break;
                 case Program._VersionSearchMethod.SearchWithinTheHtmlElementsThatMatchXPath:
@@ -759,7 +842,9 @@ namespace Scrupdate.Classes.Utilities
                     }
                     catch
                     {
-                        throw new HtmlElementWasNotFoundException();
+                        throw new ProgramVersionSearchingWasFailedException(
+                            ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound
+                        );
                     }
                     break;
                 case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
@@ -772,7 +857,11 @@ namespace Scrupdate.Classes.Utilities
                         programToCheck.VersionSearchMethodArgument1
                     );
                     if (foundTextIndex < 0)
-                        throw new TextWasNotFoundWithinTheWebPageException();
+                    {
+                        throw new ProgramVersionSearchingWasFailedException(
+                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage
+                        );
+                    }
                     if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
                     {
                         textToSerachVersion = tempTextToSerachVersion.Substring(
@@ -791,7 +880,11 @@ namespace Scrupdate.Classes.Utilities
                         programToCheck.VersionSearchMethodArgument2
                     );
                     if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
-                        throw new TextWasNotFoundWithinTheWebPageException();
+                    {
+                        throw new ProgramVersionSearchingWasFailedException(
+                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage
+                        );
+                    }
                     if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
                     {
                         textToSerachVersion = tempTextToSerachVersion.Substring(
@@ -802,7 +895,11 @@ namespace Scrupdate.Classes.Utilities
                     break;
             }
             if (textToSerachVersion == null || textToSerachVersion.Equals(""))
-                throw new NoVersionWasFoundException();
+            {
+                throw new ProgramVersionSearchingWasFailedException(
+                    ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound
+                );
+            }
             string programLatestVersionString = null;
             switch (programToCheck.VersionSearchBehavior)
             {
@@ -822,7 +919,11 @@ namespace Scrupdate.Classes.Utilities
                     break;
             }
             if (programLatestVersionString == null || programLatestVersionString.Equals(""))
-                throw new NoVersionWasFoundException();
+            {
+                throw new ProgramVersionSearchingWasFailedException(
+                    ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound
+                );
+            }
             return programLatestVersionString;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
