@@ -129,10 +129,15 @@
                          Color="#FFDADCEC" />
         <Style TargetType="Hyperlink">
             <Setter Property="Foreground"
-                    Value="{StaticResource darkSkyBlueSolidColorBrush}" />
+                    Value="{StaticResource lightGraySolidColorBrush2}" />
             <Setter Property="TextDecorations"
                     Value="None" />
             <Style.Triggers>
+                <Trigger Property="IsEnabled"
+                         Value="True">
+                    <Setter Property="Foreground"
+                            Value="{StaticResource darkSkyBlueSolidColorBrush}" />
+                </Trigger>
                 <Trigger Property="IsMouseOver"
                          Value="True">
                     <Setter Property="TextDecorations"
