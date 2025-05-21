@@ -51,7 +51,6 @@ namespace Scrupdate
         private const string NAMED_PIPE_NAME__SCHEDULE_INVOKATION = "Scrupdate_ScheduleInvokation";
         private const int NAMED_PIPE_CONNECTION_TIMEOUT_IN_MILLISECONDS__SCHEDULE_INVOKATION = 250;
         private const int WINDOW_SHOW_COMMAND_CODE__SW_RESTORE = 9;
-        private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__RUNNING_AS_ADMINISTRATOR = "Running as Administrator!\r\n\r\n•  Running Scrupdate with elevated privileges is forbidden. Please run it with normal privileges.";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE = "Unable to Access the Settings File!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS = "Failed to Initialize Settings!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
@@ -213,7 +212,7 @@ namespace Scrupdate
                          ))
                 {
                     DialogUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
+                        "",
                         ERROR_DIALOG_MESSAGE__RUNNING_AS_ADMINISTRATOR,
                         null
                     );
@@ -232,7 +231,7 @@ namespace Scrupdate
                     if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
                     {
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             ERROR_DIALOG_MESSAGE__UNABLE_TO_ACCESS_THE_SETTINGS_FILE,
                             null
                         );
@@ -249,7 +248,7 @@ namespace Scrupdate
                         if (processesOfAlreadyRunningInstancesOfTheProgram.Length <= 1)
                         {
                             DialogUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
+                                "",
                                 ERROR_DIALOG_MESSAGE__FAILED_TO_INITIALIZE_SETTINGS,
                                 null
                             );
@@ -282,7 +281,7 @@ namespace Scrupdate
                     if (errorDialogMessage != null)
                     {
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             errorDialogMessage,
                             null
                         );
@@ -292,7 +291,7 @@ namespace Scrupdate
                     if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
                     {
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
                             null
                         );
@@ -343,7 +342,7 @@ namespace Scrupdate
             if (windowsScalingFactorHasBeenChangedDueToBeingInvalid)
             {
                 DialogUtilities.ShowErrorDialog(
-                    ERROR_DIALOG_TITLE__ERROR,
+                    "",
                     ERROR_DIALOG_MESSAGE__THE_CURRENT_WINDOWS_SCALING_FACTOR_IS_INVALID,
                     null
                 );

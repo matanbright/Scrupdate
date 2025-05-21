@@ -34,7 +34,6 @@ namespace Scrupdate.UiElements.Windows
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const string FILE_NAME__SCRUPDATE_LICENSE_TXT = "LICENSE.txt";
         private const string FILE_NAME__SELENIUM_WEBDRIVER_LICENSE_TXT = "LICENSE.txt";
-        private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE = "Unable to Open the File!";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -118,7 +117,7 @@ namespace Scrupdate.UiElements.Windows
                 catch
                 {
                     DialogUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
+                        "",
                         ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_FILE,
                         this
                     );

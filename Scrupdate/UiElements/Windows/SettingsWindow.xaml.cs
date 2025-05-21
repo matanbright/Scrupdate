@@ -35,7 +35,6 @@ namespace Scrupdate.UiElements.Windows
     public partial class SettingsWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__NO_DAYS_WERE_SELECTED = "No Days Were Selected!\r\n[In the 'General' tab under the 'Enable Scheduled Check for Program Updates' setting]";
         private const string ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER = "An Error Has Occurred While Installing ChromeDriver\r\nor the Selected Executable File Is Not a Valid ChromeDriver!";
         private const string ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER = "An Error Has Occurred While Uninstalling ChromeDriver!";
@@ -265,7 +264,7 @@ namespace Scrupdate.UiElements.Windows
                     if (!InstallChromeDriver(openFileDialog.FileName))
                     {
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_INSTALLING_CHROMEDRIVER_OR_THE_SELECTED_EXECUTABLE_FILE_IS_NOT_A_VALID_CHROMEDRIVER,
                             this
                         );
@@ -283,7 +282,7 @@ namespace Scrupdate.UiElements.Windows
                     if (!UninstallChromeDriver())
                     {
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             ERROR_DIALOG_MESSAGE__AN_ERROR_HAS_OCCURRED_WHILE_UNINSTALLING_CHROMEDRIVER,
                             this
                         );
@@ -296,7 +295,7 @@ namespace Scrupdate.UiElements.Windows
                 if (!CheckFields(out errorDialogMessage))
                 {
                     DialogUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
+                        "",
                         errorDialogMessage,
                         this
                     );

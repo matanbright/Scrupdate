@@ -45,7 +45,6 @@ namespace Scrupdate.UiElements.Windows
         private const string WINDOW_TITLE__PROGRAM_EDITING = "Scrupdate - Program Editing [{*}]";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED = "Last Check Was Failed (Reason: {*})";
-        private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__UNKNOWN = "Unknown!";
         private const string ERROR_DIALOG_MESSAGE__NO_NAME = "The 'Name' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
@@ -280,7 +279,7 @@ namespace Scrupdate.UiElements.Windows
                 if (!CheckFields(true, true, out errorDialogMessage))
                 {
                     DialogUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
+                        "",
                         errorDialogMessage,
                         this
                     );
@@ -556,7 +555,7 @@ namespace Scrupdate.UiElements.Windows
                 if (!CheckFields(false, true, out errorDialogMessage))
                 {
                     DialogUtilities.ShowErrorDialog(
-                        ERROR_DIALOG_TITLE__ERROR,
+                        "",
                         errorDialogMessage,
                         this
                     );
@@ -611,7 +610,7 @@ namespace Scrupdate.UiElements.Windows
                                     .GetLongReasonString() :
                                 ERROR_DIALOG_MESSAGE__UNKNOWN);
                         DialogUtilities.ShowErrorDialog(
-                            ERROR_DIALOG_TITLE__ERROR,
+                            "",
                             errorDialogMessage,
                             this
                         );

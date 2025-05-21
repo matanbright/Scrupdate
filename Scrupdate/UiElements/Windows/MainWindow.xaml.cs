@@ -44,7 +44,6 @@ namespace Scrupdate.UiElements.Windows
         private const int MINIMUM_PROGRAM_LIST_COLUMN_WIDTH = 30;
         private const string DIRECTORY_NAME__DOCS = "docs";
         private const string FILE_NAME__USER_MANUAL = "Scrupdate User Manual.pdf";
-        private const string ERROR_DIALOG_TITLE__ERROR = "Error";
         private const string ERROR_DIALOG_MESSAGE__UNKNOWN = "Unknown!";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE = "Unable to Open the User-Manual File!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED = "Program Database Recreation Was Failed!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
@@ -422,7 +421,7 @@ namespace Scrupdate.UiElements.Windows
                         if (!ApplicationUtilities.ResetAll())
                         {
                             DialogUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
+                                "",
                                 ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS,
                                 this
                             );
@@ -765,7 +764,7 @@ namespace Scrupdate.UiElements.Windows
                         if (!ApplicationUtilities.ResetProgramDatabase(App.SettingsHandler))
                         {
                             DialogUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
+                                "",
                                 ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED,
                                 this
                             );
@@ -871,7 +870,7 @@ namespace Scrupdate.UiElements.Windows
             catch
             {
                 DialogUtilities.ShowErrorDialog(
-                    ERROR_DIALOG_TITLE__ERROR,
+                    "",
                     ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE,
                     this
                 );
@@ -1420,7 +1419,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 App.SettingsHandler.SettingsInMemory = backupOfSettingsInMemory;
                 DialogUtilities.ShowErrorDialog(
-                    ERROR_DIALOG_TITLE__ERROR,
+                    "",
                     ERROR_DIALOG_MESSAGE__FAILED_TO_SAVE_SETTINGS,
                     this
                 );
@@ -1534,7 +1533,7 @@ namespace Scrupdate.UiElements.Windows
                                         .GetLongReasonString() :
                                     ERROR_DIALOG_MESSAGE__UNKNOWN);
                             DialogUtilities.ShowErrorDialog(
-                                ERROR_DIALOG_TITLE__ERROR,
+                                "",
                                 errorDialogMessage,
                                 this
                             );
