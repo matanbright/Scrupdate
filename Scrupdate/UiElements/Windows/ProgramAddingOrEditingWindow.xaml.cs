@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Scrupdate.Classes.Objects;
@@ -51,6 +52,8 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Web Page Elements to Simulate a Click On!";
         private const string ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
+        private const string WARNING_DIALOG_MESSAGE__CHECK_WAS_FAILED = "Check Was Failed\r\n(Reason: {*})";
+        private const string INFORMATION_DIALOG_MESSAGE__FOUND_VERSION = "Found Version: {*}";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
         private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT = "Copy Locating Method Argument";
         private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP = "Move Up";
@@ -543,6 +546,78 @@ namespace Scrupdate.UiElements.Windows
                 RemoveSelectedWebPageElementLocatingInstructionsFromListView();
             }
         }
+        private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
+        {
+            Hyperlink senderHyperlink = (Hyperlink)sender;
+            if (senderHyperlink == hyperlink_checkConfiguration)
+            {
+                string errorDialogMessage;
+                if (!CheckFields(false, true, out errorDialogMessage))
+                {
+                    DialogUtilities.ShowErrorDialog(
+                        ERROR_DIALOG_TITLE__ERROR,
+                        errorDialogMessage,
+                        this
+                    );
+                    return;
+                }
+                Exception programUpdateCheckConfigurationCheckingException;
+                Program._UpdateCheckConfigurationError programUpdateCheckConfigurationError;
+                string foundProgramVersionString;
+                if (OpenProgramUpdateCheckConfigurationCheckingWindowAsDialog(
+                        (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)),
+                        out programUpdateCheckConfigurationCheckingException,
+                        out programUpdateCheckConfigurationError,
+                        out foundProgramVersionString
+                    ) == true)
+                {
+                    if (programUpdateCheckConfigurationCheckingException == null)
+                    {
+                        if (programUpdateCheckConfigurationError == Program._UpdateCheckConfigurationError.None)
+                        {
+                            DialogUtilities.ShowInformationDialog(
+                                "",
+                                INFORMATION_DIALOG_MESSAGE__FOUND_VERSION.Replace(
+                                    "{*}",
+                                    foundProgramVersionString
+                                ),
+                                this
+                            );
+                        }
+                        else
+                        {
+                            DialogUtilities.ShowWarningDialog(
+                                "",
+                                WARNING_DIALOG_MESSAGE__CHECK_WAS_FAILED.Replace(
+                                    "{*}",
+                                    EnumUtilities.GetHumanReadableStringFromEnumItem(
+                                        programUpdateCheckConfigurationError
+                                    )
+                                ),
+                                this
+                            );
+                        }
+                    }
+                    else
+                    {
+                        errorDialogMessage = "";
+                        if (programUpdateCheckConfigurationCheckingException.GetType().Equals(
+                                typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
+                            ))
+                        {
+                            errorDialogMessage =
+                                ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdateCheckConfigurationCheckingException)
+                                    .GetLongReasonString();
+                        }
+                        DialogUtilities.ShowErrorDialog(
+                            ERROR_DIALOG_TITLE__ERROR,
+                            errorDialogMessage,
+                            this
+                        );
+                    }
+                }
+            }
+        }
         private void OnComboBoxKeyDownEvent(object sender, KeyEventArgs e)
         {
             CustomComboBox senderComboBox = (CustomComboBox)sender;
@@ -593,6 +668,41 @@ namespace Scrupdate.UiElements.Windows
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        private bool? OpenProgramUpdateCheckConfigurationCheckingWindowAsDialog(bool showBrowserWindow,
+                                                                                out Exception programUpdateCheckConfigurationCheckingException,
+                                                                                out Program._UpdateCheckConfigurationError programUpdateCheckConfigurationError,
+                                                                                out string foundProgramVersionString)
+        {
+            programUpdateCheckConfigurationCheckingException = null;
+            programUpdateCheckConfigurationError = Program._UpdateCheckConfigurationError.None;
+            foundProgramVersionString = null;
+            bool? returnValue = null;
+            ProgramUpdateCheckConfigurationCheckingWindow programUpdateCheckConfigurationCheckingWindow = null;
+            ThreadingUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        Program programToCheck = GetProgramFromUiControlsValues();
+                        programUpdateCheckConfigurationCheckingWindow =
+                            new ProgramUpdateCheckConfigurationCheckingWindow(
+                                programToCheck,
+                                showBrowserWindow
+                            );
+                        programUpdateCheckConfigurationCheckingWindow.Owner = this;
+                        returnValue = programUpdateCheckConfigurationCheckingWindow.ShowDialog();
+                    }
+            );
+            if (returnValue == true)
+            {
+                programUpdateCheckConfigurationCheckingException =
+                    programUpdateCheckConfigurationCheckingWindow.GetProgramUpdateCheckConfigurationCheckingException();
+                programUpdateCheckConfigurationError =
+                    programUpdateCheckConfigurationCheckingWindow.GetProgramUpdateCheckConfigurationError();
+                foundProgramVersionString =
+                    programUpdateCheckConfigurationCheckingWindow.GetFoundProgramVersionString();
+            }
+            return returnValue;
+        }
         private Program._InstallationScope GetInstallationScope()
         {
             return EnumUtilities.GetEnumItemFromHumanReadableString<Program._InstallationScope>(
@@ -1103,10 +1213,10 @@ namespace Scrupdate.UiElements.Windows
         {
             double calculatedWindowHeight = Math.Floor(
                 (programToEdit == null ?
-                    628 :
+                    657 :
                     (programToEdit.UpdateCheckConfigurationStatus != Program._UpdateCheckConfigurationStatus.Valid ?
-                        658 :
-                        688)) * App.WindowsRenderingScale
+                        687 :
+                        717)) * App.WindowsRenderingScale
             );
             calculatedWindowHeight +=
                 SystemParameters.WindowNonClientFrameThickness.Top +

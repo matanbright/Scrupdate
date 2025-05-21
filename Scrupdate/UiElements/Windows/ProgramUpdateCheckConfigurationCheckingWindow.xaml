@@ -1,0 +1,130 @@
+﻿<Window x:Class="Scrupdate.UiElements.Windows.ProgramUpdateCheckConfigurationCheckingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Scrupdate_UiElements_Windows="clr-namespace:Scrupdate.UiElements.Windows"
+        xmlns:Scrupdate_UiElements_Controls="clr-namespace:Scrupdate.UiElements.Controls"
+        Width="400"
+        Height="225"
+        MinWidth="400"
+        MinHeight="225"
+        MaxWidth="400"
+        MaxHeight="225"
+        SnapsToDevicePixels="True"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Loaded="OnLoadedEvent"
+        Closing="OnClosingEvent">
+    <Grid x:Name="grid_window"
+          SnapsToDevicePixels="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid_windowContent"
+              Grid.Row="0"
+              Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="stackPanel_statusMessageAndProgressBar"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Orientation="Vertical"
+                        Margin="20 20 20 0"
+                        VerticalAlignment="Center">
+                <Scrupdate_UiElements_Controls:CustomLabel x:Name="label_statusMessage"
+                                                           FontFamily="Calibri"
+                                                           FontSize="20"
+                                                           Padding="0 0 0 0"
+                                                           Margin="10 10 10 0"
+                                                           VerticalAlignment="Center"
+                                                           Content="N/A" />
+                <Scrupdate_UiElements_Controls:CustomProgressBar x:Name="progressBar_progress"
+                                                                 Height="20"
+                                                                 Margin="10 10 10 10"
+                                                                 BorderThickness="1 1 1 1"
+                                                                 BorderBrush="{StaticResource lightBlackSolidColorBrush}"
+                                                                 Background="{StaticResource lightGraySolidColorBrush2}"
+                                                                 Foreground="{StaticResource grayishGreenSolidColorBrush2}"
+                                                                 IsIndeterminate="True"
+                                                                 GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
+                    <Scrupdate_UiElements_Controls:CustomProgressBar.Style>
+                        <Style TargetType="Scrupdate_UiElements_Controls:CustomProgressBar">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdateCheckConfigurationCheckingWindow}, Path=CurrentOperation}"
+                                             Value="CancellingOperation">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdateCheckConfigurationCheckingWindow}, Path=CurrentOperation}"
+                                             Value="CheckingProgramUpdateCheckConfiguration">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Scrupdate_UiElements_Controls:CustomProgressBar.Style>
+                </Scrupdate_UiElements_Controls:CustomProgressBar>
+            </StackPanel>
+            <DockPanel x:Name="dockPanel_bottomBar"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       LastChildFill="False"
+                       Margin="20 20 20 20">
+                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_cancel"
+                                                            DockPanel.Dock="Right"
+                                                            Width="auto"
+                                                            Height="32"
+                                                            SnapsToDevicePixels="True"
+                                                            FontSize="15"
+                                                            FontFamily="Calibri"
+                                                            BorderThickness="1 1 1 1"
+                                                            BorderBrush="{StaticResource blackSolidColorBrush}"
+                                                            DisabledBorderBrush="{StaticResource lightGraySolidColorBrush2}"
+                                                            CornerRadius="3 3 3 3"
+                                                            Padding="10 0 10 0"
+                                                            Margin="0 0 0 0"
+                                                            VerticalAlignment="Bottom"
+                                                            Foreground="{StaticResource whiteSolidColorBrush}"
+                                                            DisabledForeground="{StaticResource whiteSolidColorBrush}"
+                                                            Background="{StaticResource graySolidColorBrush}"
+                                                            HoveredBackground="{StaticResource brightGraySolidColorBrush}"
+                                                            PressedBackground="{StaticResource lightGraySolidColorBrush2}"
+                                                            DisabledBackground="{StaticResource paleGraySolidColorBrush}"
+                                                            Content="Cancel"
+                                                            Click="OnButtonClickEvent">
+                    <Scrupdate_UiElements_Controls:CustomButton.Style>
+                        <Style TargetType="Scrupdate_UiElements_Controls:CustomButton">
+                            <Setter Property="IsEnabled"
+                                    Value="True" />
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdateCheckConfigurationCheckingWindow}, Path=CurrentOperation}"
+                                             Value="CancellingOperation">
+                                    <Setter Property="IsEnabled"
+                                            Value="False" />
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:ProgramUpdateCheckConfigurationCheckingWindow}, Path=CurrentOperation}"
+                                             Value="CheckingProgramUpdateCheckConfiguration">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Scrupdate_UiElements_Controls:CustomButton.Style>
+                </Scrupdate_UiElements_Controls:CustomButton>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>

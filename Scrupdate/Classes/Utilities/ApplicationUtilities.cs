@@ -326,6 +326,8 @@ namespace Scrupdate.Classes.Utilities
                         baseSizeOfWindow = ((SettingsWindow)window).BaseSize;
                     else if (typeOfWindow == typeof(ProgramAddingOrEditingWindow))
                         baseSizeOfWindow = ((ProgramAddingOrEditingWindow)window).BaseSize;
+                    else if (typeOfWindow == typeof(ProgramUpdateCheckConfigurationCheckingWindow))
+                        baseSizeOfWindow = ((ProgramUpdateCheckConfigurationCheckingWindow)window).BaseSize;
                     else if (typeOfWindow == typeof(DialogWindow))
                         baseSizeOfWindow = ((DialogWindow)window).BaseSize;
                     else if (typeOfWindow == typeof(ProgramUpdatesScheduledCheckWindow))
