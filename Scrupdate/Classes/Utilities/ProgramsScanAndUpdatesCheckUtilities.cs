@@ -95,6 +95,7 @@ namespace Scrupdate.Classes.Utilities
 
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private const int INITIAL_CAPACITY_OF_INSTALLED_PROGRAMS_STRING_BUILDER = 100000;
+        private const int BROWSER_WINDOW_CLOSING_DELAY_IN_MILLISECONDS = 1000;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -482,6 +483,119 @@ namespace Scrupdate.Classes.Utilities
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;
                 settingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 updatesCheckProgressChangedEventHandler?.Invoke(100.0D);
+            }
+        }
+        public static string CheckForAProgramUpdateAndGetLatestVersion(Program programToCheck,
+                                                                       bool showBrowserWindow,
+                                                                       SettingsHandler settingsHandler,
+                                                                       CancellationToken? cancellationToken,
+                                                                       out Program._UpdateCheckConfigurationError updateCheckConfigurationError)
+        {
+            if (programToCheck == null)
+                throw new ArgumentNullException(nameof(programToCheck));
+            if (settingsHandler == null)
+                throw new ArgumentNullException(nameof(settingsHandler));
+            if (settingsHandler.SettingsInMemory == null)
+                throw new SettingsHandler.NoSettingsInMemoryException();
+            updateCheckConfigurationError = Program._UpdateCheckConfigurationError.None;
+            string defaultChromeDriverUserAgentString;
+            CheckChromeDriverAndBrowserAndUpdateCachedInformation(
+                settingsHandler,
+                out defaultChromeDriverUserAgentString
+            );
+            if (cancellationToken != null &&
+                cancellationToken.Value.IsCancellationRequested)
+            {
+                return null;
+            }
+            string chromeDriverUserAgentString =
+                (settingsHandler.SettingsInMemory.ChromeDriver.UseCustomUserAgentString ?
+                    settingsHandler.SettingsInMemory.ChromeDriver.CustomUserAgentString :
+                    defaultChromeDriverUserAgentString);
+            int chromeDriverPageLoadTimeoutInMilliseconds = 0;
+            switch (settingsHandler.SettingsInMemory.ChromeDriver.PageLoadTimeout)
+            {
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After1Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 1000;
+                    break;
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After3Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 3000;
+                    break;
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After5Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 5000;
+                    break;
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After10Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 10000;
+                    break;
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After15Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 15000;
+                    break;
+                case Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout.After30Seconds:
+                    chromeDriverPageLoadTimeoutInMilliseconds = 30000;
+                    break;
+            }
+            using (ChromeDriver chromeDriver = new ChromeDriver(
+                       ChromeDriverUtilities.chromeDriverDirectoryPath,
+                       chromeDriverUserAgentString,
+                       chromeDriverPageLoadTimeoutInMilliseconds
+                   ))
+            {
+                try
+                {
+                    chromeDriver.Open(!showBrowserWindow);
+                }
+                catch
+                {
+                    throw new ChromeDriverIsNotCompatibleOrGoogleChromeBrowserCannotBeOpenedException();
+                }
+                if (cancellationToken != null &&
+                    cancellationToken.Value.IsCancellationRequested)
+                {
+                    return null;
+                }
+                try
+                {
+                    string programLatestVersionString = GetLatestVersionOfAProgramFromWebPage(
+                        chromeDriver,
+                        programToCheck,
+                        cancellationToken
+                    );
+                    if (programLatestVersionString == null)
+                        return null;
+                    return VersionUtilities.NormalizeAndTrimVersion(
+                        programLatestVersionString,
+                        VersionUtilities.MINIMUM_VERSION_SEGMENTS,
+                        VersionUtilities.MAXIMUM_VERSION_SEGMENTS
+                    );
+                }
+                catch (Exception e)
+                {
+                    if (e.GetType().Equals(typeof(WebPageDidNotRespondException)))
+                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
+                    else if (e.GetType().Equals(typeof(HtmlElementWasNotFoundException)))
+                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
+                    else if (e.GetType().Equals(typeof(TextWasNotFoundWithinTheWebPageException)))
+                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
+                    else if (e.GetType().Equals(typeof(NoVersionWasFoundException)))
+                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
+                    else
+                        updateCheckConfigurationError = Program._UpdateCheckConfigurationError.GeneralFailure;
+                }
+                finally
+                {
+                    if (showBrowserWindow)
+                    {
+                        if (cancellationToken != null)
+                        {
+                            cancellationToken.Value.WaitHandle.WaitOne(
+                                BROWSER_WINDOW_CLOSING_DELAY_IN_MILLISECONDS
+                            );
+                        }
+                        else
+                            Thread.Sleep(BROWSER_WINDOW_CLOSING_DELAY_IN_MILLISECONDS);
+                    }
+                }
+                return null;
             }
         }
         private static void CheckChromeDriverAndBrowserAndUpdateCachedInformation(SettingsHandler settingsHandler,
