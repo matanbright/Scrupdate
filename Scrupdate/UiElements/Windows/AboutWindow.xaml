@@ -127,21 +127,7 @@
                                    Padding="0 0 0 0"
                                    Margin="0 0 0 0">
                             Scrupdate is licensed under <Hyperlink x:Name="hyperlink_viewScrupdateLicense"
-                                                                   Foreground="{StaticResource darkSkyBlueSolidColorBrush}"
                                                                    Click="OnHyperlinkClickEvent">
-                                <Hyperlink.Style>
-                                    <Style TargetType="Hyperlink">
-                                        <Setter Property="TextDecorations"
-                                                Value="None" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="True">
-                                                <Setter Property="TextDecorations"
-                                                        Value="Underline" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Hyperlink.Style>
                                 Apache License 2.0
                             </Hyperlink>.
                         </TextBlock>
@@ -177,21 +163,7 @@
                                            Padding="0 0 0 0"
                                            Margin="10 0 0 0">
                                     Selenium.WebDriver (v4.27.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense"
-                                                                                                    Foreground="{StaticResource darkSkyBlueSolidColorBrush}"
                                                                                                     Click="OnHyperlinkClickEvent">
-                                        <Hyperlink.Style>
-                                            <Style TargetType="Hyperlink">
-                                                <Setter Property="TextDecorations"
-                                                        Value="None" />
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver"
-                                                             Value="True">
-                                                        <Setter Property="TextDecorations"
-                                                                Value="Underline" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Hyperlink.Style>
                                         Apache License 2.0
                                     </Hyperlink>.<LineBreak />
                                     Copyright © 2024 Software Freedom Conservancy.

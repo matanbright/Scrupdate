@@ -127,5 +127,18 @@
                          Color="#FFA4A9CE" />
         <SolidColorBrush x:Key="paleGrayishBlueSolidColorBrush"
                          Color="#FFDADCEC" />
+        <Style TargetType="Hyperlink">
+            <Setter Property="Foreground"
+                    Value="{StaticResource darkSkyBlueSolidColorBrush}" />
+            <Setter Property="TextDecorations"
+                    Value="None" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="TextDecorations"
+                            Value="Underline" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

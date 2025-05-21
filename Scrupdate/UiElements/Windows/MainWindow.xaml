@@ -806,21 +806,7 @@
                                Padding="0 0 0 0"
                                Margin="0 5 0 0">
                         <Hyperlink x:Name="hyperlink_fixProgramDatabase"
-                                   Foreground="{StaticResource darkSkyBlueSolidColorBrush}"
                                    Click="OnHyperlinkClickEvent">
-                            <Hyperlink.Style>
-                                <Style TargetType="Hyperlink">
-                                    <Setter Property="TextDecorations"
-                                            Value="None" />
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver"
-                                                 Value="True">
-                                            <Setter Property="TextDecorations"
-                                                    Value="Underline" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Hyperlink.Style>
                             <TextBlock>
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
