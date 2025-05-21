@@ -109,6 +109,16 @@ namespace Scrupdate.Classes.Utilities
                 return null;
             }
         }
+        public static string GetTextAsASentence(string text)
+        {
+            if (text == null)
+                throw new ArgumentNullException(nameof(text));
+            StringBuilder textAsASentence = new StringBuilder(text.ToLower());
+            textAsASentence[0] = Convert.ToChar(
+                Convert.ToString(textAsASentence[0]).ToUpper()
+            );
+            return textAsASentence.ToString();
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

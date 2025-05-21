@@ -590,8 +590,10 @@ namespace Scrupdate.UiElements.Windows
                                 "",
                                 WARNING_DIALOG_MESSAGE__CHECK_WAS_FAILED.Replace(
                                     "{*}",
-                                    EnumUtilities.GetHumanReadableStringFromEnumItem(
-                                        programUpdateCheckConfigurationError
+                                    StringUtilities.GetTextAsASentence(
+                                        EnumUtilities.GetHumanReadableStringFromEnumItem(
+                                            programUpdateCheckConfigurationError
+                                        )
                                     )
                                 ),
                                 this
@@ -1201,8 +1203,10 @@ namespace Scrupdate.UiElements.Windows
                             label_lastProgramUpdateCheckConfigurationStatusMessage.Content =
                                 LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED.Replace(
                                     "{*}",
-                                    EnumUtilities.GetHumanReadableStringFromEnumItem(
-                                        updateCheckConfigurationError
+                                    StringUtilities.GetTextAsASentence(
+                                        EnumUtilities.GetHumanReadableStringFromEnumItem(
+                                            updateCheckConfigurationError
+                                        )
                                     )
                                 );
                         }
