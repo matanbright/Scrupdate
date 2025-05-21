@@ -46,6 +46,7 @@ namespace Scrupdate.UiElements.Windows
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_FAILED = "Last Check Was Failed (Reason: {*})";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
+        private const string ERROR_DIALOG_MESSAGE__UNKNOWN = "Unknown!";
         private const string ERROR_DIALOG_MESSAGE__NO_NAME = "The 'Name' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
         private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL = "The 'Web Page URL' Field Cannot Be Empty!";
@@ -602,15 +603,13 @@ namespace Scrupdate.UiElements.Windows
                     }
                     else
                     {
-                        errorDialogMessage = "";
-                        if (programUpdateCheckConfigurationCheckingException.GetType().Equals(
-                                typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
-                            ))
-                        {
-                            errorDialogMessage =
+                        errorDialogMessage =
+                            (programUpdateCheckConfigurationCheckingException.GetType().Equals(
+                                 typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
+                             ) ?
                                 ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdateCheckConfigurationCheckingException)
-                                    .GetLongReasonString();
-                        }
+                                    .GetLongReasonString() :
+                                ERROR_DIALOG_MESSAGE__UNKNOWN);
                         DialogUtilities.ShowErrorDialog(
                             ERROR_DIALOG_TITLE__ERROR,
                             errorDialogMessage,

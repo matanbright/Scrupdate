@@ -45,6 +45,7 @@ namespace Scrupdate.UiElements.Windows
         private const string DIRECTORY_NAME__DOCS = "docs";
         private const string FILE_NAME__USER_MANUAL = "Scrupdate User Manual.pdf";
         private const string ERROR_DIALOG_TITLE__ERROR = "Error";
+        private const string ERROR_DIALOG_MESSAGE__UNKNOWN = "Unknown!";
         private const string ERROR_DIALOG_MESSAGE__UNABLE_TO_OPEN_THE_USER_MANUAL_FILE = "Unable to Open the User-Manual File!";
         private const string ERROR_DIALOG_MESSAGE__PROGRAM_DATABASE_RECREATION_WAS_FAILED = "Program Database Recreation Was Failed!\r\n\r\n•  If this error persists, try to restart your computer or reinstall Scrupdate.";
         private const string ERROR_DIALOG_MESSAGE__FAILED_TO_RESET_ONE_OR_MORE_COMPONENTS = "Failed to Reset One or More Components!";
@@ -1525,15 +1526,13 @@ namespace Scrupdate.UiElements.Windows
                             PrepareWindowForClosing(true);
                         if (programUpdatesCheckException != null)
                         {
-                            string errorDialogMessage = "";
-                            if (programUpdatesCheckException.GetType().Equals(
-                                    typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
-                                ))
-                            {
-                                errorDialogMessage =
+                            string errorDialogMessage =
+                                (programUpdatesCheckException.GetType().Equals(
+                                     typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
+                                 ) ?
                                     ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdatesCheckException)
-                                        .GetLongReasonString();
-                            }
+                                        .GetLongReasonString() :
+                                    ERROR_DIALOG_MESSAGE__UNKNOWN);
                             DialogUtilities.ShowErrorDialog(
                                 ERROR_DIALOG_TITLE__ERROR,
                                 errorDialogMessage,

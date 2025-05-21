@@ -40,6 +40,7 @@ namespace Scrupdate.UiElements.Windows
         private const int MAX_LENGTH_OF_TEXT_TO_FIT_INTO_STATUS_MESSAGE_WITHOUT_TRIMMING = 36;
         private const int MAX_LENGTH_OF_TEXT_TO_FIT_INTO_ADDITIONAL_STATUS_MESSAGE_WITHOUT_TRIMMING = 40;
         private const string QUESTION_DIALOG_MESSAGE__ARE_YOU_SURE_YOU_WANT_TO_CLOSE_SCRUPDATE_FORCEFULLY = "Are You Sure You Want to Close Scrupdate Forcefully?\r\n\r\n•  If you close Scrupdate forcefully, ChromeDriver will not have a chance to delete its temporary files.";
+        private const string STATUS_MESSAGE__UNKNOWN_ERROR = "Unknown Error!";
         private const string STATUS_MESSAGE__UNABLE_TO_OPEN_THE_PROGRAM_DATABASE = "Unable to Open the Program Database!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_CORRUPTED = "The Program Database Is Corrupted!";
         private const string STATUS_MESSAGE__THE_PROGRAM_DATABASE_IS_NOT_COMPATIBLE = "The Program Database Is Not Compatible!";
@@ -773,15 +774,13 @@ namespace Scrupdate.UiElements.Windows
                                     PrepareWindowForClosing(true);
                                 if (programUpdatesCheckException != null)
                                 {
-                                    string statusMessage = "";
-                                    if (programUpdatesCheckException.GetType().Equals(
-                                            typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
-                                        ))
-                                    {
-                                        statusMessage =
+                                    string statusMessage =
+                                        (programUpdatesCheckException.GetType().Equals(
+                                             typeof(ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)
+                                         ) ?
                                             ((ProgramsScanAndUpdatesCheckUtilities.ProgramUpdatesCheckWasFailedException)programUpdatesCheckException)
-                                                .GetReasonString();
-                                    }
+                                                .GetReasonString() :
+                                            STATUS_MESSAGE__UNKNOWN_ERROR);
                                     ChangeStatusMessage(
                                         statusMessage,
                                         (SolidColorBrush)Application.Current.FindResource(
