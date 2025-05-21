@@ -439,7 +439,10 @@ namespace Scrupdate.Classes.Utilities
             {
                 try
                 {
-                    chromeDriver.Open(true);
+                    chromeDriver.Open(
+                        true,
+                        settingsHandler.SettingsInMemory.ChromeDriver.UseIncognitoMode
+                    );
                 }
                 catch
                 {
@@ -590,7 +593,10 @@ namespace Scrupdate.Classes.Utilities
             {
                 try
                 {
-                    chromeDriver.Open(!showBrowserWindow);
+                    chromeDriver.Open(
+                        !showBrowserWindow,
+                        settingsHandler.SettingsInMemory.ChromeDriver.UseIncognitoMode
+                    );
                 }
                 catch
                 {

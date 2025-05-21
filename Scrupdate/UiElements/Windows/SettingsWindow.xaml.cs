@@ -488,6 +488,8 @@ namespace Scrupdate.UiElements.Windows
                 radioButton_useCustomChromeDriverUserAgentString.IsChecked = true;
                 textBox_customChromeDriverUserAgentString.Text = settings.ChromeDriver.CustomUserAgentString;
             }
+            checkBox_useIncognitoMode.IsChecked =
+                settings.ChromeDriver.UseIncognitoMode;
         }
         private Settings GetSettingsFromUiControlsValues()
         {
@@ -544,7 +546,8 @@ namespace Scrupdate.UiElements.Windows
                     (string)comboBox_chromeDriverPageLoadTimeout.SelectedItem
                 ),
                 (radioButton_useCustomChromeDriverUserAgentString.IsChecked == true),
-                textBox_customChromeDriverUserAgentString.Text.Trim()
+                textBox_customChromeDriverUserAgentString.Text.Trim(),
+                checkBox_useIncognitoMode.IsChecked.Value
             );
             return new Settings(
                 currentSettings.Cached,

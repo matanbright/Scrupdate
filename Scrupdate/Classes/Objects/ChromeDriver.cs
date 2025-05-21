@@ -94,7 +94,7 @@ namespace Scrupdate.Classes.Objects
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public void Open(bool openInHeadlessMode)
+        public void Open(bool openInHeadlessMode, bool useIncognitoMode)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
@@ -123,6 +123,8 @@ namespace Scrupdate.Classes.Objects
                     chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
                     chromeOptions.AddUserProfilePreference("profile.managed_default_content_settings.images", 2);
                 }
+                if (useIncognitoMode)
+                    chromeOptions.AddArgument("--incognito");
                 try
                 {
                     chromeDriverService = ChromeDriverService.CreateDefaultService(

@@ -187,20 +187,24 @@ namespace Scrupdate.Classes.Objects
             public ChromeDriverPageLoadTimeout PageLoadTimeout { get; set; }
             public bool UseCustomUserAgentString { get; set; }
             public string CustomUserAgentString { get; set; }
+            public bool UseIncognitoMode { get; set; }
             public ChromeDriverSettings() :
                 this(
                     ChromeDriverPageLoadTimeout.After15Seconds,
                     false,
-                    ""
+                    "",
+                    false
                 )
             { }
             public ChromeDriverSettings(ChromeDriverPageLoadTimeout pageLoadTimeout,
                                         bool useCustomUserAgentString,
-                                        string customUserAgentString)
+                                        string customUserAgentString,
+                                        bool useIncognitoMode)
             {
                 PageLoadTimeout = pageLoadTimeout;
                 UseCustomUserAgentString = useCustomUserAgentString;
                 CustomUserAgentString = customUserAgentString;
+                UseIncognitoMode = useIncognitoMode;
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
