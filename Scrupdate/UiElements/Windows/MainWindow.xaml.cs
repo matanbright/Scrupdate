@@ -555,9 +555,9 @@ namespace Scrupdate.UiElements.Windows
                     senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Ascending;
                 else
                 {
-                    foreach (GridViewColumn gridViewColumn in ((GridView)listView_programs.View).Columns)
+                    foreach (GridViewColumn programListColumn in ((GridView)listView_programs.View).Columns)
                     {
-                        ((CustomGridViewColumnHeader)gridViewColumn.Header).ListViewItemsSortingOrder =
+                        ((CustomGridViewColumnHeader)programListColumn.Header).ListViewItemsSortingOrder =
                             CustomGridViewColumnHeader.SortingOrder.None;
                     }
                     senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Ascending;
