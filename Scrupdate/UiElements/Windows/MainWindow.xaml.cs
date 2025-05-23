@@ -549,29 +549,16 @@ namespace Scrupdate.UiElements.Windows
             }
             else
             {
-                if (senderGridViewColumnHeader.ListViewItemsSortingOrder == CustomGridViewColumnHeader.SortingOrder.Ascending)
-                    senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Descending;
-                else if (senderGridViewColumnHeader.ListViewItemsSortingOrder == CustomGridViewColumnHeader.SortingOrder.Descending)
-                    senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Ascending;
-                else
+                switch (senderGridViewColumnHeader.ListViewItemsSortingOrder)
                 {
-                    foreach (GridViewColumn programListColumn in ((GridView)listView_programs.View).Columns)
-                    {
-                        ((CustomGridViewColumnHeader)programListColumn.Header).ListViewItemsSortingOrder =
-                            CustomGridViewColumnHeader.SortingOrder.None;
-                    }
-                    senderGridViewColumnHeader.ListViewItemsSortingOrder = CustomGridViewColumnHeader.SortingOrder.Ascending;
+                    case CustomGridViewColumnHeader.SortingOrder.None:
+                    case CustomGridViewColumnHeader.SortingOrder.Descending:
+                        SortProgramListView(senderGridViewColumnHeader, false);
+                        break;
+                    case CustomGridViewColumnHeader.SortingOrder.Ascending:
+                        SortProgramListView(senderGridViewColumnHeader, true);
+                        break;
                 }
-                listView_programs.Items.SortDescriptions.Clear();
-                listView_programs.Items.SortDescriptions.Add(
-                    new SortDescription(
-                        (string)senderGridViewColumnHeader.Tag,
-                        (senderGridViewColumnHeader.ListViewItemsSortingOrder == CustomGridViewColumnHeader.SortingOrder.Descending ?
-                            ListSortDirection.Descending :
-                            ListSortDirection.Ascending)
-                    )
-                );
-                RefreshProgramListViewAndAllMessages();
             }
         }
         private void OnGridViewColumnHeaderSizeChangedEvent(object sender, SizeChangedEventArgs e)
@@ -1185,6 +1172,28 @@ namespace Scrupdate.UiElements.Windows
             ChangeTimeToShowInLastProgramUpdatesCheckTimeMessage(
                 App.SettingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime
             );
+        }
+        private void SortProgramListView(CustomGridViewColumnHeader programListColumnHeader, bool sortInRevese)
+        {
+            foreach (GridViewColumn programListColumn in ((GridView)listView_programs.View).Columns)
+            {
+                ((CustomGridViewColumnHeader)programListColumn.Header).ListViewItemsSortingOrder =
+                    CustomGridViewColumnHeader.SortingOrder.None;
+            }
+            programListColumnHeader.ListViewItemsSortingOrder =
+                (sortInRevese ?
+                    CustomGridViewColumnHeader.SortingOrder.Descending :
+                    CustomGridViewColumnHeader.SortingOrder.Ascending);
+            listView_programs.Items.SortDescriptions.Clear();
+            listView_programs.Items.SortDescriptions.Add(
+                new SortDescription(
+                    (string)programListColumnHeader.Tag,
+                    (sortInRevese ?
+                        ListSortDirection.Descending :
+                        ListSortDirection.Ascending)
+                )
+            );
+            RefreshProgramListViewAndAllMessages();
         }
         private void AddNewProgramToDatabaseAndListView(Program newProgram)
         {
