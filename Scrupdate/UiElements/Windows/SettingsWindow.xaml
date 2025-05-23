@@ -286,6 +286,11 @@
                                                                               HorizontalAlignment="Left"
                                                                               VerticalAlignment="Center"
                                                                               Content="Remember Last Program List Options" />
+                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_rememberLastProgramListColumnStates"
+                                                                              Margin="10 10 10 0"
+                                                                              HorizontalAlignment="Left"
+                                                                              VerticalAlignment="Center"
+                                                                              Content="Remember Last Program List Column States" />
                                 <StackPanel x:Name="stackPanel_programUpdatesScheduledCheckSettings"
                                             Orientation="Vertical"
                                             Margin="10 10 10 0"

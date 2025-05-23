@@ -438,6 +438,8 @@ namespace Scrupdate.UiElements.Windows
                 settings.General.ScanForInstalledProgramsAutomaticallyOnStart;
             checkBox_rememberLastProgramListOptions.IsChecked =
                 settings.General.RememberLastProgramListOptions;
+            checkBox_rememberLastProgramListColumnStates.IsChecked =
+                settings.General.RememberLastProgramListColumnStates;
             checkBox_enableScheduledCheckForProgramUpdates.IsChecked =
                 settings.General.EnableScheduledCheckForProgramUpdates;
             Settings.GeneralSettings.WeekDays scheduleDays =
@@ -526,6 +528,7 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_enableScanningForInstalledPrograms.IsChecked.Value,
                 checkBox_scanForInstalledProgramsAutomaticallyOnStart.IsChecked.Value,
                 checkBox_rememberLastProgramListOptions.IsChecked.Value,
+                checkBox_rememberLastProgramListColumnStates.IsChecked.Value,
                 checkBox_enableScheduledCheckForProgramUpdates.IsChecked.Value,
                 scheduleDays,
                 comboBox_programUpdatesScheduledCheckHour.SelectedIndex,

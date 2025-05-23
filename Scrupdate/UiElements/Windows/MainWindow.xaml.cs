@@ -293,6 +293,45 @@ namespace Scrupdate.UiElements.Windows
                 checkBox_showHiddenPrograms.IsChecked =
                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState;
             }
+            bool alreadySortingProgramTable = false;
+            CustomGridViewColumnHeader defaultProgramListColumnHeaderToSort =
+                (CustomGridViewColumnHeader)((GridView)listView_programs.View).Columns[2].Header;
+            if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListColumnStates)
+            {
+                for (int i = App.SettingsHandler.SettingsInMemory.Cached.LastProgramListColumnStates.Count - 1; i >= 0; i--)
+                {
+                    ProgramListViewColumnState lastProgramListColumnState =
+                        App.SettingsHandler.SettingsInMemory.Cached.LastProgramListColumnStates[i];
+                    for (int j = 0; j < ((GridView)listView_programs.View).Columns.Count; j++)
+                    {
+                        GridViewColumn programListColumn = ((GridView)listView_programs.View).Columns[j];
+                        CustomGridViewColumnHeader programListColumnHeader =
+                            (CustomGridViewColumnHeader)programListColumn.Header;
+                        if (programListColumnHeader.Tag != null)
+                        {
+                            if (((string)programListColumnHeader.Tag).Equals(lastProgramListColumnState.Tag))
+                            {
+                                programListColumn.Width = lastProgramListColumnState.Width;
+                                switch (lastProgramListColumnState.SortingOrder)
+                                {
+                                    case CustomGridViewColumnHeader.SortingOrder.Ascending:
+                                    case CustomGridViewColumnHeader.SortingOrder.Descending:
+                                        SortProgramListView(
+                                            programListColumnHeader,
+                                            (lastProgramListColumnState.SortingOrder == CustomGridViewColumnHeader.SortingOrder.Descending)
+                                        );
+                                        alreadySortingProgramTable = true;
+                                        break;
+                                }
+                                ((GridView)listView_programs.View).Columns.Move(j, 0);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!alreadySortingProgramTable)
+                SortProgramListView(defaultProgramListColumnHeaderToSort, false);
             if (programFilteringOptionOnStart != Settings.CachedSettings.ProgramFilteringOption.Unknown)
             {
                 checkBox_filterProgramList.IsChecked = true;
@@ -327,9 +366,6 @@ namespace Scrupdate.UiElements.Windows
             WindowUtilities.MoveWindowIntoScreenBoundaries(this, true);
             IsAutomaticScanningForInstalledProgramsEnabled =
                 App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
-            ((CustomGridViewColumnHeader)((GridView)listView_programs.View).Columns[2].Header).RaiseEvent(
-                new RoutedEventArgs(CustomGridViewColumnHeader.ClickEvent)
-            );
             if (CurrentError == Error.None)
             {
                 if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms &&
@@ -1612,6 +1648,26 @@ namespace Scrupdate.UiElements.Windows
                                     App.SettingsHandler.SettingsInMemory.Cached.LastProgramFilteringOption =
                                         Settings.CachedSettings.ProgramFilteringOption.Unknown;
                                     App.SettingsHandler.SettingsInMemory.Cached.LastShowHiddenProgramsState = false;
+                                }
+                                App.SettingsHandler.SettingsInMemory.Cached.LastProgramListColumnStates =
+                                    new List<ProgramListViewColumnState>();
+                                if (App.SettingsHandler.SettingsInMemory.General.RememberLastProgramListColumnStates)
+                                {
+                                    foreach (GridViewColumn programListColumn in ((GridView)listView_programs.View).Columns)
+                                    {
+                                        CustomGridViewColumnHeader programListColumnHeader =
+                                            (CustomGridViewColumnHeader)programListColumn.Header;
+                                        if (programListColumnHeader.Tag != null)
+                                        {
+                                            App.SettingsHandler.SettingsInMemory.Cached.LastProgramListColumnStates.Add(
+                                                new ProgramListViewColumnState(
+                                                    (string)programListColumnHeader.Tag,
+                                                    programListColumn.Width,
+                                                    programListColumnHeader.ListViewItemsSortingOrder
+                                                )
+                                            );
+                                        }
+                                    }
                                 }
                                 App.SettingsHandler.SaveSettingsFromMemoryToSettingsFile();
                             }

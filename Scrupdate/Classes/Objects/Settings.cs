@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Windows;
 
@@ -55,6 +56,7 @@ namespace Scrupdate.Classes.Objects
             public bool LastProgramFilteringState { get; set; }
             public ProgramFilteringOption LastProgramFilteringOption { get; set; }
             public bool LastShowHiddenProgramsState { get; set; }
+            public List<ProgramListViewColumnState> LastProgramListColumnStates { get; set; }
             public DateTime LastProgramUpdatesCheckTime { get; set; }
             public DateTime LastProgramUpdatesScheduledCheckAttemptionTime { get; set; }
             public string LastChecksumOfInstalledGoogleChromeBrowserExecutableFile { get; set; }
@@ -68,6 +70,7 @@ namespace Scrupdate.Classes.Objects
                     false,
                     ProgramFilteringOption.Unknown,
                     false,
+                    new List<ProgramListViewColumnState>(),
                     new DateTime(),
                     new DateTime(),
                     "",
@@ -81,6 +84,7 @@ namespace Scrupdate.Classes.Objects
                                   bool lastProgramFilteringState,
                                   ProgramFilteringOption lastProgramFilteringOption,
                                   bool lastShowHiddenProgramsState,
+                                  List<ProgramListViewColumnState> lastProgramListColumnStates,
                                   DateTime lastProgramUpdatesCheckTime,
                                   DateTime lastProgramUpdatesScheduledCheckAttemptionTime,
                                   string lastChecksumOfInstalledGoogleChromeBrowserExecutableFile,
@@ -93,6 +97,7 @@ namespace Scrupdate.Classes.Objects
                 LastProgramFilteringState = lastProgramFilteringState;
                 LastProgramFilteringOption = lastProgramFilteringOption;
                 LastShowHiddenProgramsState = lastShowHiddenProgramsState;
+                LastProgramListColumnStates = lastProgramListColumnStates;
                 LastProgramUpdatesCheckTime = lastProgramUpdatesCheckTime;
                 LastProgramUpdatesScheduledCheckAttemptionTime = lastProgramUpdatesScheduledCheckAttemptionTime;
                 LastChecksumOfInstalledGoogleChromeBrowserExecutableFile = lastChecksumOfInstalledGoogleChromeBrowserExecutableFile;
@@ -115,6 +120,7 @@ namespace Scrupdate.Classes.Objects
             public bool EnableScanningForInstalledPrograms { get; set; }
             public bool ScanForInstalledProgramsAutomaticallyOnStart { get; set; }
             public bool RememberLastProgramListOptions { get; set; }
+            public bool RememberLastProgramListColumnStates { get; set; }
             public bool EnableScheduledCheckForProgramUpdates { get; set; }
             public WeekDays ProgramUpdatesScheduledCheckDays { get; set; }
             public int ProgramUpdatesScheduledCheckHour { get; set; }
@@ -125,6 +131,7 @@ namespace Scrupdate.Classes.Objects
                     true,
                     false,
                     false,
+                    false,
                     WeekDays.None,
                     0,
                     false
@@ -133,6 +140,7 @@ namespace Scrupdate.Classes.Objects
             public GeneralSettings(bool enableScanningForInstalledPrograms,
                                    bool scanForInstalledProgramsAutomaticallyOnStart,
                                    bool rememberLastProgramListOptions,
+                                   bool rememberLastProgramListColumnStates,
                                    bool enableScheduledCheckForProgramUpdates,
                                    WeekDays programUpdatesScheduledCheckDays,
                                    int programUpdatesScheduledCheckHour,
@@ -141,6 +149,7 @@ namespace Scrupdate.Classes.Objects
                 EnableScanningForInstalledPrograms = enableScanningForInstalledPrograms;
                 ScanForInstalledProgramsAutomaticallyOnStart = scanForInstalledProgramsAutomaticallyOnStart;
                 RememberLastProgramListOptions = rememberLastProgramListOptions;
+                RememberLastProgramListColumnStates = rememberLastProgramListColumnStates;
                 EnableScheduledCheckForProgramUpdates = enableScheduledCheckForProgramUpdates;
                 ProgramUpdatesScheduledCheckDays = programUpdatesScheduledCheckDays;
                 ProgramUpdatesScheduledCheckHour = programUpdatesScheduledCheckHour;

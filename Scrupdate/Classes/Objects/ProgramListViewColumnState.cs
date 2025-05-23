@@ -1,0 +1,35 @@
+﻿using Scrupdate.UiElements.Controls;
+
+
+namespace Scrupdate.Classes.Objects
+{
+    public class ProgramListViewColumnState
+    {
+        // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public string Tag { get; set; }
+        public double Width { get; set; }
+        public CustomGridViewColumnHeader.SortingOrder SortingOrder { get; set; }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public ProgramListViewColumnState() : this("") { }
+        public ProgramListViewColumnState(string tag) :
+            this(
+                tag,
+                0.0,
+                CustomGridViewColumnHeader.SortingOrder.None
+            )
+        { }
+        public ProgramListViewColumnState(string tag,
+                                          double width,
+                                          CustomGridViewColumnHeader.SortingOrder sortingOrder)
+        {
+            Tag = tag;
+            Width = width;
+            SortingOrder = sortingOrder;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+}
