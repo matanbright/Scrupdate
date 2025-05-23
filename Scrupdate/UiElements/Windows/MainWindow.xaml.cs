@@ -338,7 +338,7 @@ namespace Scrupdate.UiElements.Windows
                     StartProgramDatabaseUpdatingTask();
                 }
                 else
-                    RefreshListViewAndAllMessages(true);
+                    RefreshProgramListViewAndAllMessages(true);
             }
         }
         private void OnClosingEvent(object sender, CancelEventArgs e)
@@ -443,7 +443,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     textBox_programListSearchingPhrase.Text = "";
                 }
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
         }
         private void OnCheckBoxClickEvent(object sender, RoutedEventArgs e)
@@ -458,16 +458,16 @@ namespace Scrupdate.UiElements.Windows
                             Settings.CachedSettings.ProgramFilteringOption.All
                         );
                 }
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
             else if (senderCheckBox == checkBox_showHiddenPrograms)
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
         }
         private void OnComboBoxSelectionChangedEvent(object sender, SelectionChangedEventArgs e)
         {
             CustomComboBox senderComboBox = (CustomComboBox)sender;
             if (senderComboBox == comboBox_programListFilteringOption)
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
         }
         private void OnListViewSelectionChangedEvent(object sender, SelectionChangedEventArgs e)
         {
@@ -571,7 +571,7 @@ namespace Scrupdate.UiElements.Windows
                             ListSortDirection.Ascending)
                     )
                 );
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
         }
         private void OnGridViewColumnHeaderSizeChangedEvent(object sender, SizeChangedEventArgs e)
@@ -812,7 +812,7 @@ namespace Scrupdate.UiElements.Windows
                     StartProgramDatabaseUpdatingTask();
                 }
                 else
-                    RefreshListViewAndAllMessages(true);
+                    RefreshProgramListViewAndAllMessages(true);
             }
         }
         private void OnGridViewColumnsCollectionCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs e)
@@ -933,11 +933,11 @@ namespace Scrupdate.UiElements.Windows
                 updatedProgram = programAddingOrEditingWindow.GetNewOrUpdatedProgram();
             return returnValue;
         }
-        private void RefreshListViewAndAllMessages()
+        private void RefreshProgramListViewAndAllMessages()
         {
-            RefreshListViewAndAllMessages(false);
+            RefreshProgramListViewAndAllMessages(false);
         }
-        private void RefreshListViewAndAllMessages(bool retrieveNewProgramInformationFromDatabase)
+        private void RefreshProgramListViewAndAllMessages(bool retrieveNewProgramInformationFromDatabase)
         {
             if (retrieveNewProgramInformationFromDatabase)
             {
@@ -1199,7 +1199,7 @@ namespace Scrupdate.UiElements.Windows
                         programListViewItem2.UnderlyingProgram.Name
                     )
             );
-            RefreshListViewAndAllMessages();
+            RefreshProgramListViewAndAllMessages();
         }
         private void UpdateProgramInDatabaseAndListView(ProgramListViewItem selectedProgramListViewItem,
                                                         Program updatedProgram)
@@ -1260,7 +1260,7 @@ namespace Scrupdate.UiElements.Windows
             {
                 errorsCount--;
             }
-            RefreshListViewAndAllMessages();
+            RefreshProgramListViewAndAllMessages();
         }
         private void SkipOrUnskipVersionOfSelectedProgram(bool skip)
         {
@@ -1279,7 +1279,7 @@ namespace Scrupdate.UiElements.Windows
                     programDatabase.UnskipVersionOfProgram(selectedProgram.Name);
                     selectedProgram.SkippedVersion = "";
                 }
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
         }
         private void HideOrUnhideSelectedProgramsInDatabaseAndListView(bool hide)
@@ -1297,7 +1297,7 @@ namespace Scrupdate.UiElements.Windows
                     selectedProgram.IsHidden = hide;
                 }
                 programDatabase.EndTransaction();
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
         }
         private void RemoveSelectedProgramsFromDatabaseAndListView()
@@ -1331,7 +1331,7 @@ namespace Scrupdate.UiElements.Windows
                         errorsCount--;
                 }
                 programDatabase.EndTransaction();
-                RefreshListViewAndAllMessages();
+                RefreshProgramListViewAndAllMessages();
             }
         }
         private void ChangeStatusMessage(string statusMessage, Brush statusMessageForegroundColor)
@@ -1440,7 +1440,7 @@ namespace Scrupdate.UiElements.Windows
                 {
                     if (!App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
                         programDatabase.ConvertAllProgramsToManuallyInstalledPrograms();
-                    RefreshListViewAndAllMessages(true);
+                    RefreshProgramListViewAndAllMessages(true);
                 }
             }
         }
@@ -1469,7 +1469,7 @@ namespace Scrupdate.UiElements.Windows
                                 cancellationToken
                             );
                         }
-                        RefreshListViewAndAllMessages(true);
+                        RefreshProgramListViewAndAllMessages(true);
                         CurrentOperation = Operation.None;
                         ChangeProgressBarValue(-1);
                         if (closeInQueue)
@@ -1518,7 +1518,7 @@ namespace Scrupdate.UiElements.Windows
                                 programUpdatesCheckException = e;
                             }
                         }
-                        RefreshListViewAndAllMessages(true);
+                        RefreshProgramListViewAndAllMessages(true);
                         CurrentOperation = Operation.None;
                         ChangeProgressBarValue(-1);
                         if (closeInQueue)
