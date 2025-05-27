@@ -826,7 +826,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLED_VERSION.Name}", installedVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__INSTALLATION_SCOPE.Name}", (long)installationScope);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, 1);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name, 1L);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -876,7 +876,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__LATEST_VERSION.Name}", "");
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}", (long)Program._UpdateCheckConfigurationStatus.Unknown);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)Program._UpdateCheckConfigurationError.None);
-                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name, 1);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_UPDATE_CHECK_CONFIGURED.Name, 1L);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -899,7 +899,7 @@ namespace Scrupdate.Classes.Objects
                        sqLiteConnection
                    ))
             {
-                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", 0);
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_AUTOMATICALLY_ADDED.Name}", 0L);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
