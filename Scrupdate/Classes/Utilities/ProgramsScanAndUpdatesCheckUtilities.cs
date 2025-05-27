@@ -319,11 +319,11 @@ namespace Scrupdate.Classes.Utilities
             string hashOfStringOfAllInstalledPrograms = HashingUtilities.GetMD5Hash(
                 stringOfAllInstalledPrograms.ToString()
             );
+            programDatabase.BeginTransaction();
             if (!settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms.Equals(
                     hashOfStringOfAllInstalledPrograms
                 ))
             {
-                programDatabase.BeginTransaction();
                 for (Dictionary<string, Program>.Enumerator i = programDatabase.GetPrograms().GetEnumerator();
                      i.MoveNext();)
                 {
@@ -360,8 +360,6 @@ namespace Scrupdate.Classes.Utilities
                         programDatabase.UnskipVersionOfProgram(programAlreadyInDatabase.Name);
                     }
                 }
-                programDatabase.EndTransaction();
-                programDatabase.BeginTransaction();
                 for (Dictionary<string, Program>.Enumerator i = installedPrograms.GetEnumerator();
                      i.MoveNext();)
                 {
@@ -369,7 +367,6 @@ namespace Scrupdate.Classes.Utilities
                     if (foundProgram != null)
                         programDatabase.AddNewProgram(foundProgram);
                 }
-                programDatabase.EndTransaction();
                 string backupOfLastHashOfAllInstalledPrograms =
                     settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms;
                 settingsHandler.SettingsInMemory.Cached.LastHashOfAllInstalledPrograms =
@@ -380,6 +377,7 @@ namespace Scrupdate.Classes.Utilities
                         backupOfLastHashOfAllInstalledPrograms;
                 }
             }
+            programDatabase.EndTransaction();
         }
         public static void CheckForProgramUpdatesAndUpdateDatabase(List<Program> programsToCheck,
                                                                    ProgramDatabase programDatabase,
@@ -455,6 +453,7 @@ namespace Scrupdate.Classes.Utilities
                 {
                     return;
                 }
+                programDatabase.BeginTransaction();
                 programDatabase.ResetLatestVersionAndUpdateCheckConfigurationStatusOfAllConfiguredPrograms();
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;
                 settingsHandler.SaveSettingsFromMemoryToSettingsFile();
@@ -531,6 +530,7 @@ namespace Scrupdate.Classes.Utilities
                         );
                     }
                 }
+                programDatabase.EndTransaction();
                 settingsHandler.SettingsInMemory.Cached.LastProgramUpdatesCheckTime = DateTime.Now;
                 settingsHandler.SaveSettingsFromMemoryToSettingsFile();
                 updatesCheckProgressChangedEventHandler?.Invoke(100.0D);
