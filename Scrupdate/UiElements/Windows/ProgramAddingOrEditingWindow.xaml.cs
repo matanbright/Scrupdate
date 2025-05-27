@@ -295,55 +295,22 @@ namespace Scrupdate.UiElements.Windows
                     );
                     textBox_installedVersion.Text = installedVersion;
                 }
-                Program._InstallationScope installationScope = GetInstallationScope();
-                string versionSearchMethodArgument1;
-                string versionSearchMethodArgument2;
-                Program._VersionSearchMethod versionSearchMethod = GetVersionSearchMethod(
-                    out versionSearchMethodArgument1,
-                    out versionSearchMethodArgument2
-                );
-                Program._VersionSearchBehavior versionSearchBehavior = GetVersionSearchBehavior();
-                Program._WebPagePostLoadDelay webPagePostLoadDelay = GetWebPagePostLoadDelay();
-                List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
-                    GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
                 if (programToEdit != null &&
-                    (checkBox_detectAutomatically.IsChecked == programToEdit.IsAutomaticallyAdded &&
-                     textBox_name.Text.Trim().Equals(programToEdit.Name) &&
-                     installedVersion.Equals(programToEdit.InstalledVersion) &&
-                     installationScope == programToEdit.InstallationScope &&
-                     checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
-                     textBox_webPageUrl.Text.Trim().Equals(programToEdit.WebPageUrl) &&
-                     versionSearchMethod == programToEdit.VersionSearchMethod &&
-                     versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
-                     versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) &&
-                     checkBox_treatAStandaloneNumberAsAVersion.IsChecked == programToEdit.TreatAStandaloneNumberAsAVersion &&
-                     versionSearchBehavior == programToEdit.VersionSearchBehavior &&
-                     webPagePostLoadDelay == programToEdit.WebPagePostLoadDelay &&
-                     locatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
-                         programToEdit.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
-                     )))
+                    (programToEdit.IsAutomaticallyAdded &&
+                     checkBox_detectAutomatically.IsChecked == false))
                 {
-                    Close();
-                }
-                else
-                {
-                    if (programToEdit != null &&
-                        (programToEdit.IsAutomaticallyAdded &&
-                         checkBox_detectAutomatically.IsChecked == false))
+                    if (DialogUtilities.ShowQuestionDialog(
+                            "",
+                            QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM,
+                            this
+                        ) == false)
                     {
-                        if (DialogUtilities.ShowQuestionDialog(
-                                "",
-                                QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM,
-                                this
-                            ) == false)
-                        {
-                            return;
-                        }
+                        return;
                     }
-                    newOrUpdatedProgram = GetProgramFromUiControlsValues();
-                    DialogResult = true;
-                    Close();
                 }
+                newOrUpdatedProgram = GetProgramFromUiControlsValues();
+                DialogResult = true;
+                Close();
             }
             else if (senderButton == button_cancel)
                 Close();
