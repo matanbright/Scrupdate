@@ -505,6 +505,12 @@ namespace Scrupdate.UiElements.Windows
             if (senderComboBox == comboBox_programListFilteringOption)
                 RefreshProgramListViewAndAllMessages();
         }
+        private void OnListViewScrollViewerScrollChangedEvent(object sender, ScrollChangedEventArgs e)
+        {
+            ListView senderListView = (ListView)sender;
+            if (senderListView == listView_programs)
+                UpdateNewProgramsAvailabilityIndicatorsVisibility();
+        }
         private void OnListViewSelectionChangedEvent(object sender, SelectionChangedEventArgs e)
         {
             ListView senderListView = (ListView)sender;
@@ -1187,6 +1193,7 @@ namespace Scrupdate.UiElements.Windows
                              listView_programs.SelectedItems.Count == listView_programs.Items.Count);
                     }
             );
+            UpdateNewProgramsAvailabilityIndicatorsVisibility();
             UpdateClearMarksButtonVisibility();
             string statusMessage =
                 (updatesCount > 0 ?
@@ -1399,6 +1406,44 @@ namespace Scrupdate.UiElements.Windows
                 programDatabase.EndTransaction();
                 RefreshProgramListViewAndAllMessages();
             }
+        }
+        private void UpdateNewProgramsAvailabilityIndicatorsVisibility()
+        {
+            ThreadingUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        border_newProgramsAvailabilityTopIndicator.Visibility = Visibility.Collapsed;
+                        border_newProgramsAvailabilityBottomIndicator.Visibility = Visibility.Collapsed;
+                        if (App.SettingsHandler.SettingsInMemory.Appearance.HighlightNewProgramsInTheList)
+                        {
+                            ScrollViewer programListViewScrollViewer =
+                                (ScrollViewer)((Decorator)VisualTreeHelper.GetChild(listView_programs, 0)).Child;
+                            int indexOfFirstShownListItem = (int)programListViewScrollViewer.VerticalOffset;
+                            int countOfShownListItems = (int)programListViewScrollViewer.ViewportHeight;
+                            for (int i = indexOfFirstShownListItem - 1; i >= 0; i--)
+                            {
+                                ProgramListViewItem programListViewItem =
+                                    (ProgramListViewItem)listView_programs.Items[i];
+                                if (programListViewItem.UnderlyingProgram.IsNew)
+                                {
+                                    border_newProgramsAvailabilityTopIndicator.Visibility = Visibility.Visible;
+                                    break;
+                                }
+                            }
+                            for (int i = indexOfFirstShownListItem + countOfShownListItems; i < listView_programs.Items.Count; i++)
+                            {
+                                ProgramListViewItem programListViewItem =
+                                    (ProgramListViewItem)listView_programs.Items[i];
+                                if (programListViewItem.UnderlyingProgram.IsNew)
+                                {
+                                    border_newProgramsAvailabilityBottomIndicator.Visibility = Visibility.Visible;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+            );
         }
         private void UpdateClearMarksButtonVisibility()
         {

@@ -33,6 +33,8 @@
                          Color="#99FFBFBF" />
         <SolidColorBrush x:Key="strongTransparentLightRedSolidColorBrush"
                          Color="#55FFBFBF" />
+        <SolidColorBrush x:Key="weakTransparentYellowSolidColorBrush"
+                         Color="#99FFFF55" />
         <SolidColorBrush x:Key="whiteSolidColorBrush"
                          Color="#FFFFFFFF" />
         <SolidColorBrush x:Key="ghostWhiteSolidColorBrush"

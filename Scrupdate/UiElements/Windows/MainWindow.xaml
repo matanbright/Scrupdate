@@ -93,180 +93,97 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <ListView x:Name="listView_programs"
-                              Grid.Row="0"
-                              Grid.Column="0"
-                              Margin="10 10 10 0"
-                              SelectionChanged="OnListViewSelectionChangedEvent"
-                              KeyDown="OnListViewKeyDownEvent">
-                        <ListView.Style>
-                            <Style TargetType="ListView">
-                                <Setter Property="IsEnabled"
-                                        Value="False" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentOperation}"
-                                                 Value="None">
-                                        <Setter Property="IsEnabled"
-                                                Value="True" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.Style>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Height"
-                                        Value="25" />
-                                <Setter Property="Foreground"
-                                        Value="{Binding Foreground}" />
-                                <Setter Property="Background"
-                                        Value="{Binding Background}" />
-                                <Setter Property="ContextMenu">
-                                    <Setter.Value>
-                                        <ContextMenu />
-                                    </Setter.Value>
-                                </Setter>
-                                <EventSetter Event="MouseDoubleClick"
-                                             Handler="OnListViewItemMouseDoubleClickEvent" />
-                                <EventSetter Event="ContextMenuOpening"
-                                             Handler="OnListViewItemContextMenuOpeningEvent" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.View>
-                            <GridView>
-                                <GridView.Columns>
-                                    <GridViewColumn x:Name="gridViewColumn_programSelectionCheckBox"
-                                                    Width="26">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programSelectionCheckBox"
-                                                                                                      IsSortable="False"
-                                                                                                      PreviewMouseMove="OnGridViewColumnHeaderPreviewMouseMoveEvent"
-                                                                                                      PreviewMouseDoubleClick="OnGridViewColumnHeaderPreviewMouseDoubleClickEvent"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent">
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox Width="14"
-                                                                                              Height="14"
-                                                                                              VerticalAlignment="Center" />
-                                            </Scrupdate_UiElements_Controls:CustomGridViewColumnHeader>
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox Width="14"
-                                                                                              Height="14"
-                                                                                              VerticalAlignment="Center"
-                                                                                              IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=IsSelected}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_programUpdateCheckConfigurationStatus"
-                                                    Width="26">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programUpdateCheckConfigurationStatus"
-                                                                                                      IsSortable="False"
-                                                                                                      PreviewMouseMove="OnGridViewColumnHeaderPreviewMouseMoveEvent"
-                                                                                                      PreviewMouseDoubleClick="OnGridViewColumnHeaderPreviewMouseDoubleClickEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Viewbox Width="14"
-                                                         Height="14">
-                                                    <Border Width="14"
-                                                            Height="14"
-                                                            CornerRadius="7">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Setter Property="Background"
-                                                                        Value="{x:Null}" />
-                                                                <Style.Triggers>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="False" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Unknown" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource lightGrayishYellowSolidColorBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Unknown" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource darkYellowSolidColorBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="False" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Invalid" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource lightGrayishRedSolidColorBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Invalid" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource darkRedSolidColorBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="False" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Valid" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource lightGrayishGreenSolidColorBrush1}" />
-                                                                    </MultiDataTrigger>
-                                                                    <MultiDataTrigger>
-                                                                        <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
-                                                                                       Value="True" />
-                                                                            <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
-                                                                                       Value="Valid" />
-                                                                        </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="Background"
-                                                                                Value="{StaticResource darkGreenSolidColorBrush}" />
-                                                                    </MultiDataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <Path Stretch="Fill">
-                                                            <Path.Style>
-                                                                <Style TargetType="Path">
-                                                                    <Setter Property="StrokeThickness"
-                                                                            Value="0" />
-                                                                    <Setter Property="Margin"
-                                                                            Value="0 0 0 0" />
-                                                                    <Setter Property="StrokeStartLineCap"
-                                                                            Value="Flat" />
-                                                                    <Setter Property="StrokeEndLineCap"
-                                                                            Value="Flat" />
-                                                                    <Setter Property="Stroke"
-                                                                            Value="{x:Null}" />
-                                                                    <Setter Property="Fill"
-                                                                            Value="{x:Null}" />
-                                                                    <Setter Property="Data"
+                    <Grid x:Name="grid_programListAndOverlayIndicators"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Margin="10 10 10 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ListView x:Name="listView_programs"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  ScrollViewer.ScrollChanged="OnListViewScrollViewerScrollChangedEvent"
+                                  SelectionChanged="OnListViewSelectionChangedEvent"
+                                  KeyDown="OnListViewKeyDownEvent">
+                            <ListView.Style>
+                                <Style TargetType="ListView">
+                                    <Setter Property="IsEnabled"
+                                            Value="False" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentOperation}"
+                                                     Value="None">
+                                            <Setter Property="IsEnabled"
+                                                    Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Style>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Height"
+                                            Value="25" />
+                                    <Setter Property="Foreground"
+                                            Value="{Binding Foreground}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding Background}" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <EventSetter Event="MouseDoubleClick"
+                                                 Handler="OnListViewItemMouseDoubleClickEvent" />
+                                    <EventSetter Event="ContextMenuOpening"
+                                                 Handler="OnListViewItemContextMenuOpeningEvent" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn x:Name="gridViewColumn_programSelectionCheckBox"
+                                                        Width="26">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programSelectionCheckBox"
+                                                                                                          IsSortable="False"
+                                                                                                          PreviewMouseMove="OnGridViewColumnHeaderPreviewMouseMoveEvent"
+                                                                                                          PreviewMouseDoubleClick="OnGridViewColumnHeaderPreviewMouseDoubleClickEvent"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent">
+                                                    <Scrupdate_UiElements_Controls:CustomCheckBox Width="14"
+                                                                                                  Height="14"
+                                                                                                  VerticalAlignment="Center" />
+                                                </Scrupdate_UiElements_Controls:CustomGridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Scrupdate_UiElements_Controls:CustomCheckBox Width="14"
+                                                                                                  Height="14"
+                                                                                                  VerticalAlignment="Center"
+                                                                                                  IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=IsSelected}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_programUpdateCheckConfigurationStatus"
+                                                        Width="26">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programUpdateCheckConfigurationStatus"
+                                                                                                          IsSortable="False"
+                                                                                                          PreviewMouseMove="OnGridViewColumnHeaderPreviewMouseMoveEvent"
+                                                                                                          PreviewMouseDoubleClick="OnGridViewColumnHeaderPreviewMouseDoubleClickEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Viewbox Width="14"
+                                                             Height="14">
+                                                        <Border Width="14"
+                                                                Height="14"
+                                                                CornerRadius="7">
+                                                            <Border.Style>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="Background"
                                                                             Value="{x:Null}" />
                                                                     <Style.Triggers>
                                                                         <MultiDataTrigger>
@@ -278,14 +195,8 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Unknown" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1.25" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="4.75 3.5 4.75 3.5" />
-                                                                            <Setter Property="Fill"
-                                                                                    Value="{StaticResource lightGraySolidColorBrush1}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="m 100.38721,215.33071 c -4.319911,-0.92686 -8.782678,-4.41602 -10.671766,-8.3436 -2.532732,-5.26576 -2.302476,-10.84169 0.6501,-15.74289 1.988455,-3.30078 6.082318,-6.24074 9.957296,-7.1507 2.44407,-0.57394 6.72933,-0.37316 8.98686,0.42106 4.49572,1.58164 8.27715,5.43055 9.88414,10.06052 0.8072,2.32564 0.99347,6.38765 0.40112,8.74723 -0.73074,2.91087 -2.13556,5.41109 -4.22693,7.52287 -4.05086,4.09038 -9.38228,5.6867 -14.98082,4.48551 z m -1.111854,-44.26812 c -2.183265,-0.72281 -3.666363,-1.67329 -5.158555,-3.30599 -4.186354,-4.58054 -4.631108,-12.09349 -1.133935,-19.15497 2.437942,-4.92269 6.132536,-8.75714 15.479424,-16.06537 9.38029,-7.33435 12.83251,-10.94333 14.6366,-15.3012 1.19645,-2.89011 1.47671,-5.33567 0.98687,-8.61169 -0.80392,-5.37656 -3.3838,-9.053051 -7.92621,-11.295331 -3.25797,-1.60825 -5.50242,-2.07132 -10.08379,-2.0805 -3.99257,-0.008 -5.85989,0.28853 -8.598962,1.36549 -4.745419,1.86581 -7.13023,4.604751 -10.927917,12.550641 -1.077619,2.25471 -2.437294,4.80333 -3.021499,5.66361 -2.710463,3.99134 -5.975459,5.66449 -11.05371,5.66449 -6.654719,0 -11.460149,-3.52351 -12.581951,-9.22552 -0.424425,-2.15731 -0.172147,-6.37786 0.544392,-9.10755 2.158283,-8.222081 8.47509,-16.198901 17.064642,-21.549104 9.571422,-5.961783 20.503238,-8.618197 32.098315,-7.799842 8.94277,0.631161 16.36668,2.383449 22.7421,5.367884 11.65269,5.454811 18.54997,13.725071 21.00534,25.186682 0.78699,3.67365 0.85825,11.11111 0.13875,14.48161 -0.96347,4.51339 -3.33665,9.37542 -6.64191,13.60755 -3.6655,4.69337 -7.88883,8.30298 -20.29332,17.34434 -6.54605,4.77127 -7.73302,6.2729 -10.50894,13.29485 -2.12279,5.36981 -3.80353,7.41455 -7.14685,8.69468 -2.17185,0.83158 -7.47966,0.98346 -9.618884,0.27524 z" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource lightGrayishYellowSolidColorBrush}" />
                                                                         </MultiDataTrigger>
                                                                         <MultiDataTrigger>
                                                                             <MultiDataTrigger.Conditions>
@@ -296,14 +207,8 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Unknown" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1.25" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="4.75 3.5 4.75 3.5" />
-                                                                            <Setter Property="Fill"
-                                                                                    Value="{StaticResource blackSolidColorBrush}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="m 100.38721,215.33071 c -4.319911,-0.92686 -8.782678,-4.41602 -10.671766,-8.3436 -2.532732,-5.26576 -2.302476,-10.84169 0.6501,-15.74289 1.988455,-3.30078 6.082318,-6.24074 9.957296,-7.1507 2.44407,-0.57394 6.72933,-0.37316 8.98686,0.42106 4.49572,1.58164 8.27715,5.43055 9.88414,10.06052 0.8072,2.32564 0.99347,6.38765 0.40112,8.74723 -0.73074,2.91087 -2.13556,5.41109 -4.22693,7.52287 -4.05086,4.09038 -9.38228,5.6867 -14.98082,4.48551 z m -1.111854,-44.26812 c -2.183265,-0.72281 -3.666363,-1.67329 -5.158555,-3.30599 -4.186354,-4.58054 -4.631108,-12.09349 -1.133935,-19.15497 2.437942,-4.92269 6.132536,-8.75714 15.479424,-16.06537 9.38029,-7.33435 12.83251,-10.94333 14.6366,-15.3012 1.19645,-2.89011 1.47671,-5.33567 0.98687,-8.61169 -0.80392,-5.37656 -3.3838,-9.053051 -7.92621,-11.295331 -3.25797,-1.60825 -5.50242,-2.07132 -10.08379,-2.0805 -3.99257,-0.008 -5.85989,0.28853 -8.598962,1.36549 -4.745419,1.86581 -7.13023,4.604751 -10.927917,12.550641 -1.077619,2.25471 -2.437294,4.80333 -3.021499,5.66361 -2.710463,3.99134 -5.975459,5.66449 -11.05371,5.66449 -6.654719,0 -11.460149,-3.52351 -12.581951,-9.22552 -0.424425,-2.15731 -0.172147,-6.37786 0.544392,-9.10755 2.158283,-8.222081 8.47509,-16.198901 17.064642,-21.549104 9.571422,-5.961783 20.503238,-8.618197 32.098315,-7.799842 8.94277,0.631161 16.36668,2.383449 22.7421,5.367884 11.65269,5.454811 18.54997,13.725071 21.00534,25.186682 0.78699,3.67365 0.85825,11.11111 0.13875,14.48161 -0.96347,4.51339 -3.33665,9.37542 -6.64191,13.60755 -3.6655,4.69337 -7.88883,8.30298 -20.29332,17.34434 -6.54605,4.77127 -7.73302,6.2729 -10.50894,13.29485 -2.12279,5.36981 -3.80353,7.41455 -7.14685,8.69468 -2.17185,0.83158 -7.47966,0.98346 -9.618884,0.27524 z" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource darkYellowSolidColorBrush}" />
                                                                         </MultiDataTrigger>
                                                                         <MultiDataTrigger>
                                                                             <MultiDataTrigger.Conditions>
@@ -314,18 +219,8 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Invalid" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1.25" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="3.5 3.5 3.5 3.5" />
-                                                                            <Setter Property="StrokeStartLineCap"
-                                                                                    Value="Round" />
-                                                                            <Setter Property="StrokeEndLineCap"
-                                                                                    Value="Round" />
-                                                                            <Setter Property="Stroke"
-                                                                                    Value="{StaticResource lightGraySolidColorBrush1}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="M 0,0 L 1,1 M 0,1 L 1,0" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource lightGrayishRedSolidColorBrush}" />
                                                                         </MultiDataTrigger>
                                                                         <MultiDataTrigger>
                                                                             <MultiDataTrigger.Conditions>
@@ -336,18 +231,8 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Invalid" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1.25" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="3.5 3.5 3.5 3.5" />
-                                                                            <Setter Property="StrokeStartLineCap"
-                                                                                    Value="Round" />
-                                                                            <Setter Property="StrokeEndLineCap"
-                                                                                    Value="Round" />
-                                                                            <Setter Property="Stroke"
-                                                                                    Value="{StaticResource blackSolidColorBrush}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="M 0,0 L 1,1 M 0,1 L 1,0" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource darkRedSolidColorBrush}" />
                                                                         </MultiDataTrigger>
                                                                         <MultiDataTrigger>
                                                                             <MultiDataTrigger.Conditions>
@@ -358,14 +243,8 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Valid" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="3.5 3.5 3.5 3.5" />
-                                                                            <Setter Property="Fill"
-                                                                                    Value="{StaticResource lightGraySolidColorBrush1}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource lightGrayishGreenSolidColorBrush1}" />
                                                                         </MultiDataTrigger>
                                                                         <MultiDataTrigger>
                                                                             <MultiDataTrigger.Conditions>
@@ -376,119 +255,298 @@
                                                                                 <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
                                                                                            Value="Valid" />
                                                                             </MultiDataTrigger.Conditions>
-                                                                            <Setter Property="StrokeThickness"
-                                                                                    Value="1" />
-                                                                            <Setter Property="Margin"
-                                                                                    Value="3.5 3.5 3.5 3.5" />
-                                                                            <Setter Property="Fill"
-                                                                                    Value="{StaticResource blackSolidColorBrush}" />
-                                                                            <Setter Property="Data"
-                                                                                    Value="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z" />
+                                                                            <Setter Property="Background"
+                                                                                    Value="{StaticResource darkGreenSolidColorBrush}" />
                                                                         </MultiDataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
-                                                            </Path.Style>
-                                                        </Path>
-                                                    </Border>
-                                                </Viewbox>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_programName"
-                                                    Width="400">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programName"
-                                                                                                      Text="Program Name"
-                                                                                                      Tag="UnderlyingProgram.Name"
-                                                                                                      IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
-                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextTrimming="CharacterEllipsis"
-                                                           Text="{Binding UnderlyingProgram.Name}"
-                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_programInstalledVersion"
-                                                    Width="120">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programInstalledVersion"
-                                                                                                      Text="Installed Version"
-                                                                                                      Tag="ProgramInstalledVersionToDisplay"
-                                                                                                      IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
-                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextTrimming="CharacterEllipsis"
-                                                           Text="{Binding ProgramInstalledVersionToDisplay}"
-                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_programLatestVersion"
-                                                    Width="120">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programLatestVersion"
-                                                                                                      Text="Latest Version"
-                                                                                                      Tag="ProgramLatestVersionToDisplay"
-                                                                                                      IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
-                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextTrimming="CharacterEllipsis"
-                                                           Text="{Binding ProgramLatestVersionToDisplay}"
-                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_installationScope"
-                                                    Width="100">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_installationScope"
-                                                                                                      Text="Installed For"
-                                                                                                      Tag="UnderlyingProgram.InstallationScope"
-                                                                                                      IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
-                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextTrimming="CharacterEllipsis"
-                                                           Text="{Binding UnderlyingProgram.InstallationScope}"
-                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn x:Name="gridViewColumn_notes"
-                                                    Width="120">
-                                        <GridViewColumn.Header>
-                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_notes"
-                                                                                                      Text="Notes"
-                                                                                                      Tag="Notes"
-                                                                                                      IsSortable="True"
-                                                                                                      Click="OnGridViewColumnHeaderClickEvent"
-                                                                                                      SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
-                                        </GridViewColumn.Header>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextTrimming="CharacterEllipsis"
-                                                           FontStyle="Italic"
-                                                           Text="{Binding Notes}"
-                                                           SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView.Columns>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                                                            </Border.Style>
+                                                            <Path Stretch="Fill">
+                                                                <Path.Style>
+                                                                    <Style TargetType="Path">
+                                                                        <Setter Property="StrokeThickness"
+                                                                                Value="0" />
+                                                                        <Setter Property="Margin"
+                                                                                Value="0 0 0 0" />
+                                                                        <Setter Property="StrokeStartLineCap"
+                                                                                Value="Flat" />
+                                                                        <Setter Property="StrokeEndLineCap"
+                                                                                Value="Flat" />
+                                                                        <Setter Property="Stroke"
+                                                                                Value="{x:Null}" />
+                                                                        <Setter Property="Fill"
+                                                                                Value="{x:Null}" />
+                                                                        <Setter Property="Data"
+                                                                                Value="{x:Null}" />
+                                                                        <Style.Triggers>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="False" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Unknown" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1.25" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="4.75 3.5 4.75 3.5" />
+                                                                                <Setter Property="Fill"
+                                                                                        Value="{StaticResource lightGraySolidColorBrush1}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="m 100.38721,215.33071 c -4.319911,-0.92686 -8.782678,-4.41602 -10.671766,-8.3436 -2.532732,-5.26576 -2.302476,-10.84169 0.6501,-15.74289 1.988455,-3.30078 6.082318,-6.24074 9.957296,-7.1507 2.44407,-0.57394 6.72933,-0.37316 8.98686,0.42106 4.49572,1.58164 8.27715,5.43055 9.88414,10.06052 0.8072,2.32564 0.99347,6.38765 0.40112,8.74723 -0.73074,2.91087 -2.13556,5.41109 -4.22693,7.52287 -4.05086,4.09038 -9.38228,5.6867 -14.98082,4.48551 z m -1.111854,-44.26812 c -2.183265,-0.72281 -3.666363,-1.67329 -5.158555,-3.30599 -4.186354,-4.58054 -4.631108,-12.09349 -1.133935,-19.15497 2.437942,-4.92269 6.132536,-8.75714 15.479424,-16.06537 9.38029,-7.33435 12.83251,-10.94333 14.6366,-15.3012 1.19645,-2.89011 1.47671,-5.33567 0.98687,-8.61169 -0.80392,-5.37656 -3.3838,-9.053051 -7.92621,-11.295331 -3.25797,-1.60825 -5.50242,-2.07132 -10.08379,-2.0805 -3.99257,-0.008 -5.85989,0.28853 -8.598962,1.36549 -4.745419,1.86581 -7.13023,4.604751 -10.927917,12.550641 -1.077619,2.25471 -2.437294,4.80333 -3.021499,5.66361 -2.710463,3.99134 -5.975459,5.66449 -11.05371,5.66449 -6.654719,0 -11.460149,-3.52351 -12.581951,-9.22552 -0.424425,-2.15731 -0.172147,-6.37786 0.544392,-9.10755 2.158283,-8.222081 8.47509,-16.198901 17.064642,-21.549104 9.571422,-5.961783 20.503238,-8.618197 32.098315,-7.799842 8.94277,0.631161 16.36668,2.383449 22.7421,5.367884 11.65269,5.454811 18.54997,13.725071 21.00534,25.186682 0.78699,3.67365 0.85825,11.11111 0.13875,14.48161 -0.96347,4.51339 -3.33665,9.37542 -6.64191,13.60755 -3.6655,4.69337 -7.88883,8.30298 -20.29332,17.34434 -6.54605,4.77127 -7.73302,6.2729 -10.50894,13.29485 -2.12279,5.36981 -3.80353,7.41455 -7.14685,8.69468 -2.17185,0.83158 -7.47966,0.98346 -9.618884,0.27524 z" />
+                                                                            </MultiDataTrigger>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Unknown" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1.25" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="4.75 3.5 4.75 3.5" />
+                                                                                <Setter Property="Fill"
+                                                                                        Value="{StaticResource blackSolidColorBrush}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="m 100.38721,215.33071 c -4.319911,-0.92686 -8.782678,-4.41602 -10.671766,-8.3436 -2.532732,-5.26576 -2.302476,-10.84169 0.6501,-15.74289 1.988455,-3.30078 6.082318,-6.24074 9.957296,-7.1507 2.44407,-0.57394 6.72933,-0.37316 8.98686,0.42106 4.49572,1.58164 8.27715,5.43055 9.88414,10.06052 0.8072,2.32564 0.99347,6.38765 0.40112,8.74723 -0.73074,2.91087 -2.13556,5.41109 -4.22693,7.52287 -4.05086,4.09038 -9.38228,5.6867 -14.98082,4.48551 z m -1.111854,-44.26812 c -2.183265,-0.72281 -3.666363,-1.67329 -5.158555,-3.30599 -4.186354,-4.58054 -4.631108,-12.09349 -1.133935,-19.15497 2.437942,-4.92269 6.132536,-8.75714 15.479424,-16.06537 9.38029,-7.33435 12.83251,-10.94333 14.6366,-15.3012 1.19645,-2.89011 1.47671,-5.33567 0.98687,-8.61169 -0.80392,-5.37656 -3.3838,-9.053051 -7.92621,-11.295331 -3.25797,-1.60825 -5.50242,-2.07132 -10.08379,-2.0805 -3.99257,-0.008 -5.85989,0.28853 -8.598962,1.36549 -4.745419,1.86581 -7.13023,4.604751 -10.927917,12.550641 -1.077619,2.25471 -2.437294,4.80333 -3.021499,5.66361 -2.710463,3.99134 -5.975459,5.66449 -11.05371,5.66449 -6.654719,0 -11.460149,-3.52351 -12.581951,-9.22552 -0.424425,-2.15731 -0.172147,-6.37786 0.544392,-9.10755 2.158283,-8.222081 8.47509,-16.198901 17.064642,-21.549104 9.571422,-5.961783 20.503238,-8.618197 32.098315,-7.799842 8.94277,0.631161 16.36668,2.383449 22.7421,5.367884 11.65269,5.454811 18.54997,13.725071 21.00534,25.186682 0.78699,3.67365 0.85825,11.11111 0.13875,14.48161 -0.96347,4.51339 -3.33665,9.37542 -6.64191,13.60755 -3.6655,4.69337 -7.88883,8.30298 -20.29332,17.34434 -6.54605,4.77127 -7.73302,6.2729 -10.50894,13.29485 -2.12279,5.36981 -3.80353,7.41455 -7.14685,8.69468 -2.17185,0.83158 -7.47966,0.98346 -9.618884,0.27524 z" />
+                                                                            </MultiDataTrigger>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="False" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Invalid" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1.25" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="3.5 3.5 3.5 3.5" />
+                                                                                <Setter Property="StrokeStartLineCap"
+                                                                                        Value="Round" />
+                                                                                <Setter Property="StrokeEndLineCap"
+                                                                                        Value="Round" />
+                                                                                <Setter Property="Stroke"
+                                                                                        Value="{StaticResource lightGraySolidColorBrush1}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="M 0,0 L 1,1 M 0,1 L 1,0" />
+                                                                            </MultiDataTrigger>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Invalid" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1.25" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="3.5 3.5 3.5 3.5" />
+                                                                                <Setter Property="StrokeStartLineCap"
+                                                                                        Value="Round" />
+                                                                                <Setter Property="StrokeEndLineCap"
+                                                                                        Value="Round" />
+                                                                                <Setter Property="Stroke"
+                                                                                        Value="{StaticResource blackSolidColorBrush}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="M 0,0 L 1,1 M 0,1 L 1,0" />
+                                                                            </MultiDataTrigger>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="False" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Valid" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="3.5 3.5 3.5 3.5" />
+                                                                                <Setter Property="Fill"
+                                                                                        Value="{StaticResource lightGraySolidColorBrush1}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z" />
+                                                                            </MultiDataTrigger>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.IsUpdateCheckConfigured}"
+                                                                                               Value="True" />
+                                                                                    <Condition Binding="{Binding UnderlyingProgram.UpdateCheckConfigurationStatus}"
+                                                                                               Value="Valid" />
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="StrokeThickness"
+                                                                                        Value="1" />
+                                                                                <Setter Property="Margin"
+                                                                                        Value="3.5 3.5 3.5 3.5" />
+                                                                                <Setter Property="Fill"
+                                                                                        Value="{StaticResource blackSolidColorBrush}" />
+                                                                                <Setter Property="Data"
+                                                                                        Value="m 545.536,519.428 c -4.968,-2.805 -79.208,-76.199 -81.566,-80.636 -4.014,-7.557 -2.513,-11.049 10.316,-23.993 18.652,-18.821 17.17,-19.22 49.999,13.485 25.023,24.929 25.266,25.137 27.167,23.181 1.055,-1.085 5.569,-7.373 10.032,-13.973 4.462,-6.6 15.103,-22.35 23.645,-35 8.542,-12.65 19.843,-29.3 25.113,-37 5.27,-7.7 15.515,-22.775 22.765,-33.5 7.251,-10.725 15.603,-23.049 18.559,-27.388 10.331,-15.161 13.354,-15.288 33.844,-1.422 20.431,13.826 20.852,11.637 -11.311,58.81 -31.718,46.521 -68.633,100.937 -91.514,134.901 -17.737,26.329 -23.798,30.016 -37.049,22.535 z" />
+                                                                            </MultiDataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Path.Style>
+                                                            </Path>
+                                                        </Border>
+                                                    </Viewbox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_programName"
+                                                        Width="400">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programName"
+                                                                                                          Text="Program Name"
+                                                                                                          Tag="UnderlyingProgram.Name"
+                                                                                                          IsSortable="True"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                          SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                               Text="{Binding UnderlyingProgram.Name}"
+                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_programInstalledVersion"
+                                                        Width="120">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programInstalledVersion"
+                                                                                                          Text="Installed Version"
+                                                                                                          Tag="ProgramInstalledVersionToDisplay"
+                                                                                                          IsSortable="True"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                          SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                               Text="{Binding ProgramInstalledVersionToDisplay}"
+                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_programLatestVersion"
+                                                        Width="120">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_programLatestVersion"
+                                                                                                          Text="Latest Version"
+                                                                                                          Tag="ProgramLatestVersionToDisplay"
+                                                                                                          IsSortable="True"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                          SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                               Text="{Binding ProgramLatestVersionToDisplay}"
+                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_installationScope"
+                                                        Width="100">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_installationScope"
+                                                                                                          Text="Installed For"
+                                                                                                          Tag="UnderlyingProgram.InstallationScope"
+                                                                                                          IsSortable="True"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                          SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                               Text="{Binding UnderlyingProgram.InstallationScope}"
+                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn x:Name="gridViewColumn_notes"
+                                                        Width="120">
+                                            <GridViewColumn.Header>
+                                                <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_notes"
+                                                                                                          Text="Notes"
+                                                                                                          Tag="Notes"
+                                                                                                          IsSortable="True"
+                                                                                                          Click="OnGridViewColumnHeaderClickEvent"
+                                                                                                          SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                                               FontStyle="Italic"
+                                                               Text="{Binding Notes}"
+                                                               SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="border_newProgramsAvailabilityTopIndicator"
+                                                                   Margin="0 21 0 0"
+                                                                   BorderBrush="{StaticResource brownishOrangeSolidColorBrush}"
+                                                                   BorderThickness="1"
+                                                                   Background="{StaticResource weakTransparentYellowSolidColorBrush}"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Top"
+                                                                   IsHitTestVisible="False"
+                                                                   Visibility="Collapsed"
+                                                                   Content="↑  New Programs Are Available  ↑">
+                            <Scrupdate_UiElements_Controls:CustomLabel.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomLabel">
+                                    <Setter Property="Opacity"
+                                            Value="1" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=listView_programs, Path=IsEnabled}"
+                                                     Value="False">
+                                            <Setter Property="Opacity"
+                                                    Value="0.6" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomLabel.Style>
+                        </Scrupdate_UiElements_Controls:CustomLabel>
+                        <Scrupdate_UiElements_Controls:CustomLabel x:Name="border_newProgramsAvailabilityBottomIndicator"
+                                                                   BorderBrush="{StaticResource brownishOrangeSolidColorBrush}"
+                                                                   BorderThickness="1"
+                                                                   Background="{StaticResource weakTransparentYellowSolidColorBrush}"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Bottom"
+                                                                   IsHitTestVisible="False"
+                                                                   Visibility="Collapsed"
+                                                                   Content="↓  New Programs Are Available  ↓">
+                            <Scrupdate_UiElements_Controls:CustomLabel.Style>
+                                <Style TargetType="Scrupdate_UiElements_Controls:CustomLabel">
+                                    <Setter Property="Opacity"
+                                            Value="1" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=listView_programs, Path=IsEnabled}"
+                                                     Value="False">
+                                            <Setter Property="Opacity"
+                                                    Value="0.6" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Scrupdate_UiElements_Controls:CustomLabel.Style>
+                        </Scrupdate_UiElements_Controls:CustomLabel>
+                    </Grid>
                     <DockPanel x:Name="dockPanel_programListOperationControlsAndFields"
                                Grid.Row="1"
                                Grid.Column="0"
