@@ -118,6 +118,8 @@
                                         Value="25" />
                                 <Setter Property="Foreground"
                                         Value="{Binding Foreground}" />
+                                <Setter Property="Background"
+                                        Value="{Binding Background}" />
                                 <Setter Property="ContextMenu">
                                     <Setter.Value>
                                         <ContextMenu />
@@ -514,7 +516,7 @@
                                                                        VerticalAlignment="Center"
                                                                        Content="Search: " />
                             <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_programListSearchingPhrase"
-                                                                         Width="180"
+                                                                         Width="155"
                                                                          Margin="10 0 0 0"
                                                                          VerticalAlignment="Center"
                                                                          IsShowingClearButton="True"
@@ -749,6 +751,34 @@
                                 </Style>
                             </Scrupdate_UiElements_Controls:CustomButton.Style>
                         </Scrupdate_UiElements_Controls:CustomButton>
+                        <TextBlock DockPanel.Dock="Right"
+                                   FontSize="13"
+                                   FontFamily="Calibri"
+                                   TextAlignment="Center"
+                                   TextWrapping="WrapWithOverflow"
+                                   Padding="0 0 0 0"
+                                   Margin="0 0 10 0"
+                                   VerticalAlignment="Center"
+                                   Visibility="Collapsed">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="IsEnabled"
+                                            Value="False" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Scrupdate_UiElements_Windows:MainWindow}, Path=CurrentOperation}"
+                                                     Value="None">
+                                            <Setter Property="IsEnabled"
+                                                    Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                            <Hyperlink x:Name="hyperlink_clearMarks"
+                                       Click="OnHyperlinkClickEvent">
+                                Clear<LineBreak />
+                                Marks
+                            </Hyperlink>
+                        </TextBlock>
                     </DockPanel>
                 </Grid>
                 <StackPanel x:Name="stackPanel_programDatabaseWarningAndFix"

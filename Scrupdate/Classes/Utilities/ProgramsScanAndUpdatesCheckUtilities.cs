@@ -298,6 +298,8 @@ namespace Scrupdate.Classes.Utilities
                                     installedProgramInstallationScope,
                                     true
                                 );
+                                if (!settingsHandler.SettingsInMemory.Appearance.HighlightNewProgramsInTheList)
+                                    installedProgram.IsNew = false;
                                 installedPrograms.Add(installedProgram.Name, installedProgram);
                             }
                             else if (installedProgramInstalledVersion != null)

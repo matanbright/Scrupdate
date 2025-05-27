@@ -29,6 +29,7 @@ namespace Scrupdate.Classes.Objects
         public string ProgramLatestVersionToDisplay { get; set; }
         public string Notes { get; set; }
         public Brush Foreground { get; set; }
+        public Brush Background { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -53,6 +54,9 @@ namespace Scrupdate.Classes.Objects
                 notes,
                 (SolidColorBrush)Application.Current.FindResource(
                     App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
+                ),
+                (SolidColorBrush)Application.Current.FindResource(
+                    App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
                 )
             )
         { }
@@ -60,13 +64,15 @@ namespace Scrupdate.Classes.Objects
                                    string programInstalledVersionToDisplay,
                                    string programLatestVersionToDisplay,
                                    string notes,
-                                   Brush foreground)
+                                   Brush foreground,
+                                   Brush background)
         {
             UnderlyingProgram = underlyingProgram;
             ProgramInstalledVersionToDisplay = programInstalledVersionToDisplay;
             ProgramLatestVersionToDisplay = programLatestVersionToDisplay;
             Notes = notes;
             Foreground = foreground;
+            Background = background;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

@@ -149,6 +149,8 @@ namespace Scrupdate.UiElements.Windows
                 comboBox_minimumVersionSegments.Items.Add(i.ToString());
                 comboBox_maximumVersionSegments.Items.Add(i.ToString());
             }
+            if (currentSettings.Appearance.HighlightNewProgramsInTheList && !programDatabaseIsOpen)
+                checkBox_highlightNewProgramsInTheList.IsEnabled = false;
             foreach (Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout chromeDriverPageLoadTimeout in
                      Enum.GetValues(typeof(Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout)))
             {
@@ -479,6 +481,8 @@ namespace Scrupdate.UiElements.Windows
             );
             checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked =
                 settings.Appearance.RemoveTrailingZeroSegmentsOfVersions;
+            checkBox_highlightNewProgramsInTheList.IsChecked =
+                settings.Appearance.HighlightNewProgramsInTheList;
             comboBox_chromeDriverPageLoadTimeout.SelectedItem =
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
                     settings.ChromeDriver.PageLoadTimeout
@@ -542,7 +546,8 @@ namespace Scrupdate.UiElements.Windows
                         1.25D + ((comboBox_windowsScalingFactor.SelectedIndex - 2) * 0.25D))),
                 Convert.ToInt32((string)comboBox_minimumVersionSegments.SelectedItem),
                 Convert.ToInt32((string)comboBox_maximumVersionSegments.SelectedItem),
-                checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked.Value
+                checkBox_removeTrailingZeroSegmentsOfVersions.IsChecked.Value,
+                checkBox_highlightNewProgramsInTheList.IsChecked.Value
             );
             Settings.ChromeDriverSettings chromeDriverSettings = new Settings.ChromeDriverSettings(
                 EnumUtilities.GetEnumItemFromHumanReadableString<Settings.ChromeDriverSettings.ChromeDriverPageLoadTimeout>(

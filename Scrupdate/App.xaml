@@ -93,6 +93,8 @@
                          Color="#FFFADECB" />
         <SolidColorBrush x:Key="darkYellowSolidColorBrush"
                          Color="#FFD2D200" />
+        <SolidColorBrush x:Key="lightYellowSolidColorBrush"
+                         Color="#FFFFFCCC" />
         <SolidColorBrush x:Key="lightGrayishYellowSolidColorBrush"
                          Color="#FFF4F4BF" />
         <SolidColorBrush x:Key="orangishYellowSolidColorBrush"

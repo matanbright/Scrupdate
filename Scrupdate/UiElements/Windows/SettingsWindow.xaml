@@ -489,7 +489,7 @@
                                 </StackPanel>
                                 <StackPanel x:Name="stackPanel_versionsOptions"
                                             Orientation="Vertical"
-                                            Margin="10 10 10 10"
+                                            Margin="10 10 10 0"
                                             HorizontalAlignment="Left">
                                     <StackPanel Orientation="Horizontal"
                                                 Margin="0 0 0 0">
@@ -531,6 +531,11 @@
                                                                                   VerticalAlignment="Center"
                                                                                   Content="Remove Trailing Zero Segments" />
                                 </StackPanel>
+                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_highlightNewProgramsInTheList"
+                                                                              Margin="10 10 10 10"
+                                                                              HorizontalAlignment="Left"
+                                                                              VerticalAlignment="Center"
+                                                                              Content="Highlight New Programs in the List" />
                             </StackPanel>
                             <StackPanel x:Name="stackPanel_settingsChromeDriverControls"
                                         Orientation="Vertical"

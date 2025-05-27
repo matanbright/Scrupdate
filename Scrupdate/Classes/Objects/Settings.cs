@@ -162,23 +162,27 @@ namespace Scrupdate.Classes.Objects
             public int MinimumVersionSegments { get; set; }
             public int MaximumVersionSegments { get; set; }
             public bool RemoveTrailingZeroSegmentsOfVersions { get; set; }
+            public bool HighlightNewProgramsInTheList { get; set; }
             public AppearanceSettings() :
                 this(
                     0.0D,
                     2,
                     4,
+                    true,
                     true
                 )
             { }
             public AppearanceSettings(double windowsScalingFactor,
                                       int minimumVersionSegments,
                                       int maximumVersionSegments,
-                                      bool removeTrailingZeroSegmentsOfVersions)
+                                      bool removeTrailingZeroSegmentsOfVersions,
+                                      bool highlightNewProgramsInTheList)
             {
                 WindowsScalingFactor = windowsScalingFactor;
                 MinimumVersionSegments = minimumVersionSegments;
                 MaximumVersionSegments = maximumVersionSegments;
                 RemoveTrailingZeroSegmentsOfVersions = removeTrailingZeroSegmentsOfVersions;
+                HighlightNewProgramsInTheList = highlightNewProgramsInTheList;
             }
         }
         public class ChromeDriverSettings

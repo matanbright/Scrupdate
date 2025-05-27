@@ -1139,7 +1139,8 @@ namespace Scrupdate.UiElements.Windows
                 updateCheckConfigurationStatus,
                 updateCheckConfigurationError,
                 skippedVersion,
-                (programToEdit != null ? programToEdit.IsHidden : false)
+                (programToEdit != null ? programToEdit.IsHidden : false),
+                false
             );
         }
         private void ChangeLastProgramUpdateCheckConfigurationStatusMessageAndIconAccordingToError(Program._UpdateCheckConfigurationError? updateCheckConfigurationError)

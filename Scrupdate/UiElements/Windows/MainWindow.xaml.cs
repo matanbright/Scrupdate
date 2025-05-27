@@ -837,6 +837,11 @@ namespace Scrupdate.UiElements.Windows
                 else
                     RefreshProgramListViewAndAllMessages(true);
             }
+            else if (sender == hyperlink_clearMarks)
+            {
+                programDatabase.MarkAllProgramsAsNonNew();
+                RefreshProgramListViewAndAllMessages(true);
+            }
         }
         private void OnGridViewColumnsCollectionCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -1040,6 +1045,9 @@ namespace Scrupdate.UiElements.Windows
                                     Brush programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
                                         App.RESOURCE_KEY__BLACK_SOLID_COLOR_BRUSH
                                     );
+                                    Brush programListViewItemBackground = (SolidColorBrush)Application.Current.FindResource(
+                                        App.RESOURCE_KEY__TRANSPARENT_SOLID_COLOR_BRUSH
+                                    );
                                     if (!program.IsAutomaticallyAdded)
                                     {
                                         programListViewItemForeground = (SolidColorBrush)Application.Current.FindResource(
@@ -1074,7 +1082,15 @@ namespace Scrupdate.UiElements.Windows
                                             App.RESOURCE_KEY__LIGHT_GRAY_SOLID_COLOR_BRUSH_2
                                         );
                                     }
+                                    if (App.SettingsHandler.SettingsInMemory.Appearance.HighlightNewProgramsInTheList &&
+                                        program.IsNew)
+                                    {
+                                        programListViewItemBackground = (SolidColorBrush)Application.Current.FindResource(
+                                            App.RESOURCE_KEY__LIGHT_YELLOW_SOLID_COLOR_BRUSH
+                                        );
+                                    }
                                     programListViewItem.Foreground = programListViewItemForeground;
+                                    programListViewItem.Background = programListViewItemBackground;
                                     if (program.IsHidden && !isShowingHiddenPrograms)
                                         return false;
                                     if (!programSearchPhrase.Equals("") &&
@@ -1171,6 +1187,7 @@ namespace Scrupdate.UiElements.Windows
                              listView_programs.SelectedItems.Count == listView_programs.Items.Count);
                     }
             );
+            UpdateClearMarksButtonVisibility();
             string statusMessage =
                 (updatesCount > 0 ?
                     (updatesCount > 1 ?
@@ -1336,7 +1353,11 @@ namespace Scrupdate.UiElements.Windows
                 {
                     Program selectedProgram = selectedProgramListViewItem.UnderlyingProgram;
                     if (hide)
+                    {
+                        programDatabase.MarkProgramAsNonNew(selectedProgram.Name);
+                        selectedProgram.IsNew = false;
                         programDatabase.HideProgram(selectedProgram.Name);
+                    }
                     else
                         programDatabase.UnhideProgram(selectedProgram.Name);
                     selectedProgram.IsHidden = hide;
@@ -1378,6 +1399,30 @@ namespace Scrupdate.UiElements.Windows
                 programDatabase.EndTransaction();
                 RefreshProgramListViewAndAllMessages();
             }
+        }
+        private void UpdateClearMarksButtonVisibility()
+        {
+            ThreadingUtilities.RunOnAnotherThread(
+                Dispatcher,
+                () =>
+                    {
+                        ((TextBlock)hyperlink_clearMarks.Parent).Visibility = Visibility.Collapsed;
+                        if (App.SettingsHandler.SettingsInMemory.Appearance.HighlightNewProgramsInTheList)
+                        {
+                            bool thereAreNewPrograms = false;
+                            foreach (ProgramListViewItem programListViewItem in programListViewItems)
+                            {
+                                if (programListViewItem.UnderlyingProgram.IsNew)
+                                {
+                                    thereAreNewPrograms = true;
+                                    break;
+                                }
+                            }
+                            if (thereAreNewPrograms)
+                                ((TextBlock)hyperlink_clearMarks.Parent).Visibility = Visibility.Visible;
+                        }
+                    }
+            );
         }
         private void ChangeStatusMessage(string statusMessage, Brush statusMessageForegroundColor)
         {
@@ -1483,8 +1528,21 @@ namespace Scrupdate.UiElements.Windows
                     App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms;
                 if (CurrentError == Error.None)
                 {
+                    bool markAllProgramsAsNonNew = false;
+                    bool convertAllProgramsToManuallyInstalledPrograms = false;
                     if (!App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
+                    {
+                        markAllProgramsAsNonNew = true;
+                        convertAllProgramsToManuallyInstalledPrograms = true;
+                    }
+                    if (!App.SettingsHandler.SettingsInMemory.Appearance.HighlightNewProgramsInTheList)
+                        markAllProgramsAsNonNew = true;
+                    programDatabase.BeginTransaction();
+                    if (markAllProgramsAsNonNew)
+                        programDatabase.MarkAllProgramsAsNonNew();
+                    if (convertAllProgramsToManuallyInstalledPrograms)
                         programDatabase.ConvertAllProgramsToManuallyInstalledPrograms();
+                    programDatabase.EndTransaction();
                     RefreshProgramListViewAndAllMessages(true);
                 }
             }

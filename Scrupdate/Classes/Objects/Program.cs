@@ -98,6 +98,7 @@ namespace Scrupdate.Classes.Objects
         public _UpdateCheckConfigurationError UpdateCheckConfigurationError { get; set; }
         public string SkippedVersion { get; set; }
         public bool IsHidden { get; set; }
+        public bool IsNew { get; set; }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -135,7 +136,8 @@ namespace Scrupdate.Classes.Objects
                 _UpdateCheckConfigurationStatus.Unknown,
                 _UpdateCheckConfigurationError.None,
                 "",
-                false
+                false,
+                true
             )
         { }
         public Program(string name,
@@ -155,7 +157,8 @@ namespace Scrupdate.Classes.Objects
                        _UpdateCheckConfigurationStatus updateCheckConfigurationStatus,
                        _UpdateCheckConfigurationError updateCheckConfigurationError,
                        string skippedVersion,
-                       bool isHidden)
+                       bool isHidden,
+                       bool isNew)
         {
             Name = name;
             InstalledVersion = installedVersion;
@@ -176,6 +179,7 @@ namespace Scrupdate.Classes.Objects
             UpdateCheckConfigurationError = updateCheckConfigurationError;
             SkippedVersion = skippedVersion;
             IsHidden = isHidden;
+            IsNew = isNew;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -206,12 +210,13 @@ namespace Scrupdate.Classes.Objects
                     UpdateCheckConfigurationStatus == otherProgram.UpdateCheckConfigurationStatus &&
                     UpdateCheckConfigurationError == otherProgram.UpdateCheckConfigurationError &&
                     SkippedVersion.Equals(otherProgram.SkippedVersion) &&
-                    IsHidden == otherProgram.IsHidden);
+                    IsHidden == otherProgram.IsHidden &&
+                    IsNew == otherProgram.IsNew);
         }
         public override int GetHashCode()
         {
             StringBuilder objectHashString = new StringBuilder(
-                10 * 13 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 4
+                10 * 13 + 10 * LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count + 10 * 5
             );
             objectHashString
                 .Append(Name.GetHashCode())
@@ -238,7 +243,8 @@ namespace Scrupdate.Classes.Objects
                 .Append(UpdateCheckConfigurationStatus.GetHashCode())
                 .Append(UpdateCheckConfigurationError.GetHashCode())
                 .Append(SkippedVersion.GetHashCode())
-                .Append(IsHidden.GetHashCode());
+                .Append(IsHidden.GetHashCode())
+                .Append(IsNew.GetHashCode());
             return objectHashString.ToString().GetHashCode();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

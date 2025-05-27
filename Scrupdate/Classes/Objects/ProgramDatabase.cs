@@ -95,6 +95,7 @@ namespace Scrupdate.Classes.Objects
         private static readonly TableColumn TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR = new TableColumn("update_check_configuration_error", "INTEGER NOT NULL DEFAULT 0");
         private static readonly TableColumn TABLE_COLUMN__SKIPPED_VERSION = new TableColumn("skipped_version", "TEXT NOT NULL DEFAULT \"\"");
         private static readonly TableColumn TABLE_COLUMN__IS_HIDDEN = new TableColumn("is_hidden", "INTEGER NOT NULL DEFAULT 0");
+        private static readonly TableColumn TABLE_COLUMN__IS_NEW = new TableColumn("is_new", "INTEGER NOT NULL DEFAULT 0");
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -666,7 +667,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}")
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_NEW.Name}")
                 .Append(") VALUES (")
                 .Append($"@{TABLE_COLUMN__NAME.Name}, ")
                 .Append($"@{TABLE_COLUMN__INSTALLED_VERSION.Name}, ")
@@ -685,7 +687,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"@{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"@{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
-                .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}")
+                .Append($"@{TABLE_COLUMN__IS_HIDDEN.Name}, ")
+                .Append($"@{TABLE_COLUMN__IS_NEW.Name}")
                 .Append(");");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
@@ -708,6 +711,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name, (long)program.UpdateCheckConfigurationError);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__SKIPPED_VERSION.Name, program.SkippedVersion);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_HIDDEN.Name, Convert.ToInt64(program.IsHidden));
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__IS_NEW.Name, Convert.ToInt64(program.IsNew));
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -772,6 +776,53 @@ namespace Scrupdate.Classes.Objects
             {
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", hidden ? 1L : 0L);
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
+                try
+                {
+                    succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
+        }
+        public bool MarkProgramAsNonNew(string programName)
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_NEW.Name} = @new_{TABLE_COLUMN__IS_NEW.Name} WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};",
+                       sqLiteConnection
+                   ))
+            {
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_NEW.Name}", 0L);
+                sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
+                try
+                {
+                    succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
+                }
+                catch { }
+            }
+            if (currentSqLiteTransaction == null)
+                UpdateProgramDatabaseChecksumFile();
+            return succeeded;
+        }
+        public bool MarkAllProgramsAsNonNew()
+        {
+            if (disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            if (!open)
+                throw new DatabaseIsNotOpenException();
+            bool succeeded = false;
+            using (SQLiteCommand sqLiteCommand = new SQLiteCommand(
+                       $"UPDATE {TABLE_NAME__PROGRAMS} SET {TABLE_COLUMN__IS_NEW.Name} = @new_{TABLE_COLUMN__IS_NEW.Name};",
+                       sqLiteConnection
+                   ))
+            {
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_NEW.Name}", 0L);
                 try
                 {
                     succeeded = (sqLiteCommand.ExecuteNonQuery() > 0);
@@ -971,7 +1022,8 @@ namespace Scrupdate.Classes.Objects
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
                                 (string)sqLiteDataReader[TABLE_COLUMN__SKIPPED_VERSION.Name],
-                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_NEW.Name])
                             );
                         }
                     }
@@ -1019,7 +1071,8 @@ namespace Scrupdate.Classes.Objects
                                 (Program._UpdateCheckConfigurationStatus)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name]),
                                 (Program._UpdateCheckConfigurationError)((long)sqLiteDataReader[TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name]),
                                 (string)sqLiteDataReader[TABLE_COLUMN__SKIPPED_VERSION.Name],
-                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name])
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_HIDDEN.Name]),
+                                Convert.ToBoolean((long)sqLiteDataReader[TABLE_COLUMN__IS_NEW.Name])
                             );
                             programs.Add((string)sqLiteDataReader[TABLE_COLUMN__NAME.Name], program);
                         }
@@ -1059,7 +1112,8 @@ namespace Scrupdate.Classes.Objects
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_STATUS.Name}, ")
                 .Append($"{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name} = @new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}, ")
                 .Append($"{TABLE_COLUMN__SKIPPED_VERSION.Name} = @new_{TABLE_COLUMN__SKIPPED_VERSION.Name}, ")
-                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name} ")
+                .Append($"{TABLE_COLUMN__IS_HIDDEN.Name} = @new_{TABLE_COLUMN__IS_HIDDEN.Name}, ")
+                .Append($"{TABLE_COLUMN__IS_NEW.Name} = @new_{TABLE_COLUMN__IS_NEW.Name} ")
                 .Append($"WHERE {TABLE_COLUMN__NAME.Name} = @{TABLE_COLUMN__NAME.Name};");
             bool succeeded = false;
             using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqlQueryString.ToString(), sqLiteConnection))
@@ -1082,6 +1136,7 @@ namespace Scrupdate.Classes.Objects
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__UPDATE_CHECK_CONFIGURATION_ERROR.Name}", (long)newProgram.UpdateCheckConfigurationError);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__SKIPPED_VERSION.Name}", newProgram.SkippedVersion);
                 sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_HIDDEN.Name}", Convert.ToInt64(newProgram.IsHidden));
+                sqLiteCommand.Parameters.AddWithValue($"new_{TABLE_COLUMN__IS_NEW.Name}", Convert.ToInt64(newProgram.IsNew));
                 sqLiteCommand.Parameters.AddWithValue(TABLE_COLUMN__NAME.Name, programName);
                 try
                 {
