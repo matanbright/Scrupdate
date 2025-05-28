@@ -262,6 +262,11 @@ namespace Scrupdate.UiElements.Windows
             );
             Owner?.Activate();
         }
+        private void OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
+        }
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomButton senderButton = (CustomButton)sender;

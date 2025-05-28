@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using Scrupdate.Classes.Objects;
 using Scrupdate.Classes.Utilities;
 using Scrupdate.UiElements.Controls;
@@ -138,6 +139,14 @@ namespace Scrupdate.UiElements.Windows
             {
                 PrepareWindowForClosing();
                 Owner?.Activate();
+            }
+        }
+        private void OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (CurrentOperation != Operation.CancellingOperation)
+                    CancelOperation();
             }
         }
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)

@@ -31,7 +31,8 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
-        Closing="OnClosingEvent">
+        Closing="OnClosingEvent"
+        KeyDown="OnKeyDownEvent">
     <Grid x:Name="grid_window"
           SnapsToDevicePixels="False">
         <Grid.ColumnDefinitions>

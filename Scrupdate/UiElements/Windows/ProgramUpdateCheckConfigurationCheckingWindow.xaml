@@ -13,7 +13,8 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Loaded="OnLoadedEvent"
-        Closing="OnClosingEvent">
+        Closing="OnClosingEvent"
+        KeyDown="OnKeyDownEvent">
     <Grid x:Name="grid_window"
           SnapsToDevicePixels="False">
         <Grid.ColumnDefinitions>

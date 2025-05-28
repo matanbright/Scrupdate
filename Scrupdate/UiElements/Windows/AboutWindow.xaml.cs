@@ -21,6 +21,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using Scrupdate.Classes.Utilities;
 
 
@@ -89,6 +90,11 @@ namespace Scrupdate.UiElements.Windows
         private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             Owner?.Activate();
+        }
+        private void OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
         }
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
         {

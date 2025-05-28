@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
 using Scrupdate.Classes.Objects;
@@ -172,6 +173,11 @@ namespace Scrupdate.UiElements.Windows
         private void OnClosingEvent(object sender, CancelEventArgs e)
         {
             Owner?.Activate();
+        }
+        private void OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
         }
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)
         {
