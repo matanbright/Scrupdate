@@ -31,6 +31,12 @@ namespace Scrupdate.UiElements.Controls
     public partial class CustomProgressBar : ProgressBar, INotifyPropertyChanged
     {
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static readonly DependencyProperty ProgressDurationProperty = DependencyProperty.Register(
+            nameof(ProgressDuration),
+            typeof(int),
+            typeof(CustomProgressBar),
+            new PropertyMetadata(0)
+        );
         public static readonly DependencyProperty GlowColorProperty = DependencyProperty.Register(
             nameof(GlowColor),
             typeof(Color),
@@ -42,6 +48,30 @@ namespace Scrupdate.UiElements.Controls
 
 
         // Properties //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public int ProgressDuration
+        {
+            get
+            {
+                return ThreadingUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () => (int)GetValue(ProgressDurationProperty)
+                );
+            }
+            set
+            {
+                ThreadingUtilities.RunOnAnotherThread(
+                    Dispatcher,
+                    () =>
+                        {
+                            SetValue(ProgressDurationProperty, value);
+                            PropertyChanged?.Invoke(
+                                this,
+                                new PropertyChangedEventArgs(nameof(ProgressDuration))
+                            );
+                        }
+                );
+            }
+        }
         public Color GlowColor
         {
             get
@@ -81,9 +111,17 @@ namespace Scrupdate.UiElements.Controls
 
 
         // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public void ChangeValueSmoothly(double value, Duration duration)
+        public void ChangeValueSmoothly(double value)
         {
-            BeginAnimation(ValueProperty, new DoubleAnimation(value, duration));
+            BeginAnimation(
+                ValueProperty,
+                new DoubleAnimation(
+                    value,
+                    new Duration(
+                        new System.TimeSpan(0, 0, 0, 0, IsIndeterminate ? 0 : ProgressDuration)
+                    )
+                )
+            );
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

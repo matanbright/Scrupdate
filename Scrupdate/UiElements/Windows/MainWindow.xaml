@@ -1076,6 +1076,7 @@
                                                                          BorderBrush="{StaticResource lightBlackSolidColorBrush}"
                                                                          Background="{StaticResource lightGraySolidColorBrush2}"
                                                                          Foreground="{StaticResource grayishGreenSolidColorBrush2}"
+                                                                         ProgressDuration="1000"
                                                                          GlowColor="{Binding Source={StaticResource paleGrayishGreenSolidColorBrush2}, Path=Color}">
                             <Scrupdate_UiElements_Controls:CustomProgressBar.Style>
                                 <Style TargetType="Scrupdate_UiElements_Controls:CustomProgressBar">

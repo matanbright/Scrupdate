@@ -1523,18 +1523,12 @@ namespace Scrupdate.UiElements.Windows
                         if (progressBarValue < 0)
                         {
                             progressBar_progress.IsIndeterminate = true;
-                            progressBar_progress.ChangeValueSmoothly(
-                                0,
-                                new Duration(new TimeSpan(0, 0, 0, 0))
-                            );
+                            progressBar_progress.ChangeValueSmoothly(0);
                         }
                         else
                         {
                             progressBar_progress.IsIndeterminate = false;
-                            progressBar_progress.ChangeValueSmoothly(
-                                progressBarValue,
-                                new Duration(new TimeSpan(0, 0, 0, 1))
-                            );
+                            progressBar_progress.ChangeValueSmoothly(progressBarValue);
                         }
                     }
             );
