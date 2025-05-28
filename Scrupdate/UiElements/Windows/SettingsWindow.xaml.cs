@@ -162,6 +162,7 @@ namespace Scrupdate.UiElements.Windows
             }
             ApplySettingsToUiControlsValues(currentSettings);
             SelectedSettingsCategoryMenuTab = SettingsCategoryMenuTab.General;
+            button_save.Focus();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
