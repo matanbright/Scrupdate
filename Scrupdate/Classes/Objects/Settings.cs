@@ -165,7 +165,7 @@ namespace Scrupdate.Classes.Objects
             public bool HighlightNewProgramsInTheList { get; set; }
             public AppearanceSettings() :
                 this(
-                    0.0D,
+                    1.0D,
                     2,
                     4,
                     true,
