@@ -26,7 +26,8 @@
           BorderBrush="{StaticResource transparentSolidColorBrush}"
           Background="{StaticResource transparentSolidColorBrush}"
           HorizontalContentAlignment="Left"
-          VerticalContentAlignment="Center">
+          VerticalContentAlignment="Center"
+          KeyDown="OnKeyDownEvent">
     <ComboBox.Template>
         <ControlTemplate TargetType="ComboBox">
             <Grid>
@@ -38,6 +39,7 @@
                 </Grid.RowDefinitions>
                 <ToggleButton Grid.Row="0"
                               Grid.Column="0"
+                              Focusable="False"
                               BorderThickness="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=BorderThickness}"
                               IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
                     <ToggleButton.Style>
