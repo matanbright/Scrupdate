@@ -32,6 +32,7 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
+        ShowInTaskbar="False"
         Closing="OnClosingEvent"
         KeyDown="OnKeyDownEvent">
     <Grid x:Name="grid_window"

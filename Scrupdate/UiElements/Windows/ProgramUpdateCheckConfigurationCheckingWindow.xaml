@@ -12,6 +12,7 @@
         SnapsToDevicePixels="True"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
+        ShowInTaskbar="False"
         Loaded="OnLoadedEvent"
         Closing="OnClosingEvent"
         KeyDown="OnKeyDownEvent">
