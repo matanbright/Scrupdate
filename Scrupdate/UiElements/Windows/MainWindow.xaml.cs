@@ -561,6 +561,11 @@ namespace Scrupdate.UiElements.Windows
                         }
                     }
                 }
+                else if (e.Key == Key.F5)
+                {
+                    if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms)
+                        StartProgramDatabaseUpdatingTask(senderListView);
+                }
             }
         }
         private void OnGridViewColumnHeaderPreviewMouseMoveEvent(object sender, MouseEventArgs e)
