@@ -406,6 +406,11 @@ namespace Scrupdate.UiElements.Windows
                     PrepareWindowForClosing();
             }
         }
+        private void OnKeyDownEvent(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+                OpenUserManualFile();
+        }
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomButton senderButton = (CustomButton)sender;

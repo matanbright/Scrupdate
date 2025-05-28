@@ -31,7 +31,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         Loaded="OnLoadedEvent"
-        Closing="OnClosingEvent">
+        Closing="OnClosingEvent"
+        KeyDown="OnKeyDownEvent">
     <Grid x:Name="grid_window"
           SnapsToDevicePixels="False">
         <Grid.Background>
