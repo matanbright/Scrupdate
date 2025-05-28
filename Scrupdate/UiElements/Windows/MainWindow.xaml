@@ -551,6 +551,7 @@
                                Grid.Row="1"
                                Grid.Column="0"
                                LastChildFill="False"
+                               KeyboardNavigation.TabNavigation="Local"
                                Margin="10 10 10 10">
                         <StackPanel x:Name="stackPanel_programListSearchingField"
                                     DockPanel.Dock="Left"
@@ -579,6 +580,7 @@
                                                                          VerticalAlignment="Center"
                                                                          IsShowingClearButton="True"
                                                                          MaxLength="1000"
+                                                                         TabIndex="0"
                                                                          TextChanged="OnTextBoxTextChangedEvent" />
                         </StackPanel>
                         <StackPanel x:Name="stackPanel_programListFilteringField"
@@ -601,6 +603,7 @@
                             <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_filterProgramList"
                                                                           Margin="0 0 0 0"
                                                                           VerticalAlignment="Center"
+                                                                          TabIndex="1"
                                                                           Content="Filter"
                                                                           Click="OnCheckBoxClickEvent" />
                             <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_programListFilteringOption"
@@ -608,6 +611,7 @@
                                                                           Height="20"
                                                                           Margin="10 0 0 0"
                                                                           VerticalAlignment="Center"
+                                                                          TabIndex="2"
                                                                           BorderThickness="1 1 1 1"
                                                                           BorderBrush="{StaticResource lightBlackSolidColorBrush}"
                                                                           PopupBackground="{StaticResource smokeWhiteSolidColorBrush}"
@@ -631,6 +635,7 @@
                                                                       DockPanel.Dock="Left"
                                                                       Margin="10 0 0 0"
                                                                       VerticalAlignment="Center"
+                                                                      TabIndex="3"
                                                                       Content="Show Hidden"
                                                                       Click="OnCheckBoxClickEvent">
                             <Scrupdate_UiElements_Controls:CustomCheckBox.Style>
@@ -660,6 +665,7 @@
                                                                     CornerRadius="3 3 3 3"
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 0 0 0"
+                                                                    TabIndex="8"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishGreenSolidColorBrush1}"
@@ -695,6 +701,7 @@
                                                                     CornerRadius="3 3 3 3"
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 0 10 0"
+                                                                    TabIndex="7"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -735,6 +742,7 @@
                                                                     CornerRadius="3 3 3 3"
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 0 10 0"
+                                                                    TabIndex="6"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -782,6 +790,7 @@
                                                                     CornerRadius="3 3 3 3"
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 0 10 0"
+                                                                    TabIndex="5"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -832,6 +841,7 @@
                                 </Style>
                             </TextBlock.Style>
                             <Hyperlink x:Name="hyperlink_clearMarks"
+                                       KeyboardNavigation.TabIndex="4"
                                        Click="OnHyperlinkClickEvent">
                                 Clear<LineBreak />
                                 Marks
@@ -1106,7 +1116,8 @@
                     <DockPanel x:Name="dockPanel_bottomBar"
                                Grid.Row="1"
                                Grid.Column="0"
-                               LastChildFill="False">
+                               LastChildFill="False"
+                               KeyboardNavigation.TabNavigation="Local">
                         <Scrupdate_UiElements_Controls:CustomButton x:Name="button_checkForProgramUpdates"
                                                                     DockPanel.Dock="Left"
                                                                     Width="auto"
@@ -1121,6 +1132,7 @@
                                                                     Padding="18 0 18 0"
                                                                     Margin="10 10 0 10"
                                                                     VerticalAlignment="Bottom"
+                                                                    TabIndex="0"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource brownishOrangeSolidColorBrush}"
@@ -1181,6 +1193,7 @@
                                                                         CornerRadius="3 3 3 3"
                                                                         Padding="10 0 10 0"
                                                                         Margin="10 0 10 10"
+                                                                        TabIndex="1"
                                                                         Foreground="{StaticResource whiteSolidColorBrush}"
                                                                         DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                         Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -1230,6 +1243,7 @@
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 10 10 10"
                                                                     VerticalAlignment="Bottom"
+                                                                    TabIndex="4"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -1266,6 +1280,7 @@
                                                                     Padding="10 0 10 0"
                                                                     Margin="0 10 10 10"
                                                                     VerticalAlignment="Bottom"
+                                                                    TabIndex="3"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"
@@ -1288,6 +1303,7 @@
                                                                     Padding="10 0 10 0"
                                                                     Margin="10 10 10 10"
                                                                     VerticalAlignment="Bottom"
+                                                                    TabIndex="2"
                                                                     Foreground="{StaticResource whiteSolidColorBrush}"
                                                                     DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                     Background="{StaticResource grayishBlueSolidColorBrush}"

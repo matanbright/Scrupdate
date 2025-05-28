@@ -785,6 +785,7 @@
                            Grid.Row="0"
                            Grid.Column="0"
                            LastChildFill="False"
+                           KeyboardNavigation.TabNavigation="Local"
                            Margin="10 10 10 10">
                     <Scrupdate_UiElements_Controls:CustomButton x:Name="button_save"
                                                                 DockPanel.Dock="Right"
@@ -800,6 +801,7 @@
                                                                 Padding="10 0 10 0"
                                                                 Margin="0 10 10 10"
                                                                 VerticalAlignment="Bottom"
+                                                                TabIndex="1"
                                                                 Foreground="{StaticResource whiteSolidColorBrush}"
                                                                 DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                 Background="{StaticResource grayishGreenSolidColorBrush1}"
@@ -822,6 +824,7 @@
                                                                 Padding="10 0 10 0"
                                                                 Margin="10 10 10 10"
                                                                 VerticalAlignment="Bottom"
+                                                                TabIndex="0"
                                                                 Foreground="{StaticResource whiteSolidColorBrush}"
                                                                 DisabledForeground="{StaticResource whiteSolidColorBrush}"
                                                                 Background="{StaticResource graySolidColorBrush}"
