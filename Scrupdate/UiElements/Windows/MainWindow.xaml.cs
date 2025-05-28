@@ -342,7 +342,6 @@ namespace Scrupdate.UiElements.Windows
             }
             if (isShowingHiddenProgramsOnStart != null)
                 checkBox_showHiddenPrograms.IsChecked = isShowingHiddenProgramsOnStart;
-            button_checkForProgramUpdates.Focus();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -371,10 +370,13 @@ namespace Scrupdate.UiElements.Windows
                 if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms &&
                     App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
                 {
-                    StartProgramDatabaseUpdatingTask();
+                    StartProgramDatabaseUpdatingTask(button_checkForProgramUpdates);
                 }
                 else
+                {
                     RefreshProgramListViewAndAllMessages(true);
+                    button_checkForProgramUpdates.Focus();
+                }
             }
         }
         private void OnClosingEvent(object sender, CancelEventArgs e)
@@ -429,9 +431,9 @@ namespace Scrupdate.UiElements.Windows
                     AddNewProgramToDatabaseAndListView(newProgram);
             }
             else if (senderButton == button_checkForProgramUpdates)
-                StartProgramUpdatesCheckTask();
+                StartProgramUpdatesCheckTask(senderButton);
             else if (senderButton == button_rescanForInstalledPrograms)
-                StartProgramDatabaseUpdatingTask();
+                StartProgramDatabaseUpdatingTask(senderButton);
             else if (senderButton == button_cancel)
                 CancelOperation(false);
             else if (senderButton == button_about)
@@ -838,7 +840,7 @@ namespace Scrupdate.UiElements.Windows
                 if (App.SettingsHandler.SettingsInMemory.General.EnableScanningForInstalledPrograms &&
                     App.SettingsHandler.SettingsInMemory.General.ScanForInstalledProgramsAutomaticallyOnStart)
                 {
-                    StartProgramDatabaseUpdatingTask();
+                    StartProgramDatabaseUpdatingTask(button_checkForProgramUpdates);
                 }
                 else
                     RefreshProgramListViewAndAllMessages(true);
@@ -1586,7 +1588,7 @@ namespace Scrupdate.UiElements.Windows
                 }
             }
         }
-        private void StartProgramDatabaseUpdatingTask()
+        private void StartProgramDatabaseUpdatingTask(UIElement uiElementToFocusOnWhenDone)
         {
             CurrentOperation = Operation.UpdatingProgramDatabase;
             programDatabaseUpdatingCancellableThread = new CancellableThread(
@@ -1613,6 +1615,13 @@ namespace Scrupdate.UiElements.Windows
                         }
                         RefreshProgramListViewAndAllMessages(true);
                         CurrentOperation = Operation.None;
+                        if (uiElementToFocusOnWhenDone != null)
+                        {
+                            ThreadingUtilities.RunOnAnotherThread(
+                                Dispatcher,
+                                uiElementToFocusOnWhenDone.Focus
+                            );
+                        }
                         ChangeProgressBarValue(-1);
                         if (closeInQueue)
                             PrepareWindowForClosing(true);
@@ -1621,7 +1630,7 @@ namespace Scrupdate.UiElements.Windows
             );
             programDatabaseUpdatingCancellableThread.Start();
         }
-        private void StartProgramUpdatesCheckTask()
+        private void StartProgramUpdatesCheckTask(UIElement uiElementToFocusOnWhenDone)
         {
             CurrentOperation = Operation.CheckingForProgramUpdates;
             programUpdatesCheckCancellableThread = new CancellableThread(
@@ -1663,6 +1672,13 @@ namespace Scrupdate.UiElements.Windows
                         }
                         RefreshProgramListViewAndAllMessages(true);
                         CurrentOperation = Operation.None;
+                        if (uiElementToFocusOnWhenDone != null)
+                        {
+                            ThreadingUtilities.RunOnAnotherThread(
+                                Dispatcher,
+                                uiElementToFocusOnWhenDone.Focus
+                            );
+                        }
                         ChangeProgressBarValue(-1);
                         if (closeInQueue)
                             PrepareWindowForClosing(true);
