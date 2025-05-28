@@ -1654,6 +1654,7 @@ namespace Scrupdate.UiElements.Windows
                                     ChangeProgressBarValue,
                                     cancellationToken
                                 );
+                                cancellationToken.WaitHandle.WaitOne(progressBar_progress.ProgressDuration);
                             }
                             catch (Exception e)
                             {
