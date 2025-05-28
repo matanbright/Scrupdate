@@ -39,8 +39,8 @@ namespace Scrupdate.UiElements.Windows
     public partial class ProgramAddingOrEditingWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private const int MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = 5;
-        private const int MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH = 30;
+        private const int MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEBPAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = 5;
+        private const int MINIMUM_WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH = 30;
         private const string WINDOW_TITLE__PROGRAM_ADDING = "Scrupdate - Program Adding";
         private const string WINDOW_TITLE__PROGRAM_EDITING = "Scrupdate - Program Editing [{*}]";
         private const string LAST_PROGRAM_UPDATE_CHECK_STATUS_MESSAGE__LAST_CHECK_WAS_SUCCEEDED = "Last Check Was Succeeded";
@@ -48,18 +48,18 @@ namespace Scrupdate.UiElements.Windows
         private const string ERROR_DIALOG_MESSAGE__UNKNOWN = "Unknown!";
         private const string ERROR_DIALOG_MESSAGE__NO_NAME = "The 'Name' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__INVALID_INSTALLED_VERSION = "The 'Installed Version' Field's Value Is Invalid!";
-        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL = "The 'Web Page URL' Field Cannot Be Empty!";
+        private const string ERROR_DIALOG_MESSAGE__NO_WEBPAGE_URL = "The 'Webpage URL' Field Cannot Be Empty!";
         private const string ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH = "The 'Version Search Method' Field Cannot Be Empty!";
-        private const string ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Web Page Elements to Simulate a Click On!";
+        private const string ERROR_DIALOG_MESSAGE__NO_WEBPAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON = "No Webpage Elements to Simulate a Click On!";
         private const string ERROR_DIALOG_MESSAGE__NAME_ALREADY_EXISTS = "A Program with That Name Already Exists!";
         private const string WARNING_DIALOG_MESSAGE__CHECK_WAS_FAILED = "Check Was Failed\r\n(Reason: {*})";
         private const string INFORMATION_DIALOG_MESSAGE__FOUND_VERSION = "Found Version: {*}";
         private const string QUESTION_DIALOG_MESSAGE__CONVERT_THE_PROGRAM_TO_A_MANUALLY_ADDED_PROGRAM = "Convert the Program to a Manually-Added Program?\r\n\r\n•  You will need to update the program's information manually,\r\n    every time you install a new version of the program or remove the program.\r\n•  It cannot be undone automatically.";
-        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT = "Copy Locating Method Argument";
-        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP = "Move Up";
-        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN = "Move Down";
-        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE = "Remove";
-        private const string WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED = "Remove Selected";
+        private const string WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT = "Copy Locating Method Argument";
+        private const string WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP = "Move Up";
+        private const string WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN = "Move Down";
+        private const string WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE = "Remove";
+        private const string WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED = "Remove Selected";
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -96,7 +96,7 @@ namespace Scrupdate.UiElements.Windows
         private Dictionary<string, Program> programsAlreadyInDatabase;
         private Program programToEdit;
         private Program newOrUpdatedProgram;
-        private volatile List<WebPageElementLocatingInstructionListViewItem> locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn;
+        private volatile List<WebpageElementLocatingInstructionListViewItem> locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn;
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -164,8 +164,8 @@ namespace Scrupdate.UiElements.Windows
             this.programsAlreadyInDatabase = programsAlreadyInDatabase;
             this.programToEdit = programToEdit;
             newOrUpdatedProgram = null;
-            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn =
-                new List<WebPageElementLocatingInstructionListViewItem>();
+            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn =
+                new List<WebpageElementLocatingInstructionListViewItem>();
             InitializeComponent();
             BaseSize = new Size(Width, Height);
             WindowUtilities.ChangeWindowRenderingScaleAndMoveWindowIntoScreenBoundaries(
@@ -186,53 +186,53 @@ namespace Scrupdate.UiElements.Windows
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
                     Program._InstallationScope.Everyone
                 );
-            foreach (Program._WebPagePostLoadDelay webPagePostLoadDelay in
-                     Enum.GetValues(typeof(Program._WebPagePostLoadDelay)))
+            foreach (Program._WebpagePostLoadDelay webpagePostLoadDelay in
+                     Enum.GetValues(typeof(Program._WebpagePostLoadDelay)))
             {
-                comboBox_webPagePostLoadDelay.Items.Add(
+                comboBox_webpagePostLoadDelay.Items.Add(
                     EnumUtilities.GetHumanReadableStringFromEnumItem(
-                        webPagePostLoadDelay
+                        webpagePostLoadDelay
                     ).Replace(" Ms", "ms")
                 );
             }
-            comboBox_webPagePostLoadDelay.SelectedItem =
+            comboBox_webpagePostLoadDelay.SelectedItem =
                 EnumUtilities.GetHumanReadableStringFromEnumItem(
-                    Program._WebPagePostLoadDelay.None
+                    Program._WebpagePostLoadDelay.None
                 ).Replace(" Ms", "ms");
-            ((GridView)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged +=
+            ((GridView)listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.View).Columns.CollectionChanged +=
                 OnGridViewColumnsCollectionCollectionChangedEvent;
-            listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ItemsSource =
-                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn;
-            foreach (WebPageElementLocatingInstruction._LocatingMethod locatingMethod in
-                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingMethod)))
+            listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.ItemsSource =
+                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn;
+            foreach (WebpageElementLocatingInstruction._LocatingMethod locatingMethod in
+                     Enum.GetValues(typeof(WebpageElementLocatingInstruction._LocatingMethod)))
             {
-                if (locatingMethod == WebPageElementLocatingInstruction._LocatingMethod.Unspecified)
-                    comboBox_webPageElementLocatingMethod.Items.Add("");
+                if (locatingMethod == WebpageElementLocatingInstruction._LocatingMethod.Unspecified)
+                    comboBox_webpageElementLocatingMethod.Items.Add("");
                 else
                 {
-                    comboBox_webPageElementLocatingMethod.Items.Add(
+                    comboBox_webpageElementLocatingMethod.Items.Add(
                         EnumUtilities.GetHumanReadableStringFromEnumItem(
                             locatingMethod
                         ).Replace("Id", "ID").Replace("Html", "HTML").Replace("X Path", "XPath")
                     );
                 }
             }
-            comboBox_webPageElementLocatingMethod.SelectedItem = "";
-            foreach (WebPageElementLocatingInstruction._LocatingInterval locatingInterval in
-                     Enum.GetValues(typeof(WebPageElementLocatingInstruction._LocatingInterval)))
+            comboBox_webpageElementLocatingMethod.SelectedItem = "";
+            foreach (WebpageElementLocatingInstruction._LocatingInterval locatingInterval in
+                     Enum.GetValues(typeof(WebpageElementLocatingInstruction._LocatingInterval)))
             {
-                if (locatingInterval == WebPageElementLocatingInstruction._LocatingInterval.Unspecified)
-                    comboBox_webPageElementLocatingInterval.Items.Add("");
+                if (locatingInterval == WebpageElementLocatingInstruction._LocatingInterval.Unspecified)
+                    comboBox_webpageElementLocatingInterval.Items.Add("");
                 else
                 {
-                    comboBox_webPageElementLocatingInterval.Items.Add(
+                    comboBox_webpageElementLocatingInterval.Items.Add(
                         EnumUtilities.GetHumanReadableStringFromEnumItem(
                             locatingInterval
                         ).Replace(" Ms", "ms")
                     );
                 }
             }
-            comboBox_webPageElementLocatingInterval.SelectedItem = "";
+            comboBox_webpageElementLocatingInterval.SelectedItem = "";
             CalculateWindowDynamicSizeAndResizeWindow();
             if (programToEdit == null)
             {
@@ -257,7 +257,7 @@ namespace Scrupdate.UiElements.Windows
             ThreadingUtilities.RunOnAnotherThread(
                 Dispatcher,
                 () =>
-                    ((GridView)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.View).Columns.CollectionChanged -=
+                    ((GridView)listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.View).Columns.CollectionChanged -=
                         OnGridViewColumnsCollectionCollectionChangedEvent
             );
             Owner?.Activate();
@@ -270,14 +270,14 @@ namespace Scrupdate.UiElements.Windows
         private void OnButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomButton senderButton = (CustomButton)sender;
-            if (senderButton == button_addNewWebPageElement)
-                AddTypedWebPageElementLocatingInstructionToListView();
-            else if (senderButton == button_removeWebPageElement)
-                RemoveSelectedWebPageElementLocatingInstructionsFromListView();
-            else if (senderButton == button_moveDownWebPageElement)
-                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
-            else if (senderButton == button_moveUpWebPageElement)
-                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
+            if (senderButton == button_addNewWebpageElement)
+                AddTypedWebpageElementLocatingInstructionToListView();
+            else if (senderButton == button_removeWebpageElement)
+                RemoveSelectedWebpageElementLocatingInstructionsFromListView();
+            else if (senderButton == button_moveDownWebpageElement)
+                MoveSelectedWebpageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
+            else if (senderButton == button_moveUpWebpageElement)
+                MoveSelectedWebpageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
             else if (senderButton == button_addOrSave)
             {
                 string errorDialogMessage;
@@ -339,48 +339,48 @@ namespace Scrupdate.UiElements.Windows
             {
                 if (checkBox_configureUpdateCheck.IsChecked == false)
                 {
-                    textBox_webPageUrl.Text = "";
+                    textBox_webpageUrl.Text = "";
                     textBox_searchWithinTheHtmlElementWithIdParameter.Text = "";
                     textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text = "";
-                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
-                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
-                    checkBox_searchFromTextWithinTheWebPage.IsChecked = false;
-                    checkBox_searchUntilTextWithinTheWebPage.IsChecked = false;
+                    textBox_searchFromTextWithinTheWebpageParameter.Text = "";
+                    textBox_searchUntilTextWithinTheWebpageParameter.Text = "";
+                    checkBox_searchFromTextWithinTheWebpage.IsChecked = false;
+                    checkBox_searchUntilTextWithinTheWebpage.IsChecked = false;
                     radioButton_searchWithinTheHtmlElementWithId.IsChecked = true;
                     checkBox_treatAStandaloneNumberAsAVersion.IsChecked = false;
                     radioButton_getTheFirstVersionThatIsFound.IsChecked = true;
                     expander_advancedOptions.IsExpanded = false;
-                    comboBox_webPagePostLoadDelay.SelectedItem =
+                    comboBox_webpagePostLoadDelay.SelectedItem =
                         EnumUtilities.GetHumanReadableStringFromEnumItem(
-                            Program._WebPagePostLoadDelay.None
+                            Program._WebpagePostLoadDelay.None
                         ).Replace(" Ms", "ms");
-                    RemoveAllWebPageElementLocatingInstructionsFromListView();
-                    comboBox_webPageElementLocatingMethod.SelectedItem = "";
-                    checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
-                    textBox_webPageElementLocatingMethodArgument.Text = "";
-                    comboBox_webPageElementLocatingInterval.SelectedItem = "";
-                    checkBox_simulateWebPageElementClicks.IsChecked = false;
+                    RemoveAllWebpageElementLocatingInstructionsFromListView();
+                    comboBox_webpageElementLocatingMethod.SelectedItem = "";
+                    checkBox_webpageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
+                    textBox_webpageElementLocatingMethodArgument.Text = "";
+                    comboBox_webpageElementLocatingInterval.SelectedItem = "";
+                    checkBox_simulateWebpageElementClicks.IsChecked = false;
                 }
             }
-            else if (senderCheckBox == checkBox_searchFromTextWithinTheWebPage)
+            else if (senderCheckBox == checkBox_searchFromTextWithinTheWebpage)
             {
-                if (checkBox_searchFromTextWithinTheWebPage.IsChecked == false)
-                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
+                if (checkBox_searchFromTextWithinTheWebpage.IsChecked == false)
+                    textBox_searchFromTextWithinTheWebpageParameter.Text = "";
             }
-            else if (senderCheckBox == checkBox_searchUntilTextWithinTheWebPage)
+            else if (senderCheckBox == checkBox_searchUntilTextWithinTheWebpage)
             {
-                if (checkBox_searchUntilTextWithinTheWebPage.IsChecked == false)
-                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
+                if (checkBox_searchUntilTextWithinTheWebpage.IsChecked == false)
+                    textBox_searchUntilTextWithinTheWebpageParameter.Text = "";
             }
-            else if (senderCheckBox == checkBox_simulateWebPageElementClicks)
+            else if (senderCheckBox == checkBox_simulateWebpageElementClicks)
             {
-                if (checkBox_simulateWebPageElementClicks.IsChecked == false)
+                if (checkBox_simulateWebpageElementClicks.IsChecked == false)
                 {
-                    RemoveAllWebPageElementLocatingInstructionsFromListView();
-                    comboBox_webPageElementLocatingMethod.SelectedItem = "";
-                    checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
-                    textBox_webPageElementLocatingMethodArgument.Text = "";
-                    comboBox_webPageElementLocatingInterval.SelectedItem = "";
+                    RemoveAllWebpageElementLocatingInstructionsFromListView();
+                    comboBox_webpageElementLocatingMethod.SelectedItem = "";
+                    checkBox_webpageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
+                    textBox_webpageElementLocatingMethodArgument.Text = "";
+                    comboBox_webpageElementLocatingInterval.SelectedItem = "";
                 }
             }
         }
@@ -392,60 +392,60 @@ namespace Scrupdate.UiElements.Windows
                 if (comboBox_installedFor.SelectedIndex == 0)
                     textBox_installedVersion.Text = "";
             }
-            else if (senderComboBox == comboBox_webPageElementLocatingMethod)
-                checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
+            else if (senderComboBox == comboBox_webpageElementLocatingMethod)
+                checkBox_webpageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
         }
         private void OnRadioButtonClickEvent(object sender, RoutedEventArgs e)
         {
             CustomRadioButton senderRadioButton = (CustomRadioButton)sender;
             if (senderRadioButton == radioButton_searchWithinTheHtmlElementWithId ||
                 senderRadioButton == radioButton_searchWithinTheHtmlElementsThatMatchXPath ||
-                senderRadioButton == radioButton_searchGloballyWithinTheWebPage)
+                senderRadioButton == radioButton_searchGloballyWithinTheWebpage)
             {
                 if (senderRadioButton != radioButton_searchWithinTheHtmlElementWithId)
                     textBox_searchWithinTheHtmlElementWithIdParameter.Text = "";
                 if (senderRadioButton != radioButton_searchWithinTheHtmlElementsThatMatchXPath)
                     textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text = "";
-                if (senderRadioButton != radioButton_searchGloballyWithinTheWebPage)
+                if (senderRadioButton != radioButton_searchGloballyWithinTheWebpage)
                 {
-                    textBox_searchFromTextWithinTheWebPageParameter.Text = "";
-                    textBox_searchUntilTextWithinTheWebPageParameter.Text = "";
-                    checkBox_searchFromTextWithinTheWebPage.IsChecked = false;
-                    checkBox_searchUntilTextWithinTheWebPage.IsChecked = false;
+                    textBox_searchFromTextWithinTheWebpageParameter.Text = "";
+                    textBox_searchUntilTextWithinTheWebpageParameter.Text = "";
+                    checkBox_searchFromTextWithinTheWebpage.IsChecked = false;
+                    checkBox_searchUntilTextWithinTheWebpage.IsChecked = false;
                 }
             }
         }
         private void OnListViewKeyDownEvent(object sender, KeyEventArgs e)
         {
             ListView senderListView = (ListView)sender;
-            if (senderListView == listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn)
+            if (senderListView == listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn)
                 if (e.Key == Key.Delete)
-                    if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count > 0)
-                        RemoveSelectedWebPageElementLocatingInstructionsFromListView();
+                    if (listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems.Count > 0)
+                        RemoveSelectedWebpageElementLocatingInstructionsFromListView();
         }
         private void OnGridViewColumnHeaderPreviewMouseMoveEvent(object sender, MouseEventArgs e)
         {
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
-            if (senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingInstructionIndex)
+            if (senderGridViewColumnHeader == gridViewColumnHeader_webpageElementLocatingInstructionIndex)
                 e.Handled = true;
         }
         private void OnGridViewColumnHeaderPreviewMouseDoubleClickEvent(object sender, MouseButtonEventArgs e)
         {
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
-            if (senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingInstructionIndex)
+            if (senderGridViewColumnHeader == gridViewColumnHeader_webpageElementLocatingInstructionIndex)
                 e.Handled = true;
         }
         private void OnGridViewColumnHeaderSizeChangedEvent(object sender, SizeChangedEventArgs e)
         {
             CustomGridViewColumnHeader senderGridViewColumnHeader = (CustomGridViewColumnHeader)sender;
-            if (senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingMethod ||
-                senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingMethodArgument ||
-                senderGridViewColumnHeader == gridViewColumnHeader_webPageElementLocatingInterval)
+            if (senderGridViewColumnHeader == gridViewColumnHeader_webpageElementLocatingMethod ||
+                senderGridViewColumnHeader == gridViewColumnHeader_webpageElementLocatingMethodArgument ||
+                senderGridViewColumnHeader == gridViewColumnHeader_webpageElementLocatingInterval)
             {
-                if (senderGridViewColumnHeader.Column.Width < MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH)
+                if (senderGridViewColumnHeader.Column.Width < MINIMUM_WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH)
                 {
                     senderGridViewColumnHeader.Column.Width =
-                        MINIMUM_WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH;
+                        MINIMUM_WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_COLUMN_WIDTH;
                     e.Handled = true;
                 }
             }
@@ -463,8 +463,8 @@ namespace Scrupdate.UiElements.Windows
         {
             GridViewColumnCollection senderGridViewColumnCollection = (GridViewColumnCollection)sender;
             senderGridViewColumnCollection.CollectionChanged -= OnGridViewColumnsCollectionCollectionChangedEvent;
-            senderGridViewColumnCollection.Remove(gridViewColumn_webPageElementLocatingInstructionIndex);
-            senderGridViewColumnCollection.Insert(0, gridViewColumn_webPageElementLocatingInstructionIndex);
+            senderGridViewColumnCollection.Remove(gridViewColumn_webpageElementLocatingInstructionIndex);
+            senderGridViewColumnCollection.Insert(0, gridViewColumn_webpageElementLocatingInstructionIndex);
             senderGridViewColumnCollection.CollectionChanged += OnGridViewColumnsCollectionCollectionChangedEvent;
         }
         private void OnListViewItemContextMenuOpeningEvent(object sender, ContextMenuEventArgs e)
@@ -472,20 +472,20 @@ namespace Scrupdate.UiElements.Windows
             ListViewItem senderListViewItem = (ListViewItem)sender;
             List<object> menuItems = new List<object>();
             int selectedListViewItemsCount =
-                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count;
+                listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems.Count;
             if (selectedListViewItemsCount == 1)
             {
-                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT });
-                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP });
-                menuItems.Add(new MenuItem() { Header = WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN });
+                menuItems.Add(new MenuItem() { Header = WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT });
+                menuItems.Add(new MenuItem() { Header = WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP });
+                menuItems.Add(new MenuItem() { Header = WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN });
             }
             menuItems.Add(
                 new MenuItem()
                 {
                     Header =
                         (selectedListViewItemsCount > 1 ?
-                            WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED :
-                            WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE)
+                            WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED :
+                            WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE)
                 }
             );
             senderListViewItem.ContextMenu.Items.Clear();
@@ -499,23 +499,23 @@ namespace Scrupdate.UiElements.Windows
         private void OnMenuItemClickEvent(object sender, RoutedEventArgs e)
         {
             MenuItem senderMenuItem = (MenuItem)sender;
-            if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT))
+            if (senderMenuItem.Header.Equals(WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__COPY_ARGUMENT))
             {
-                WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
-                    (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
+                WebpageElementLocatingInstructionListViewItem selectedWebpageElementLocatingInstructionListViewItem =
+                    (WebpageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems[0];
                 Clipboard.SetText(
-                    selectedWebPageElementLocatingInstructionListViewItem.UnderlyingWebPageElementLocatingInstruction.MethodArgument
+                    selectedWebpageElementLocatingInstructionListViewItem.UnderlyingWebpageElementLocatingInstruction.MethodArgument
                 );
                 Clipboard.Flush();
             }
-            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP))
-                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
-            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN))
-                MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
-            else if (senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE) ||
-                     senderMenuItem.Header.Equals(WEB_PAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED))
+            else if (senderMenuItem.Header.Equals(WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_UP))
+                MoveSelectedWebpageElementLocatingInstructionInListView(ListViewItemMovingDirection.Up);
+            else if (senderMenuItem.Header.Equals(WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__MOVE_DOWN))
+                MoveSelectedWebpageElementLocatingInstructionInListView(ListViewItemMovingDirection.Down);
+            else if (senderMenuItem.Header.Equals(WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE) ||
+                     senderMenuItem.Header.Equals(WEBPAGE_ELEMENT_LOCATING_INSTRUCTION_LIST_ITEM_CONTEXT_MENU_ITEM_NAME__REMOVE_SELECTED))
             {
-                RemoveSelectedWebPageElementLocatingInstructionsFromListView();
+                RemoveSelectedWebpageElementLocatingInstructionsFromListView();
             }
         }
         private void OnHyperlinkClickEvent(object sender, RoutedEventArgs e)
@@ -593,31 +593,31 @@ namespace Scrupdate.UiElements.Windows
         private void OnComboBoxKeyDownEvent(object sender, KeyEventArgs e)
         {
             CustomComboBox senderComboBox = (CustomComboBox)sender;
-            if (senderComboBox == comboBox_webPageElementLocatingMethod ||
-                senderComboBox == comboBox_webPageElementLocatingInterval)
+            if (senderComboBox == comboBox_webpageElementLocatingMethod ||
+                senderComboBox == comboBox_webpageElementLocatingInterval)
             {
                 if (e.Key == Key.Enter)
-                    AddTypedWebPageElementLocatingInstructionToListView();
+                    AddTypedWebpageElementLocatingInstructionToListView();
             }
         }
         private void OnCheckBoxKeyDownEvent(object sender, KeyEventArgs e)
         {
             CustomCheckBox senderCheckBox = (CustomCheckBox)sender;
-            if (senderCheckBox == checkBox_webPageElementLocatingMethodArgumentMatchExactText)
+            if (senderCheckBox == checkBox_webpageElementLocatingMethodArgumentMatchExactText)
                 if (e.Key == Key.Enter)
-                    AddTypedWebPageElementLocatingInstructionToListView();
+                    AddTypedWebpageElementLocatingInstructionToListView();
         }
         private void OnTextBoxTextChangedEvent(object sender, TextChangedEventArgs e)
         {
             CustomTextBox senderTextBox = (CustomTextBox)sender;
             if (senderTextBox == textBox_name ||
                 senderTextBox == textBox_installedVersion ||
-                senderTextBox == textBox_webPageUrl ||
+                senderTextBox == textBox_webpageUrl ||
                 senderTextBox == textBox_searchWithinTheHtmlElementWithIdParameter ||
                 senderTextBox == textBox_searchWithinTheHtmlElementsThatMatchXPathParameter ||
-                senderTextBox == textBox_searchFromTextWithinTheWebPageParameter ||
-                senderTextBox == textBox_searchUntilTextWithinTheWebPageParameter ||
-                senderTextBox == textBox_webPageElementLocatingMethodArgument)
+                senderTextBox == textBox_searchFromTextWithinTheWebpageParameter ||
+                senderTextBox == textBox_searchUntilTextWithinTheWebpageParameter ||
+                senderTextBox == textBox_webpageElementLocatingMethodArgument)
             {
                 if (Array.TrueForAll(
                         senderTextBox.Text.ToCharArray(),
@@ -631,9 +631,9 @@ namespace Scrupdate.UiElements.Windows
         private void OnTextBoxKeyDownEvent(object sender, KeyEventArgs e)
         {
             CustomTextBox senderTextBox = (CustomTextBox)sender;
-            if (senderTextBox == textBox_webPageElementLocatingMethodArgument)
+            if (senderTextBox == textBox_webpageElementLocatingMethodArgument)
                 if (e.Key == Key.Enter)
-                    AddTypedWebPageElementLocatingInstructionToListView();
+                    AddTypedWebpageElementLocatingInstructionToListView();
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -706,38 +706,38 @@ namespace Scrupdate.UiElements.Windows
                         textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim();
                     versionSearchMethodArgument2 = "";
                 }
-                else if (radioButton_searchGloballyWithinTheWebPage.IsChecked == true)
+                else if (radioButton_searchGloballyWithinTheWebpage.IsChecked == true)
                 {
-                    if (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
-                        checkBox_searchUntilTextWithinTheWebPage.IsChecked == true)
+                    if (checkBox_searchFromTextWithinTheWebpage.IsChecked == true &&
+                        checkBox_searchUntilTextWithinTheWebpage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage;
+                            Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebpage;
                         versionSearchMethodArgument1 =
-                            textBox_searchFromTextWithinTheWebPageParameter.Text.Trim();
+                            textBox_searchFromTextWithinTheWebpageParameter.Text.Trim();
                         versionSearchMethodArgument2 =
-                            textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim();
+                            textBox_searchUntilTextWithinTheWebpageParameter.Text.Trim();
                     }
-                    else if (checkBox_searchFromTextWithinTheWebPage.IsChecked == true)
+                    else if (checkBox_searchFromTextWithinTheWebpage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage;
+                            Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebpage;
                         versionSearchMethodArgument1 =
-                            textBox_searchFromTextWithinTheWebPageParameter.Text.Trim();
+                            textBox_searchFromTextWithinTheWebpageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
-                    else if (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true)
+                    else if (checkBox_searchUntilTextWithinTheWebpage.IsChecked == true)
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage;
+                            Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebpage;
                         versionSearchMethodArgument1 =
-                            textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim();
+                            textBox_searchUntilTextWithinTheWebpageParameter.Text.Trim();
                         versionSearchMethodArgument2 = "";
                     }
                     else
                     {
                         versionSearchMethod =
-                            Program._VersionSearchMethod.SearchGloballyWithinTheWebPage;
+                            Program._VersionSearchMethod.SearchGloballyWithinTheWebpage;
                         versionSearchMethodArgument1 = "";
                         versionSearchMethodArgument2 = "";
                     }
@@ -774,32 +774,32 @@ namespace Scrupdate.UiElements.Windows
             }
             return versionSearchBehavior;
         }
-        private Program._WebPagePostLoadDelay GetWebPagePostLoadDelay()
+        private Program._WebpagePostLoadDelay GetWebpagePostLoadDelay()
         {
-            Program._WebPagePostLoadDelay webPagePostLoadDelay =
-                Program._WebPagePostLoadDelay.None;
+            Program._WebpagePostLoadDelay webpagePostLoadDelay =
+                Program._WebpagePostLoadDelay.None;
             if (checkBox_configureUpdateCheck.IsChecked == true)
             {
-                webPagePostLoadDelay =
-                    EnumUtilities.GetEnumItemFromHumanReadableString<Program._WebPagePostLoadDelay>(
-                        ((string)comboBox_webPagePostLoadDelay.SelectedItem)
+                webpagePostLoadDelay =
+                    EnumUtilities.GetEnumItemFromHumanReadableString<Program._WebpagePostLoadDelay>(
+                        ((string)comboBox_webpagePostLoadDelay.SelectedItem)
                             .Replace("ms", "Ms")
                     );
             }
-            return webPagePostLoadDelay;
+            return webpagePostLoadDelay;
         }
-        private List<WebPageElementLocatingInstruction> GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn()
+        private List<WebpageElementLocatingInstruction> GetLocatingInstructionsOfWebpageElementsToSimulateAClickOn()
         {
-            List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
-                new List<WebPageElementLocatingInstruction>();
-            foreach (WebPageElementLocatingInstructionListViewItem webPageElementLocatingInstructionListViewItem in
-                     listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items)
+            List<WebpageElementLocatingInstruction> locatingInstructionsOfWebpageElementsToSimulateAClickOn =
+                new List<WebpageElementLocatingInstruction>();
+            foreach (WebpageElementLocatingInstructionListViewItem webpageElementLocatingInstructionListViewItem in
+                     listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items)
             {
-                locatingInstructionsOfWebPageElementsToSimulateAClickOn.Add(
-                    webPageElementLocatingInstructionListViewItem.UnderlyingWebPageElementLocatingInstruction
+                locatingInstructionsOfWebpageElementsToSimulateAClickOn.Add(
+                    webpageElementLocatingInstructionListViewItem.UnderlyingWebpageElementLocatingInstruction
                 );
             }
-            return locatingInstructionsOfWebPageElementsToSimulateAClickOn;
+            return locatingInstructionsOfWebpageElementsToSimulateAClickOn;
         }
         private void RefreshListView()
         {
@@ -807,146 +807,146 @@ namespace Scrupdate.UiElements.Windows
                 Dispatcher,
                 () =>
                     {
-                        listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Refresh();
+                        listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Refresh();
                         grid_webElementAdditionField.IsEnabled =
-                            (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON);
+                            (listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEBPAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON);
                     }
             );
         }
-        private void AddTypedWebPageElementLocatingInstructionToListView()
+        private void AddTypedWebpageElementLocatingInstructionToListView()
         {
-            string webPageElementLocatingMethodArgument =
-                textBox_webPageElementLocatingMethodArgument.Text.Trim();
-            if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON &&
-                (!comboBox_webPageElementLocatingMethod.SelectedItem.Equals("") &&
-                 webPageElementLocatingMethodArgument.Length > 0 &&
-                 !comboBox_webPageElementLocatingInterval.SelectedItem.Equals("")))
+            string webpageElementLocatingMethodArgument =
+                textBox_webpageElementLocatingMethodArgument.Text.Trim();
+            if (listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Count < MAX_COUNT_OF_LOCATING_INSTRUCTIONS_OF_WEBPAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON &&
+                (!comboBox_webpageElementLocatingMethod.SelectedItem.Equals("") &&
+                 webpageElementLocatingMethodArgument.Length > 0 &&
+                 !comboBox_webpageElementLocatingInterval.SelectedItem.Equals("")))
             {
-                WebPageElementLocatingInstruction._LocatingMethod webPageElementLocatingMethod =
-                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingMethod>(
-                        ((string)comboBox_webPageElementLocatingMethod.SelectedItem)
+                WebpageElementLocatingInstruction._LocatingMethod webpageElementLocatingMethod =
+                    EnumUtilities.GetEnumItemFromHumanReadableString<WebpageElementLocatingInstruction._LocatingMethod>(
+                        ((string)comboBox_webpageElementLocatingMethod.SelectedItem)
                             .Replace("ID", "Id")
                             .Replace("HTML", "Html")
                     );
-                WebPageElementLocatingInstruction._LocatingInterval webPageElementLocatingInterval =
-                    EnumUtilities.GetEnumItemFromHumanReadableString<WebPageElementLocatingInstruction._LocatingInterval>(
-                        ((string)comboBox_webPageElementLocatingInterval.SelectedItem)
+                WebpageElementLocatingInstruction._LocatingInterval webpageElementLocatingInterval =
+                    EnumUtilities.GetEnumItemFromHumanReadableString<WebpageElementLocatingInstruction._LocatingInterval>(
+                        ((string)comboBox_webpageElementLocatingInterval.SelectedItem)
                             .Replace("ms", "Ms")
                     );
-                WebPageElementLocatingInstruction typedWebPageElementLocatingInstructionToListView =
-                    new WebPageElementLocatingInstruction(
-                        webPageElementLocatingMethod,
-                        webPageElementLocatingMethodArgument,
-                        checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked.Value,
-                        webPageElementLocatingInterval
+                WebpageElementLocatingInstruction typedWebpageElementLocatingInstructionToListView =
+                    new WebpageElementLocatingInstruction(
+                        webpageElementLocatingMethod,
+                        webpageElementLocatingMethodArgument,
+                        checkBox_webpageElementLocatingMethodArgumentMatchExactText.IsChecked.Value,
+                        webpageElementLocatingInterval
                     );
-                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(
-                    new WebPageElementLocatingInstructionListViewItem(
-                        listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count + 1,
-                        typedWebPageElementLocatingInstructionToListView
+                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Add(
+                    new WebpageElementLocatingInstructionListViewItem(
+                        listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Count + 1,
+                        typedWebpageElementLocatingInstructionToListView
                     )
                 );
                 RefreshListView();
-                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedIndex = -1;
-                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ScrollIntoView(
-                    listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items[
-                        listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count - 1
+                listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedIndex = -1;
+                listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.ScrollIntoView(
+                    listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items[
+                        listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Count - 1
                     ]
                 );
-                comboBox_webPageElementLocatingMethod.SelectedItem = "";
-                checkBox_webPageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
-                textBox_webPageElementLocatingMethodArgument.Text = "";
-                comboBox_webPageElementLocatingInterval.SelectedItem = "";
+                comboBox_webpageElementLocatingMethod.SelectedItem = "";
+                checkBox_webpageElementLocatingMethodArgumentMatchExactText.IsChecked = false;
+                textBox_webpageElementLocatingMethodArgument.Text = "";
+                comboBox_webpageElementLocatingInterval.SelectedItem = "";
             }
         }
-        private void MoveSelectedWebPageElementLocatingInstructionInListView(ListViewItemMovingDirection movingDirection)
+        private void MoveSelectedWebpageElementLocatingInstructionInListView(ListViewItemMovingDirection movingDirection)
         {
-            if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count == 1)
+            if (listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems.Count == 1)
             {
-                WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem =
-                    (WebPageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0];
-                int indexOfSelectedWebPageElementLocatingInstructionListViewItem =
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.IndexOf(
-                        selectedWebPageElementLocatingInstructionListViewItem
+                WebpageElementLocatingInstructionListViewItem selectedWebpageElementLocatingInstructionListViewItem =
+                    (WebpageElementLocatingInstructionListViewItem)listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems[0];
+                int indexOfSelectedWebpageElementLocatingInstructionListViewItem =
+                    locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.IndexOf(
+                        selectedWebpageElementLocatingInstructionListViewItem
                     );
                 switch (movingDirection)
                 {
                     case ListViewItemMovingDirection.Up:
-                        if (indexOfSelectedWebPageElementLocatingInstructionListViewItem > 0)
+                        if (indexOfSelectedWebpageElementLocatingInstructionListViewItem > 0)
                         {
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                            ].WebPageElementLocatingInstructionIndex--;
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
-                            ].WebPageElementLocatingInstructionIndex++;
-                            WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
-                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem
+                            ].WebpageElementLocatingInstructionIndex--;
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem - 1
+                            ].WebpageElementLocatingInstructionIndex++;
+                            WebpageElementLocatingInstructionListViewItem tempWebpageElementLocatingInstructionListViewItem =
+                                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebpageElementLocatingInstructionListViewItem
                                 ];
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem
                             ] =
-                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
+                                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebpageElementLocatingInstructionListViewItem - 1
                                 ];
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem - 1
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem - 1
                             ] =
-                                tempWebPageElementLocatingInstructionListViewItem;
+                                tempWebpageElementLocatingInstructionListViewItem;
                         }
                         break;
                     case ListViewItemMovingDirection.Down:
-                        if (indexOfSelectedWebPageElementLocatingInstructionListViewItem < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count - 1)
+                        if (indexOfSelectedWebpageElementLocatingInstructionListViewItem < locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Count - 1)
                         {
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
-                            ].WebPageElementLocatingInstructionIndex++;
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
-                            ].WebPageElementLocatingInstructionIndex--;
-                            WebPageElementLocatingInstructionListViewItem tempWebPageElementLocatingInstructionListViewItem =
-                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem
+                            ].WebpageElementLocatingInstructionIndex++;
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem + 1
+                            ].WebpageElementLocatingInstructionIndex--;
+                            WebpageElementLocatingInstructionListViewItem tempWebpageElementLocatingInstructionListViewItem =
+                                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebpageElementLocatingInstructionListViewItem
                                 ];
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem
                             ] =
-                                locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                    indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
+                                locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                    indexOfSelectedWebpageElementLocatingInstructionListViewItem + 1
                                 ];
-                            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[
-                                indexOfSelectedWebPageElementLocatingInstructionListViewItem + 1
+                            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[
+                                indexOfSelectedWebpageElementLocatingInstructionListViewItem + 1
                             ] =
-                                tempWebPageElementLocatingInstructionListViewItem;
+                                tempWebpageElementLocatingInstructionListViewItem;
                         }
                         break;
                 }
                 RefreshListView();
-                listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.ScrollIntoView(
-                    listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems[0]
+                listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.ScrollIntoView(
+                    listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems[0]
                 );
             }
         }
-        private void RemoveSelectedWebPageElementLocatingInstructionsFromListView()
+        private void RemoveSelectedWebpageElementLocatingInstructionsFromListView()
         {
-            if (listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems.Count > 0)
+            if (listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems.Count > 0)
             {
-                foreach (WebPageElementLocatingInstructionListViewItem selectedWebPageElementLocatingInstructionListViewItem in
-                         listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.SelectedItems)
+                foreach (WebpageElementLocatingInstructionListViewItem selectedWebpageElementLocatingInstructionListViewItem in
+                         listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.SelectedItems)
                 {
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Remove(
-                        selectedWebPageElementLocatingInstructionListViewItem
+                    locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Remove(
+                        selectedWebpageElementLocatingInstructionListViewItem
                     );
                 }
-                for (int i = 0; i < locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Count; i++)
-                    locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn[i].WebPageElementLocatingInstructionIndex = i + 1;
+                for (int i = 0; i < locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Count; i++)
+                    locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn[i].WebpageElementLocatingInstructionIndex = i + 1;
                 RefreshListView();
             }
         }
-        private void RemoveAllWebPageElementLocatingInstructionsFromListView()
+        private void RemoveAllWebpageElementLocatingInstructionsFromListView()
         {
-            locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Clear();
+            locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Clear();
             RefreshListView();
         }
         private void ApplyProgramToUiControlsValues(Program program)
@@ -995,11 +995,11 @@ namespace Scrupdate.UiElements.Windows
                     program.InstallationScope
                 );
             checkBox_configureUpdateCheck.IsChecked = false;
-            textBox_webPageUrl.Text = "";
+            textBox_webpageUrl.Text = "";
             if (program.IsUpdateCheckConfigured)
             {
                 checkBox_configureUpdateCheck.IsChecked = true;
-                textBox_webPageUrl.Text = program.WebPageUrl;
+                textBox_webpageUrl.Text = program.WebpageUrl;
                 switch (program.VersionSearchMethod)
                 {
                     case Program._VersionSearchMethod.SearchWithinTheHtmlElementWithId:
@@ -1012,28 +1012,28 @@ namespace Scrupdate.UiElements.Windows
                         textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
-                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
+                    case Program._VersionSearchMethod.SearchGloballyWithinTheWebpage:
+                        radioButton_searchGloballyWithinTheWebpage.IsChecked = true;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
-                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
-                        checkBox_searchFromTextWithinTheWebPage.IsChecked = true;
-                        textBox_searchFromTextWithinTheWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebpage:
+                        radioButton_searchGloballyWithinTheWebpage.IsChecked = true;
+                        checkBox_searchFromTextWithinTheWebpage.IsChecked = true;
+                        textBox_searchFromTextWithinTheWebpageParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
-                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
-                        checkBox_searchUntilTextWithinTheWebPage.IsChecked = true;
-                        textBox_searchUntilTextWithinTheWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebpage:
+                        radioButton_searchGloballyWithinTheWebpage.IsChecked = true;
+                        checkBox_searchUntilTextWithinTheWebpage.IsChecked = true;
+                        textBox_searchUntilTextWithinTheWebpageParameter.Text =
                             program.VersionSearchMethodArgument1;
                         break;
-                    case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
-                        radioButton_searchGloballyWithinTheWebPage.IsChecked = true;
-                        checkBox_searchFromTextWithinTheWebPage.IsChecked = true;
-                        checkBox_searchUntilTextWithinTheWebPage.IsChecked = true;
-                        textBox_searchFromTextWithinTheWebPageParameter.Text =
+                    case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebpage:
+                        radioButton_searchGloballyWithinTheWebpage.IsChecked = true;
+                        checkBox_searchFromTextWithinTheWebpage.IsChecked = true;
+                        checkBox_searchUntilTextWithinTheWebpage.IsChecked = true;
+                        textBox_searchFromTextWithinTheWebpageParameter.Text =
                             program.VersionSearchMethodArgument1;
-                        textBox_searchUntilTextWithinTheWebPageParameter.Text =
+                        textBox_searchUntilTextWithinTheWebpageParameter.Text =
                             program.VersionSearchMethodArgument2;
                         break;
                 }
@@ -1051,19 +1051,19 @@ namespace Scrupdate.UiElements.Windows
                         radioButton_getTheLatestVersionFromAllTheVersionsThatAreFound.IsChecked = true;
                         break;
                 }
-                comboBox_webPagePostLoadDelay.SelectedItem =
+                comboBox_webpagePostLoadDelay.SelectedItem =
                     EnumUtilities.GetHumanReadableStringFromEnumItem(
-                        program.WebPagePostLoadDelay
+                        program.WebpagePostLoadDelay
                     ).Replace(" Ms", "ms");
-                if (program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
+                if (program.LocatingInstructionsOfWebpageElementsToSimulateAClickOn.Count > 0)
                 {
-                    checkBox_simulateWebPageElementClicks.IsChecked = true;
-                    for (int i = 0; i < program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count; i++)
+                    checkBox_simulateWebpageElementClicks.IsChecked = true;
+                    for (int i = 0; i < program.LocatingInstructionsOfWebpageElementsToSimulateAClickOn.Count; i++)
                     {
-                        locatingInstructionListViewItemsOfWebPageElementsToSimulateAClickOn.Add(
-                            new WebPageElementLocatingInstructionListViewItem(
+                        locatingInstructionListViewItemsOfWebpageElementsToSimulateAClickOn.Add(
+                            new WebpageElementLocatingInstructionListViewItem(
                                 i + 1,
-                                program.LocatingInstructionsOfWebPageElementsToSimulateAClickOn[i]
+                                program.LocatingInstructionsOfWebpageElementsToSimulateAClickOn[i]
                             )
                         );
                     }
@@ -1082,7 +1082,7 @@ namespace Scrupdate.UiElements.Windows
             string installedVersion = textBox_installedVersion.Text.Trim();
             string latestVersion = "";
             Program._InstallationScope installationScope = GetInstallationScope();
-            string webPageUrl = textBox_webPageUrl.Text.Trim();
+            string webpageUrl = textBox_webpageUrl.Text.Trim();
             string versionSearchMethodArgument1;
             string versionSearchMethodArgument2;
             Program._VersionSearchMethod versionSearchMethod = GetVersionSearchMethod(
@@ -1090,9 +1090,9 @@ namespace Scrupdate.UiElements.Windows
                 out versionSearchMethodArgument2
             );
             Program._VersionSearchBehavior versionSearchBehavior = GetVersionSearchBehavior();
-            Program._WebPagePostLoadDelay webPagePostLoadDelay = GetWebPagePostLoadDelay();
-            List<WebPageElementLocatingInstruction> locatingInstructionsOfWebPageElementsToSimulateAClickOn =
-                GetLocatingInstructionsOfWebPageElementsToSimulateAClickOn();
+            Program._WebpagePostLoadDelay webpagePostLoadDelay = GetWebpagePostLoadDelay();
+            List<WebpageElementLocatingInstruction> locatingInstructionsOfWebpageElementsToSimulateAClickOn =
+                GetLocatingInstructionsOfWebpageElementsToSimulateAClickOn();
             Program._UpdateCheckConfigurationStatus updateCheckConfigurationStatus =
                 Program._UpdateCheckConfigurationStatus.Unknown;
             Program._UpdateCheckConfigurationError updateCheckConfigurationError =
@@ -1101,15 +1101,15 @@ namespace Scrupdate.UiElements.Windows
             if (programToEdit != null)
             {
                 if (checkBox_configureUpdateCheck.IsChecked == programToEdit.IsUpdateCheckConfigured &&
-                    webPageUrl.Equals(programToEdit.WebPageUrl) &&
+                    webpageUrl.Equals(programToEdit.WebpageUrl) &&
                     versionSearchMethod == programToEdit.VersionSearchMethod &&
                     versionSearchMethodArgument1.Equals(programToEdit.VersionSearchMethodArgument1) &&
                     versionSearchMethodArgument2.Equals(programToEdit.VersionSearchMethodArgument2) &&
                     checkBox_treatAStandaloneNumberAsAVersion.IsChecked == programToEdit.TreatAStandaloneNumberAsAVersion &&
                     versionSearchBehavior == programToEdit.VersionSearchBehavior &&
-                    webPagePostLoadDelay == programToEdit.WebPagePostLoadDelay &&
-                    locatingInstructionsOfWebPageElementsToSimulateAClickOn.SequenceEqual(
-                        programToEdit.LocatingInstructionsOfWebPageElementsToSimulateAClickOn
+                    webpagePostLoadDelay == programToEdit.WebpagePostLoadDelay &&
+                    locatingInstructionsOfWebpageElementsToSimulateAClickOn.SequenceEqual(
+                        programToEdit.LocatingInstructionsOfWebpageElementsToSimulateAClickOn
                     ))
                 {
                     latestVersion = programToEdit.LatestVersion;
@@ -1133,14 +1133,14 @@ namespace Scrupdate.UiElements.Windows
                 installationScope,
                 checkBox_detectAutomatically.IsChecked.Value,
                 checkBox_configureUpdateCheck.IsChecked.Value,
-                webPageUrl,
+                webpageUrl,
                 versionSearchMethod,
                 versionSearchMethodArgument1,
                 versionSearchMethodArgument2,
                 checkBox_treatAStandaloneNumberAsAVersion.IsChecked.Value,
                 versionSearchBehavior,
-                webPagePostLoadDelay,
-                locatingInstructionsOfWebPageElementsToSimulateAClickOn,
+                webpagePostLoadDelay,
+                locatingInstructionsOfWebpageElementsToSimulateAClickOn,
                 updateCheckConfigurationStatus,
                 updateCheckConfigurationError,
                 skippedVersion,
@@ -1230,9 +1230,9 @@ namespace Scrupdate.UiElements.Windows
             if (checkProgramUpdateCheckConfiguration)
             {
                 if (checkBox_configureUpdateCheck.IsChecked == true &&
-                    textBox_webPageUrl.Text.Trim().Equals(""))
+                    textBox_webpageUrl.Text.Trim().Equals(""))
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_URL;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEBPAGE_URL;
                     return false;
                 }
                 if (checkBox_configureUpdateCheck.IsChecked == true &&
@@ -1240,19 +1240,19 @@ namespace Scrupdate.UiElements.Windows
                       textBox_searchWithinTheHtmlElementWithIdParameter.Text.Trim().Equals("")) ||
                      (radioButton_searchWithinTheHtmlElementsThatMatchXPath.IsChecked == true &&
                       textBox_searchWithinTheHtmlElementsThatMatchXPathParameter.Text.Trim().Equals("")) ||
-                     (checkBox_searchFromTextWithinTheWebPage.IsChecked == true &&
-                      textBox_searchFromTextWithinTheWebPageParameter.Text.Trim().Equals("")) ||
-                     (checkBox_searchUntilTextWithinTheWebPage.IsChecked == true &&
-                      textBox_searchUntilTextWithinTheWebPageParameter.Text.Trim().Equals(""))))
+                     (checkBox_searchFromTextWithinTheWebpage.IsChecked == true &&
+                      textBox_searchFromTextWithinTheWebpageParameter.Text.Trim().Equals("")) ||
+                     (checkBox_searchUntilTextWithinTheWebpage.IsChecked == true &&
+                      textBox_searchUntilTextWithinTheWebpageParameter.Text.Trim().Equals(""))))
                 {
                     errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_METHOD_OF_VERSION_SEARCH;
                     return false;
                 }
                 if (checkBox_configureUpdateCheck.IsChecked == true &&
-                    (checkBox_simulateWebPageElementClicks.IsChecked == true &&
-                     listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn.Items.Count == 0))
+                    (checkBox_simulateWebpageElementClicks.IsChecked == true &&
+                     listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn.Items.Count == 0))
                 {
-                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEB_PAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
+                    errorDialogMessage = ERROR_DIALOG_MESSAGE__NO_WEBPAGE_ELEMENTS_TO_SIMULATE_A_CLICK_ON;
                     return false;
                 }
             }

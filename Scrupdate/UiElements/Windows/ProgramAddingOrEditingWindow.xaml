@@ -239,7 +239,7 @@
                                                                           VerticalAlignment="Center"
                                                                           Content="Configure Update Check"
                                                                           Click="OnCheckBoxClickEvent" />
-                            <StackPanel x:Name="stackPanel_webPageUrlField"
+                            <StackPanel x:Name="stackPanel_webpageUrlField"
                                         Orientation="Horizontal"
                                         Margin="35 10 10 0"
                                         HorizontalAlignment="Left">
@@ -259,8 +259,8 @@
                                 <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0"
                                                                            Margin="0 0 0 0"
                                                                            VerticalAlignment="Center"
-                                                                           Content="Web Page URL: " />
-                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_webPageUrl"
+                                                                           Content="Webpage URL: " />
+                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_webpageUrl"
                                                                              Width="400"
                                                                              Margin="10 0 0 0"
                                                                              VerticalAlignment="Center"
@@ -381,18 +381,18 @@
                                                 </Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                             </Scrupdate_UiElements_Controls:CustomTextBox>
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_searchGloballyWithinTheWebPageField"
+                                        <StackPanel x:Name="stackPanel_searchGloballyWithinTheWebpageField"
                                                     Orientation="Vertical"
                                                     Margin="0 5 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchGloballyWithinTheWebPage"
+                                            <Scrupdate_UiElements_Controls:CustomRadioButton x:Name="radioButton_searchGloballyWithinTheWebpage"
                                                                                              GroupName="versionSearchMethodSelection"
                                                                                              Margin="0 0 0 0"
                                                                                              HorizontalAlignment="Left"
                                                                                              VerticalAlignment="Center"
-                                                                                             Content="Search Globally within the Web Page"
+                                                                                             Content="Search Globally within the Webpage"
                                                                                              Click="OnRadioButtonClickEvent" />
-                                            <StackPanel x:Name="stackPanel_searchFromTextWithinTheWebPageField"
+                                            <StackPanel x:Name="stackPanel_searchFromTextWithinTheWebpageField"
                                                         Orientation="Horizontal"
                                                         Margin="25 5 0 0"
                                                         HorizontalAlignment="Left">
@@ -401,7 +401,7 @@
                                                         <Setter Property="IsEnabled"
                                                                 Value="False" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebPage, Path=IsChecked}"
+                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebpage, Path=IsChecked}"
                                                                          Value="True">
                                                                 <Setter Property="IsEnabled"
                                                                         Value="True" />
@@ -409,12 +409,12 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </StackPanel.Style>
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchFromTextWithinTheWebPage"
+                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchFromTextWithinTheWebpage"
                                                                                               Margin="0 0 0 0"
                                                                                               VerticalAlignment="Center"
-                                                                                              Content="Search from the Following Text within the Web Page: "
+                                                                                              Content="Search from the Following Text within the Webpage: "
                                                                                               Click="OnCheckBoxClickEvent" />
-                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchFromTextWithinTheWebPageParameter"
+                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchFromTextWithinTheWebpageParameter"
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
@@ -427,9 +427,9 @@
                                                             <Style.Triggers>
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebPage, Path=IsEnabled}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebpage, Path=IsEnabled}"
                                                                                    Value="True" />
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebPage, Path=IsChecked}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchFromTextWithinTheWebpage, Path=IsChecked}"
                                                                                    Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <Setter Property="IsEnabled"
@@ -440,7 +440,7 @@
                                                     </Scrupdate_UiElements_Controls:CustomTextBox.Style>
                                                 </Scrupdate_UiElements_Controls:CustomTextBox>
                                             </StackPanel>
-                                            <StackPanel x:Name="stackPanel_searchUntilTextWithinTheWebPageField"
+                                            <StackPanel x:Name="stackPanel_searchUntilTextWithinTheWebpageField"
                                                         Orientation="Horizontal"
                                                         Margin="25 5 0 0"
                                                         HorizontalAlignment="Left">
@@ -449,7 +449,7 @@
                                                         <Setter Property="IsEnabled"
                                                                 Value="False" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebPage, Path=IsChecked}"
+                                                            <DataTrigger Binding="{Binding ElementName=radioButton_searchGloballyWithinTheWebpage, Path=IsChecked}"
                                                                          Value="True">
                                                                 <Setter Property="IsEnabled"
                                                                         Value="True" />
@@ -457,12 +457,12 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </StackPanel.Style>
-                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchUntilTextWithinTheWebPage"
+                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_searchUntilTextWithinTheWebpage"
                                                                                               Margin="0 0 0 0"
                                                                                               VerticalAlignment="Center"
-                                                                                              Content="Search until the Following Text within the Web Page: "
+                                                                                              Content="Search until the Following Text within the Webpage: "
                                                                                               Click="OnCheckBoxClickEvent" />
-                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchUntilTextWithinTheWebPageParameter"
+                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_searchUntilTextWithinTheWebpageParameter"
                                                                                              Width="200"
                                                                                              Margin="10 0 0 0"
                                                                                              VerticalAlignment="Center"
@@ -475,9 +475,9 @@
                                                             <Style.Triggers>
                                                                 <MultiDataTrigger>
                                                                     <MultiDataTrigger.Conditions>
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebPage, Path=IsEnabled}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebpage, Path=IsEnabled}"
                                                                                    Value="True" />
-                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebPage, Path=IsChecked}"
+                                                                        <Condition Binding="{Binding ElementName=checkBox_searchUntilTextWithinTheWebpage, Path=IsChecked}"
                                                                                    Value="True" />
                                                                     </MultiDataTrigger.Conditions>
                                                                     <Setter Property="IsEnabled"
@@ -653,15 +653,15 @@
                                                 Orientation="Vertical"
                                                 Margin="10 0 0 0"
                                                 HorizontalAlignment="Left">
-                                        <StackPanel x:Name="stackPanel_webPagePostLoadDelayField"
+                                        <StackPanel x:Name="stackPanel_webpagePostLoadDelayField"
                                                     Orientation="Horizontal"
                                                     Margin="0 0 0 0"
                                                     HorizontalAlignment="Left">
                                             <Scrupdate_UiElements_Controls:CustomLabel Padding="0 0 0 0"
                                                                                        Margin="0 0 0 0"
                                                                                        VerticalAlignment="Center"
-                                                                                       Content="After the Web Page Is Loaded, Wait For: " />
-                                            <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPagePostLoadDelay"
+                                                                                       Content="After the Webpage Is Loaded, Wait For: " />
+                                            <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webpagePostLoadDelay"
                                                                                           Width="85"
                                                                                           Height="20"
                                                                                           Margin="10 0 0 0"
@@ -670,15 +670,15 @@
                                                                                           BorderBrush="{StaticResource lightBlackSolidColorBrush}"
                                                                                           PopupBackground="{StaticResource smokeWhiteSolidColorBrush}" />
                                         </StackPanel>
-                                        <StackPanel x:Name="stackPanel_webPageElementClicksSimulationField"
+                                        <StackPanel x:Name="stackPanel_webpageElementClicksSimulationField"
                                                     Orientation="Vertical"
                                                     Margin="0 5 0 0"
                                                     HorizontalAlignment="Left">
-                                            <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_simulateWebPageElementClicks"
+                                            <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_simulateWebpageElementClicks"
                                                                                           Margin="0 0 0 0"
                                                                                           HorizontalAlignment="Left"
                                                                                           VerticalAlignment="Center"
-                                                                                          Content="Before Searching for a Version, Simulate Mouse Clicks on the Following Elements within the Web Page:"
+                                                                                          Content="Before Searching for a Version, Simulate Mouse Clicks on the Following Elements within the Webpage:"
                                                                                           Click="OnCheckBoxClickEvent" />
                                             <Border BorderThickness="1 0 0 0"
                                                     Margin="0 5 0 0">
@@ -695,7 +695,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Grid x:Name="grid_listViewOfLocatingInstructionsOfWebPageElementsToSimulateAClickOnAndWebElementAdditionField"
+                                                <Grid x:Name="grid_listViewOfLocatingInstructionsOfWebpageElementsToSimulateAClickOnAndWebElementAdditionField"
                                                       Width="580"
                                                       Height="140"
                                                       Margin="10 0 0 0"
@@ -705,7 +705,7 @@
                                                             <Setter Property="IsEnabled"
                                                                     Value="False" />
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding ElementName=checkBox_simulateWebPageElementClicks, Path=IsChecked}"
+                                                                <DataTrigger Binding="{Binding ElementName=checkBox_simulateWebpageElementClicks, Path=IsChecked}"
                                                                              Value="True">
                                                                     <Setter Property="IsEnabled"
                                                                             Value="True" />
@@ -720,7 +720,7 @@
                                                         <RowDefinition Height="*" />
                                                         <RowDefinition Height="auto" />
                                                     </Grid.RowDefinitions>
-                                                    <ListView x:Name="listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn"
+                                                    <ListView x:Name="listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn"
                                                               Grid.Row="0"
                                                               Grid.Column="0"
                                                               KeyDown="OnListViewKeyDownEvent">
@@ -742,12 +742,12 @@
                                                         <ListView.View>
                                                             <GridView>
                                                                 <GridView.Columns>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInstructionIndex"
+                                                                    <GridViewColumn x:Name="gridViewColumn_webpageElementLocatingInstructionIndex"
                                                                                     Width="26">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInstructionIndex"
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webpageElementLocatingInstructionIndex"
                                                                                                                                       Text="#"
-                                                                                                                                      Tag="WebPageElementLocatingInstructionIndex"
+                                                                                                                                      Tag="WebpageElementLocatingInstructionIndex"
                                                                                                                                       IsSortable="False"
                                                                                                                                       PreviewMouseMove="OnGridViewColumnHeaderPreviewMouseMoveEvent"
                                                                                                                                       PreviewMouseDoubleClick="OnGridViewColumnHeaderPreviewMouseDoubleClickEvent" />
@@ -755,33 +755,33 @@
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingInstructionIndex}" />
+                                                                                           Text="{Binding WebpageElementLocatingInstructionIndex}" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingMethod"
+                                                                    <GridViewColumn x:Name="gridViewColumn_webpageElementLocatingMethod"
                                                                                     Width="130">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethod"
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webpageElementLocatingMethod"
                                                                                                                                       Text="Locating Method"
-                                                                                                                                      Tag="WebPageElementLocatingMethodToDisplay"
+                                                                                                                                      Tag="WebpageElementLocatingMethodToDisplay"
                                                                                                                                       IsSortable="False"
                                                                                                                                       SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingMethodToDisplay}"
+                                                                                           Text="{Binding WebpageElementLocatingMethodToDisplay}"
                                                                                            SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingMethodArgument"
+                                                                    <GridViewColumn x:Name="gridViewColumn_webpageElementLocatingMethodArgument"
                                                                                     Width="317">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingMethodArgument"
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webpageElementLocatingMethodArgument"
                                                                                                                                       Text="Locating Method Argument"
-                                                                                                                                      Tag="UnderlyingWebPageElementLocatingInstruction.MethodArgument"
+                                                                                                                                      Tag="UnderlyingWebpageElementLocatingInstruction.MethodArgument"
                                                                                                                                       IsSortable="False"
                                                                                                                                       SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
@@ -798,9 +798,9 @@
                                                                                                 <Style.Triggers>
                                                                                                     <MultiDataTrigger>
                                                                                                         <MultiDataTrigger.Conditions>
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.LocatingMethod}"
+                                                                                                            <Condition Binding="{Binding UnderlyingWebpageElementLocatingInstruction.LocatingMethod}"
                                                                                                                        Value="ByInnerText" />
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.MatchExactText}"
+                                                                                                            <Condition Binding="{Binding UnderlyingWebpageElementLocatingInstruction.MatchExactText}"
                                                                                                                        Value="False" />
                                                                                                         </MultiDataTrigger.Conditions>
                                                                                                         <Setter Property="Text"
@@ -808,9 +808,9 @@
                                                                                                     </MultiDataTrigger>
                                                                                                     <MultiDataTrigger>
                                                                                                         <MultiDataTrigger.Conditions>
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.LocatingMethod}"
+                                                                                                            <Condition Binding="{Binding UnderlyingWebpageElementLocatingInstruction.LocatingMethod}"
                                                                                                                        Value="ByInnerText" />
-                                                                                                            <Condition Binding="{Binding UnderlyingWebPageElementLocatingInstruction.MatchExactText}"
+                                                                                                            <Condition Binding="{Binding UnderlyingWebpageElementLocatingInstruction.MatchExactText}"
                                                                                                                        Value="True" />
                                                                                                         </MultiDataTrigger.Conditions>
                                                                                                         <Setter Property="Text"
@@ -822,25 +822,25 @@
                                                                                     </TextBlock>
                                                                                     <TextBlock DockPanel.Dock="Left"
                                                                                                TextTrimming="CharacterEllipsis"
-                                                                                               Text="{Binding UnderlyingWebPageElementLocatingInstruction.MethodArgument}"
+                                                                                               Text="{Binding UnderlyingWebpageElementLocatingInstruction.MethodArgument}"
                                                                                                SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                                 </DockPanel>
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
                                                                     </GridViewColumn>
-                                                                    <GridViewColumn x:Name="gridViewColumn_webPageElementLocatingInterval"
+                                                                    <GridViewColumn x:Name="gridViewColumn_webpageElementLocatingInterval"
                                                                                     Width="75">
                                                                         <GridViewColumn.Header>
-                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webPageElementLocatingInterval"
+                                                                            <Scrupdate_UiElements_Controls:CustomGridViewColumnHeader x:Name="gridViewColumnHeader_webpageElementLocatingInterval"
                                                                                                                                       Text="Interval"
-                                                                                                                                      Tag="WebPageElementLocatingIntervalToDisplay"
+                                                                                                                                      Tag="WebpageElementLocatingIntervalToDisplay"
                                                                                                                                       IsSortable="False"
                                                                                                                                       SizeChanged="OnGridViewColumnHeaderSizeChangedEvent" />
                                                                         </GridViewColumn.Header>
                                                                         <GridViewColumn.CellTemplate>
                                                                             <DataTemplate>
                                                                                 <TextBlock TextTrimming="CharacterEllipsis"
-                                                                                           Text="{Binding WebPageElementLocatingIntervalToDisplay}"
+                                                                                           Text="{Binding WebpageElementLocatingIntervalToDisplay}"
                                                                                            SizeChanged="OnGridViewColumnCellTextBlockSizeChangedEvent" />
                                                                             </DataTemplate>
                                                                         </GridViewColumn.CellTemplate>
@@ -894,7 +894,7 @@
                                                                 <Grid.RowDefinitions>
                                                                     <RowDefinition Height="*" />
                                                                 </Grid.RowDefinitions>
-                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPageElementLocatingMethod"
+                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webpageElementLocatingMethod"
                                                                                                               Grid.Row="0"
                                                                                                               Grid.Column="0"
                                                                                                               Width="auto"
@@ -907,7 +907,7 @@
                                                                                                               HintText="Locating Method"
                                                                                                               SelectionChanged="OnComboBoxSelectionChangedEvent"
                                                                                                               KeyDown="OnComboBoxKeyDownEvent" />
-                                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_webPageElementLocatingMethodArgumentMatchExactText"
+                                                                <Scrupdate_UiElements_Controls:CustomCheckBox x:Name="checkBox_webpageElementLocatingMethodArgumentMatchExactText"
                                                                                                               Grid.Row="0"
                                                                                                               Grid.Column="1"
                                                                                                               Width="auto"
@@ -920,7 +920,7 @@
                                                                             <Setter Property="Visibility"
                                                                                     Value="Collapsed" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webPageElementLocatingMethod, Path=SelectedItem}"
+                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webpageElementLocatingMethod, Path=SelectedItem}"
                                                                                              Value="By Inner Text">
                                                                                     <Setter Property="Visibility"
                                                                                             Value="Visible" />
@@ -929,7 +929,7 @@
                                                                         </Style>
                                                                     </Scrupdate_UiElements_Controls:CustomCheckBox.Style>
                                                                 </Scrupdate_UiElements_Controls:CustomCheckBox>
-                                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_webPageElementLocatingMethodArgument"
+                                                                <Scrupdate_UiElements_Controls:CustomTextBox x:Name="textBox_webpageElementLocatingMethodArgument"
                                                                                                              Grid.Row="0"
                                                                                                              Grid.Column="2"
                                                                                                              Width="auto"
@@ -939,7 +939,7 @@
                                                                                                              MaxLength="1000"
                                                                                                              TextChanged="OnTextBoxTextChangedEvent"
                                                                                                              KeyDown="OnTextBoxKeyDownEvent" />
-                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webPageElementLocatingInterval"
+                                                                <Scrupdate_UiElements_Controls:CustomComboBox x:Name="comboBox_webpageElementLocatingInterval"
                                                                                                               Grid.Row="0"
                                                                                                               Grid.Column="3"
                                                                                                               Width="auto"
@@ -951,7 +951,7 @@
                                                                                                               VerticalAlignment="Center"
                                                                                                               HintText="Interval"
                                                                                                               KeyDown="OnComboBoxKeyDownEvent" />
-                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_addNewWebPageElement"
+                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_addNewWebpageElement"
                                                                                                             Grid.Row="0"
                                                                                                             Grid.Column="4"
                                                                                                             Width="20"
@@ -979,17 +979,17 @@
                                                                             <Setter Property="IsEnabled"
                                                                                     Value="True" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webPageElementLocatingMethod, Path=SelectedItem}"
+                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webpageElementLocatingMethod, Path=SelectedItem}"
                                                                                              Value="">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="False" />
                                                                                 </DataTrigger>
-                                                                                <DataTrigger Binding="{Binding ElementName=textBox_webPageElementLocatingMethodArgument, Path=Text.Length}"
+                                                                                <DataTrigger Binding="{Binding ElementName=textBox_webpageElementLocatingMethodArgument, Path=Text.Length}"
                                                                                              Value="0">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="False" />
                                                                                 </DataTrigger>
-                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webPageElementLocatingInterval, Path=SelectedItem}"
+                                                                                <DataTrigger Binding="{Binding ElementName=comboBox_webpageElementLocatingInterval, Path=SelectedItem}"
                                                                                              Value="">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="False" />
@@ -1003,7 +1003,7 @@
                                                                         Grid.Row="0"
                                                                         Grid.Column="2"
                                                                         Orientation="Horizontal">
-                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_moveUpWebPageElement"
+                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_moveUpWebpageElement"
                                                                                                             Grid.Row="0"
                                                                                                             Grid.Column="2"
                                                                                                             Width="20"
@@ -1031,7 +1031,7 @@
                                                                             <Setter Property="IsEnabled"
                                                                                     Value="False" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
                                                                                              Value="1">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="True" />
@@ -1040,7 +1040,7 @@
                                                                         </Style>
                                                                     </Scrupdate_UiElements_Controls:CustomButton.Style>
                                                                 </Scrupdate_UiElements_Controls:CustomButton>
-                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_moveDownWebPageElement"
+                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_moveDownWebpageElement"
                                                                                                             Grid.Row="0"
                                                                                                             Grid.Column="2"
                                                                                                             Width="20"
@@ -1068,7 +1068,7 @@
                                                                             <Setter Property="IsEnabled"
                                                                                     Value="False" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
                                                                                              Value="1">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="True" />
@@ -1077,7 +1077,7 @@
                                                                         </Style>
                                                                     </Scrupdate_UiElements_Controls:CustomButton.Style>
                                                                 </Scrupdate_UiElements_Controls:CustomButton>
-                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_removeWebPageElement"
+                                                                <Scrupdate_UiElements_Controls:CustomButton x:Name="button_removeWebpageElement"
                                                                                                             Grid.Row="0"
                                                                                                             Grid.Column="2"
                                                                                                             Width="20"
@@ -1105,7 +1105,7 @@
                                                                             <Setter Property="IsEnabled"
                                                                                     Value="True" />
                                                                             <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebPageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
+                                                                                <DataTrigger Binding="{Binding ElementName=listView_locatingInstructionsOfWebpageElementsToSimulateAClickOn, Path=SelectedItems.Count}"
                                                                                              Value="0">
                                                                                     <Setter Property="IsEnabled"
                                                                                             Value="False" />

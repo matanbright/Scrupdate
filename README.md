@@ -10,7 +10,7 @@ Scrupdate is a tool that lets you ensure your Windows programs are up to date. I
 
 ### How Does It Work?
 
-Scrupdate gets the latest versions of the programs by extracting them from web pages. For each program, you supply the URL of the web page that contains the program's latest version and choose the method for scraping the version from that web page. From next time on, when Scrupdate checks for program updates, it will go to each web page, extract the version, and compare it with the current version of the installed program. If there are new versions you will be informed.
+Scrupdate gets the latest versions of the programs by extracting them from webpages. For each program, you supply the URL of the webpage that contains the program's latest version and choose the method for scraping the version from that webpage. From next time on, when Scrupdate checks for program updates, it will go to each webpage, extract the version, and compare it with the current version of the installed program. If there are new versions you will be informed.
 
 ## Running Scrupdate
 

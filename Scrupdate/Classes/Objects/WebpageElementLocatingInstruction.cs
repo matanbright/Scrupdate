@@ -20,7 +20,7 @@ using System.Text;
 
 namespace Scrupdate.Classes.Objects
 {
-    public class WebPageElementLocatingInstruction
+    public class WebpageElementLocatingInstruction
     {
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public enum _LocatingMethod
@@ -54,7 +54,7 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        public WebPageElementLocatingInstruction() :
+        public WebpageElementLocatingInstruction() :
             this(
                 _LocatingMethod.Unspecified,
                 "",
@@ -62,7 +62,7 @@ namespace Scrupdate.Classes.Objects
                 _LocatingInterval.Unspecified
             )
         { }
-        public WebPageElementLocatingInstruction(_LocatingMethod locatingMethod,
+        public WebpageElementLocatingInstruction(_LocatingMethod locatingMethod,
                                                  string methodArgument,
                                                  bool matchExactText,
                                                  _LocatingInterval locatingInterval)
@@ -81,12 +81,12 @@ namespace Scrupdate.Classes.Objects
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            WebPageElementLocatingInstruction otherWebPageElementLocatingInstruction =
-                (WebPageElementLocatingInstruction)obj;
-            return (LocatingMethod.Equals(otherWebPageElementLocatingInstruction.LocatingMethod) &&
-                    MethodArgument.Equals(otherWebPageElementLocatingInstruction.MethodArgument) &&
-                    MatchExactText == otherWebPageElementLocatingInstruction.MatchExactText &&
-                    LocatingInterval == otherWebPageElementLocatingInstruction.LocatingInterval);
+            WebpageElementLocatingInstruction otherWebpageElementLocatingInstruction =
+                (WebpageElementLocatingInstruction)obj;
+            return (LocatingMethod.Equals(otherWebpageElementLocatingInstruction.LocatingMethod) &&
+                    MethodArgument.Equals(otherWebpageElementLocatingInstruction.MethodArgument) &&
+                    MatchExactText == otherWebpageElementLocatingInstruction.MatchExactText &&
+                    LocatingInterval == otherWebpageElementLocatingInstruction.LocatingInterval);
         }
         public override int GetHashCode()
         {

@@ -38,10 +38,10 @@ namespace Scrupdate.Classes.Objects
             private const string EXCEPTION_MESSAGE = "Google Chrome™ browser is not open!";
             public GoogleChromeBrowserIsNotOpenException() : base(EXCEPTION_MESSAGE) { }
         }
-        public class ElementWasNotFoundWithinTheWebPageException : Exception
+        public class ElementWasNotFoundWithinTheWebpageException : Exception
         {
-            private const string EXCEPTION_MESSAGE = "Element was not found within the web page!";
-            public ElementWasNotFoundWithinTheWebPageException() : base(EXCEPTION_MESSAGE) { }
+            private const string EXCEPTION_MESSAGE = "Element was not found within the webpage!";
+            public ElementWasNotFoundWithinTheWebpageException() : base(EXCEPTION_MESSAGE) { }
         }
         public class FailedToPerformAClickOnTheElementException : Exception
         {
@@ -174,103 +174,103 @@ namespace Scrupdate.Classes.Objects
                 googleChromeBrowserIsOpen = false;
             }
         }
-        public void NavigateToAWebPage(string webPageUrl)
+        public void NavigateToAWebpage(string webpageUrl)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             if (!googleChromeBrowserIsOpen)
                 throw new GoogleChromeBrowserIsNotOpenException();
-            chromeDriver.Navigate().GoToUrl(webPageUrl);
+            chromeDriver.Navigate().GoToUrl(webpageUrl);
         }
-        public void ClickOnAnElementWithinTheWebpage(WebPageElementLocatingInstruction webPageElementLocatingInstruction)
+        public void ClickOnAnElementWithinTheWebpage(WebpageElementLocatingInstruction webpageElementLocatingInstruction)
         {
             ClickOnAnElementWithinTheWebpage(
-                webPageElementLocatingInstruction,
+                webpageElementLocatingInstruction,
                 null
             );
         }
-        public void ClickOnAnElementWithinTheWebpage(WebPageElementLocatingInstruction webPageElementLocatingInstruction,
+        public void ClickOnAnElementWithinTheWebpage(WebpageElementLocatingInstruction webpageElementLocatingInstruction,
                                                      CancellationToken? cancellationToken)
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);
             if (!googleChromeBrowserIsOpen)
                 throw new GoogleChromeBrowserIsNotOpenException();
-            IWebElement webPageElement = null;
+            IWebElement webpageElement = null;
             try
             {
-                switch (webPageElementLocatingInstruction.LocatingMethod)
+                switch (webpageElementLocatingInstruction.LocatingMethod)
                 {
-                    case WebPageElementLocatingInstruction._LocatingMethod.ByHtmlElementId:
-                        webPageElement = chromeDriver.FindElement(
-                            By.Id(webPageElementLocatingInstruction.MethodArgument)
+                    case WebpageElementLocatingInstruction._LocatingMethod.ByHtmlElementId:
+                        webpageElement = chromeDriver.FindElement(
+                            By.Id(webpageElementLocatingInstruction.MethodArgument)
                         );
                         break;
-                    case WebPageElementLocatingInstruction._LocatingMethod.ByXPath:
-                        webPageElement = chromeDriver.FindElement(
-                            By.XPath(webPageElementLocatingInstruction.MethodArgument)
+                    case WebpageElementLocatingInstruction._LocatingMethod.ByXPath:
+                        webpageElement = chromeDriver.FindElement(
+                            By.XPath(webpageElementLocatingInstruction.MethodArgument)
                         );
                         break;
-                    case WebPageElementLocatingInstruction._LocatingMethod.ByInnerText:
+                    case WebpageElementLocatingInstruction._LocatingMethod.ByInnerText:
                         StringBuilder xPath = new StringBuilder(
-                            22 + webPageElementLocatingInstruction.MethodArgument.Length + 3
+                            22 + webpageElementLocatingInstruction.MethodArgument.Length + 3
                         );
                         xPath
                             .Append("//*[contains(text(), '")
-                            .Append(webPageElementLocatingInstruction.MethodArgument)
+                            .Append(webpageElementLocatingInstruction.MethodArgument)
                             .Append("')]");
-                        webPageElement = chromeDriver.FindElement(By.XPath(xPath.ToString()));
-                        if (webPageElementLocatingInstruction.MatchExactText &&
-                            !webPageElementLocatingInstruction.MethodArgument.Equals(
-                                webPageElement.GetDomProperty("innerText").Trim()
+                        webpageElement = chromeDriver.FindElement(By.XPath(xPath.ToString()));
+                        if (webpageElementLocatingInstruction.MatchExactText &&
+                            !webpageElementLocatingInstruction.MethodArgument.Equals(
+                                webpageElement.GetDomProperty("innerText").Trim()
                             ))
                         {
-                            webPageElement = null;
+                            webpageElement = null;
                         }
                         break;
                 }
             }
             catch
             {
-                throw new ElementWasNotFoundWithinTheWebPageException();
+                throw new ElementWasNotFoundWithinTheWebpageException();
             }
-            if (webPageElement == null)
-                throw new ElementWasNotFoundWithinTheWebPageException();
+            if (webpageElement == null)
+                throw new ElementWasNotFoundWithinTheWebpageException();
             try
             {
-                webPageElement.Click();
+                webpageElement.Click();
             }
             catch
             {
                 throw new FailedToPerformAClickOnTheElementException();
             }
-            int webPageElementLocatingInterval = 0;
-            switch (webPageElementLocatingInstruction.LocatingInterval)
+            int webpageElementLocatingInterval = 0;
+            switch (webpageElementLocatingInstruction.LocatingInterval)
             {
-                case WebPageElementLocatingInstruction._LocatingInterval._1Ms:
-                    webPageElementLocatingInterval = 1;
+                case WebpageElementLocatingInstruction._LocatingInterval._1Ms:
+                    webpageElementLocatingInterval = 1;
                     break;
-                case WebPageElementLocatingInstruction._LocatingInterval._10Ms:
-                    webPageElementLocatingInterval = 10;
+                case WebpageElementLocatingInstruction._LocatingInterval._10Ms:
+                    webpageElementLocatingInterval = 10;
                     break;
-                case WebPageElementLocatingInstruction._LocatingInterval._100Ms:
-                    webPageElementLocatingInterval = 100;
+                case WebpageElementLocatingInstruction._LocatingInterval._100Ms:
+                    webpageElementLocatingInterval = 100;
                     break;
-                case WebPageElementLocatingInstruction._LocatingInterval._250Ms:
-                    webPageElementLocatingInterval = 250;
+                case WebpageElementLocatingInstruction._LocatingInterval._250Ms:
+                    webpageElementLocatingInterval = 250;
                     break;
-                case WebPageElementLocatingInstruction._LocatingInterval._500Ms:
-                    webPageElementLocatingInterval = 500;
+                case WebpageElementLocatingInstruction._LocatingInterval._500Ms:
+                    webpageElementLocatingInterval = 500;
                     break;
-                case WebPageElementLocatingInstruction._LocatingInterval._1000Ms:
-                    webPageElementLocatingInterval = 1000;
+                case WebpageElementLocatingInstruction._LocatingInterval._1000Ms:
+                    webpageElementLocatingInterval = 1000;
                     break;
             }
             cancellationToken.Value.WaitHandle.WaitOne(
-                webPageElementLocatingInterval
+                webpageElementLocatingInterval
             );
         }
-        public string GetAllTextWithinTheWebPage()
+        public string GetAllTextWithinTheWebpage()
         {
             if (disposed)
                 throw new ObjectDisposedException(GetType().Name);

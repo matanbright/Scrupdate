@@ -90,18 +90,18 @@ namespace Scrupdate.Classes.Utilities
             public enum Reason
             {
                 Unknown,
-                WebPageDidNotRespond,
+                WebpageDidNotRespond,
                 HtmlElementWasNotFound,
-                TextWasNotFoundWithinTheWebPage,
+                TextWasNotFoundWithinTheWebpage,
                 NoVersionWasFound
             }
             private const string EXCEPTION_MESSAGE = "Program Version Searching Was Failed (Reason: {*})!";
             private static readonly Dictionary<Reason, string> REASONS = new Dictionary<Reason, string>()
             {
                 { Reason.Unknown, "Unknown!" },
-                { Reason.WebPageDidNotRespond, "Web page did not respond!" },
+                { Reason.WebpageDidNotRespond, "Webpage did not respond!" },
                 { Reason.HtmlElementWasNotFound, "HTML element was not found!" },
-                { Reason.TextWasNotFoundWithinTheWebPage, "Text was not found within the web page!" },
+                { Reason.TextWasNotFoundWithinTheWebpage, "Text was not found within the webpage!" },
                 { Reason.NoVersionWasFound, "No version was found!" }
             };
             private Reason reason;
@@ -470,7 +470,7 @@ namespace Scrupdate.Classes.Utilities
                     }
                     try
                     {
-                        string programLatestVersionString = GetLatestVersionOfAProgramFromWebPage(
+                        string programLatestVersionString = GetLatestVersionOfAProgramFromWebpage(
                             chromeDriver,
                             programToCheck,
                             cancellationToken
@@ -510,14 +510,14 @@ namespace Scrupdate.Classes.Utilities
                                 ((ProgramVersionSearchingWasFailedException)e).GetReason();
                             switch (reason)
                             {
-                                case ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond:
-                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
+                                case ProgramVersionSearchingWasFailedException.Reason.WebpageDidNotRespond:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebpageDidNotRespond;
                                     break;
                                 case ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound:
                                     updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
                                     break;
-                                case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage:
-                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
+                                case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebpage:
+                                    updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebpage;
                                     break;
                                 case ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound:
                                     updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
@@ -613,7 +613,7 @@ namespace Scrupdate.Classes.Utilities
                 }
                 try
                 {
-                    string programLatestVersionString = GetLatestVersionOfAProgramFromWebPage(
+                    string programLatestVersionString = GetLatestVersionOfAProgramFromWebpage(
                         chromeDriver,
                         programToCheck,
                         cancellationToken
@@ -635,14 +635,14 @@ namespace Scrupdate.Classes.Utilities
                             ((ProgramVersionSearchingWasFailedException)e).GetReason();
                         switch (reason)
                         {
-                            case ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond:
-                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebPageDidNotRespond;
+                            case ProgramVersionSearchingWasFailedException.Reason.WebpageDidNotRespond:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.WebpageDidNotRespond;
                                 break;
                             case ProgramVersionSearchingWasFailedException.Reason.HtmlElementWasNotFound:
                                 updateCheckConfigurationError = Program._UpdateCheckConfigurationError.HtmlElementWasNotFound;
                                 break;
-                            case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage:
-                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebPage;
+                            case ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebpage:
+                                updateCheckConfigurationError = Program._UpdateCheckConfigurationError.TextWasNotFoundWithinTheWebpage;
                                 break;
                             case ProgramVersionSearchingWasFailedException.Reason.NoVersionWasFound:
                                 updateCheckConfigurationError = Program._UpdateCheckConfigurationError.NoVersionWasFound;
@@ -732,7 +732,7 @@ namespace Scrupdate.Classes.Utilities
                 }
             }
         }
-        private static string GetLatestVersionOfAProgramFromWebPage(ChromeDriver chromeDriver,
+        private static string GetLatestVersionOfAProgramFromWebpage(ChromeDriver chromeDriver,
                                                                     Program programToCheck,
                                                                     CancellationToken? cancellationToken)
         {
@@ -742,12 +742,12 @@ namespace Scrupdate.Classes.Utilities
                 throw new ArgumentNullException(nameof(programToCheck));
             try
             {
-                chromeDriver.NavigateToAWebPage(programToCheck.WebPageUrl);
+                chromeDriver.NavigateToAWebpage(programToCheck.WebpageUrl);
             }
             catch
             {
                 throw new ProgramVersionSearchingWasFailedException(
-                    ProgramVersionSearchingWasFailedException.Reason.WebPageDidNotRespond
+                    ProgramVersionSearchingWasFailedException.Reason.WebpageDidNotRespond
                 );
             }
             if (cancellationToken != null &&
@@ -755,50 +755,50 @@ namespace Scrupdate.Classes.Utilities
             {
                 return null;
             }
-            int webPagePostLoadDelayInMilliseconds = 0;
-            switch (programToCheck.WebPagePostLoadDelay)
+            int webpagePostLoadDelayInMilliseconds = 0;
+            switch (programToCheck.WebpagePostLoadDelay)
             {
-                case Program._WebPagePostLoadDelay._100Ms:
-                    webPagePostLoadDelayInMilliseconds = 100;
+                case Program._WebpagePostLoadDelay._100Ms:
+                    webpagePostLoadDelayInMilliseconds = 100;
                     break;
-                case Program._WebPagePostLoadDelay._250Ms:
-                    webPagePostLoadDelayInMilliseconds = 250;
+                case Program._WebpagePostLoadDelay._250Ms:
+                    webpagePostLoadDelayInMilliseconds = 250;
                     break;
-                case Program._WebPagePostLoadDelay._500Ms:
-                    webPagePostLoadDelayInMilliseconds = 500;
+                case Program._WebpagePostLoadDelay._500Ms:
+                    webpagePostLoadDelayInMilliseconds = 500;
                     break;
-                case Program._WebPagePostLoadDelay._1000Ms:
-                    webPagePostLoadDelayInMilliseconds = 1000;
+                case Program._WebpagePostLoadDelay._1000Ms:
+                    webpagePostLoadDelayInMilliseconds = 1000;
                     break;
-                case Program._WebPagePostLoadDelay._2000Ms:
-                    webPagePostLoadDelayInMilliseconds = 2000;
+                case Program._WebpagePostLoadDelay._2000Ms:
+                    webpagePostLoadDelayInMilliseconds = 2000;
                     break;
-                case Program._WebPagePostLoadDelay._3000Ms:
-                    webPagePostLoadDelayInMilliseconds = 3000;
+                case Program._WebpagePostLoadDelay._3000Ms:
+                    webpagePostLoadDelayInMilliseconds = 3000;
                     break;
-                case Program._WebPagePostLoadDelay._4000Ms:
-                    webPagePostLoadDelayInMilliseconds = 4000;
+                case Program._WebpagePostLoadDelay._4000Ms:
+                    webpagePostLoadDelayInMilliseconds = 4000;
                     break;
-                case Program._WebPagePostLoadDelay._5000Ms:
-                    webPagePostLoadDelayInMilliseconds = 5000;
+                case Program._WebpagePostLoadDelay._5000Ms:
+                    webpagePostLoadDelayInMilliseconds = 5000;
                     break;
             }
-            if (webPagePostLoadDelayInMilliseconds > 0)
+            if (webpagePostLoadDelayInMilliseconds > 0)
             {
                 if (cancellationToken != null)
-                    cancellationToken.Value.WaitHandle.WaitOne(webPagePostLoadDelayInMilliseconds);
+                    cancellationToken.Value.WaitHandle.WaitOne(webpagePostLoadDelayInMilliseconds);
                 else
-                    Thread.Sleep(webPagePostLoadDelayInMilliseconds);
+                    Thread.Sleep(webpagePostLoadDelayInMilliseconds);
             }
             if (cancellationToken != null &&
                 cancellationToken.Value.IsCancellationRequested)
             {
                 return null;
             }
-            if (programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn.Count > 0)
+            if (programToCheck.LocatingInstructionsOfWebpageElementsToSimulateAClickOn.Count > 0)
             {
-                foreach (WebPageElementLocatingInstruction locatingInstructionOfWebPageElementToSimulateAClickOn in
-                         programToCheck.LocatingInstructionsOfWebPageElementsToSimulateAClickOn)
+                foreach (WebpageElementLocatingInstruction locatingInstructionOfWebpageElementToSimulateAClickOn in
+                         programToCheck.LocatingInstructionsOfWebpageElementsToSimulateAClickOn)
                 {
                     if (cancellationToken != null &&
                         cancellationToken.Value.IsCancellationRequested)
@@ -808,7 +808,7 @@ namespace Scrupdate.Classes.Utilities
                     try
                     {
                         chromeDriver.ClickOnAnElementWithinTheWebpage(
-                            locatingInstructionOfWebPageElementToSimulateAClickOn,
+                            locatingInstructionOfWebpageElementToSimulateAClickOn,
                             cancellationToken
                         );
                     }
@@ -855,22 +855,22 @@ namespace Scrupdate.Classes.Utilities
                         );
                     }
                     break;
-                case Program._VersionSearchMethod.SearchGloballyWithinTheWebPage:
-                    textToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                case Program._VersionSearchMethod.SearchGloballyWithinTheWebpage:
+                    textToSerachVersion = chromeDriver.GetAllTextWithinTheWebpage();
                     break;
-                case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage:
-                case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebPage:
-                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                case Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebpage:
+                case Program._VersionSearchMethod.SearchGloballyUntilTextWithinTheWebpage:
+                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebpage();
                     int foundTextIndex = tempTextToSerachVersion.IndexOf(
                         programToCheck.VersionSearchMethodArgument1
                     );
                     if (foundTextIndex < 0)
                     {
                         throw new ProgramVersionSearchingWasFailedException(
-                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage
+                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebpage
                         );
                     }
-                    if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebPage)
+                    if (programToCheck.VersionSearchMethod == Program._VersionSearchMethod.SearchGloballyFromTextWithinTheWebpage)
                     {
                         textToSerachVersion = tempTextToSerachVersion.Substring(
                             foundTextIndex + programToCheck.VersionSearchMethodArgument1.Length
@@ -879,8 +879,8 @@ namespace Scrupdate.Classes.Utilities
                     else
                         textToSerachVersion = tempTextToSerachVersion.Substring(0, foundTextIndex);
                     break;
-                case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebPage:
-                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebPage();
+                case Program._VersionSearchMethod.SearchGloballyFromTextUntilTextWithinTheWebpage:
+                    tempTextToSerachVersion = chromeDriver.GetAllTextWithinTheWebpage();
                     int foundStartingTextIndex = tempTextToSerachVersion.IndexOf(
                         programToCheck.VersionSearchMethodArgument1
                     );
@@ -890,7 +890,7 @@ namespace Scrupdate.Classes.Utilities
                     if (foundStartingTextIndex < 0 || foundEndingTextIndex < 0)
                     {
                         throw new ProgramVersionSearchingWasFailedException(
-                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebPage
+                            ProgramVersionSearchingWasFailedException.Reason.TextWasNotFoundWithinTheWebpage
                         );
                     }
                     if (foundEndingTextIndex - foundStartingTextIndex >= programToCheck.VersionSearchMethodArgument1.Length)
