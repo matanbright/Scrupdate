@@ -24,7 +24,6 @@
 +64 "runtimes\win-x64\native\SQLite.Interop.dll"
 + "LICENSE.txt"
 + "NOTICE.txt"
-+ "Scrupdate.deps.json"
 + "Scrupdate.runtimeconfig.json"
 + "System.Data.SQLite.dll"
 + "WebDriver.dll"
