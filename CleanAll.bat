@@ -6,9 +6,6 @@ goto :display_finish_message
 
 
 :clean_all
-	if exist .vs (
-		rmdir /S /Q .vs
-	)
 	if exist Scrupdate\obj (
 		rmdir /S /Q Scrupdate\obj
 	)

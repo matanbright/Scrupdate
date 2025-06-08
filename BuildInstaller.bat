@@ -40,9 +40,6 @@ goto :display_success_message
 	exit /b 0
 
 :clean_temporary_files
-	if exist .vs (
-		rmdir /S /Q .vs
-	)
 	if exist Scrupdate\obj (
 		rmdir /S /Q Scrupdate\obj
 	)
