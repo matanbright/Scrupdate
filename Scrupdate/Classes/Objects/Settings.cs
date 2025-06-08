@@ -225,7 +225,7 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private static readonly Version SETTINGS_VERSION = new Version(1, 0); /* Note: When changing or removing existing settings, the major number should be incremented and the minor number should be zeroed.
+        private static readonly Version SETTINGS_VERSION = new Version(1, 1); /* Note: When changing or removing existing settings, the major number should be incremented and the minor number should be zeroed.
                                                                                *       When only adding new settings, the minor number should be incremented.
                                                                                */
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

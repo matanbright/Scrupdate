@@ -67,7 +67,7 @@ namespace Scrupdate.Classes.Objects
 
 
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private static readonly Version DATABASE_VERSION = new Version(1, 0); /* Note: When changing or removing existing table columns, adding new non-removable table columns (e.g, primary-key, unique),
+        private static readonly Version DATABASE_VERSION = new Version(1, 1); /* Note: When changing or removing existing table columns, adding new non-removable table columns (e.g, primary-key, unique),
                                                                                *       or adding new non-null table columns without a default value, the major number should be incremented and the minor number should be zeroed.
                                                                                *       Otherwise, when adding new table columns, the minor number should be incremented.
                                                                                */
