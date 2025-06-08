@@ -20,9 +20,6 @@ using System.Windows.Controls;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomCheckBox.xaml
-    /// </summary>
     public partial class CustomCheckBox : CheckBox
     {
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

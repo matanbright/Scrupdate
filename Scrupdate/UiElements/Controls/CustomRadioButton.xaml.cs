@@ -20,9 +20,6 @@ using System.Windows.Controls;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomRadioButton.xaml
-    /// </summary>
     public partial class CustomRadioButton : RadioButton
     {
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

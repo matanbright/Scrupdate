@@ -24,9 +24,6 @@ using Scrupdate.Classes.Utilities;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomButton.xaml
-    /// </summary>
     public partial class CustomButton : Button, INotifyPropertyChanged
     {
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

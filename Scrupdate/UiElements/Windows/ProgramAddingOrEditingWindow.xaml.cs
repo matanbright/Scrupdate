@@ -33,9 +33,6 @@ using Scrupdate.UiElements.Controls;
 
 namespace Scrupdate.UiElements.Windows
 {
-    /// <summary>
-    /// Interaction logic for ProgramAddingOrEditingWindow.xaml
-    /// </summary>
     public partial class ProgramAddingOrEditingWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

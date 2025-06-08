@@ -25,9 +25,6 @@ using Scrupdate.Classes.Utilities;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomComboBox.xaml
-    /// </summary>
     public partial class CustomComboBox : ComboBox, INotifyPropertyChanged
     {
         // Variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -20,9 +20,6 @@ using System.Windows.Controls;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomLabel.xaml
-    /// </summary>
     public partial class CustomLabel : Label
     {
         // Constructors ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

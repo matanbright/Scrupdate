@@ -24,9 +24,6 @@ using Scrupdate.Classes.Utilities;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomTextBox.xaml
-    /// </summary>
     public partial class CustomTextBox : TextBox, INotifyPropertyChanged
     {
         // Classes /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

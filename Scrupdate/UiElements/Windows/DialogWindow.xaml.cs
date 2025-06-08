@@ -9,9 +9,6 @@ using Scrupdate.UiElements.Controls;
 
 namespace Scrupdate.UiElements.Windows
 {
-    /// <summary>
-    /// Interaction logic for DialogWindow.xaml
-    /// </summary>
     public partial class DialogWindow : Window, INotifyPropertyChanged
     {
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

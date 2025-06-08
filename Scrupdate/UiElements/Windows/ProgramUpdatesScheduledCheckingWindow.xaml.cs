@@ -31,9 +31,6 @@ using Scrupdate.UiElements.Controls;
 
 namespace Scrupdate.UiElements.Windows
 {
-    /// <summary>
-    /// Interaction logic for ProgramUpdatesScheduledCheckWindow.xaml
-    /// </summary>
     public partial class ProgramUpdatesScheduledCheckWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,9 +11,6 @@ using Scrupdate.UiElements.Controls;
 
 namespace Scrupdate.UiElements.Windows
 {
-    /// <summary>
-    /// Interaction logic for ProgramUpdateCheckConfigurationCheckingWindow.xaml
-    /// </summary>
     public partial class ProgramUpdateCheckConfigurationCheckingWindow : Window, INotifyPropertyChanged
     {
         // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

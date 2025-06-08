@@ -23,9 +23,6 @@ using Scrupdate.Classes.Utilities;
 
 namespace Scrupdate.UiElements.Controls
 {
-    /// <summary>
-    /// Interaction logic for CustomGridViewColumnHeader.xaml
-    /// </summary>
     public partial class CustomGridViewColumnHeader : GridViewColumnHeader, INotifyPropertyChanged
     {
         // Enums ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
