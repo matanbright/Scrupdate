@@ -3,5 +3,3 @@ Copyright © 2021-2024 Matan Brightbert.
 
 This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see 'LICENSE.txt' file].
 Copyright © 2024 Software Freedom Conservancy.
-
-Google Chrome™ is a trademark of Google LLC.
