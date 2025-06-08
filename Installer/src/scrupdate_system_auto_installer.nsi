@@ -245,11 +245,11 @@ Section "uninstall"
 			DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\${PROGRAM_NAME}.exe"
 			DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${PROGRAM_NAME}"
 			${If} ${RunningX64}
-				~[INSERT_64BIT_FILES_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+				~[INSERT_64BIT_FILE_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 			${Else}
-				~[INSERT_32BIT_FILES_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+				~[INSERT_32BIT_FILE_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 			${EndIf}
-			~[INSERT_COMMON_FILES_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+			~[INSERT_COMMON_FILE_REMOVAL_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 			Delete "$INSTDIR\${UNINSTALLER_NAME}"
 			RMDir "$INSTDIR"
 			Delete "$DESKTOP\${PROGRAM_NAME}.lnk"

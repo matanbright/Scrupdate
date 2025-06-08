@@ -209,11 +209,11 @@ Section
 	${EndIf}
 	SetOutPath "${TEMPORARY_INSTALLER_FILES_EXTRACTION_LOCATION}"
 	${If} ${RunningX64}
-		~[INSERT_64BIT_FILES_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+		~[INSERT_64BIT_FILE_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 	${Else}
-		~[INSERT_32BIT_FILES_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+		~[INSERT_32BIT_FILE_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 	${EndIf}
-	~[INSERT_COMMON_FILES_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
+	~[INSERT_COMMON_FILE_CREATION_COMMANDS_HERE]~ # This line will be replaced by an external script while building the installer
 	SetOutPath "$TEMP"
 	StrCpy $0 "${INSTALLER_ARGUMENT__INSTALL_LOCATION} $\"$INSTDIR$\""
 	${If} $createDesktopShortcut == true
