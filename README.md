@@ -44,4 +44,4 @@ Copyright © 2021-2025 Matan Brightbert.
 ## Notices
 
 * This program uses Selenium.WebDriver which is licensed under 'Apache License 2.0' [see '[LICENSE.txt](LICENSE.txt)' file].\
-Copyright © 2024 Software Freedom Conservancy.
+Copyright © 2025 Software Freedom Conservancy.

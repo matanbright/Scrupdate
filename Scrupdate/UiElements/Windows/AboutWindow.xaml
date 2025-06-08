@@ -164,11 +164,11 @@
                                            TextWrapping="Wrap"
                                            Padding="0 0 0 0"
                                            Margin="10 0 0 0">
-                                    Selenium.WebDriver (v4.27.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense"
+                                    Selenium.WebDriver (v4.33.0) which is licensed under <Hyperlink x:Name="hyperlink_viewSeleniumWebDriverLicense"
                                                                                                     Click="OnHyperlinkClickEvent">
                                         Apache License 2.0
                                     </Hyperlink>.<LineBreak />
-                                    Copyright © 2024 Software Freedom Conservancy.
+                                    Copyright © 2025 Software Freedom Conservancy.
                                 </TextBlock>
                             </Grid>
                         </StackPanel>
